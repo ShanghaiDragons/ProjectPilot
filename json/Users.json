@@ -1,0 +1,22 @@
+[
+	{
+		"id": "c582b373-4a57-478b-9915-0eb105d0e171",
+		"firstName": "John",
+		"lastName": "Smith",
+		"userName": "jsmith24",
+		"permissionToAddTask": true,
+		"permissionToMoveTask": true,
+		"permissionToEditTask": true,
+		"permissionToEditColumns": true
+	},
+	{
+		"id": "5743d079-f8db-41d3-b892-7be2b9c1cf1b",
+		"firstName": "Will",
+		"lastName": "Smith",
+		"userName": "iamwill",
+		"permissionToAddTask": false,
+		"permissionToMoveTask": true,
+		"permissionToEditTask": false,
+		"permissionToEditColumns": false
+	}
+]
