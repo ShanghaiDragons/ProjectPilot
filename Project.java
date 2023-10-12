@@ -10,7 +10,11 @@ public class Project {
     private String projectName;
     private ArrayList<Comment> comments;
     private ProductBacklog productBacklog;
-
+/**
+ * 
+ * @param projectName
+ * @param user
+ */
     public Project(String projectName, User user) {
         this.projectName = projectName;
         this.user = user;
@@ -19,45 +23,53 @@ public class Project {
         this.comments = new ArrayList<>();
         this.productBacklog = new ProductBacklog();
     }
-
+/**
+ * 
+ * @param user
+ * @param type
+ * @return
+ */
     public boolean addUser(User user, UserType type) {
-        // Implement logic to add a user to the project with specified role (type)
-        // Return true if user added successfully, false otherwise
-        return false; // Placeholder return value
+        return false;
     }
-
+/**
+ * 
+ * @param user
+ * @return
+ */
     public boolean removeUser(User user) {
-        // Implement logic to remove a user from the project
-        // Return true if user removed successfully, false otherwise
-        return false; // Placeholder return value
+        return false;
     }
-
+/**
+ * 
+ * @param column
+ * @return
+ */
     public boolean addColumn(Column column) {
-        // Implement logic to add a column to the project with specified type
-        // Return true if column added successfully, false otherwise
-        return false; // Placeholder return value
+        return false;
     }
-
+/**
+ * 
+ * @param column
+ * @return
+ */
     public boolean removeColumn(Column column) {
-        // Implement logic to remove a column from the project
-        // Return true if column removed successfully, false otherwise
-        return false; // Placeholder return value
+        return false;
     }
-
+/**
+ * 
+ * @param column
+ * @return
+ */
     public boolean editColumn(Column column) {
-        // Implement logic to edit an existing column in the project
-        // Return true if column edited successfully, false otherwise
-        return false; // Placeholder return value
+        return false;
     }
 
     public void startSprint() {
-        // Implement logic to start a new sprint for the project
     }
 
     @Override
     public String toString() {
-        // Implement logic to convert the object to a string representation
-        // Return a string containing project information
         return "Project{" +
                 "projectName='" + projectName + '\'' +
                 ", user=" + user +
@@ -71,18 +83,25 @@ public class Project {
     }
 
     public void save() {
-        // Implement logic to save the project data
     }
-
+/**
+ * 
+ * @param user
+ * @param project
+ * @param comment
+ * @return
+ */
     private boolean addComment(User user, Project project, String comment) {
-        // Implement logic to add a comment to the project
-        // Return true if comment added successfully, false otherwise
-        return false; // Placeholder return value
+        return false;
     }
-
+/**
+ * 
+ * @param user
+ * @param project
+ * @param comment
+ * @return
+ */
     private boolean threadComment(User user, Project project, String comment) {
-        // Implement logic to thread a comment in the project
-        // Return true if comment threaded successfully, false otherwise
-        return false; // Placeholder return value
+        return false;
     }
 }

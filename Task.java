@@ -3,64 +3,86 @@ public abstract class Task {
     private User assignee;
     private int priority;
     private String description;
-
+/**
+ * 
+ * @param taskName
+ * @param assignee
+ * @param priority
+ * @param description
+ */
     public Task(String taskName, User assignee, int priority, String description) {
         this.taskName = taskName;
         this.assignee = assignee;
         this.priority = priority;
         this.description = description;
     }
-
+/**
+ * 
+ * @param taskName
+ */
     public void setTaskName(String taskName) {
-        // Implement logic to set the task name
     }
-
+/**
+ * 
+ * @param assignee
+ */
     public void setAssignee(User assignee) {
-        // Implement logic to set the assignee of the task
     }
-
+/**
+ * 
+ * @param priority
+ */
     public void setPriority(int priority) {
-        // Implement logic to set the priority of the task
     }
-
+/**
+ * 
+ * @param description
+ */
     public void setDescription(String description) {
-        // Implement logic to set the description of the task
     }
-
+/**
+ * 
+ * @param newTaskName
+ * @return
+ */
     public boolean editTaskName(String newTaskName) {
-        // Implement logic to edit the task name
-        // Return true if task name edited successfully, false otherwise
-        return false; // Placeholder return value
+        return false;
     }
-
+/**
+ * 
+ * @param newAssignee
+ * @return
+ */
     public boolean editAssignee(User newAssignee) {
-        // Implement logic to edit the assignee of the task
-        // Return true if assignee edited successfully, false otherwise
-        return false; // Placeholder return value
+        return false;
     }
-
+/**
+ * 
+ * @param newPriority
+ * @return
+ */
     public boolean editPriority(int newPriority) {
-        // Implement logic to edit the priority of the task
-        // Return true if priority edited successfully, false otherwise
-        return false; // Placeholder return value
+        return false;
     }
-
+/**
+ * 
+ * @param newDescription
+ * @return
+ */
     public boolean editDescription(String newDescription) {
-        // Implement logic to edit the description of the task
-        // Return true if description edited successfully, false otherwise
-        return false; // Placeholder return value
+        return false;
     }
-
+/**
+ * 
+ * @param taskName
+ * @return
+ */
     public boolean archiveTask(String taskName) {
-        // Implement logic to archive the task with the specified name
-        // Return true if task archived successfully, false otherwise
-        return false; // Placeholder return value
+        return false;
     }
 
     @Override
     public String toString() {
-        // Implement logic to convert the object to a string representation
-        // Return a string containing task information
         return "Task{" +
                 "taskName='" + taskName + '\'' +
                 ", assignee=" + assignee +

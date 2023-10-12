@@ -10,22 +10,22 @@ public class UI {
     }
 
     public void run() {
-        // Implement the main logic of your UI here
+      
     }
 
     public void displayLoginScreen() {
-        // Implement the login screen display logic
+       
     }
 
     public void displayProject() {
-        // Implement the display of project details
+      
     }
 
     public void displaySettingsMenu() {
-        // Implement the settings menu display logic
+
     }
 
     public void displayAccountInfo() {
-        // Implement the display of user account information
+
     }
 }

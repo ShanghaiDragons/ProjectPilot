@@ -6,7 +6,16 @@ public abstract class User {
     private boolean permissionToMoveTask;
     private boolean permissionToEditTask;
     private boolean permissionToEditColumns;
-
+/**
+ * 
+ * @param firstName
+ * @param lastName
+ * @param userName
+ * @param permissionToAddTask
+ * @param permissionToMoveTask
+ * @param permissionToEditTask
+ * @param permissionToEditColumns
+ */
     public User(String firstName, String lastName, String userName, boolean permissionToAddTask,
                 boolean permissionToMoveTask, boolean permissionToEditTask, boolean permissionToEditColumns) {
         this.firstName = firstName;
@@ -17,46 +26,56 @@ public abstract class User {
         this.permissionToEditTask = permissionToEditTask;
         this.permissionToEditColumns = permissionToEditColumns;
     }
-
+/**
+ * 
+ * @param username
+ * @param password
+ * @return
+ */
     public User login(String username, String password) {
-        // Implement logic to validate the username and password
-        // Return the user object if login is successful, null otherwise
-        return null; // Placeholder return value
+        return null;
     }
-
+/**
+ * 
+ * @param password
+ * @return
+ */
     public boolean verifyPassword(String password) {
-        // Implement logic to verify the provided password
-        // Return true if the password is correct, false otherwise
-        return false; // Placeholder return value
+        return false;
     }
-
+/**
+ * 
+ * @param task
+ * @return
+ */
     public boolean addTask(Task task) {
-        // Implement logic to add a task
-        // Return true if the task is added successfully, false otherwise
-        return false; // Placeholder return value
+        return false;
     }
-
+/**
+ * 
+ * @param task
+ */
     public void editTask(Task task) {
-        // Implement logic to edit a task
-        // Modify the task object directly or update it in the data source
     }
-
+/**
+ * 
+ * @param task
+ * @return
+ */
     public boolean editColumns(Task task) {
-        // Implement logic to edit columns of a task
-        // Return true if columns are edited successfully, false otherwise
-        return false; // Placeholder return value
+        return false;
     }
-
+/**
+ * 
+ * @param task
+ * @return
+ */
     public boolean moveTask(Task task) {
-        // Implement logic to move a task to a different column
-        // Return true if the task is moved successfully, false otherwise
-        return false; // Placeholder return value
+        return false;
     }
 
     @Override
     public String toString() {
-        // Implement logic to convert the object to a string representation
-        // Return a string containing user information
         return "User: " + userName + ", " + firstName + " " + lastName;
     }
 }

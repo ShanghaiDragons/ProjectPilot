@@ -1,17 +1,25 @@
+/**
+ * writes the data
+ */
 import java.util.ArrayList;
 
 public class DataWriter {
-    // SaveUsers method stub
+ /**
+  * 
+  * @param usersList
+  * @return
+  */   
     public boolean saveUsers(ArrayList<User> usersList) {
-        // Implement your logic to save users data
-        // Return true if saved successfully, false otherwise
-        return false; // Placeholder return value
+       
+        return false; 
     }
-
-    // SaveProjects method stub
+ /**
+  * 
+  * @param projectsList
+  * @return
+  */   
     public boolean saveProjects(ArrayList<Project> projectsList) {
-        // Implement your logic to save projects data
-        // Return true if saved successfully, false otherwise
-        return false; // Placeholder return value
+        
+        return false; 
     }
 }

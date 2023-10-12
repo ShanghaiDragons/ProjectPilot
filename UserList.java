@@ -5,9 +5,7 @@ public class UserList {
     private ArrayList<User> users;
 
     private UserList() {
-        // Private constructor to prevent instantiation from outside the class
         users = new ArrayList<>();
-        // Initialize users list or load data from a data source if needed
     }
 
     public static UserList getInstance() {
@@ -16,11 +14,13 @@ public class UserList {
         }
         return userListInstance;
     }
-
-    public User getUsers(String userName) {
-        // Implement logic to retrieve the user with the given username from the users list
-        // Return the User object if found, null otherwise
-        return null; // Placeholder return value
+/**
+ * 
+ * @param userName
+ * @return
+ */
+    public User getUser(String userName) {
+        return null;
     }
 
     public ArrayList<User> getUsers() {
