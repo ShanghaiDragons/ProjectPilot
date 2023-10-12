@@ -2,7 +2,7 @@
 name: New Feature
 about: A new feature for the project
 title: ''
-labels: ''
+labels: "\U0001F929 New Feature"
 assignees: ''
 
 ---
