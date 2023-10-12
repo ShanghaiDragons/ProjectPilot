@@ -2,7 +2,7 @@
 name: Bug
 about: Describe the bug
 title: ''
-labels: ''
+labels: "\U0001FAB3 bug"
 assignees: ChrisTaks
 
 ---
