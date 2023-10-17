@@ -1,4 +1,6 @@
-public abstract class User {
+import java.util.UUID;
+
+public class User {
     private String firstName;
     private String lastName;
     private String userName;
@@ -6,6 +8,7 @@ public abstract class User {
     private boolean permissionToMoveTask;
     private boolean permissionToEditTask;
     private boolean permissionToEditColumns;
+    private UUID id;
 /**
  * 
  * @param firstName
@@ -77,5 +80,14 @@ public abstract class User {
     @Override
     public String toString() {
         return "User: " + userName + ", " + firstName + " " + lastName;
+    }
+
+    /**
+     * Gets the UUID of the user
+     * @author Chris
+     * @return the UUID. Type: UUID
+     */
+    public UUID getID() {
+        return this.id;
     }
 }

@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * The Project class. Holds data for the project and methods to manipulate it.
+ */
 public class Project {
     private ArrayList<User> team;
     private ArrayList<Column> columns;
@@ -103,5 +106,17 @@ public class Project {
  */
     private boolean threadComment(User user, Project project, String comment) {
         return false;
+    }
+
+    /**
+     * Gets the name of the project
+     * @author Chris
+     * @return the project name (this.projectName)
+     */
+    public String getProjectName() {
+        if (this.projectName != null)
+            return this.projectName;
+        else
+            return "no name found";
     }
 }
