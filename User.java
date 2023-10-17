@@ -1,4 +1,7 @@
-public abstract class User {
+import java.util.UUID;
+
+public class User {
+    private UUID id;
     private String firstName;
     private String lastName;
     private String userName;
@@ -6,6 +9,13 @@ public abstract class User {
     private boolean permissionToMoveTask;
     private boolean permissionToEditTask;
     private boolean permissionToEditColumns;
+
+    public User(UUID id, String userName, String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.id = id;
+    }
 /**
  * 
  * @param firstName
