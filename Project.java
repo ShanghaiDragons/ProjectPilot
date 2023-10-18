@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * The Project class. Holds data for the project and methods to manipulate it.
+ */
 public class Project {
     private UUID id;
     private ArrayList<User> team;
@@ -14,6 +17,7 @@ public class Project {
     private ProductBacklog productBacklog;
 
     public Project(UUID id, String projectName, User user) {
+        this.id = id;
         this.projectName = projectName;
         this.user = user;
         this.team = new ArrayList<>();
@@ -114,5 +118,26 @@ public class Project {
  */
     private boolean threadComment(User user, Project project, String comment) {
         return false;
+    }
+
+    /**
+     * Gets the name of the project
+     * @author Chris
+     * @return the project name (this.projectName)
+     */
+    public String getName() {
+        if (this.projectName != null)
+            return this.projectName;
+        else
+            return "no name found";
+    }
+
+    /**
+     * Gets the id of the project
+     * @author Chris
+     * @return UUID of the project ID
+     */
+    public UUID getID() {
+        return this.id;
     }
 }

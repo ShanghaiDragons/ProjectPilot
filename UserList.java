@@ -20,15 +20,15 @@ public class UserList {
  * @param userName string that represents the user's username
  * @return User object that represents the user
  */
-public User getUser(String userName) {
-    for (int i = 0; i < users.size(); i++)
-        if (users.get(i).getUserName() == userName)
-            return users.get(i);
-    return null;
-}
+    public User getUser(String userName) {
+        for (int i = 0; i < users.size(); i++)
+            if (users.get(i).getUserName() == userName)
+                return users.get(i);
+        return null;
+    }
 
     public ArrayList<User> getUsers() {
-        return null;
+        return users;
     }
 
     // Other methods can be added to manipulate the users list if needed

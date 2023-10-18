@@ -144,4 +144,13 @@ public class ProjectPilotFacade {
     public ArrayList<Task> getTasks() {
         return null;
     }
+
+    /**
+     * Gets the User
+     * @author Chris
+     * @return user
+     */
+    public User getUser() {
+        return this.user;
+    }
 }

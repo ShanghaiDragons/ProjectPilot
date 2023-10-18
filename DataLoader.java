@@ -7,10 +7,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 /**
- * Loads the data and acts as a medium between the database and the rest of the code
+ * The DataLoader class. Loads the data and acts as a medium between the database and the rest of the code
  */
-import java.util.ArrayList;
-
 public class DataLoader extends DataConstants {
 
     /**
