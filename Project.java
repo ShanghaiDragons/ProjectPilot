@@ -1,10 +1,12 @@
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * The Project class. Holds data for the project and methods to manipulate it.
  */
 public class Project {
+    private UUID id;
     private ArrayList<User> team;
     private ArrayList<Column> columns;
     private Date startSprint;
@@ -13,6 +15,16 @@ public class Project {
     private String projectName;
     private ArrayList<Comment> comments;
     private ProductBacklog productBacklog;
+
+    public Project(UUID id, String projectName, User user) {
+        this.id = id;
+        this.projectName = projectName;
+        this.user = user;
+        this.team = new ArrayList<>();
+        this.columns = new ArrayList<>();
+        this.comments = new ArrayList<>();
+        this.productBacklog = new ProductBacklog();
+    }
 /**
  * 
  * @param projectName
@@ -113,10 +125,19 @@ public class Project {
      * @author Chris
      * @return the project name (this.projectName)
      */
-    public String getProjectName() {
+    public String getName() {
         if (this.projectName != null)
             return this.projectName;
         else
             return "no name found";
+    }
+
+    /**
+     * Gets the id of the project
+     * @author Chris
+     * @return UUID of the project ID
+     */
+    public UUID getID() {
+        return this.id;
     }
 }

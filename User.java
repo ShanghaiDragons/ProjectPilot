@@ -1,6 +1,7 @@
 import java.util.UUID;
 
 public class User {
+    private UUID id;
     private String firstName;
     private String lastName;
     private String userName;
@@ -8,7 +9,13 @@ public class User {
     private boolean permissionToMoveTask;
     private boolean permissionToEditTask;
     private boolean permissionToEditColumns;
-    private UUID id;
+
+    public User(UUID id, String userName, String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.id = id;
+    }
 /**
  * 
  * @param firstName
@@ -89,5 +96,32 @@ public class User {
      */
     public UUID getID() {
         return this.id;
+    }
+
+    /**
+     * Gets the first name of the user
+     * @author Chris
+     * @return String of the first name
+     */
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    /**
+     * Gets the last name of the user
+     * @author Chris
+     * @return String of the last name
+     */
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    /**
+     * Gets the username of the user
+     * @author Chris
+     * @return String of the username
+     */
+    public String getUserName() {
+        return this.userName;
     }
 }

@@ -42,4 +42,13 @@ public class ProjectList {
         return null; 
     }
 
+    /**
+     * Gets the current list of projects
+     * @author Chris
+     * @return the ArrayList<Project> of projects.
+     */
+    public ArrayList<Project> getProjects() {
+        return this.projects;
+    }
+
 }
