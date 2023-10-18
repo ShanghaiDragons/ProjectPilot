@@ -10,6 +10,14 @@ public class User {
     private boolean permissionToEditTask;
     private boolean permissionToEditColumns;
 
+    /**
+     * Overloaded constructor of user to include UUID
+     * @author Duayne
+     * @param id UUID that represents the id
+     * @param userName string that represents the user's username
+     * @param firstName string that represents the user's first name
+     * @param lastName string that represents the user's last name
+     */
     public User(UUID id, String userName, String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -84,6 +92,10 @@ public class User {
         return false;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+    
     @Override
     public String toString() {
         return "User: " + userName + ", " + firstName + " " + lastName;

@@ -15,13 +15,17 @@ public class UserList {
         return userListInstance;
     }
 /**
- * 
- * @param userName
- * @return
+ * Retrieves the user with a search by username
+ * @author Duayne
+ * @param userName string that represents the user's username
+ * @return User object that represents the user
  */
-    public User getUser(String userName) {
-        return null;
-    }
+public User getUser(String userName) {
+    for (int i = 0; i < users.size(); i++)
+        if (users.get(i).getUserName() == userName)
+            return users.get(i);
+    return null;
+}
 
     public ArrayList<User> getUsers() {
         return null;
