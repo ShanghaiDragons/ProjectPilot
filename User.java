@@ -10,6 +10,14 @@ public class User {
     private boolean permissionToEditTask;
     private boolean permissionToEditColumns;
 
+    /**
+     * 
+     * @author Duayne
+     * @param id
+     * @param userName
+     * @param firstName
+     * @param lastName
+     */
     public User(UUID id, String userName, String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -84,6 +92,9 @@ public class User {
         return false;
     }
 
+    public String getUserName() {
+        return userName;
+    }
     @Override
     public String toString() {
         return "User: " + userName + ", " + firstName + " " + lastName;
