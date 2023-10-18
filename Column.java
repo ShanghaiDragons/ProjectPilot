@@ -21,7 +21,7 @@ public class Column {
  * @param task
  * @return
  */
-    public boolean moveTask(Task task) {
+    public static boolean moveTask(Task task) {
         // Implement logic to move the task within the column
         // Return true if task moved successfully, false otherwise
         return false; // Placeholder return value
@@ -31,6 +31,8 @@ public class Column {
  * @param task
  * @return
  */
+
+    
     public boolean addTask(Task task) {
         // Implement logic to add a task to the column with specified type
         // Return true if task added successfully, false otherwise
@@ -45,6 +47,7 @@ public class Column {
    
         return false;
     }
+
 /**
  * 
  */

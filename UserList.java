@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class UserList {
     private static UserList userListInstance;
     private ArrayList<User> users;
+    private User user;
 
     private UserList() {
         users = new ArrayList<>();
@@ -20,14 +21,14 @@ public class UserList {
  * @return
  */
     public User getUser(String userName) {
-        return null;
+        return user;
     }
 
     public ArrayList<User> getUsers() {
-        return null;
+        return users;
     }
 
-    // Other methods can be added to manipulate the users list if needed
-    // For example, methods to add, remove, or update users
+    
+    //methods to add, remove, or update users
 }
 
