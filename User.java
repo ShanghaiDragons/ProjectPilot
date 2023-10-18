@@ -99,4 +99,40 @@ public class User {
     public String toString() {
         return "User: " + userName + ", " + firstName + " " + lastName;
     }
+
+    /**
+     * Gets the UUID of the user
+     * @author Chris
+     * @return the UUID. Type: UUID
+     */
+    public UUID getID() {
+        return this.id;
+    }
+
+    /**
+     * Gets the first name of the user
+     * @author Chris
+     * @return String of the first name
+     */
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    /**
+     * Gets the last name of the user
+     * @author Chris
+     * @return String of the last name
+     */
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    /**
+     * Gets the username of the user
+     * @author Chris
+     * @return String of the username
+     */
+    public String getUserName() {
+        return this.userName;
+    }
 }
