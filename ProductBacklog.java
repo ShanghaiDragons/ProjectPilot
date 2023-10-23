@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class ProductBacklog {
     private static ArrayList<Task> tasks;
-    private ArrayList<Task> archivedTasks;
+    private static ArrayList<Task> archivedTasks;
     private Task task;
 
     public ProductBacklog() {
@@ -35,6 +35,10 @@ public class ProductBacklog {
 
     public static ArrayList<Task> getTasks(){
         return tasks;
+    }
+
+    public static ArrayList<Task> getArchivedTasks(){
+        return archivedTasks;
     }
 }
 

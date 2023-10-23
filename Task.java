@@ -1,4 +1,6 @@
-public abstract class Task {
+import java.util.ArrayList;
+
+public abstract class Task extends ProductBacklog{
     private String taskName;
     private User assignee;
     private int priority;
@@ -53,7 +55,7 @@ public abstract class Task {
     public boolean editTaskName(String newTaskName) {
         String oldTaskName = this.taskName;
         setTaskName(newTaskName);
-        return (oldTaskName != newTaskName);
+        return oldTaskName != newTaskName;
     }
 /**
  * 
@@ -63,7 +65,7 @@ public abstract class Task {
     public boolean editAssignee(User newAssignee) {
         User oldAssignee = this.assignee;
         setAssignee(newAssignee);
-        return (oldAssignee != newAssignee);
+        return oldAssignee != newAssignee;
     }
 /**
  * 
@@ -73,7 +75,7 @@ public abstract class Task {
     public boolean editPriority(int newPriority) {
         int oldPriority = this.priority;
         setPriority(newPriority);
-        return (oldPriority != newPriority);
+        return oldPriority != newPriority;
     }
 /**
  * 
@@ -83,15 +85,17 @@ public abstract class Task {
     public boolean editDescription(String newDescription) {
         String oldDescription = this.description;
         setDescription(newDescription);
-        return (oldDescription != newDescription);
+        return oldDescription != newDescription;
     }
 /**
  * 
  * @param taskName
  * @return
  */
-    public boolean archiveTask(String taskName) {
-        return false;
+    public boolean archiveTask() {
+        ArrayList<Task> oldArchivedList = getArchivedTasks();
+        addArchivedTask(this);
+        return oldArchivedList.size() != getArchivedTasks().size();
     }
 
     @Override
