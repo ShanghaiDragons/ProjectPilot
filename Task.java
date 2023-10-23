@@ -21,24 +21,29 @@ public abstract class Task {
  * @param taskName
  */
     public void setTaskName(String taskName) {
+        this.taskName = taskName;
     }
 /**
  * 
  * @param assignee
  */
     public void setAssignee(User assignee) {
+        this.assignee = assignee;
     }
 /**
  * 
  * @param priority
  */
     public void setPriority(int priority) {
+        if (this.priority <= 5 && this.priority >= 1)
+            this.priority = priority;
     }
 /**
  * 
  * @param description
  */
     public void setDescription(String description) {
+        this.description = description;
     }
 /**
  * 
@@ -46,7 +51,9 @@ public abstract class Task {
  * @return
  */
     public boolean editTaskName(String newTaskName) {
-        return false;
+        String oldTaskName = this.taskName;
+        setTaskName(newTaskName);
+        return (oldTaskName != newTaskName);
     }
 /**
  * 
@@ -54,7 +61,9 @@ public abstract class Task {
  * @return
  */
     public boolean editAssignee(User newAssignee) {
-        return false;
+        User oldAssignee = this.assignee;
+        setAssignee(newAssignee);
+        return (oldAssignee != newAssignee);
     }
 /**
  * 
@@ -62,7 +71,9 @@ public abstract class Task {
  * @return
  */
     public boolean editPriority(int newPriority) {
-        return false;
+        int oldPriority = this.priority;
+        setPriority(newPriority);
+        return (oldPriority != newPriority);
     }
 /**
  * 
@@ -70,7 +81,9 @@ public abstract class Task {
  * @return
  */
     public boolean editDescription(String newDescription) {
-        return false;
+        String oldDescription = this.description;
+        setDescription(newDescription);
+        return (oldDescription != newDescription);
     }
 /**
  * 

@@ -18,11 +18,12 @@ public class User {
      * @param firstName string that represents the user's first name
      * @param lastName string that represents the user's last name
      */
+    // TODO: add random uuid for id and flush out the constructor
     public User(UUID id, String userName, String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
-        this.id = id;
+        this.id = UUID.randomUUID();
     }
 /**
  * 
