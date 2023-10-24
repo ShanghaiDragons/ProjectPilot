@@ -20,11 +20,16 @@ public class User {
      * @param firstName string that represents the user's first name
      * @param lastName string that represents the user's last name
      */
-    public User(UUID id, String userName, String firstName, String lastName) {
+    public User(UUID id, String userName, String firstName, String lastName, boolean permissionToAddTask,
+    boolean permissionToMoveTask, boolean permissionToEditTask, boolean permissionToEditColumns) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.id = id;
+        this.permissionToAddTask = permissionToAddTask;
+        this.permissionToMoveTask = permissionToMoveTask;
+        this.permissionToEditTask = permissionToEditTask;
+        this.permissionToEditColumns = permissionToEditColumns;
     }
 
     /**
@@ -54,11 +59,11 @@ public class User {
     * @param password
     * @return 
     */
-    public User login(String username, String password) {
+    public boolean login(String username, String password) {
         if(this.userName==username && verifyPassword(password)){
-            return this;
+            return true;
         }
-        return null;
+        return false;
     }
 
     /**
@@ -108,12 +113,12 @@ public class User {
         return true;
     }
 
-    /**
-    * 
-    * @param task
-    * @return
-    */
-    //WHAT DO YOU EDIT IN COLUMNS? NAME? DELETE TASKS? COLOR?
+/**
+ * @author theo v
+ * @param task
+* @return
+*/
+//WHAT DO YOU EDIT IN COLUMNS? NAME? DELETE TASKS? COLOR? MAKE SURE TO ADD MORE
     public boolean editColumns(Task task, String newColumnName) {
         if(!permissionToEditColumns){
         return false;
@@ -124,7 +129,6 @@ public class User {
         return true;
     }
     /**
-    * 
     * @param task
     * @return
     */

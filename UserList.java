@@ -31,8 +31,31 @@ public class UserList {
     public ArrayList<User> getUsers() {
         return users;
     }
-
     
-    //methods to add, remove, or update users
+/**
+* @author theo v
+* Adds user to the userlist
+* @param userName
+* @return
+*/
+    public User addUser(User userName){
+        if(userName!=null){
+            return null;
+        }
+        users.add(userName);
+        return userName;
+    }
+/**
+ * @author theo v 
+ * Removes a user from the user list
+ * @param userName
+ */
+    public User removeUser(User userName){
+        if(userName!=null){
+            return null;
+        }
+        users.remove(userName);
+        return userName;
+    }
 }
 

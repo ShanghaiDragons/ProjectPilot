@@ -43,15 +43,42 @@ public class Column {
  * @param sortType
  * @return
  */
+
+//assignee, priority, alphabetical. Instead of just filtering, just sort. For example split the tasks into different priorities, alphabetical, user
+
+// MAKE SEPARATE METHODS FOR EACH SORT TASKS IN HERE
+
+
     public boolean sortTasks(String sortType) {
-   
-        return false;
+       switch(sortType){
+            case "assignee":
+            sortAssignee();
+            break;
+            case "priority":
+            sortPriority();
+            break;
+            case "alphabetical":
+            sortAlphabetical();
+            break;
+            default:
+            return false;
+       }
+       return true;
     }
 
-/**
- * 
- */
-    @Override
+    public ArrayList<Task> sortAssignee(){
+
+    }
+
+    public ArrayList<Task> sortAlphabetical(){
+
+    }
+
+    public ArrayList<Task> sortPriority(){
+
+    }
+
+    private 
     public String toString() {
        
         return "Column{" +
