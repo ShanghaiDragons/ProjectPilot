@@ -54,11 +54,11 @@ public class User {
     * @param password
     * @return 
     */
-    public User login(String username, String password) {
+    public boolean login(String username, String password) {
         if(this.userName==username && verifyPassword(password)){
-            return this;
+            return true;
         }
-        return null;
+        return false;
     }
 
     /**

@@ -1,14 +1,31 @@
 import java.util.ArrayList;
 
 public class ProjectPilotFacade {
+    private static ProjectPilotFacade projectPilotFacade;
     private User user;
     private UserList userList;
     private ProjectList projectList;
 
+    /**
+     * ProjectPilotFacade constructor. Initializes userList, projectList, and user.
+     * @author ctaks
+     */
     public ProjectPilotFacade() {
         userList = UserList.getInstance();
         projectList = ProjectList.getInstance();
     }
+
+    /**
+     * Creates an instance (singleton) of ProjectPilotFacade if there isn't one
+     * @author ctaks
+     * @return an instance of ProjectPilotFacade
+     */
+    public static ProjectPilotFacade getInstance() {
+        if (projectPilotFacade == null)
+            projectPilotFacade = new ProjectPilotFacade();
+        return projectPilotFacade;
+    }
+
 /**
  * 
  * @param firstName
@@ -17,17 +34,24 @@ public class ProjectPilotFacade {
  * @param password
  * @return
  */
-    public User createAccount(String firstName, String lastName, String userName, String password) {
-        return null;
+    public boolean createAccount(String firstName, String lastName, String userName, String password) {
+        // User newUser = new User(firstName, lastName, userName, password)
+        return true;
     }
 /**
- * 
- * @param userName
- * @param password
- * @return
+ * Logs the user in
+ * @author ctaks
+ * @param userName String of the username
+ * @param password String of the password
+ * @return boolean determining if the login was successful
  */
-    public User login(String userName, String password) {
-        return null;
+    public boolean login(String userName, String password) {
+        if (userList.getUser(userName) != null) {
+            user = userList.getUser(userName);
+            return user.login(userName, password);
+        } else {
+            return false;
+        }
     }
 /**
  * 

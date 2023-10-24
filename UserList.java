@@ -3,18 +3,27 @@ import java.util.ArrayList;
 public class UserList {
     private static UserList userListInstance;
     private ArrayList<User> users;
-    private User user;
 
+    /**
+     * UserList constructor. Uses DataLoader to initialize the users
+     * @author ctaks
+     */
     private UserList() {
-        users = new ArrayList<>();
+        users = DataLoader.getUsers();
     }
 
+    /**
+     * Creates an instance of the UserList
+     * @author theo
+     * @return an instance of userListInstance
+     */
     public static UserList getInstance() {
         if (userListInstance == null) {
             userListInstance = new UserList();
         }
         return userListInstance;
     }
+
 /**
  * Retrieves the user with a search by username
  * @author Duayne
@@ -28,11 +37,13 @@ public class UserList {
         return null;
     }
 
+    /**
+     * Gets the current list of users
+     * @author theo
+     * @return the ArrayList<User> of users
+     */
     public ArrayList<User> getUsers() {
         return users;
     }
-
-    
-    //methods to add, remove, or update users
 }
 

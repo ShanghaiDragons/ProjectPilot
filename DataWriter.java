@@ -115,6 +115,7 @@ public class DataWriter extends DataConstants {
         JSONObject projectDetails = new JSONObject();
         projectDetails.put(PROJECT_ID, project.getID().toString());
         projectDetails.put(PROJECT_NAME, project.getName());
+        // TODO: Add more of these i.e. password
 
         return projectDetails;
     }
@@ -122,6 +123,7 @@ public class DataWriter extends DataConstants {
     /**
      * Method for testing.
      * @author Chris
+     */
      public static void main(String[] args) {
          if (saveUsers())
          System.out.println("Users SAVED");
@@ -133,5 +135,4 @@ public class DataWriter extends DataConstants {
          else
          System.out.println("Projects FAILED TO SAVE");
         }
-        */
 }

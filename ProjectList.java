@@ -8,12 +8,11 @@ public class ProjectList {
     private ArrayList<Project> projects;
 
     /**
-     * 
+     * ProjectList constructor. Uses DataLoader to initialize the projects
+     * @author ctaks
      */
     private ProjectList() {
-       
-        // projects = new ArrayList<>();
-        projectListInstance.projects = DataLoader.getProjects();
+        projects = DataLoader.getProjects();
        
     }
 
