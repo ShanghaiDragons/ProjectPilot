@@ -10,15 +10,20 @@ public class ProjectPilotFacade {
         projectList = ProjectList.getInstance();
     }
 /**
- * 
- * @param firstName
- * @param lastName
- * @param userName
- * @param password
- * @return
+ * Creates an account for a given user
+ * @author Duayne
+ * @param userName string that represents the user's username
+ * @param firstName string that represents the user's first name
+ * @param lastName string that represents the user's last name
+ * @param password string that represents the user's password
+ * @return Returns the user that was created with the given parameters
  */
     public User createAccount(String firstName, String lastName, String userName, String password) {
-        return null;
+        if (this.user != null)
+            return user;
+        user = new User(firstName, lastName, userName, password, false,
+                        false, false, false);
+        return user;
     }
 /**
  * 
