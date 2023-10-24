@@ -109,11 +109,11 @@ public class User {
         return true;
     }
 
-    /**
+/**
     * 
-    * @param task
-    * @return
-    */
+ * @param task
+* @return
+*/
     //WHAT DO YOU EDIT IN COLUMNS? NAME? DELETE TASKS? COLOR?
     public boolean editColumns(Task task, String newColumnName) {
         if(!permissionToEditColumns){
