@@ -1,16 +1,25 @@
 import java.util.ArrayList;
+import java.util.UUID;
 
-public abstract class Task extends ProductBacklog{
-    private String taskName;
-    private User assignee;
-    private int priority;
-    private String description;
 /**
- * 
- * @param taskName
- * @param assignee
- * @param priority
- * @param description
+ * The atttributes of a task and its functionality
+ * @author Duayne
+ */
+public abstract class Task extends ProductBacklog{
+    private UUID id;
+    protected String taskName;
+    protected User assignee;
+    protected int priority;
+    protected String description;
+
+
+/**
+ * Constructor for the Task class without UUID
+ * @author Duayne
+ * @param taskName String of the task's name 
+ * @param assignee User that is assigned to the task
+ * @param priority Integer representing the task's priority
+ * @param description String describing the task
  */
     public Task(String taskName, User assignee, int priority, String description) {
         this.taskName = taskName;
@@ -19,38 +28,43 @@ public abstract class Task extends ProductBacklog{
         this.description = description;
     }
 /**
- * 
- * @param taskName
+ * Sets the name of the task
+ * @author Duayne
+ * @param taskName String of the updated task name
  */
     public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
 /**
- * 
- * @param assignee
+ * Sets the assignee to the task
+ * @author Duayne
+ * @param assignee User object that is to be assigned to the task
  */
     public void setAssignee(User assignee) {
         this.assignee = assignee;
     }
 /**
- * 
- * @param priority
+ * Sets the priority of the task
+ * @author Duayne
+ * @param priority Integer representation of the priority
  */
     public void setPriority(int priority) {
         if (this.priority <= 5 && this.priority >= 1)
             this.priority = priority;
     }
 /**
- * 
- * @param description
+ * Sets the description of the task
+ * @author Duayne
+ * @param description String representation of the task description
  */
     public void setDescription(String description) {
         this.description = description;
     }
 /**
- * 
- * @param newTaskName
- * @return
+ * A boolean check to see if the task name was changed
+ * @author Duayne
+ * @param newTaskName String representation of the new task name
+ * @return Returns the comparison of the new and old task name
  */
     public boolean editTaskName(String newTaskName) {
         String oldTaskName = this.taskName;
@@ -58,9 +72,10 @@ public abstract class Task extends ProductBacklog{
         return oldTaskName != newTaskName;
     }
 /**
- * 
- * @param newAssignee
- * @return
+ * A boolean check to see if the task assignee was changed
+ * @author Duayne
+ * @param newAssignee User object to be assigned to the task
+ * @return Returns the comparison of the new and old task assignee
  */
     public boolean editAssignee(User newAssignee) {
         User oldAssignee = this.assignee;
@@ -68,9 +83,10 @@ public abstract class Task extends ProductBacklog{
         return oldAssignee != newAssignee;
     }
 /**
- * 
- * @param newPriority
- * @return
+ * A boolean check to see if the task priority was changed
+ * @author Duayne
+ * @param newPriority Integer representation of the new priority
+ * @return Returns the comparison of the new and old task priority
  */
     public boolean editPriority(int newPriority) {
         int oldPriority = this.priority;
@@ -78,9 +94,10 @@ public abstract class Task extends ProductBacklog{
         return oldPriority != newPriority;
     }
 /**
- * 
- * @param newDescription
- * @return
+ * A boolean check to see if the task description was changed
+ * @author Duayne
+ * @param newDescription String representation of the new description
+ * @return Returns the comparison of the new and old task description
  */
     public boolean editDescription(String newDescription) {
         String oldDescription = this.description;
@@ -88,9 +105,9 @@ public abstract class Task extends ProductBacklog{
         return oldDescription != newDescription;
     }
 /**
- * 
- * @param taskName
- * @return
+ * A boolean check to see if the task was archived
+ * @author Duayne
+ * @return Returns the comparison of the new and old archived task list
  */
     public boolean archiveTask() {
         ArrayList<Task> oldArchivedList = getArchivedTasks();
