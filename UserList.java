@@ -32,7 +32,7 @@ public class UserList {
      */
     public User getUser(String userName) {
         for (int i = 0; i < users.size(); i++)
-            if (users.get(i).getUserName() == userName)
+            if (users.get(i).getUserName().equals(userName))
                 return users.get(i);
         return null;
     }
