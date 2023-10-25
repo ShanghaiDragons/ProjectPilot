@@ -192,4 +192,76 @@ public class User {
     public String getUserName() {
         return this.userName;
     }
+
+    /**
+     * Gets the current permission to add a task
+     * @author Duayne
+     * @return boolean of the permission to add a task
+     */
+    public boolean isPermissionToAddTask() {
+        return permissionToAddTask;
+    }
+
+    /**
+     * Sets the permission to add a task
+     * @author Duayne
+     * @param permissionToEditColumns boolean to which to set the permission
+     */
+    public void setPermissionToAddTask(boolean permissionToAddTask) {
+        this.permissionToAddTask = permissionToAddTask;
+    }
+
+    /**
+     * Gets the current permission to move a task
+     * @author Duayne
+     * @return boolean of the permission to move a task
+     */
+    public boolean isPermissionToMoveTask() {
+        return permissionToMoveTask;
+    }
+
+    /**
+     * Sets the permission to move a task
+     * @author Duayne
+     * @param permissionToEditColumns boolean to which to set the permission
+     */
+    public void setPermissionToMoveTask(boolean permissionToMoveTask) {
+        this.permissionToMoveTask = permissionToMoveTask;
+    }
+
+    /**
+     * Gets the current permission to edit a task
+     * @author Duayne
+     * @return boolean of the permission to edit a task
+     */
+    public boolean isPermissionToEditTask() {
+        return permissionToEditTask;
+    }
+
+    /**
+     * Sets the permission to edit a task
+     * @author Duayne
+     * @param permissionToEditColumns boolean to which to set the permission
+     */
+    public void setPermissionToEditTask(boolean permissionToEditTask) {
+        this.permissionToEditTask = permissionToEditTask;
+    }
+
+    /**
+     * Gets the current permission to edit a column
+     * @author Duayne
+     * @return boolean of the permission to edit a column
+     */
+    public boolean isPermissionToEditColumns() {
+        return permissionToEditColumns;
+    }
+
+    /**
+     * Sets the permission to edit a column
+     * @author Duayne
+     * @param permissionToEditColumns boolean to which to set the permission
+     */
+    public void setPermissionToEditColumns(boolean permissionToEditColumns) {
+        this.permissionToEditColumns = permissionToEditColumns;
+    }
 }

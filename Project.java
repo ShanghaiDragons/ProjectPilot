@@ -47,12 +47,36 @@ public class Project {
     }
 
     /**
-     * 
-     * @param user
-     * @param type
-     * @return
+     * Adds user to the team and assigns permissions
+     * @author Duayne
+     * @param user User object that represents the current user
+     * @param type UserType enumeration that categorizes the user based on permissions
+     * @return boolean that represents a change after adding user to the team
      */
     public boolean addUser(User user, UserType type) {
+        int size = team.size();
+        if (type == UserType.SCRUM_MASTER) {
+            user.setPermissionToAddTask(true);
+            user.setPermissionToEditColumns(true);
+            user.setPermissionToEditTask(true);
+            user.setPermissionToMoveTask(true);
+            team.add(user);
+            return size != team.size();
+        } else if (type == UserType.COLLABORATOR) {
+            user.setPermissionToAddTask(false);
+            user.setPermissionToEditColumns(false);
+            user.setPermissionToEditTask(true);
+            user.setPermissionToMoveTask(true);
+            team.add(user);
+            return size != team.size();
+        } else if (type == UserType.VIEWER) {
+            user.setPermissionToAddTask(false);
+            user.setPermissionToEditColumns(false);
+            user.setPermissionToEditTask(false);
+            user.setPermissionToMoveTask(false);
+            team.add(user);
+            return size != team.size();
+        }
         return false;
     }
 

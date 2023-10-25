@@ -35,7 +35,7 @@ public class DataLoader extends DataConstants {
 				  boolean permissionToMoveTask = (boolean)personJSON.get(USER_MOVE_TASK);
 				  boolean permissionToEditTask = (boolean)personJSON.get(USER_EDIT_TASK);
 				  boolean permissionToEditColumns = (boolean)personJSON.get(USER_EDIT_COLUMN);
-				  users.add(new User(id, userName, firstName, lastName, password, false, false, false, false));
+				  users.add(new User(id, userName, firstName, lastName, password, permissionToAddTask, permissionToMoveTask, permissionToEditTask, permissionToEditColumns));
 			  }
 			  
 			  return users;
