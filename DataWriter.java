@@ -9,36 +9,32 @@ import java.util.UUID;
  */
 public class DataWriter extends DataConstants {
 
- /**
-  * Saves the list of users to the user JSON file.
-  * @author Chris
-  * @param usersList the list of users to save
-  * @return boolean determining if the save was successful or not
-  */   
+    /**
+     * Saves the list of users to the user JSON file.
+    * @author Chris
+    * @param usersList the list of users to save
+    * @return boolean determining if the save was successful or not
+    */   
     public static boolean saveUsers() {
-        /* TODO: commented out for testing. Uncomment for final. -Chris
         UserList users = UserList.getInstance();
         ArrayList<User> userList = users.getUsers();
-        */
         JSONArray jsonUsers = new JSONArray();
 
         // TEST USERS. TODO: remove when testing is done.
-        UUID userID1 = UUID.randomUUID();
-        User user1 = new User(userID1, "testUsername", "testFirstname", "testLastname");
-        User user2 = new User(UUID.randomUUID(), "TestUsername2", "testFirstname2", "testLastName2");
-        
-        jsonUsers.add(getUserJSON(user1));
-        jsonUsers.add(getUserJSON(user2));
-        /* TODO: commented out for testing. Uncomment for final. -Chris 
+        // UUID userID1 = UUID.randomUUID();
+        // User user1 = new User(userID1, "testUsername", "testFirstname", "testLastname", "testPassword", false, false, false, false);
+        // User user2 = new User(UUID.randomUUID(), "TestUsername2", "testFirstname2", "testLastName2", "testPassword2", false, false, false, false);
+        // jsonUsers.add(getUserJSON(user1));
+        // jsonUsers.add(getUserJSON(user2));
+
         // Creating JSON objects
         for(int i=0; i < userList.size(); i++) {
             jsonUsers.add(getUserJSON(userList.get(i)));
         }
-        */
 
         // Write to JSON file
         // TODO: hardcoded the filename for testing. Change for final version. -Chris
-        try (FileWriter file = new FileWriter("json/user_test_write.json")) {
+        try (FileWriter file = new FileWriter("json/Users_test.json")) {
             file.write(jsonUsers.toJSONString());
             return true;
 
@@ -65,36 +61,33 @@ public class DataWriter extends DataConstants {
         return userDetails;
     }
 
- /**
-  * Saves the projects to the project JSON file.
-  * @author Chris
-  * @param projectsList the list of projects to save
-  * @return boolean determining if the save was successful or not
-  */   
+    /**
+     * Saves the projects to the project JSON file.
+    * @author Chris
+    * @param projectsList the list of projects to save
+    * @return boolean determining if the save was successful or not
+    */   
     public static boolean saveProjects() {
-        /* TODO: commented out for testing. Uncomment for final. -Chris
         ProjectList projects = ProjectList.getInstance();
         ArrayList<Project> projectList = projects.getProjects();
-        */
+        
         JSONArray jsonProjects = new JSONArray();
         
         // TEST Project TODO: Remove when testing is done
-        User testUser = new User(UUID.randomUUID(), "testUsername", "testFirstname", "testLastname");
-        Project project1 = new Project(UUID.randomUUID(), "Test Project 1", testUser);
-        Project project2 = new Project(UUID.randomUUID(), "Test project 2", testUser);
-        jsonProjects.add(getProjectJSON(project1));
-        jsonProjects.add(getProjectJSON(project2));
+        // User testUser = new User(UUID.randomUUID(), "testUsername", "testFirstname", "testLastname", "testPassword", false, false, false, false);
+        // Project project1 = new Project(UUID.randomUUID(), "Test Project 1", testUser);
+        // Project project2 = new Project(UUID.randomUUID(), "Test project 2", testUser);
+        // jsonProjects.add(getProjectJSON(project1));
+        // jsonProjects.add(getProjectJSON(project2));
 
-        /* TODO: commented out for testing. Use this version in final. -Chris
         // Creating JSON objects
         for(int i=0; i < projectList.size(); i++) {
             jsonProjects.add(getProjectJSON(projectList.get(i)));
         }
-        */
 
         // Write to JSON file
         // TODO: hardcoded the filename for testing. change file name for final version. -Chris
-        try (FileWriter file = new FileWriter("json/project_test_write.json")) {
+        try (FileWriter file = new FileWriter("json/Projects_test.json")) {
             file.write(jsonProjects.toJSONString());
             file.flush();
             return true;
@@ -115,6 +108,12 @@ public class DataWriter extends DataConstants {
         JSONObject projectDetails = new JSONObject();
         projectDetails.put(PROJECT_ID, project.getID().toString());
         projectDetails.put(PROJECT_NAME, project.getName());
+        // projectDetails.put(PROJECT_COLUMNS, project.getColumns());
+        JSONArray columns = new JSONArray();
+        for (Column column : project.getColumns()) {
+            //TODO: finish
+            //column.put()
+        }
 
         return projectDetails;
     }

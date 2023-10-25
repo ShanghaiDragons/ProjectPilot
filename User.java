@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * 
+ */
 public class User {
     private String firstName;
     private String lastName;
@@ -19,13 +22,19 @@ public class User {
      * @param userName string that represents the user's username
      * @param firstName string that represents the user's first name
      * @param lastName string that represents the user's last name
+     * @param password string that represents the user's password
+     * @param permissionToAddTask boolean that represents the user's permission to add tasks
+     * @param permissionToMoveTask boolean that represents the user's permission to move tasks
+     * @param permissionToEditTask boolean that represents the user's permission to edit tasks
+     * @param permissionToEditColumns boolean that represents the user's permission to edit columns
      */
-    public User(UUID id, String userName, String firstName, String lastName, boolean permissionToAddTask,
-    boolean permissionToMoveTask, boolean permissionToEditTask, boolean permissionToEditColumns) {
+    public User(UUID id, String userName, String firstName, String lastName, String password, boolean permissionToAddTask,
+                boolean permissionToMoveTask, boolean permissionToEditTask, boolean permissionToEditColumns) {
+        this.id = UUID.randomUUID();
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
-        this.id = id;
+        this.password = password;
         this.permissionToAddTask = permissionToAddTask;
         this.permissionToMoveTask = permissionToMoveTask;
         this.permissionToEditTask = permissionToEditTask;
@@ -34,19 +43,21 @@ public class User {
 
     /**
     * 
-    * @param firstName
-    * @param lastName
-    * @param userName
-    * @param permissionToAddTask
-    * @param permissionToMoveTask
-    * @param permissionToEditTask
-    * @param permissionToEditColumns
+    * @param userName string that represents the user's username
+    * @param firstName string that represents the user's first name
+    * @param lastName string that represents the user's last name
+    * @param password string that represents the user's password
+    * @param permissionToAddTask boolean that represents the user's permission to add tasks
+    * @param permissionToMoveTask boolean that represents the user's permission to move tasks
+    * @param permissionToEditTask boolean that represents the user's permission to edit tasks
+    * @param permissionToEditColumns boolean that represents the user's permission to edit columns
     */
-    public User(String firstName, String lastName, String userName, boolean permissionToAddTask,
+    public User(String firstName, String lastName, String userName, String password, boolean permissionToAddTask,
                 boolean permissionToMoveTask, boolean permissionToEditTask, boolean permissionToEditColumns) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
+        this.password = password;
         this.permissionToAddTask = permissionToAddTask;
         this.permissionToMoveTask = permissionToMoveTask;
         this.permissionToEditTask = permissionToEditTask;
@@ -128,6 +139,7 @@ public class User {
         }
         return true;
     }
+    
     /**
     * @param task
     * @return
@@ -178,5 +190,77 @@ public class User {
      */
     public String getUserName() {
         return this.userName;
+    }
+
+    /**
+     * Gets the current permission to add a task
+     * @author Duayne
+     * @return boolean of the permission to add a task
+     */
+    public boolean isPermissionToAddTask() {
+        return permissionToAddTask;
+    }
+
+    /**
+     * Sets the permission to add a task
+     * @author Duayne
+     * @param permissionToEditColumns boolean to which to set the permission
+     */
+    public void setPermissionToAddTask(boolean permissionToAddTask) {
+        this.permissionToAddTask = permissionToAddTask;
+    }
+
+    /**
+     * Gets the current permission to move a task
+     * @author Duayne
+     * @return boolean of the permission to move a task
+     */
+    public boolean isPermissionToMoveTask() {
+        return permissionToMoveTask;
+    }
+
+    /**
+     * Sets the permission to move a task
+     * @author Duayne
+     * @param permissionToEditColumns boolean to which to set the permission
+     */
+    public void setPermissionToMoveTask(boolean permissionToMoveTask) {
+        this.permissionToMoveTask = permissionToMoveTask;
+    }
+
+    /**
+     * Gets the current permission to edit a task
+     * @author Duayne
+     * @return boolean of the permission to edit a task
+     */
+    public boolean isPermissionToEditTask() {
+        return permissionToEditTask;
+    }
+
+    /**
+     * Sets the permission to edit a task
+     * @author Duayne
+     * @param permissionToEditColumns boolean to which to set the permission
+     */
+    public void setPermissionToEditTask(boolean permissionToEditTask) {
+        this.permissionToEditTask = permissionToEditTask;
+    }
+
+    /**
+     * Gets the current permission to edit a column
+     * @author Duayne
+     * @return boolean of the permission to edit a column
+     */
+    public boolean isPermissionToEditColumns() {
+        return permissionToEditColumns;
+    }
+
+    /**
+     * Sets the permission to edit a column
+     * @author Duayne
+     * @param permissionToEditColumns boolean to which to set the permission
+     */
+    public void setPermissionToEditColumns(boolean permissionToEditColumns) {
+        this.permissionToEditColumns = permissionToEditColumns;
     }
 }

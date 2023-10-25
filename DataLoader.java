@@ -30,8 +30,12 @@ public class DataLoader extends DataConstants {
 				  String userName = (String)personJSON.get(USER_USER_NAME);
 				  String firstName = (String)personJSON.get(USER_FIRST_NAME);
 				  String lastName = (String)personJSON.get(USER_LAST_NAME);
-				  
-				  users.add(new User(id, userName, firstName, lastName));
+				  String password = (String)personJSON.get(USER_PASSWORD);
+				  boolean permissionToAddTask = (boolean)personJSON.get(USER_ADD_TASK);
+				  boolean permissionToMoveTask = (boolean)personJSON.get(USER_MOVE_TASK);
+				  boolean permissionToEditTask = (boolean)personJSON.get(USER_EDIT_TASK);
+				  boolean permissionToEditColumns = (boolean)personJSON.get(USER_EDIT_COLUMN);
+				  users.add(new User(id, userName, firstName, lastName, password, permissionToAddTask, permissionToMoveTask, permissionToEditTask, permissionToEditColumns));
 			  }
 			  
 			  return users;
