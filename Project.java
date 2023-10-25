@@ -81,12 +81,17 @@ public class Project {
     }
 
     /**
-     * 
-     * @param user
-     * @return
+     * Removes the given user from the project team
+     * @author Duayne
+     * @param user User object of the given user
+     * @return boolean that represents a change after removing user from the team 
      */
     public boolean removeUser(User user) {
-        return false;
+        if (!team.contains(user))
+            return false;
+        int size = team.size();
+        team.remove(user);
+        return size != team.size();
     }
 
     /**
