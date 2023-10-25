@@ -32,6 +32,8 @@ public class ProjectPilotFacade {
             return user;
         user = new User(firstName, lastName, userName, password, false,
                         false, false, false);
+        // Uncomment code below when the addUser method is added and implemented to the UserList class
+        // userList.addUser();
         return user;
     }
 
