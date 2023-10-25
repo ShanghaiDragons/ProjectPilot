@@ -65,16 +65,14 @@ public class User {
     }
 
     /**
-    * 
+    * verifies whether the user has entered the username and password correctly
+    * @author theo v
     * @param username
     * @param password
     * @return 
     */
     public boolean login(String username, String password) {
-        if(this.userName==username && verifyPassword(password)){
-            return true;
-        }
-        return false;
+    return this.userName==username && verifyPassword(password);
     }
 
     /**
@@ -87,9 +85,9 @@ public class User {
     }
 
     /**
-    * 
+    * Adds a task to the product backlog if the user has permission to add tasks
+    *@author theo 
     * @param task
-    * @return
      */
     public boolean addTask(Task task) {
         if(!permissionToAddTask){
@@ -102,8 +100,13 @@ public class User {
     }
 
     /**
-    * 
+    * Edits the task based on the parameters
+    * @author theo v
     * @param task
+    * @param newtaskName
+    * @param newAssignee
+    * @param newPriority 
+    * @param newDescription 
     */
     public boolean editTask(Task task, String newtaskName, User newAssignee, int newPriority, String newDescription) {        // return the different edits in the task
         if(!permissionToEditTask){
@@ -125,12 +128,13 @@ public class User {
     }
 
 /**
- * @author theo v
- * @param task
+ * Edits the column name 
+ * @author theo 
+ * @param newColumnName new column name
 * @return
 */
 //WHAT DO YOU EDIT IN COLUMNS? NAME? DELETE TASKS? COLOR? MAKE SURE TO ADD MORE
-    public boolean editColumns(Task task, String newColumnName) {
+    public boolean editColumns(String newColumnName) {
         if(!permissionToEditColumns){
         return false;
         }
@@ -141,7 +145,9 @@ public class User {
     }
     
     /**
-    * @param task
+    * moves the task from one column to another
+    * @author theo 
+    * @param task task that is getting moved
     * @return
     */
     public boolean moveTask(Task task) {

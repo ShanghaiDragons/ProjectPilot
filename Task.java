@@ -122,4 +122,30 @@ public abstract class Task extends ProductBacklog{
         addArchivedTask(this);
         return oldArchivedList.size() != getArchivedTasks().size();
     }
+    /**
+     * gets the assignee
+     * @author theo 
+     * @return assignee 
+     */
+    public User getAssignee(){
+        return assignee;
+    }
+    /**
+     * returns the priority int value 
+     * @author theo 
+     * @return returns the priority number 
+     */
+    public int getPriority(){
+        return priority;
+    }
+    
+    /**
+     * gets the task name
+     * @author theo 
+     * @return task name
+     */
+    public String getTaskName(){
+        return taskName;
+    }
+
 }

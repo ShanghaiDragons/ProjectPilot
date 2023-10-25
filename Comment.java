@@ -1,3 +1,6 @@
+import java.sql.Date;
+import java.util.ArrayList;
+
 /**
  * This comment class represents a comment in  a task, a column, or another comment. 
  */
@@ -5,9 +8,9 @@ public class Comment {
     private User user;
     private Task task;
     private String comment;
+    private ArrayList<String> comments;
 
     /**
-     * 
      * @param user
      * @param task
      * @param comment
@@ -19,38 +22,41 @@ public class Comment {
     }
 
     /**
-     * 
-     * @param user
-     * @param task
-     * @param comment
-     * @return
+     * adds a comment
+     * @author theo v
+     * @param comment string that is the comment
      */
-    public static boolean addComment(User user, Task task, String comment) {
-        // Implement logic to add a comment to the task
-        // Return true if comment added successfully, false otherwise
-        return false; // Placeholder return value
-    }
-
-    /**
-     * 
-     * @param user
-     * @param task
-     * @param comment
-     * @return
-     */
-    public static boolean threadComment(User user, Task task, String comment) {
-      
+    public boolean addComment(String comment) {
+        if(!comment.isEmpty()){
+        this.comment=comment;
+        return true;
+        }
         return false; 
     }
 
     /**
-     * 
+     * adding a comment on another comment, hence threading the comments
+     * @author theo 
+     * @param user
+     * @param task
+     * @param comment
+     * @return
+     */
+    public boolean threadComment(String comment) {
+        if(!comment.isEmpty()){
+            comments.add(comment);
+            return true;
+            }
+            return false; 
+    }
+
+    /**
+     * @return returns the comment with the author user name
      */
     public String toString() {
         
         return "Comment{" +
-                "user=" + user +
-                ", task=" + task +
+                "user=" + user+
                 ", comment='" + comment + '\'' +
                 '}';
     }

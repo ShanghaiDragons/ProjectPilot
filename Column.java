@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.*;
 /**
  * This class represents a generic column in the scrum board 
  */
@@ -63,25 +64,19 @@ public class Column {
     }
 
     public ArrayList<Task> sortAssignee(){
+       ArrayList<Task> temp = new ArrayList<Task>();
+       for(int i=1; i< tasks.size(); i++){
+        if(){
 
+       }
     }
 
     public ArrayList<Task> sortAlphabetical(){
-
+        tasks.sort(Comparator.naturalOrder());
     }
 
     public ArrayList<Task> sortPriority(){
 
-    }
-
-    private 
-    public String toString() {
-       
-        return "Column{" +
-                "columnName='" + columnName + '\'' +
-                ", tasks=" + tasks +
-                ", sortType='" + sortType + '\'' +
-                '}';
     }
 
     /**
