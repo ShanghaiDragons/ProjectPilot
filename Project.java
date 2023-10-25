@@ -16,6 +16,12 @@ public class Project {
     private ArrayList<Comment> comments;
     private ProductBacklog productBacklog;
 
+    /**
+     * 
+     * @param id
+     * @param projectName
+     * @param user
+     */
     public Project(UUID id, String projectName, User user) {
         this.id = id;
         this.projectName = projectName;
@@ -25,11 +31,12 @@ public class Project {
         this.comments = new ArrayList<>();
         this.productBacklog = new ProductBacklog();
     }
-/**
- * 
- * @param projectName
- * @param user
- */
+
+    /**
+     * 
+     * @param projectName
+     * @param user
+     */
     public Project(String projectName, User user) {
         this.projectName = projectName;
         this.user = user;
@@ -38,44 +45,49 @@ public class Project {
         this.comments = new ArrayList<>();
         this.productBacklog = new ProductBacklog();
     }
-/**
- * 
- * @param user
- * @param type
- * @return
- */
+
+    /**
+     * 
+     * @param user
+     * @param type
+     * @return
+     */
     public boolean addUser(User user, UserType type) {
         return false;
     }
-/**
- * 
- * @param user
- * @return
- */
+
+    /**
+     * 
+     * @param user
+     * @return
+     */
     public boolean removeUser(User user) {
         return false;
     }
-/**
- * 
- * @param column
- * @return
- */
+
+    /**
+     * 
+     * @param column
+     * @return
+     */
     public boolean addColumn(Column column) {
         return false;
     }
-/**
- * 
- * @param column
- * @return
- */
+
+    /**
+     * 
+     * @param column
+     * @return
+     */
     public boolean removeColumn(Column column) {
         return false;
     }
-/**
- * 
- * @param column
- * @return
- */
+
+    /**
+     * 
+     * @param column
+     * @return
+     */
     public boolean editColumn(Column column) {
         return false;
     }
@@ -83,39 +95,24 @@ public class Project {
     public void startSprint() {
     }
 
-    @Override
-    public String toString() {
-        return "Project{" +
-                "projectName='" + projectName + '\'' +
-                ", user=" + user +
-                ", team=" + team +
-                ", columns=" + columns +
-                ", startSprint=" + startSprint +
-                ", endSprint=" + endSprint +
-                ", comments=" + comments +
-                ", productBacklog=" + productBacklog +
-                '}';
-    }
-
-    public void save() {
-    }
-/**
- * 
- * @param user
- * @param project
- * @param comment
- * @return
- */
+    /**
+     * 
+     * @param user
+     * @param project
+     * @param comment
+     * @return
+     */
     private boolean addComment(User user, Project project, String comment) {
         return false;
     }
-/**
- * 
- * @param user
- * @param project
- * @param comment
- * @return
- */
+
+    /**
+     * 
+     * @param user
+     * @param project
+     * @param comment
+     * @return
+     */
     private boolean threadComment(User user, Project project, String comment) {
         return false;
     }
@@ -139,5 +136,14 @@ public class Project {
      */
     public UUID getID() {
         return this.id;
+    }
+
+    /**
+     * Gets the current columns
+     * @author ctaks
+     * @return ArrayList<Column> of current columns
+     */
+    public ArrayList<Column> getColumns() {
+        return this.columns;
     }
 }

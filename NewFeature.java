@@ -5,18 +5,20 @@ public class NewFeature{
 
     public NewFeature() {   
     }
-/**
- * 
- * @param implementation
- */
+
+    /**
+     * 
+     * @param implementation
+     */
     public void setImplementation(String implementation) {
        
         this.implementation = implementation;
     }
-/**
- * 
- * @param updateNumber
- */
+    
+    /**
+     * 
+     * @param updateNumber
+     */
     public void setUpdateNumber(String updateNumber) {
         
         this.updateNumber = updateNumber;

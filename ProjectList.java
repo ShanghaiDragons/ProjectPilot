@@ -8,13 +8,11 @@ public class ProjectList {
     private ArrayList<Project> projects;
 
     /**
-     * 
+     * ProjectList constructor. Uses DataLoader to initialize the projects
+     * @author ctaks
      */
     private ProjectList() {
-       
-        // projects = new ArrayList<>();
-        projectListInstance.projects = DataLoader.getProjects();
-       
+        projects = DataLoader.getProjects();
     }
 
     /**
@@ -49,6 +47,15 @@ public class ProjectList {
      */
     public ArrayList<Project> getProjects() {
         return this.projects;
+    }
+
+    /**
+     * Saves the current projects
+     * @author ctaks
+     * @return boolean determining if the projects were saved.
+     */
+    public boolean saveProjects() {
+        return DataWriter.saveProjects();
     }
 
 }

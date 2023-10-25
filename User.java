@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * 
+ */
 public class User {
     private String firstName;
     private String lastName;
@@ -67,11 +70,11 @@ public class User {
     * @param password
     * @return 
     */
-    public User login(String username, String password) {
+    public boolean login(String username, String password) {
         if(this.userName==username && verifyPassword(password)){
-            return this;
+            return true;
         }
-        return null;
+        return false;
     }
 
     /**
@@ -122,7 +125,7 @@ public class User {
     }
 
     /**
-    * 
+        * 
     * @param task
     * @return
     */
@@ -136,6 +139,7 @@ public class User {
         }
         return true;
     }
+    
     /**
     * 
     * @param task
