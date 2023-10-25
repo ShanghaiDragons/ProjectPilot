@@ -5,7 +5,7 @@ import java.util.UUID;
  * The atttributes of a task and its functionality
  * @author Duayne
  */
-public abstract class Task extends ProductBacklog{
+public abstract class Task {
     private UUID id;
     protected String taskName;
     protected User assignee;
@@ -110,16 +110,5 @@ public abstract class Task extends ProductBacklog{
         String oldDescription = this.description;
         setDescription(newDescription);
         return oldDescription != newDescription;
-    }
-
-    /**
-     * A boolean check to see if the task was archived
-     * @author Duayne
-     * @return Returns the comparison of the new and old archived task list
-     */
-    public boolean archiveTask() {
-        ArrayList<Task> oldArchivedList = getArchivedTasks();
-        addArchivedTask(this);
-        return oldArchivedList.size() != getArchivedTasks().size();
     }
 }
