@@ -1,10 +1,10 @@
 [
-  {
-    "id": "8b9717e2-420e-462c-9b4e-02305ccaff9a",
-    "projectName": "Test Project 1"
-  },
-  {
-    "id": "9e2c05dc-5869-4cc9-8670-32663c50538b",
-    "projectName": "Test project 2"
-  }
+    {
+        "id": "fbcf92d8-a34c-4cac-ad0a-af8439855789",
+        "projectName": "Test Project 1"
+    },
+    {
+        "id": "fafe8e73-1425-4ac7-876e-6d30c9c30c0c",
+        "projectName": "Test project 2"
+    }
 ]

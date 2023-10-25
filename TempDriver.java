@@ -10,6 +10,7 @@ public class TempDriver {
 
   /**
    * This method runs the program.
+   * @author ctaks
    */
   public void run() {
     ppf = ProjectPilotFacade.getInstance();
@@ -31,7 +32,12 @@ public class TempDriver {
     }
     System.out.println("You are logged in.");
 
-    // Load the projects and log the user in
+    System.out.println("Loading projects...");
+    loadAProject();
+    System.out.println("The project that has been loaded is:");
+    System.out.println(ppf.getCurrentProject().getName());
+
+    System.out.println("Menu:");
     
   }
   
@@ -87,7 +93,81 @@ public class TempDriver {
   }
 
   /**
+   * Loads a project
+   * @author ctaks
+   */
+  public void loadAProject() {
+    System.out.println("Which project would you like to select?");
+    int i = 0;
+    for (Project project : ppf.getProjects()) {
+      System.out.println("["+(i+1)+"] "+project.getName());
+      i++;
+    }
+    int choice = 0;
+    boolean hasSelected = false;
+    while (!hasSelected) {
+      choice = keyboard.nextInt();
+      keyboard.nextLine();
+      if(choice <= ppf.getProjects().size())
+        hasSelected = true;
+      else
+        System.out.println("Please try again.");
+    }
+    choice--;
+    ppf.loadProject(ppf.getProject(ppf.getProjects().get(choice).getName()).getName());
+  }
+
+  /**
+   * project menu
+   * @author ctaks
+   * TODO: finish
+   */
+  public void projectMenu() {
+    System.out.println(ppf.getCurrentProject().getName()+" menu:"
+    +"\n[1] Columns menu"
+    +"\n[2] Change sprint start date"
+    +"\n[3] Change sprint end date"
+    +"\n[4] Change project name"
+    +"\n[5] Add comment"
+    +"\n[6] Thread comment"
+    +"\n[7] save project");
+    int choice = keyboard.nextInt();
+    keyboard.nextLine();
+    switch (choice) {
+      case 1:
+        System.out.println("");
+        break;
+      case 2:
+        System.out.println("");
+        break;
+      case 3:
+        System.out.println("");
+        break;
+      case 4:
+        System.out.println("");
+        break;
+      case 5:
+        System.out.println("");
+        break;
+      case 6:
+        System.out.println("");
+        break;
+      case 7:
+        System.out.println("saving project...");
+        // WILL NOT WORK YET: ppf.saveProjects();
+      default:
+        System.out.println("invalid choice");
+        break;
+    }
+  }
+
+  public void columnMenu() {
+
+  }
+
+  /**
    * The main method.
+   * @author ctaks
    */
   public static void main(String[] args) {
     TempDriver tempDriver = new TempDriver();

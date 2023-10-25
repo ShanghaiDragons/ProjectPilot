@@ -13,7 +13,6 @@ public class ProjectList {
      */
     private ProjectList() {
         projects = DataLoader.getProjects();
-       
     }
 
     /**
@@ -48,6 +47,15 @@ public class ProjectList {
      */
     public ArrayList<Project> getProjects() {
         return this.projects;
+    }
+
+    /**
+     * Saves the current projects
+     * @author ctaks
+     * @return boolean determining if the projects were saved.
+     */
+    public boolean saveProjects() {
+        return DataWriter.saveProjects();
     }
 
 }
