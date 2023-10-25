@@ -95,21 +95,31 @@ public class Project {
     }
 
     /**
-     * 
-     * @param column
-     * @return
+     * Adds a column to the project
+     * @author Duayne
+     * @param column Column object of the column to be added to the project
+     * @return boolean that represents a change after adding column to the list of columns
      */
     public boolean addColumn(Column column) {
-        return false;
+        if (column == null)
+            return false;
+        int size = columns.size();
+        columns.add(column);
+        return size != columns.size();
     }
 
     /**
-     * 
-     * @param column
-     * @return
+     * Removes a column from the project
+     * @author Duayne
+     * @param column Column object of the column to be removed from the project
+     * @return boolean that represents a change after removing column from the list of columns
      */
     public boolean removeColumn(Column column) {
-        return false;
+        if (!columns.contains(column))
+            return false;
+        int size = columns.size() - 1;
+        columns.remove(column);
+        return size == columns.size();
     }
 
     /**
