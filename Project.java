@@ -219,4 +219,36 @@ public class Project {
         this.endSprint = endSprint;
     }
 
+    /**
+     * Gets the project's team
+     * @author Duayne
+     * @return Array List of users in the team
+     */
+    public ArrayList<User> getTeam() {
+        if (this.team != null)
+            return team;
+        return null;
+    }
+
+    /**
+     * Gets the project's comments
+     * @author Duayne
+     * @return Array List of comments in the comment list
+     */
+    public ArrayList<Comment> getComments() {
+        if (this.comments != null)
+            return comments;
+        return null;
+    }
+
+    /**
+     * Gets the project's backlog
+     * @author Duayne
+     * @return Array List of tasks in the project
+     */
+    public ProductBacklog getProductBacklog() {
+        if (this.productBacklog != null)
+            return productBacklog;
+        return null;
+    }
 }
