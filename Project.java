@@ -189,7 +189,9 @@ public class Project {
      * @return Date object of the sprint start date
      */
     public Date getStartSprint() {
-        return startSprint;
+        if (this.startSprint != null)
+            return startSprint;
+        return null;
     }
 
     /**
@@ -198,7 +200,9 @@ public class Project {
      * @return Date object of the sprint end date
      */
     public Date getEndSprint() {
-        return endSprint;
+        if (this.endSprint != null)
+            return endSprint;
+        return null;
     }
 
     /**
