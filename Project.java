@@ -131,9 +131,6 @@ public class Project {
         return false;
     }
 
-    public void startSprint() {
-    }
-
     /**
      * 
      * @param user
@@ -185,4 +182,41 @@ public class Project {
     public ArrayList<Column> getColumns() {
         return this.columns;
     }
+
+    /**
+     * Gets the sprint start date
+     * @author Duayne
+     * @return Date object of the sprint start date
+     */
+    public Date getStartSprint() {
+        return startSprint;
+    }
+
+    /**
+     * Gets the sprint end date
+     * @author Duayne
+     * @return Date object of the sprint end date
+     */
+    public Date getEndSprint() {
+        return endSprint;
+    }
+
+    /**
+     * Sets both the sprint start and end dates
+     * @author Duayne
+     * @param startSprint Date object of the sprint's start date
+     * @param endSprint Date object of the sprint's end date
+     */
+    public void setSprint(Date startSprint, Date endSprint) {
+        if (startSprint == null || endSprint == null)
+            return;
+        if (startSprint.compareTo(endSprint) > 0) {
+            Date temp = startSprint;
+            startSprint = endSprint;
+            endSprint = temp;
+        }
+        this.startSprint = startSprint;
+        this.endSprint = endSprint;
+    }
+
 }
