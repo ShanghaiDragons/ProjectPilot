@@ -18,6 +18,24 @@ public class ProjectPilotFacade {
         userList = UserList.getInstance();
         projectList = ProjectList.getInstance();
     }
+/**
+ * Creates an account for a given user
+ * @author Duayne
+ * @param userName string that represents the user's username
+ * @param firstName string that represents the user's first name
+ * @param lastName string that represents the user's last name
+ * @param password string that represents the user's password
+ * @return Returns the user that was created with the given parameters
+ */
+    public User createAccount(String firstName, String lastName, String userName, String password) {
+        if (this.user != null)
+            return user;
+        user = new User(firstName, lastName, userName, password, false,
+                        false, false, false);
+        // Uncomment code below when the addUser method is added and implemented to the UserList class
+        // userList.addUser();
+        return user;
+    }
 
     /**
      * Creates an instance (singleton) of ProjectPilotFacade if there isn't one
@@ -28,19 +46,6 @@ public class ProjectPilotFacade {
         if (projectPilotFacade == null)
             projectPilotFacade = new ProjectPilotFacade();
         return projectPilotFacade;
-    }
-
-    /**
-     * 
-     * @param firstName
-     * @param lastName
-     * @param userName
-     * @param password
-     * @return
-     */
-    public boolean createAccount(String firstName, String lastName, String userName, String password) {
-        // User newUser = new User(firstName, lastName, userName, password)
-        return true;
     }
 
     /**

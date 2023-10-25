@@ -22,8 +22,8 @@ public class DataWriter extends DataConstants {
 
         // TEST USERS. TODO: remove when testing is done.
         // UUID userID1 = UUID.randomUUID();
-        // User user1 = new User(userID1, "testUsername", "testFirstname", "testLastname");
-        // User user2 = new User(UUID.randomUUID(), "TestUsername2", "testFirstname2", "testLastName2");
+        // User user1 = new User(userID1, "testUsername", "testFirstname", "testLastname", "testPassword", false, false, false, false);
+        // User user2 = new User(UUID.randomUUID(), "TestUsername2", "testFirstname2", "testLastName2", "testPassword2", false, false, false, false);
         // jsonUsers.add(getUserJSON(user1));
         // jsonUsers.add(getUserJSON(user2));
 
@@ -74,7 +74,7 @@ public class DataWriter extends DataConstants {
         JSONArray jsonProjects = new JSONArray();
         
         // TEST Project TODO: Remove when testing is done
-        // User testUser = new User(UUID.randomUUID(), "testUsername", "testFirstname", "testLastname");
+        // User testUser = new User(UUID.randomUUID(), "testUsername", "testFirstname", "testLastname", "testPassword", false, false, false, false);
         // Project project1 = new Project(UUID.randomUUID(), "Test Project 1", testUser);
         // Project project2 = new Project(UUID.randomUUID(), "Test project 2", testUser);
         // jsonProjects.add(getProjectJSON(project1));

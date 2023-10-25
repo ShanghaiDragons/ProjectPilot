@@ -83,7 +83,7 @@ public class TempDriver {
       else
         System.out.println("passwords do not match. Retry.");
     }
-    if (ppf.createAccount(firstName, lastName, username, password1))
+    if (ppf.createAccount(firstName, lastName, username, password1) != null)
       System.out.println("Account created successfully");
     else {
       System.out.println("Account creation failed.\nExiting the program!");
