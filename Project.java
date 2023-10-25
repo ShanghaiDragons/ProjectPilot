@@ -81,30 +81,45 @@ public class Project {
     }
 
     /**
-     * 
-     * @param user
-     * @return
+     * Removes the given user from the project team
+     * @author Duayne
+     * @param user User object of the given user
+     * @return boolean that represents a change after removing user from the team 
      */
     public boolean removeUser(User user) {
-        return false;
+        if (!team.contains(user))
+            return false;
+        int size = team.size();
+        team.remove(user);
+        return size != team.size();
     }
 
     /**
-     * 
-     * @param column
-     * @return
+     * Adds a column to the project
+     * @author Duayne
+     * @param column Column object of the column to be added to the project
+     * @return boolean that represents a change after adding column to the list of columns
      */
     public boolean addColumn(Column column) {
-        return false;
+        if (column == null)
+            return false;
+        int size = columns.size();
+        columns.add(column);
+        return size != columns.size();
     }
 
     /**
-     * 
-     * @param column
-     * @return
+     * Removes a column from the project
+     * @author Duayne
+     * @param column Column object of the column to be removed from the project
+     * @return boolean that represents a change after removing column from the list of columns
      */
     public boolean removeColumn(Column column) {
-        return false;
+        if (!columns.contains(column))
+            return false;
+        int size = columns.size() - 1;
+        columns.remove(column);
+        return size == columns.size();
     }
 
     /**
@@ -114,9 +129,6 @@ public class Project {
      */
     public boolean editColumn(Column column) {
         return false;
-    }
-
-    public void startSprint() {
     }
 
     /**
@@ -169,5 +181,74 @@ public class Project {
      */
     public ArrayList<Column> getColumns() {
         return this.columns;
+    }
+
+    /**
+     * Gets the sprint start date
+     * @author Duayne
+     * @return Date object of the sprint start date
+     */
+    public Date getStartSprint() {
+        return startSprint;
+    }
+
+    /**
+     * Gets the sprint end date
+     * @author Duayne
+     * @return Date object of the sprint end date
+     */
+    public Date getEndSprint() {
+        return endSprint;
+    }
+
+    /**
+     * Sets both the sprint start and end dates
+     * @author Duayne
+     * @param startSprint Date object of the sprint's start date
+     * @param endSprint Date object of the sprint's end date
+     */
+    public void setSprint(Date startSprint, Date endSprint) {
+        if (startSprint == null || endSprint == null)
+            return;
+        if (startSprint.compareTo(endSprint) > 0) {
+            Date temp = startSprint;
+            startSprint = endSprint;
+            endSprint = temp;
+        }
+        this.startSprint = startSprint;
+        this.endSprint = endSprint;
+    }
+
+    /**
+     * Gets the project's team
+     * @author Duayne
+     * @return Array List of users in the team
+     */
+    public ArrayList<User> getTeam() {
+        if (this.team != null)
+            return team;
+        return null;
+    }
+
+    /**
+     * Gets the project's comments
+     * @author Duayne
+     * @return Array List of comments in the comment list
+     */
+    public ArrayList<Comment> getComments() {
+        if (this.comments != null)
+            return comments;
+        return null;
+    }
+
+    /**
+     * Gets the project's backlog
+     * @author Duayne
+     * @return Array List of tasks in the project
+     */
+    public ProductBacklog getProductBacklog() {
+        if (this.productBacklog != null)
+            return productBacklog;
+        return null;
     }
 }
