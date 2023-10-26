@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
 /**
  * This class represents a generic column in the scrum board 
  */
@@ -31,14 +32,13 @@ public class Column {
     }
 
     /**
-     * 
+     *adds task to the tasks array 
+     * @author theo v 
      * @param task
      * @return
      */
     public boolean addTask(Task task) {
-        // Implement logic to add a task to the column with specified type
-        // Return true if task added successfully, false otherwise
-        return false; // Placeholder return value
+        return tasks.add(task);
     }
 
     /**
@@ -63,20 +63,27 @@ public class Column {
        return true;
     }
 
-    public ArrayList<Task> sortAssignee(){
-       ArrayList<Task> temp = new ArrayList<Task>();
-       for(int i=1; i< tasks.size(); i++){
-        if(){
+    private void sortAssignee(){
+        tasks.sort(Comparator.comparing(Task.assignee()));
 
-       }
     }
-
+    /**
+     * alphabetically sorts the tasks array by the task name
+     * @author theo
+     * @return
+     */
     public ArrayList<Task> sortAlphabetical(){
-        tasks.sort(Comparator.naturalOrder());
+        tasks.sort(Comparator.comparing(Task::getTaskName));
+        return tasks;
     }
-
+    /**
+     * sorts the tasks by priority number
+     * @author theo 
+     * @return sorted tasks by priority
+     */
     public ArrayList<Task> sortPriority(){
-
+    tasks.sort(Comparator.comparingInt(Task::getPriority));
+    return tasks;
     }
 
     /**

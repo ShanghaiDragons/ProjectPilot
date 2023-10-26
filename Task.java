@@ -138,7 +138,7 @@ public abstract class Task extends ProductBacklog{
     public int getPriority(){
         return priority;
     }
-    
+
     /**
      * gets the task name
      * @author theo 
