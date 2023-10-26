@@ -72,10 +72,10 @@ public class User {
     * @return 
     */
     public boolean login(String username, String password) {
-        if(this.userName.equals(username) && verifyPassword(password)){
-            return true;
+        if(username==null || password==null){
+            return false;
         }
-        return false;
+        return this.userName.equals(username) && verifyPassword(password);
     }
 
     /**
