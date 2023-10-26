@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.UUID;
 
 /**
@@ -6,6 +7,7 @@ import java.util.UUID;
  * @author Duayne
  */
 public abstract class Task {
+    public static Comparator compareAssignee;
     private UUID id;
     protected String taskName;
     protected User assignee;
@@ -113,16 +115,6 @@ public abstract class Task {
     }
 
     /**
-     * A boolean check to see if the task was archived
-     * @author Duayne
-     * @return Returns the comparison of the new and old archived task list
-     */
-    public boolean archiveTask() {
-        ArrayList<Task> oldArchivedList = getArchivedTasks();
-        addArchivedTask(this);
-        return oldArchivedList.size() != getArchivedTasks().size();
-    }
-    /**
      * gets the assignee
      * @author theo 
      * @return assignee 
@@ -130,6 +122,7 @@ public abstract class Task {
     public User getAssignee(){
         return assignee;
     }
+
     /**
      * returns the priority int value 
      * @author theo 
