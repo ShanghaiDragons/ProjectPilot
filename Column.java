@@ -67,7 +67,12 @@ public class Column {
     }
 
     private void sortAssignee(){
+<<<<<<< HEAD
         Collections.sort(tasks,Task.compareAssignee);
+=======
+        Collections.sort(tasks, Task.compareAssignee);
+
+>>>>>>> theo_branch
     }
     /**
      * 
