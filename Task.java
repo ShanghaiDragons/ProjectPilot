@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -10,6 +11,7 @@ public abstract class Task {
     protected User assignee;
     protected int priority;
     protected String description;
+    protected ArrayList<Comment> taskComments;
 
 
     /**
@@ -109,6 +111,47 @@ public abstract class Task {
         String oldDescription = this.description;
         setDescription(newDescription);
         return oldDescription != newDescription;
+    }
+
+    /**
+     * Adds a comment to the task
+     * @author Duayne
+     * @param user User object of the current user
+     * @param message String of the message in the comment
+     * @return boolean representing the comparison of the old and new task comment array list size
+     */
+    public boolean addComment(User user, String message) {
+        if (user == null || message.equals(null))
+            return false;
+        int size = taskComments.size();
+        Comment comment = new Comment(user, this, message);
+        taskComments.add(comment);
+        return size != taskComments.size();
+    }
+
+    /**
+     * Gets the comment that is searched
+     * @author Duayne
+     * @param id UUID of the targeted comment
+     * @return Comment that matches the UUID of the comment searched for
+     */
+    public Comment getComment(UUID id) {
+        for ( int i = 0; i < taskComments.size() - 1; i++ ) {
+            if ( taskComments.get(i).id == id )
+                return taskComments.get(i);
+        }
+        return null;
+    }
+
+    /**
+     * Gets all the comments for the task
+     * @author Duayne
+     * @return Array List of all this task's comments
+     */
+    public ArrayList<Comment> getComments() {
+        if (!taskComments.isEmpty())
+            return taskComments;
+        return null;
     }
 
     /**

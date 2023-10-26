@@ -1,14 +1,27 @@
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * This comment class represents a comment in  a task, a column, or another comment. 
  */
 public class Comment {
+    protected UUID id;
     private User user;
     private Task task;
     private String comment;
     private ArrayList<String> comments;
+
+    /**
+     * @param user
+     * @param task
+     * @param comment
+     */
+    public Comment(UUID id, User user, Task task, String comment) {
+        this.user = user;
+        this.task = task;
+        this.comment = comment;
+    }
 
     /**
      * @param user
