@@ -51,40 +51,56 @@ public class Column {
      * @return
      */
     public boolean addTask(Task task) {
-        // Implement logic to add a task to the column with specified type
-        // Return true if task added successfully, false otherwise
-        return false; // Placeholder return value
+        return tasks.add(task);
     }
 
     /**
-     * 
+     * Sorts arraylist task based on what the sort type is (assignee,priority,aphabetical)
      * @param sortType
      * @return
      */
     public boolean sortTasks(String sortType) {
-   
-        return false;
-    }
-
-    private void sortAssignee(){
-<<<<<<< HEAD
-        Collections.sort(tasks,Task.compareAssignee);
-=======
-        Collections.sort(tasks, Task.compareAssignee);
-
->>>>>>> theo_branch
+       switch(sortType){
+            case "assignee":
+            sortAssignee();
+            break;
+            case "priority":
+            sortPriority();
+            break;
+            case "alphabetical":
+            sortAlphabetical();
+            break;
+            default:
+            return false;
+       }
+       return true;
     }
     /**
-     * 
+     * sorts the tasks by assignee
+     * @author theo v
+     * @return sorted tasks by assignee
      */
-    @Override
-    public String toString() {
-       
-        return "Column{" +
-                "columnName='" + columnName + '\'' +
-                ", tasks=" + tasks +
-                ", sortType='" + sortType + '\'' +
-                '}';
+    private void sortAssignee(){
+        Collections.sort(tasks, Task.compareAssignee);
+
+    }
+    /**
+     * alphabetically sorts the tasks array by the task name
+     * @author theo
+     * @return
+     */
+    public ArrayList<Task> sortAlphabetical(){
+        tasks.sort(Comparator.comparing(Task::getTaskName));
+        return tasks;
+    }
+    /**
+     * sorts the tasks by priority number and returns that sorted arraylist
+     * @author theo 
+     * @return sorted tasks by priority
+     */
+    public ArrayList<Task> sortPriority(){
+    tasks.sort(Comparator.comparingInt(Task::getPriority));
+    return tasks;
     }
 
     /**
