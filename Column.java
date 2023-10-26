@@ -64,7 +64,7 @@ public class Column {
     }
 
     private void sortAssignee(){
-        tasks.sort(Comparator.comparing(Task.assignee()));
+        Collections.sort(tasks, Task.compareAssignee);
 
     }
     /**
