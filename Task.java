@@ -5,7 +5,7 @@ import java.util.UUID;
  * The atttributes of a task and its functionality
  * @author Duayne
  */
-public abstract class Task extends ProductBacklog{
+public abstract class Task {
     private UUID id;
     protected String taskName;
     protected User assignee;

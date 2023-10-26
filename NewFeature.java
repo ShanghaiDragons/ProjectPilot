@@ -1,9 +1,17 @@
 
-public class NewFeature{
+public class NewFeature extends Task{
     private String implementation;
     private String updateNumber;
 
-    public NewFeature() {   
+    /**
+     * 
+     * @param taskName
+     * @param asignee
+     * @param priority
+     * @param description
+     */
+    public NewFeature(String taskName, User assignee, int priority, String description) {  
+        super(taskName, assignee, priority, description);
     }
 
     /**
