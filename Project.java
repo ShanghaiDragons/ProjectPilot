@@ -124,21 +124,13 @@ public class Project {
 
     /**
      * 
-     * @param column
-     * @return
-     */
-    public boolean editColumn(Column column) {
-        return false;
-    }
-
-    /**
-     * 
      * @param user
      * @param project
      * @param comment
      * @return
      */
     private boolean addComment(User user, Project project, String comment) {
+        
         return false;
     }
 

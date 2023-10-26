@@ -30,6 +30,20 @@ public class Column {
     }
 
     /**
+     * Edits the column's name
+     * @author Duayne
+     * @param newColumnName String representation of the new column name
+     * @return boolean representing the comparison of the old and new column name
+     */
+    public boolean editColumnName(String newColumnName) {
+        if (newColumnName.equals(null))
+            return false;
+        String oldName = columnName;
+        setColumnName(newColumnName);
+        return !oldName.equals(columnName);
+    }
+
+    /**
      * 
      * @param task
      * @return
@@ -69,7 +83,7 @@ public class Column {
      */
     public static void setColumnName(String newColumnName){
         if(!newColumnName.isEmpty()){
-            newColumnName=columnName;
+            columnName = newColumnName;
         }
     }
 }
