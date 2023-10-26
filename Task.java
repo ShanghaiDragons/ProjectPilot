@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.UUID;
 
 /**
@@ -6,6 +7,7 @@ import java.util.UUID;
  * @author Duayne
  */
 public abstract class Task {
+    public static Comparator compareAssignee;
     private UUID id;
     protected String taskName;
     protected User assignee;
@@ -162,6 +164,7 @@ public abstract class Task {
     public User getAssignee(){
         return assignee;
     }
+
     /**
      * returns the priority int value 
      * @author theo 
