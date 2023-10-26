@@ -64,13 +64,12 @@ public class Column {
     }
 
     private void sortAssignee(){
-        tasks.sort(Comparator.comparing(Task.assignee()));
-
+        Collections.sort(tasks,Task.compareAssignee);
     }
     /**
      * alphabetically sorts the tasks array by the task name
      * @author theo
-     * @return
+     * @return an alphabetically sorted task arraylist
      */
     public ArrayList<Task> sortAlphabetical(){
         tasks.sort(Comparator.comparing(Task::getTaskName));
@@ -79,7 +78,7 @@ public class Column {
     /**
      * sorts the tasks by priority number
      * @author theo 
-     * @return sorted tasks by priority
+     * @return priority sorted task arraylist
      */
     public ArrayList<Task> sortPriority(){
     tasks.sort(Comparator.comparingInt(Task::getPriority));
@@ -87,7 +86,7 @@ public class Column {
     }
 
     /**
-     * 
+     * sets column name 
      * @param newColumnName
      */
     public static void setColumnName(String newColumnName){
