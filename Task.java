@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -112,16 +111,6 @@ public abstract class Task {
         return oldDescription != newDescription;
     }
 
-    /**
-     * A boolean check to see if the task was archived
-     * @author Duayne
-     * @return Returns the comparison of the new and old archived task list
-     */
-    public boolean archiveTask() {
-        ArrayList<Task> oldArchivedList = getArchivedTasks();
-        addArchivedTask(this);
-        return oldArchivedList.size() != getArchivedTasks().size();
-    }
     /**
      * gets the assignee
      * @author theo 
