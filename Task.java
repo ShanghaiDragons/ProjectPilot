@@ -29,6 +29,7 @@ public abstract class Task {
         this.assignee = assignee;
         this.priority = priority;
         this.description = description;
+        this.taskComments= new ArrayList<>();
     }
     /**
      * Sets the name of the task
