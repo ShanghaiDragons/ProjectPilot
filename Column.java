@@ -7,19 +7,19 @@ import java.util.UUID;
  * This class represents a generic column in the scrum board 
  */
 public class Column {
-    private static String columnName;
+    private UUID id;
+    private String name;
     private ArrayList<Task> tasks;
     private String sortType;
-    private UUID id;
-    private ArrayList<Comment> columnComments;
+    private ArrayList<Comment> comments;
 
     /**
      * theo v
-     * @param columnName
+     * @param name
      * @param sortType
      */
-    public Column(String columnName, String sortType) {
-        this.columnName = columnName;
+    public Column(String name, String sortType) {
+        this.name = name;
         this.sortType = sortType;
         this.tasks = new ArrayList<>();
         this.id=UUID.randomUUID();
@@ -45,9 +45,9 @@ public class Column {
     public boolean editColumnName(String newColumnName) {
         if (newColumnName.equals(null))
             return false;
-        String oldName = columnName;
+        String oldName = name;
         setColumnName(newColumnName);
-        return !oldName.equals(columnName);
+        return !oldName.equals(name);
     }
 
     /**
@@ -138,9 +138,9 @@ public class Column {
      * sets column name 
      * @param newColumnName
      */
-    public static void setColumnName(String newColumnName){
+    public void setColumnName(String newColumnName){
         if(!newColumnName.isEmpty()){
-            columnName = newColumnName;
+            this.name = newColumnName;
         }
     }
 
@@ -150,7 +150,7 @@ public class Column {
      * @return String of the column's name
      */
     public String getName() {
-        return this.columnName;
+        return this.name;
     }
 
     /**
@@ -178,10 +178,10 @@ public class Column {
      */
     public boolean addComment(User user, String message){
         if(user != null && !message.isEmpty()){
-            int size = columnComments.size();
+            int size = comments.size();
             Comment comment = new Comment(user, message);
-            columnComments.add(comment);
-            return size != columnComments.size();
+            comments.add(comment);
+            return size != comments.size();
         }
         return false;
         /*public boolean addComment(User user, String message) {
@@ -201,7 +201,7 @@ public class Column {
      * @return Comment of the comment
      */
     public Comment getComment(UUID commentID) {
-        for (Comment comment : this.columnComments) {
+        for (Comment comment : this.comments) {
             if (comment.getID() == commentID)
                 return comment;
         }
@@ -214,7 +214,7 @@ public class Column {
      * @return ArrayList<Comment> of the column's comments
      */
     public ArrayList<Comment> getComments() {
-        return this.columnComments;
+        return this.comments;
     }
 }
    
