@@ -202,4 +202,13 @@ public abstract class Task {
     public String getStatus() {
         return this.status;
     }
+
+    /**
+     * Get's the task description
+     * @author ctaks
+     * @return String of the task description
+     */
+    public String getDescription() {
+        return this.description;
+    }
 }

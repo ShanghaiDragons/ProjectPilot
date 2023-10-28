@@ -173,6 +173,9 @@ public class DataWriter extends DataConstants {
         taskData.put(TASK_NAME, task.getName());
         taskData.put(TASK_ID, task.getID().toString());
         taskData.put(TASK_ASSIGNEE, task.getAssignee().getID().toString());
+        taskData.put(TASK_PRIORITY, task.getPriority());
+        taskData.put(TASK_STATUS, task.getStatus());
+        taskData.put(TASK_DESCRIPTION, task.getDescription());
 
         return taskData;
     }
