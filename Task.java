@@ -139,7 +139,7 @@ public abstract class Task {
      */
     public Comment getComment(UUID id) {
         for ( int i = 0; i < taskComments.size() - 1; i++ ) {
-            if ( taskComments.get(i).id == id )
+            if ( taskComments.get(i).getID() == id )
                 return taskComments.get(i);
         }
         return null;
