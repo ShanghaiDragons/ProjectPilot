@@ -112,7 +112,7 @@ public class DataWriter extends DataConstants {
 
         JSONArray team = new JSONArray();
         for (User user : project.getTeam())
-            team.add(user.getID());
+            team.add(user.getID().toString());
 
         projectData.put(PROJECT_TEAM, team);
         projectData.put(PROJECT_START_SPRINT, project.getStartSprint());
@@ -120,14 +120,14 @@ public class DataWriter extends DataConstants {
 
         JSONArray columnIDs = new JSONArray();
         for (Column column : project.getColumns()) {
-            columnIDs.add(column.getID());
+            columnIDs.add(column.getID().toString());
         }
 
         projectData.put(PROJECT_COLUMN_IDS, columnIDs);
 
         JSONArray commentIDs = new JSONArray();
         for (Comment comment : project.getComments()) {
-            commentIDs.add(comment.getID());
+            commentIDs.add(comment.getID().toString());
         }
 
         return projectData;
@@ -136,7 +136,7 @@ public class DataWriter extends DataConstants {
     /**
      * Create a JSONObject for a column
      * @author Chris
-     * @param column the column name
+     * @param column the column
      * @return JSONObject of the column's data
      */
     public static JSONObject getColumnJSON(Column column) {
@@ -148,16 +148,33 @@ public class DataWriter extends DataConstants {
 
         JSONArray taskIDs = new JSONArray();
         for(Task task : column.getTasks())
-            taskIDs.add(task.getID());
+            taskIDs.add(task.getID().toString());
 
         columnData.put(COLUMN_TASK_IDS, taskIDs);
 
         JSONArray commentIDs = new JSONArray();
         for (Comment comment : column.getComments()) {
-            commentIDs.add(comment.getID());
+            commentIDs.add(comment.getID().toString());
+
+        columnData.put(COLUMN_COMMENT_IDS, commentIDs);
         }
 
         return columnData;
+    }
+
+    /**
+     * Creates a JSONObject for a task
+     * @param task the task
+     * @return JSONObject of a task's data
+     */
+    public static JSONObject getTaskJSON(Task task) {
+        JSONObject taskData = new JSONObject();
+
+        taskData.put(TASK_NAME, task.getName());
+        taskData.put(TASK_ID, task.getID().toString());
+        taskData.put(TASK_ASSIGNEE, task.getAssignee().getID().toString());
+
+        return taskData;
     }
 
     /**

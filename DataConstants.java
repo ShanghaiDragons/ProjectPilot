@@ -34,8 +34,8 @@ public abstract class DataConstants {
 
 	// TASK
 	protected static final String TASK = "task";
-	protected static final String TASK_ID = "id";
 	protected static final String TASK_NAME = "name";
+	protected static final String TASK_ID = "id";
 	protected static final String TASK_ASSIGNEE = "assignee";
 	protected static final String TASK_PRIORITY = "priority";
 	protected static final String TASK_STATUS = "status";

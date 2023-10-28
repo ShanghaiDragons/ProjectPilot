@@ -12,6 +12,7 @@ public abstract class Task {
     protected String taskName;
     protected User assignee;
     protected int priority;
+    protected String status;
     protected String description;
     protected ArrayList<Comment> taskComments;
 
@@ -24,10 +25,11 @@ public abstract class Task {
      * @param priority Integer representing the task's priority
      * @param description String describing the task
      */
-    public Task(String taskName, User assignee, int priority, String description) {
+    public Task(String taskName, User assignee, int priority, String status, String description) {
         this.taskName = taskName;
         this.assignee = assignee;
         this.priority = priority;
+        this.status = status;
         this.description = description;
     }
     /**
@@ -190,5 +192,14 @@ public abstract class Task {
      */
     public UUID getID() {
         return this.id;
+    }
+
+    /**
+     * Get's the task status
+     * @author ctaks
+     * @return UUID of the task's status
+     */
+    public String getStatus() {
+        return this.status;
     }
 }
