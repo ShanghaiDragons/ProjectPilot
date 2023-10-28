@@ -44,14 +44,17 @@ public class Column {
     }
 
     /**
-     * 
-     * @param task
-     * @return
+     * Adds task to the columns list of tasks
+     * @author Duayne
+     * @param task Task object for the task to be added
+     * @return boolean representing the comparison of the old and new tasks list size
      */
     public boolean addTask(Task task) {
-        // Implement logic to add a task to the column with specified type
-        // Return true if task added successfully, false otherwise
-        return false; // Placeholder return value
+        if (task == null)
+            return false;
+        int size = tasks.size();
+        tasks.add(task);
+        return size != tasks.size();
     }
 
     /**
