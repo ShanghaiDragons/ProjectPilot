@@ -71,6 +71,15 @@ public abstract class Task {
     }
 
     /**
+     * Sets the status of the task
+     * @author Duayne
+     * @param status String representing the status
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
      * A boolean check to see if the task name was changed
      * @author Duayne
      * @param newTaskName String representation of the new task name
