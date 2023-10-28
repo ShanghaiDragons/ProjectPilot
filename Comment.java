@@ -18,8 +18,11 @@ public class Comment {
      * @param comment
      */
     public Comment(UUID id, User user, String comment) {
+        this.id= UUID.randomUUID();
         this.user = user;
         this.comment = comment;
+        this.date=new Date();
+        this.comments= new ArrayList<>();
     }
 
     /**
@@ -53,7 +56,7 @@ public class Comment {
      */
     public boolean threadComment(Comment comment) {
         if(comment.getID() != null){
-            comments.add(comment);
+            this.comments.add(comment);
             return true;
             }
         return false; 
