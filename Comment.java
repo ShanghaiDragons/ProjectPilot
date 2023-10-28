@@ -1,4 +1,4 @@
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -6,9 +6,9 @@ import java.util.UUID;
  * This comment class represents a comment in  a task, a column, or another comment. 
  */
 public class Comment {
-    protected UUID id;
+    private UUID id;
     private User user;
-    private Task task;
+    private Date date;
     private String comment;
     private ArrayList<String> comments;
 
@@ -17,9 +17,8 @@ public class Comment {
      * @param task
      * @param comment
      */
-    public Comment(UUID id, User user, Task task, String comment) {
+    public Comment(UUID id, User user, String comment) {
         this.user = user;
-        this.task = task;
         this.comment = comment;
     }
 
@@ -30,7 +29,6 @@ public class Comment {
      */
     public Comment(User user, Task task, String comment) {
         this.user = user;
-        this.task = task;
         this.comment = comment;
     }
 
@@ -70,5 +68,14 @@ public class Comment {
      */
     public User getUser() {
         return this.user;
+    }
+
+    /**
+     * Get's the comment's date
+     * @author ctaks
+     * @return the comment's date
+     */
+    public Date getDate() {
+        return this.date;
     }
 }
