@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * 
@@ -12,6 +13,7 @@ public class TaskHistory {
   private ArrayList<String> moveChanges;
   private ArrayList<String> assigneeChanges;
   private ArrayList<String> priorityChanges;
+  private UUID id;
 
   /**
    * Constructs the task history for the given task
@@ -35,7 +37,7 @@ public class TaskHistory {
    * @author ctaks
    * @return ArrayList<String> of name changes
    */
-  public ArrayList<String> getNameChange() {
+  public ArrayList<String> getNameChanges() {
     return this.nameChanges;
   }
 
@@ -73,5 +75,23 @@ public class TaskHistory {
    */
   public ArrayList<String> getPriorityChanges() {
     return this.priorityChanges;
+  }
+
+  /**
+   * Gets the UUID
+   * @author ctaks
+   * @return UUID of the id
+   */
+  public UUID getID() {
+    return this.id;
+  }
+
+  /**
+   * Gets the task
+   * @author ctaks
+   * @return Task of the task
+   */
+  public Task getTask() {
+    return this.task;
   }
 }

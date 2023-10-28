@@ -179,7 +179,7 @@ public class Column {
     public boolean addComment(User user, String message){
         if(user != null && !message.isEmpty()){
             int size = columnComments.size();
-            Comment comment = new Comment(user, this, message);
+            Comment comment = new Comment(user, message);
             columnComments.add(comment);
             return size != columnComments.size();
         }
@@ -192,6 +192,29 @@ public class Column {
             taskComments.add(comment);
             return size != taskComments.size();
         }*/
+    }
+
+    /**
+     * Gets a specified comment
+     * @author ctaks
+     * @param commentID The specified comment's ID
+     * @return Comment of the comment
+     */
+    public Comment getComment(UUID commentID) {
+        for (Comment comment : this.columnComments) {
+            if (comment.getID() == commentID)
+                return comment;
+        }
+        return null;
+    }
+
+    /**
+     * Get's the column's comments
+     * @author ctaks
+     * @return ArrayList<Comment> of the column's comments
+     */
+    public ArrayList<Comment> getComments() {
+        return this.columnComments;
     }
 }
    

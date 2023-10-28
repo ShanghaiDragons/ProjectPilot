@@ -18,11 +18,8 @@ public class Comment {
      * @param comment
      */
     public Comment(UUID id, User user, String comment) {
-        this.id= UUID.randomUUID();
         this.user = user;
         this.comment = comment;
-        this.date=new Date();
-        this.comments= new ArrayList<>();
     }
 
     /**
@@ -30,16 +27,7 @@ public class Comment {
      * @param task
      * @param comment
      */
-    public Comment(User user, Task task, String comment) {
-        this.user = user;
-        this.comment = comment;
-    }
-    /**
-     * @param user
-     * @param column
-     * @param comment
-     */
-    public Comment(User user, Column column, String comment) {
+    public Comment(User user, String comment) {
         this.user = user;
         this.comment = comment;
     }
@@ -65,7 +53,7 @@ public class Comment {
      */
     public boolean threadComment(Comment comment) {
         if(comment.getID() != null){
-            this.comments.add(comment);
+            comments.add(comment);
             return true;
             }
         return false; 
@@ -114,13 +102,5 @@ public class Comment {
      */
     public ArrayList<Comment> getThread() {
         return this.comments;
-    }
-    /**
-     * returns all the values of a comment (ID, user, date, comment)
-     * @author theo
-     * @return a string that represents all the values of a comment 
-     */
-    public String toString(){
-        return "Comment ID: " + id + "\n" + user + "\n" + "Date: " + date + "\n" + "Comment: " + comment + "\n";
     }
 }

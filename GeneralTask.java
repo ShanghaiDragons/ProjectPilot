@@ -3,7 +3,7 @@
  */
 public class GeneralTask extends Task{
     
-    public GeneralTask(String taskName, User assignee, int priority, String description) {
-        super(taskName, assignee, priority, description);
+    public GeneralTask(String taskName, User assignee, int priority, String status, String description) {
+        super(taskName, assignee, priority, status, description);
     }
 }
