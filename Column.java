@@ -13,7 +13,7 @@ public class Column {
     private UUID id;
 
     /**
-     * 
+     * theo v
      * @param columnName
      * @param sortType
      */
@@ -21,6 +21,7 @@ public class Column {
         this.columnName = columnName;
         this.sortType = sortType;
         this.tasks = new ArrayList<>();
+        this.id=UUID.randomUUID();
     }
 
     /**
@@ -49,9 +50,10 @@ public class Column {
     }
 
     /**
-     * 
+     * adds a task unto the tasks array list 
+     * @author theo
      * @param task
-     * @return
+     * @return the added task 
      */
     public boolean addTask(Task task) {
         return tasks.add(task);
@@ -59,6 +61,7 @@ public class Column {
 
     /**
      * Sorts arraylist task based on what the sort type is (assignee,priority,aphabetical)
+     * @author theo 
      * @param sortType
      * @return
      */
