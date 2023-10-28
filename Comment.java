@@ -87,4 +87,13 @@ public class Comment {
     public String getMessage() {
         return this.comment;
     }
+
+    /**
+     * Get's the comment's UUID
+     * @author ctaks
+     * @return the comment's UUID
+     */
+    public UUID getID() {
+        return this.id;
+    }
 }
