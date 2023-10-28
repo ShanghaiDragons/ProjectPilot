@@ -14,30 +14,137 @@ public class Project {
     private ArrayList<Column> columns;
     private ArrayList<Comment> comments;
 
-    /**
-     * 
-     * @param id
-     * @param name
-     * @param user
-     */
+    
+    public Project(String name, Date startSprint, Date endSprint, ArrayList<User> team, ArrayList<Column> columns, ArrayList<Comment> comments) {
+        setID(id);
+        setStartSprint(startSprint);
+        setEndSprint(endSprint);
+        setTeam(team);
+        setColumns(columns);
+        setComments(comments);
+    }
+
+    
     public Project(UUID id, String name, User user) {
-        this.id = id;
-        this.name = name;
-        this.team = new ArrayList<>();
-        this.columns = new ArrayList<>();
-        this.comments = new ArrayList<>();
+        setID(id);
+        setStartSprint(startSprint);
+        setEndSprint(endSprint);
+        setTeam(team);
+        setColumns(columns);
+        setComments(comments);
     }
 
     /**
-     * 
-     * @param name
-     * @param user
+     * Setter for id
+     * @author ctaks
+     * @param id to be set
+     * @return boolean determining success
      */
-    public Project(String name, User user) {
-        this.name = name;
-        this.team = new ArrayList<>();
-        this.columns = new ArrayList<>();
-        this.comments = new ArrayList<>();
+    public boolean setID(UUID id) {
+        if (id != null) {
+            this.id = id;
+            return true;
+        }
+        else {
+            this.id = UUID.randomUUID();
+            return true;
+        }
+    }
+
+    /**
+     * Setter for name
+     * @author ctaks
+     * @param name to be set
+     * @return boolean determing success
+     */
+    public boolean setName(String name) {
+        if (name != null) {
+            this.name = name;
+            return true;
+        } else {
+            this.name = "default";
+            return false;
+        }
+    }
+
+    /**
+     * setter for startSprint
+     * @author ctaks
+     * @param start to be set
+     * @return boolean determing success
+     */
+    public boolean setStartSprint(Date start) {
+        if (start != null) {
+            this.startSprint = start;
+            return true;
+        } else {
+            this.startSprint = new Date();
+            return false;
+        }
+    }
+
+     /**
+     * setter for endSprint
+     * @author ctaks
+     * @param start to be set
+     * @return boolean determing success
+     */
+    public boolean setEndSprint(Date end) {
+        if (end != null) {
+            this.endSprint = end;
+            return true;
+        } else {
+            this.endSprint = new Date();
+            return false;
+        }
+    }
+
+    /**
+     * Setter for team
+     * @author ctaks
+     * @param team to be set
+     * @return boolean determing success
+     */
+    public boolean setTeam(ArrayList<User> team) {
+        if (team == null || team.isEmpty()) {
+            this.team = new ArrayList<User>();
+            return true;
+        } else {
+            this.team = team;
+            return true;
+        }
+    }
+
+    /**
+     * setter for column
+     * @author ctaks
+     * @param column to be set
+     * @return boolean determing success
+     */
+    public boolean setColumns(ArrayList<Column> columns) {
+        if (columns == null || columns.isEmpty()) {
+            this.columns = new ArrayList<Column>();
+            return true;
+        } else {
+            this.columns = columns;
+            return true;
+        }
+    }
+
+    /**
+     * Setter for comments
+     * @author ctaks
+     * @param comments to be set
+     * @return boolean determing success
+     */
+    public boolean setComments(ArrayList<Comment> comments) {
+        if (comments == null || comments.isEmpty()) {
+            this.comments = new ArrayList<Comment>();
+            return true;
+        } else {
+            this.comments = comments;
+            return true;
+        }
     }
 
     /**
