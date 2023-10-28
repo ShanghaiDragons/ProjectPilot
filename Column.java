@@ -7,19 +7,19 @@ import java.util.UUID;
  * This class represents a generic column in the scrum board 
  */
 public class Column {
-    private static String columnName;
+    private UUID id;
+    private String name;
     private ArrayList<Task> tasks;
     private String sortType;
-    private UUID id;
     private ArrayList<Comment> comments;
 
     /**
      * 
-     * @param columnName
+     * @param name
      * @param sortType
      */
-    public Column(String columnName, String sortType) {
-        this.columnName = columnName;
+    public Column(String name, String sortType) {
+        this.name = name;
         this.sortType = sortType;
         this.tasks = new ArrayList<>();
     }
@@ -44,9 +44,9 @@ public class Column {
     public boolean editColumnName(String newColumnName) {
         if (newColumnName.equals(null))
             return false;
-        String oldName = columnName;
+        String oldName = name;
         setColumnName(newColumnName);
-        return !oldName.equals(columnName);
+        return !oldName.equals(name);
     }
 
     /**
@@ -135,9 +135,9 @@ public class Column {
      * sets column name 
      * @param newColumnName
      */
-    public static void setColumnName(String newColumnName){
+    public void setColumnName(String newColumnName){
         if(!newColumnName.isEmpty()){
-            columnName = newColumnName;
+            this.name = newColumnName;
         }
     }
 
@@ -147,7 +147,7 @@ public class Column {
      * @return String of the column's name
      */
     public String getName() {
-        return this.columnName;
+        return this.name;
     }
 
     /**

@@ -7,24 +7,22 @@ import java.util.UUID;
  */
 public class Project {
     private UUID id;
-    private ArrayList<User> team;
-    private ArrayList<Column> columns;
+    private String name;
     private Date startSprint;
     private Date endSprint;
-    private User user;
-    private String projectName;
+    private ArrayList<User> team;
+    private ArrayList<Column> columns;
     private ArrayList<Comment> comments;
 
     /**
      * 
      * @param id
-     * @param projectName
+     * @param name
      * @param user
      */
-    public Project(UUID id, String projectName, User user) {
+    public Project(UUID id, String name, User user) {
         this.id = id;
-        this.projectName = projectName;
-        this.user = user;
+        this.name = name;
         this.team = new ArrayList<>();
         this.columns = new ArrayList<>();
         this.comments = new ArrayList<>();
@@ -32,12 +30,11 @@ public class Project {
 
     /**
      * 
-     * @param projectName
+     * @param name
      * @param user
      */
-    public Project(String projectName, User user) {
-        this.projectName = projectName;
-        this.user = user;
+    public Project(String name, User user) {
+        this.name = name;
         this.team = new ArrayList<>();
         this.columns = new ArrayList<>();
         this.comments = new ArrayList<>();
@@ -145,11 +142,11 @@ public class Project {
     /**
      * Gets the name of the project
      * @author Chris
-     * @return the project name (this.projectName)
+     * @return the project name (this.name)
      */
     public String getName() {
-        if (this.projectName != null)
-            return this.projectName;
+        if (this.name != null)
+            return this.name;
         else
             return "no name found";
     }
