@@ -10,7 +10,7 @@ public class Comment {
     private User user;
     private Date date;
     private String comment;
-    private ArrayList<String> comments;
+    private ArrayList<Comment> comments;
 
     /**
      * @param user
@@ -47,18 +47,16 @@ public class Comment {
 
     /**
      * adding a comment on another comment, hence threading the comments
-     * @author theo 
-     * @param user
-     * @param task
-     * @param comment
-     * @return
+     * @author theo (edited by ctaks)
+     * @param comment the comment to be added
+     * @return boolean determining if the addition was a success
      */
-    public boolean threadComment(String comment) {
-        if(!comment.isEmpty()){
+    public boolean threadComment(Comment comment) {
+        if(comment.getID() != null){
             comments.add(comment);
             return true;
             }
-            return false; 
+        return false; 
     }
 
     /**
@@ -73,7 +71,7 @@ public class Comment {
     /**
      * Get's the comment's date
      * @author ctaks
-     * @return the comment's date
+     * @return Date of the comment's date
      */
     public Date getDate() {
         return this.date;
@@ -82,7 +80,7 @@ public class Comment {
     /**
      * Get's the comment's message
      * @author ctaks
-     * @return the comment's message
+     * @return String of the comment's message
      */
     public String getMessage() {
         return this.comment;
@@ -91,9 +89,18 @@ public class Comment {
     /**
      * Get's the comment's UUID
      * @author ctaks
-     * @return the comment's UUID
+     * @return UUID of the comment's UUID
      */
     public UUID getID() {
         return this.id;
+    }
+
+    /**
+     * Get's the comment's thread
+     * @author ctaks
+     * @return ArrayList<Comment> of the comment's thread
+     */
+    public ArrayList<Comment> getThread() {
+        return this.comments;
     }
 }
