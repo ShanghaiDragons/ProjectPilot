@@ -106,4 +106,12 @@ public class Comment {
     public ArrayList<Comment> getThread() {
         return this.comments;
     }
+    /**
+     * returns all the values of a comment (ID, user, date, comment)
+     * @author theo
+     * @return a string that represents all the values of a comment 
+     */
+    public String toString(){
+        return "Comment ID: " + id + "\n" + user + "\n" + "Date: " + date + "\n" + "Comment: " + comment + "\n";
+    }
 }
