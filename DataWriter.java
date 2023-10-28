@@ -152,6 +152,11 @@ public class DataWriter extends DataConstants {
 
         columnData.put(COLUMN_TASK_IDS, taskIDs);
 
+        JSONArray commentIDs = new JSONArray();
+        for (Comment comment : column.getComments()) {
+            commentIDs.add(comment.getID());
+        }
+
         return columnData;
     }
 

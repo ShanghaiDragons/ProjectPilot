@@ -11,6 +11,7 @@ public class Column {
     private ArrayList<Task> tasks;
     private String sortType;
     private UUID id;
+    private ArrayList<Comment> comments;
 
     /**
      * 
@@ -165,5 +166,28 @@ public class Column {
      */
     public String getSortType() {
         return this.sortType;
+    }
+
+    /**
+     * Gets a specified comment
+     * @author ctaks
+     * @param commentID The specified comment's ID
+     * @return Comment of the comment
+     */
+    public Comment getComment(UUID commentID) {
+        for (Comment comment : this.comments) {
+            if (comment.getID() == commentID)
+                return comment;
+        }
+        return null;
+    }
+
+    /**
+     * Get's the column's comments
+     * @author ctaks
+     * @return ArrayList<Comment> of the column's comments
+     */
+    public ArrayList<Comment> getComments() {
+        return this.comments;
     }
 }
