@@ -41,21 +41,21 @@ public abstract class DataConstants {
 	protected static final String TASK_STATUS = "status";
 	protected static final String TASK_DESCRIPTION = "description";
 	protected static final String TASK_COMMENT_IDS = "commentIDs";
+	protected static final String TASK_GENERAL = "isGeneral"; // boolean
+	protected static final String TASK_NEW_FEATURE = "isNewFeature"; // boolean
+	protected static final String TASK_BUG = "isBug"; // boolean
 
 	// TaskHistory
-	protected static final String TASK_HISTORY_LOG_ID = "id";
 	protected static final String TASK_HISTORY_LOG = "taskHistoryLog";
 	protected static final String TASK_HISTORY = "taskHistory";
-	protected static final String TASK_HISTORY_TASK = "task";
+	protected static final String TASK_HISTORY_ID = "id";
+	protected static final String TASK_HISTORY_TASK_ID = "taskID";
 	protected static final String TASK_HISTORY_CREATION_DATE = "creationDate";
 	protected static final String TASK_HISTORY_NAME_CHANGES = "nameChanges";
 	protected static final String TASK_HISTORY_DESCRIPTION_CHANGES = "descriptionChanges";
 	protected static final String TASK_HISTORY_MOVE_CHANGES = "moveChanges";
 	protected static final String TASK_HISTORY_ASSIGNEE_CHANGES = "assigneeChanges";
 	protected static final String TASK_HISTORY_PRIORITY_CHANGES = "priorityChanges";
-	protected static final String TASK_GENERAL = "isGeneral"; // boolean
-	protected static final String TASK_NEW_FEATURE = "isNewFeature"; // boolean
-	protected static final String TASK_BUG = "isBug"; // boolean
 	
 	// Comment
 	protected static final String COMMENT = "comment";

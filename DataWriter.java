@@ -20,12 +20,21 @@ public class DataWriter extends DataConstants {
         ArrayList<User> userList = users.getUsers();
         JSONArray jsonUsers = new JSONArray();
 
+        /*
         // TEST USERS. TODO: remove when testing is done.
-        // UUID userID1 = UUID.randomUUID();
-        // User user1 = new User(userID1, "testUsername", "testFirstname", "testLastname", "testPassword", false, false, false, false);
-        // User user2 = new User(UUID.randomUUID(), "TestUsername2", "testFirstname2", "testLastName2", "testPassword2", false, false, false, false);
-        // jsonUsers.add(getUserJSON(user1));
-        // jsonUsers.add(getUserJSON(user2));
+        UUID userID1 = UUID.randomUUID();
+        User user1 = new User(userID1, "testUsername", "testFirstname", "testLastname", "testPassword", false, false, false, false);
+        User user2 = new User(UUID.randomUUID(), "TestUsername2", "testFirstname2", "testLastName2", "testPassword2", false, false, false, false);
+        jsonUsers.add(getUserJSON(user1));
+        jsonUsers.add(getUserJSON(user2));
+        ArrayList<String> things = new ArrayList();
+        things.add("test1");
+        things.add("test2");
+        things.add("test3");
+        JSONObject thingobj = new JSONObject();
+        thingobj.put("things", things);
+        jsonUsers.add(thingobj);
+        */
 
         // Creating JSON objects
         for(int i=0; i < userList.size(); i++) {
@@ -34,7 +43,7 @@ public class DataWriter extends DataConstants {
 
         // Write to JSON file
         // TODO: hardcoded the filename for testing. Change for final version. -Chris
-        try (FileWriter file = new FileWriter("json/Users_test.json")) {
+        try (FileWriter file = new FileWriter("json/Users_test_write1.json")) {
             file.write(jsonUsers.toJSONString());
             return true;
 
@@ -119,16 +128,14 @@ public class DataWriter extends DataConstants {
         projectData.put(PROJECT_END_SPRINT, project.getEndSprint());
 
         JSONArray columnIDs = new JSONArray();
-        for (Column column : project.getColumns()) {
+        for (Column column : project.getColumns())
             columnIDs.add(column.getID().toString());
-        }
 
         projectData.put(PROJECT_COLUMN_IDS, columnIDs);
 
         JSONArray commentIDs = new JSONArray();
-        for (Comment comment : project.getComments()) {
+        for (Comment comment : project.getComments())
             commentIDs.add(comment.getID().toString());
-        }
 
         return projectData;
     }
@@ -153,11 +160,10 @@ public class DataWriter extends DataConstants {
         columnData.put(COLUMN_TASK_IDS, taskIDs);
 
         JSONArray commentIDs = new JSONArray();
-        for (Comment comment : column.getComments()) {
+        for (Comment comment : column.getComments())
             commentIDs.add(comment.getID().toString());
 
         columnData.put(COLUMN_COMMENT_IDS, commentIDs);
-        }
 
         return columnData;
     }
@@ -176,8 +182,34 @@ public class DataWriter extends DataConstants {
         taskData.put(TASK_PRIORITY, task.getPriority());
         taskData.put(TASK_STATUS, task.getStatus());
         taskData.put(TASK_DESCRIPTION, task.getDescription());
+        
+        JSONArray commentIDs = new JSONArray();
+        for (Comment comment : task.getComments())
+            commentIDs.add(comment.getID().toString());
+
+        taskData.put(TASK_COMMENT_IDS, commentIDs);
 
         return taskData;
+    }
+
+    /**
+     * Create a JSONOjbect for a TaskHistory
+     * @param taskH the TaskHistory
+     * @return JSONObject of the taskHistory data
+     */
+    public static JSONObject getTaskHistoryJSON(TaskHistory taskH) {
+        JSONObject taskHData = new JSONObject();
+
+        taskHData.put(TASK_HISTORY_ID, taskH.getID().toString());
+        taskHData.put(TASK_HISTORY_TASK_ID, taskH.getTask().getID().toString());
+        taskHData.put(TASK_HISTORY_CREATION_DATE, taskH.getCreationDate());
+        taskHData.put(TASK_HISTORY_NAME_CHANGES, taskH.getNameChanges());
+        taskHData.put(TASK_HISTORY_DESCRIPTION_CHANGES, taskH.getDescriptionChanges());
+        taskHData.put(TASK_HISTORY_MOVE_CHANGES, taskH.getMoveChanges());
+        taskHData.put(TASK_HISTORY_ASSIGNEE_CHANGES, taskH.getAssigneeChanges());
+        taskHData.put(TASK_HISTORY_PRIORITY_CHANGES, taskH.getPriorityChanges());
+
+        return taskHData;
     }
 
     /**
@@ -188,11 +220,10 @@ public class DataWriter extends DataConstants {
          System.out.println("Users SAVED");
          else
          System.out.println("Users FAILED TO SAVE");
-         
          if(saveProjects())
          System.out.println("Projects SAVED");
          else
          System.out.println("Projects FAILED TO SAVE");
-        }
-        */
+    }
+    */
 }

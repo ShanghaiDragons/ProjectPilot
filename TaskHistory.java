@@ -35,7 +35,7 @@ public class TaskHistory {
    * @author ctaks
    * @return ArrayList<String> of name changes
    */
-  public ArrayList<String> getNameChange() {
+  public ArrayList<String> getNameChanges() {
     return this.nameChanges;
   }
 
