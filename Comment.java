@@ -34,6 +34,15 @@ public class Comment {
         this.user = user;
         this.comment = comment;
     }
+    /**
+     * @param user
+     * @param column
+     * @param comment
+     */
+    public Comment(User user, Column column, String comment) {
+        this.user = user;
+        this.comment = comment;
+    }
 
     /**
      * adds a comment

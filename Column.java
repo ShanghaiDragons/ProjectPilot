@@ -11,6 +11,7 @@ public class Column {
     private ArrayList<Task> tasks;
     private String sortType;
     private UUID id;
+    private ArrayList<Comment> columnComments;
 
     /**
      * theo v
@@ -169,4 +170,28 @@ public class Column {
     public String getSortType() {
         return this.sortType;
     }
+    /**
+     * adds a comment to the column
+     * @author duayne (tweaked by theo for column)
+     * @param user
+     * @param message
+     */
+    public boolean addComment(User user, String message){
+        if(user != null && !message.isEmpty()){
+            int size = columnComments.size();
+            Comment comment = new Comment(user, this, message);
+            columnComments.add(comment);
+            return size != columnComments.size();
+        }
+        return false;
+        /*public boolean addComment(User user, String message) {
+            if (user == null || message.equals(null))
+                return false;
+            int size = taskComments.size();
+            Comment comment = new Comment(user, this, message);
+            taskComments.add(comment);
+            return size != taskComments.size();
+        }*/
+    }
 }
+   
