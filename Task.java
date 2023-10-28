@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.UUID;
 
 /**
@@ -6,10 +7,12 @@ import java.util.UUID;
  * @author Duayne
  */
 public abstract class Task {
+    public static Comparator compareAssignee;
     private UUID id;
     protected String taskName;
     protected User assignee;
     protected int priority;
+    protected String status;
     protected String description;
     protected ArrayList<Comment> taskComments;
 
@@ -22,11 +25,13 @@ public abstract class Task {
      * @param priority Integer representing the task's priority
      * @param description String describing the task
      */
-    public Task(String taskName, User assignee, int priority, String description) {
+    public Task(String taskName, User assignee, int priority, String status, String description) {
         this.taskName = taskName;
         this.assignee = assignee;
         this.priority = priority;
+        this.status = status;
         this.description = description;
+        this.taskComments= new ArrayList<>();
     }
     /**
      * Sets the name of the task
@@ -124,7 +129,7 @@ public abstract class Task {
         if (user == null || message.equals(null))
             return false;
         int size = taskComments.size();
-        Comment comment = new Comment(user, this, message);
+        Comment comment = new Comment(user, message);
         taskComments.add(comment);
         return size != taskComments.size();
     }
@@ -137,7 +142,7 @@ public abstract class Task {
      */
     public Comment getComment(UUID id) {
         for ( int i = 0; i < taskComments.size() - 1; i++ ) {
-            if ( taskComments.get(i).id == id )
+            if ( taskComments.get(i).getID() == id )
                 return taskComments.get(i);
         }
         return null;
@@ -162,6 +167,7 @@ public abstract class Task {
     public User getAssignee(){
         return assignee;
     }
+
     /**
      * returns the priority int value 
      * @author theo 
@@ -176,8 +182,34 @@ public abstract class Task {
      * @author theo 
      * @return task name
      */
-    public String getTaskName(){
+    public String getName(){
         return taskName;
     }
 
+    /**
+     * Get's the task UUID
+     * @author ctaks
+     * @return UUID of the task's UUID
+     */
+    public UUID getID() {
+        return this.id;
+    }
+
+    /**
+     * Get's the task status
+     * @author ctaks
+     * @return UUID of the task's status
+     */
+    public String getStatus() {
+        return this.status;
+    }
+
+    /**
+     * Get's the task description
+     * @author ctaks
+     * @return String of the task description
+     */
+    public String getDescription() {
+        return this.description;
+    }
 }

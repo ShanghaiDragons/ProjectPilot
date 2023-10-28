@@ -20,12 +20,21 @@ public class DataWriter extends DataConstants {
         ArrayList<User> userList = users.getUsers();
         JSONArray jsonUsers = new JSONArray();
 
+        /*
         // TEST USERS. TODO: remove when testing is done.
-        // UUID userID1 = UUID.randomUUID();
-        // User user1 = new User(userID1, "testUsername", "testFirstname", "testLastname", "testPassword", false, false, false, false);
-        // User user2 = new User(UUID.randomUUID(), "TestUsername2", "testFirstname2", "testLastName2", "testPassword2", false, false, false, false);
-        // jsonUsers.add(getUserJSON(user1));
-        // jsonUsers.add(getUserJSON(user2));
+        UUID userID1 = UUID.randomUUID();
+        User user1 = new User(userID1, "testUsername", "testFirstname", "testLastname", "testPassword", false, false, false, false);
+        User user2 = new User(UUID.randomUUID(), "TestUsername2", "testFirstname2", "testLastName2", "testPassword2", false, false, false, false);
+        jsonUsers.add(getUserJSON(user1));
+        jsonUsers.add(getUserJSON(user2));
+        ArrayList<String> things = new ArrayList();
+        things.add("test1");
+        things.add("test2");
+        things.add("test3");
+        JSONObject thingobj = new JSONObject();
+        thingobj.put("things", things);
+        jsonUsers.add(thingobj);
+        */
 
         // Creating JSON objects
         for(int i=0; i < userList.size(); i++) {
@@ -34,7 +43,7 @@ public class DataWriter extends DataConstants {
 
         // Write to JSON file
         // TODO: hardcoded the filename for testing. Change for final version. -Chris
-        try (FileWriter file = new FileWriter("json/Users_test.json")) {
+        try (FileWriter file = new FileWriter("json/Users_test_write1.json")) {
             file.write(jsonUsers.toJSONString());
             return true;
 
@@ -99,23 +108,131 @@ public class DataWriter extends DataConstants {
     }
 
     /**
-     * Create a JSONObject a project
+     * Create a JSONObject for a project
      * @author Chris
      * @param project the project name
-     * @return JSONObject of the project's ID and name.
+     * @return JSONObject of the project's data
      */
     public static JSONObject getProjectJSON(Project project) {
-        JSONObject projectDetails = new JSONObject();
-        projectDetails.put(PROJECT_ID, project.getID().toString());
-        projectDetails.put(PROJECT_NAME, project.getName());
-        // projectDetails.put(PROJECT_COLUMNS, project.getColumns());
-        JSONArray columns = new JSONArray();
-        for (Column column : project.getColumns()) {
-            //TODO: finish
-            //column.put()
-        }
+        JSONObject projectData = new JSONObject();
 
-        return projectDetails;
+        projectData.put(PROJECT_ID, project.getID().toString());
+        projectData.put(PROJECT_NAME, project.getName());
+
+        JSONArray team = new JSONArray();
+        for (User user : project.getTeam())
+            team.add(user.getID().toString());
+
+        projectData.put(PROJECT_TEAM, team);
+        projectData.put(PROJECT_START_SPRINT, project.getStartSprint());
+        projectData.put(PROJECT_END_SPRINT, project.getEndSprint());
+
+        JSONArray columnIDs = new JSONArray();
+        for (Column column : project.getColumns())
+            columnIDs.add(column.getID().toString());
+
+        projectData.put(PROJECT_COLUMN_IDS, columnIDs);
+
+        JSONArray commentIDs = new JSONArray();
+        for (Comment comment : project.getComments())
+            commentIDs.add(comment.getID().toString());
+
+        return projectData;
+    }
+
+    /**
+     * Create a JSONObject for a column
+     * @author Chris
+     * @param column the column
+     * @return JSONObject of the column's data
+     */
+    public static JSONObject getColumnJSON(Column column) {
+        JSONObject columnData = new JSONObject();
+
+        columnData.put(COLUMN_NAME, column.getName());
+        columnData.put(COLUMN_ID, column.getID().toString());
+        columnData.put(COLUMN_SORT_TYPE, column.getSortType());
+
+        JSONArray taskIDs = new JSONArray();
+        for(Task task : column.getTasks())
+            taskIDs.add(task.getID().toString());
+
+        columnData.put(COLUMN_TASK_IDS, taskIDs);
+
+        JSONArray commentIDs = new JSONArray();
+        for (Comment comment : column.getComments())
+            commentIDs.add(comment.getID().toString());
+
+        columnData.put(COLUMN_COMMENT_IDS, commentIDs);
+
+        return columnData;
+    }
+
+    /**
+     * Creates a JSONObject for a task
+     * @param task the task
+     * @return JSONObject of a task's data
+     */
+    public static JSONObject getTaskJSON(Task task) {
+        JSONObject taskData = new JSONObject();
+
+        taskData.put(TASK_NAME, task.getName());
+        taskData.put(TASK_ID, task.getID().toString());
+        taskData.put(TASK_ASSIGNEE, task.getAssignee().getID().toString());
+        taskData.put(TASK_PRIORITY, task.getPriority());
+        taskData.put(TASK_STATUS, task.getStatus());
+        taskData.put(TASK_DESCRIPTION, task.getDescription());
+        
+        JSONArray commentIDs = new JSONArray();
+        for (Comment comment : task.getComments())
+            commentIDs.add(comment.getID().toString());
+
+        taskData.put(TASK_COMMENT_IDS, commentIDs);
+
+        return taskData;
+    }
+
+    /**
+     * Create a JSONOjbect for a TaskHistory
+     * @author ctaks
+     * @param taskH the TaskHistory
+     * @return JSONObject of the taskHistory data
+     */
+    public static JSONObject getTaskHistoryJSON(TaskHistory taskH) {
+        JSONObject taskHData = new JSONObject();
+
+        taskHData.put(TASK_HISTORY_ID, taskH.getID().toString());
+        taskHData.put(TASK_HISTORY_TASK_ID, taskH.getTask().getID().toString());
+        taskHData.put(TASK_HISTORY_CREATION_DATE, taskH.getCreationDate());
+        taskHData.put(TASK_HISTORY_NAME_CHANGES, taskH.getNameChanges());
+        taskHData.put(TASK_HISTORY_DESCRIPTION_CHANGES, taskH.getDescriptionChanges());
+        taskHData.put(TASK_HISTORY_MOVE_CHANGES, taskH.getMoveChanges());
+        taskHData.put(TASK_HISTORY_ASSIGNEE_CHANGES, taskH.getAssigneeChanges());
+        taskHData.put(TASK_HISTORY_PRIORITY_CHANGES, taskH.getPriorityChanges());
+
+        return taskHData;
+    }
+
+    /**
+     * Create a JSONObject of a comment
+     * @author ctaks
+     * @param comment the comment
+     * @return JSONObject of the comment data
+     */
+    public static JSONObject getCommentJSON(Comment comment) {
+        JSONObject commentData = new JSONObject();
+
+        commentData.put(COMMENT_USER_ID, comment.getUser().getID().toString());
+        commentData.put(COMMENT_DATE, comment.getDate());
+        commentData.put(COMMENT_MESSAGE, comment.getMessage());
+
+        JSONArray commentIDs = new JSONArray();
+        for (Comment threadcomment : comment.getThread())
+            commentIDs.add(threadcomment.getID().toString());
+
+        commentData.put(COMMENT_THREAD_IDs, commentIDs);
+
+        return commentData;
     }
 
     /**
@@ -126,11 +243,10 @@ public class DataWriter extends DataConstants {
          System.out.println("Users SAVED");
          else
          System.out.println("Users FAILED TO SAVE");
-         
          if(saveProjects())
          System.out.println("Projects SAVED");
          else
          System.out.println("Projects FAILED TO SAVE");
-        }
-        */
+    }
+    */
 }

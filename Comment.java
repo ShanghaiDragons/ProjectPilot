@@ -1,4 +1,4 @@
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -6,20 +6,19 @@ import java.util.UUID;
  * This comment class represents a comment in  a task, a column, or another comment. 
  */
 public class Comment {
-    protected UUID id;
+    private UUID id;
     private User user;
-    private Task task;
+    private Date date;
     private String comment;
-    private ArrayList<String> comments;
+    private ArrayList<Comment> comments;
 
     /**
      * @param user
      * @param task
      * @param comment
      */
-    public Comment(UUID id, User user, Task task, String comment) {
+    public Comment(UUID id, User user, String comment) {
         this.user = user;
-        this.task = task;
         this.comment = comment;
     }
 
@@ -28,9 +27,8 @@ public class Comment {
      * @param task
      * @param comment
      */
-    public Comment(User user, Task task, String comment) {
+    public Comment(User user, String comment) {
         this.user = user;
-        this.task = task;
         this.comment = comment;
     }
 
@@ -49,28 +47,60 @@ public class Comment {
 
     /**
      * adding a comment on another comment, hence threading the comments
-     * @author theo 
-     * @param user
-     * @param task
-     * @param comment
-     * @return
+     * @author theo (edited by ctaks)
+     * @param comment the comment to be added
+     * @return boolean determining if the addition was a success
      */
-    public boolean threadComment(String comment) {
-        if(!comment.isEmpty()){
+    public boolean threadComment(Comment comment) {
+        if(comment.getID() != null){
             comments.add(comment);
             return true;
             }
-            return false; 
+        return false; 
     }
 
     /**
-     * @return returns the comment with the author user name
+     * Gets the comment's assignee
+     * @author ctaks
+     * @return User of the user
      */
-    public String toString() {
-        
-        return "Comment{" +
-                "user=" + user+
-                ", comment='" + comment + '\'' +
-                '}';
+    public User getUser() {
+        return this.user;
+    }
+
+    /**
+     * Get's the comment's date
+     * @author ctaks
+     * @return Date of the comment's date
+     */
+    public Date getDate() {
+        return this.date;
+    }
+
+    /**
+     * Get's the comment's message
+     * @author ctaks
+     * @return String of the comment's message
+     */
+    public String getMessage() {
+        return this.comment;
+    }
+
+    /**
+     * Get's the comment's UUID
+     * @author ctaks
+     * @return UUID of the comment's UUID
+     */
+    public UUID getID() {
+        return this.id;
+    }
+
+    /**
+     * Get's the comment's thread
+     * @author ctaks
+     * @return ArrayList<Comment> of the comment's thread
+     */
+    public ArrayList<Comment> getThread() {
+        return this.comments;
     }
 }
