@@ -14,7 +14,6 @@ public class Project {
     private User user;
     private String projectName;
     private ArrayList<Comment> comments;
-    private ProductBacklog productBacklog;
 
     /**
      * 
@@ -29,7 +28,6 @@ public class Project {
         this.team = new ArrayList<>();
         this.columns = new ArrayList<>();
         this.comments = new ArrayList<>();
-        this.productBacklog = new ProductBacklog();
     }
 
     /**
@@ -43,7 +41,6 @@ public class Project {
         this.team = new ArrayList<>();
         this.columns = new ArrayList<>();
         this.comments = new ArrayList<>();
-        this.productBacklog = new ProductBacklog();
     }
 
     /**
@@ -234,17 +231,6 @@ public class Project {
     public ArrayList<Comment> getComments() {
         if (this.comments != null)
             return comments;
-        return null;
-    }
-
-    /**
-     * Gets the project's backlog
-     * @author Duayne
-     * @return Array List of tasks in the project
-     */
-    public ProductBacklog getProductBacklog() {
-        if (this.productBacklog != null)
-            return productBacklog;
         return null;
     }
 }
