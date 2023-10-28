@@ -59,9 +59,9 @@ public abstract class DataConstants {
 	
 	// Comment
 	protected static final String COMMENT = "comment";
-	protected static final String COMMENT_PROJECT_ID = "projectID";
-	protected static final String COMMENT_COLUMN_ID = "columnID";
-	protected static final String COMMENT_TASK_ID = "taskID";
+	// protected static final String COMMENT_PROJECT_ID = "projectID";
+	// protected static final String COMMENT_COLUMN_ID = "columnID";
+	// protected static final String COMMENT_TASK_ID = "taskID";
 	protected static final String COMMENT_USER_ID = "userID";
 	protected static final String COMMENT_DATE = "date";
 	protected static final String COMMENT_MESSAGE = "message";

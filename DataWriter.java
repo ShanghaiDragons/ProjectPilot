@@ -194,6 +194,7 @@ public class DataWriter extends DataConstants {
 
     /**
      * Create a JSONOjbect for a TaskHistory
+     * @author ctaks
      * @param taskH the TaskHistory
      * @return JSONObject of the taskHistory data
      */
@@ -210,6 +211,28 @@ public class DataWriter extends DataConstants {
         taskHData.put(TASK_HISTORY_PRIORITY_CHANGES, taskH.getPriorityChanges());
 
         return taskHData;
+    }
+
+    /**
+     * Create a JSONObject of a comment
+     * @author ctaks
+     * @param comment the comment
+     * @return JSONObject of the comment data
+     */
+    public static JSONObject getCommentJSON(Comment comment) {
+        JSONObject commentData = new JSONObject();
+
+        commentData.put(COMMENT_USER_ID, comment.getUser().getID().toString());
+        commentData.put(COMMENT_DATE, comment.getDate());
+        commentData.put(COMMENT_MESSAGE, comment.getMessage());
+
+        JSONArray commentIDs = new JSONArray();
+        for (Comment threadcomment : comment.getThread())
+            commentIDs.add(threadcomment.getID().toString());
+
+        commentData.put(COMMENT_THREAD_IDs, commentIDs);
+
+        return commentData;
     }
 
     /**
