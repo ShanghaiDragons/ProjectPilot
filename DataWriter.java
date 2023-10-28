@@ -125,6 +125,11 @@ public class DataWriter extends DataConstants {
 
         projectData.put(PROJECT_COLUMN_IDS, columnIDs);
 
+        JSONArray commentIDs = new JSONArray();
+        for (Comment comment : project.getComments()) {
+            commentIDs.add(comment.getID());
+        }
+
         return projectData;
     }
 

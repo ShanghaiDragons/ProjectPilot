@@ -64,13 +64,11 @@ public class Comment {
     }
 
     /**
-     * @return returns the comment with the author user name
+     * Gets the comment's assignee
+     * @author ctaks
+     * @return User of the user
      */
-    public String toString() {
-        
-        return "Comment{" +
-                "user=" + user+
-                ", comment='" + comment + '\'' +
-                '}';
+    public User getUser() {
+        return this.user;
     }
 }
