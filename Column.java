@@ -9,20 +9,121 @@ import java.util.UUID;
 public class Column {
     private UUID id;
     private String name;
-    private ArrayList<Task> tasks;
     private String sortType;
+    private ArrayList<Task> tasks;
     private ArrayList<Comment> comments;
 
     /**
-     * theo v
-     * @param name
-     * @param sortType
+     * Makes a new, fresh column. Meaning a new list of tasks and comments are created.
+     * @author ctaks
+     * @param name new name
+     * @param sortType new sortType
+     * @param tasks new tasks
+     * @param comments new comments
      */
-    public Column(String name, String sortType) {
-        this.name = name;
-        this.sortType = sortType;
-        this.tasks = new ArrayList<>();
-        this.id=UUID.randomUUID();
+    public Column(String name, String sortType, ArrayList<Task> tasks, ArrayList<Comment> comments) {
+        setID(id);
+        setName(name);
+        setSortType(sortType);
+        setTasks(tasks);
+        setComments(comments);
+    }
+
+    /**
+     * For loading a column. Needs an ID.
+     * @param id id from JSON file
+     * @param name name from JSON file
+     * @param sortType sortType from JSON file
+     * @param tasks tasks from JSON file
+     * @param comments comments from JSON file
+     */
+    public Column(UUID id, String name, String sortType, ArrayList<Task> tasks, ArrayList<Comment> comments) {
+        setID(id);
+        setName(name);
+        setSortType(sortType);
+        setTasks(tasks);
+        setComments(comments);
+    }
+
+    /**
+     * Setter for id
+     * @author ctaks
+     * @param id to be set
+     * @return boolean determining success
+     */
+    public boolean setID(UUID id) {
+        if (id != null) {
+            this.id = id;
+            return true;
+        }
+        else {
+            this.id = UUID.randomUUID();
+            return true;
+        }
+    }
+
+    /**
+     * Setter for name
+     * @author ctaks
+     * @param name to be set
+     * @return boolean determing success
+     */
+    public boolean setName(String name) {
+        if (name != null) {
+            this.name = name;
+            return true;
+        } else {
+            this.name = "default";
+            return false;
+        }
+    }
+
+    /**
+     * setter for sortType
+     * @author ctaks
+     * @param sortType to be set
+     * @return boolean determining success
+     */
+    public boolean setSortType(String sortType) {
+        if (sortType != null) {
+            this.sortType = sortType;
+            return true;
+        } else {
+            this.sortType = "default";
+            return false;
+        }
+    }
+
+    /**
+     * Setter for tasks
+     * @author ctaks
+     * @param tasks to be set
+     * @return boolean determing success
+     */
+    public boolean setTasks(ArrayList<Task> tasks) {
+        if (tasks == null || tasks.isEmpty()) {
+            this.tasks = new ArrayList<Task>();
+            return true;
+        } else {
+            this.tasks = tasks;
+            return true;
+        }
+    }
+
+    /**
+     * Setter for comments
+     * @author ctaks
+     * @param comments to be set
+     * @return boolean determing success
+     */
+    public boolean setComments(ArrayList<Comment> comments) {
+        if (comments == null || comments.isEmpty()) {
+            this.comments = new ArrayList<Comment>();
+            return true;
+        } else {
+            this.comments = comments;
+            return true;
+        }
     }
 
     /**
