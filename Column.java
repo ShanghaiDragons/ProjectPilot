@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.UUID;
+
 /**
  * This class represents a generic column in the scrum board 
  */
@@ -8,6 +10,7 @@ public class Column {
     private static String columnName;
     private ArrayList<Task> tasks;
     private String sortType;
+    private UUID id;
 
     /**
      * 
@@ -75,6 +78,30 @@ public class Column {
        }
        return true;
     }
+
+    /**
+     * Gets a specified task
+     * @author ctaks
+     * @param taskName the name of the task
+     * @return Task of the task, if it matches.
+     */
+    public Task getTask(String taskName) {
+        for (Task task : this.tasks) {
+            if (task.getName().equalsIgnoreCase(taskName))
+                return task;
+        }
+        return null;
+    }
+
+    /**
+     * Gets the column's tasks
+     * @author ctaks
+     * @return ArrayList<Task> of the column's tasks
+     */
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
+
     /**
      * sorts the tasks by assignee
      * @author theo v
@@ -90,7 +117,7 @@ public class Column {
      * @return
      */
     public ArrayList<Task> sortAlphabetical(){
-        tasks.sort(Comparator.comparing(Task::getTaskName));
+        tasks.sort(Comparator.comparing(Task::getName));
         return tasks;
     }
     /**
@@ -111,5 +138,32 @@ public class Column {
         if(!newColumnName.isEmpty()){
             columnName = newColumnName;
         }
+    }
+
+    /**
+     * Gets the column name
+     * @author ctaks
+     * @return String of the column's name
+     */
+    public String getName() {
+        return this.columnName;
+    }
+
+    /**
+     * Gets the column's UUID
+     * @author ctaks
+     * @return UUID of the column's UUID
+     */
+    public UUID getID() {
+        return this.id;
+    }
+
+    /**
+     * Get's the column's sort type
+     * @author ctaks
+     * @return String of the column's sort type
+     */
+    public String getSortType() {
+        return this.sortType;
     }
 }

@@ -179,8 +179,16 @@ public abstract class Task {
      * @author theo 
      * @return task name
      */
-    public String getTaskName(){
+    public String getName(){
         return taskName;
     }
 
+    /**
+     * Get's the task UUID
+     * @author ctaks
+     * @return UUID of the task's UUID
+     */
+    public UUID getID() {
+        return this.id;
+    }
 }

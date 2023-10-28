@@ -99,23 +99,55 @@ public class DataWriter extends DataConstants {
     }
 
     /**
-     * Create a JSONObject a project
+     * Create a JSONObject for a project
      * @author Chris
      * @param project the project name
-     * @return JSONObject of the project's ID and name.
+     * @return JSONObject of the project's data
      */
     public static JSONObject getProjectJSON(Project project) {
-        JSONObject projectDetails = new JSONObject();
-        projectDetails.put(PROJECT_ID, project.getID().toString());
-        projectDetails.put(PROJECT_NAME, project.getName());
-        // projectDetails.put(PROJECT_COLUMNS, project.getColumns());
-        JSONArray columns = new JSONArray();
+        JSONObject projectData = new JSONObject();
+
+        projectData.put(PROJECT_ID, project.getID().toString());
+        projectData.put(PROJECT_NAME, project.getName());
+
+        JSONArray team = new JSONArray();
+        for (User user : project.getTeam())
+            team.add(user.getID());
+
+        projectData.put(PROJECT_TEAM, team);
+        projectData.put(PROJECT_START_SPRINT, project.getStartSprint());
+        projectData.put(PROJECT_END_SPRINT, project.getEndSprint());
+
+        JSONArray columnIDs = new JSONArray();
         for (Column column : project.getColumns()) {
-            //TODO: finish
-            //column.put()
+            columnIDs.add(column.getID());
         }
 
-        return projectDetails;
+        projectData.put(PROJECT_COLUMN_IDS, columnIDs);
+
+        return projectData;
+    }
+
+    /**
+     * Create a JSONObject for a column
+     * @author Chris
+     * @param column the column name
+     * @return JSONObject of the column's data
+     */
+    public static JSONObject getColumnJSON(Column column) {
+        JSONObject columnData = new JSONObject();
+
+        columnData.put(COLUMN_NAME, column.getName());
+        columnData.put(COLUMN_ID, column.getID().toString());
+        columnData.put(COLUMN_SORT_TYPE, column.getSortType());
+
+        JSONArray taskIDs = new JSONArray();
+        for(Task task : column.getTasks())
+            taskIDs.add(task.getID());
+
+        columnData.put(COLUMN_TASK_IDS, taskIDs);
+
+        return columnData;
     }
 
     /**
