@@ -78,4 +78,13 @@ public class Comment {
     public Date getDate() {
         return this.date;
     }
+
+    /**
+     * Get's the comment's message
+     * @author ctaks
+     * @return the comment's message
+     */
+    public String getMessage() {
+        return this.comment;
+    }
 }
