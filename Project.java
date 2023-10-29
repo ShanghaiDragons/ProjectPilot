@@ -117,6 +117,31 @@ public class Project {
     }
 
     /**
+     * Moves task from one column to another column
+     * @author Duayne
+     * @param newDestination Column object of the new column the task will be moved into
+     * @param task Task object of the task to be moved
+     * @return boolean that represents a change after removing from one column and adding to the other
+     */
+    public boolean moveTask(Column newDestination, Task task) {
+        Column oldDestination = null;
+        for (int i = 0; i < columns.size() - 1; i++)
+            for (int j = 0; j < columns.get(i).getTasks().size() - 1; j++)
+                if (task == columns.get(i).getTask(task.taskName))
+                    oldDestination = columns.get(i);
+        int newColumnSize = newDestination.getTasks().size();
+        for (int i = 0; i < columns.size() - 1; i++)
+            if (newDestination == columns.get(i))
+                columns.get(i).addTask(task);
+        if (oldDestination == null)
+            return false;
+        int oldColumnSize = oldDestination.getTasks().size();
+        oldDestination.removeTask(task);
+        return (oldColumnSize != oldDestination.getTasks().size() &&
+                newColumnSize != newDestination.getTasks().size());
+    }
+
+    /**
      * 
      * @param user
      * @param project
