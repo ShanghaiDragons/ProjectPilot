@@ -80,7 +80,8 @@ public class DataWriter extends DataConstants {
         ProjectList projects = ProjectList.getInstance();
         ArrayList<Project> projectList = projects.getProjects();
         
-        JSONArray jsonProjects = new JSONArray();
+        // JSONArray jsonProjects = new JSONArray();
+        JSONObject jsonProjects = new JSONObject();
         
         // TEST Project TODO: Remove when testing is done
         // User testUser = new User(UUID.randomUUID(), "testUsername", "testFirstname", "testLastname", "testPassword", false, false, false, false);
@@ -90,8 +91,21 @@ public class DataWriter extends DataConstants {
         // jsonProjects.add(getProjectJSON(project2));
 
         // Creating JSON objects
+        // PROJECT
         for(int i=0; i < projectList.size(); i++) {
-            jsonProjects.add(getProjectJSON(projectList.get(i)));
+            jsonProjects.put(PROJECT, getProjectJSON(projectList.get(i)));
+            // COLUMN
+            for (int j=0; j < projectList.get(i).getColumns().size(); j++) {
+                jsonProjects.put(COLUMN, getColumnJSON(projectList.get(i).getColumns().get(j)));
+                // TASK
+                for (int k=0; k < projectList.get(i).getColumns().get(j).getTasks().size(); k++) {
+                    jsonProjects.put(TASK, getTaskJSON(projectList.get(i).getColumns().get(j).getTasks().get(k)));
+                    // TASK HISTORY
+                    jsonProjects.put(TASK_HISTORY, getTaskHistoryJSON(projectList.get(i).getColumns().get(j).getTasks().get(k).getTaskHistory()));
+                }
+            }
+
+            
         }
 
         // Write to JSON file
@@ -134,8 +148,10 @@ public class DataWriter extends DataConstants {
         projectData.put(PROJECT_COLUMN_IDS, columnIDs);
 
         JSONArray commentIDs = new JSONArray();
-        for (Comment comment : project.getComments())
+        for (Comment comment : project.getComments()) {
             commentIDs.add(comment.getID().toString());
+            projectData.put(COMMENT, getCommentJSON(comment));
+        }
 
         return projectData;
     }
@@ -160,8 +176,10 @@ public class DataWriter extends DataConstants {
         columnData.put(COLUMN_TASK_IDS, taskIDs);
 
         JSONArray commentIDs = new JSONArray();
-        for (Comment comment : column.getComments())
+        for (Comment comment : column.getComments()) {
             commentIDs.add(comment.getID().toString());
+            columnData.put(COMMENT, getCommentJSON(comment));
+        }
 
         columnData.put(COLUMN_COMMENT_IDS, commentIDs);
 
@@ -185,8 +203,10 @@ public class DataWriter extends DataConstants {
         taskData.put(TASK_TASK_HISTORY_ID, task.getTaskHistory().getID().toString());
         
         JSONArray commentIDs = new JSONArray();
-        for (Comment comment : task.getComments())
+        for (Comment comment : task.getComments()) {
             commentIDs.add(comment.getID().toString());
+            taskData.put(COMMENT, getCommentJSON(comment));
+        }
 
         taskData.put(TASK_COMMENT_IDS, commentIDs);
 
@@ -225,12 +245,14 @@ public class DataWriter extends DataConstants {
         JSONObject commentData = new JSONObject();
 
         commentData.put(COMMENT_USER_ID, comment.getUser().getID().toString());
-        commentData.put(COMMENT_DATE, comment.getDate());
+        commentData.put(COMMENT_DATE, comment.getDate().toString());
         commentData.put(COMMENT_MESSAGE, comment.getMessage());
 
         JSONArray commentIDs = new JSONArray();
-        for (Comment threadcomment : comment.getThread())
+        for (Comment threadcomment : comment.getThread()) {
             commentIDs.add(threadcomment.getID().toString());
+            commentData.put(COMMENT, getCommentJSON(comment));
+        }
 
         commentData.put(COMMENT_THREAD_IDs, commentIDs);
 
