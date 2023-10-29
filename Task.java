@@ -295,6 +295,15 @@ public abstract class Task {
     }
 
     /**
+     * Get's the task's TaskHistory
+     * @author ctaks
+     * @return TaskHistory of the task history
+     */
+    public TaskHistory getTaskHistory() {
+        return this.taskHistory;
+    }
+
+    /**
      * Gets the boolean of isGeneral
      * @author Duayne
      * @return boolean of isGeneral

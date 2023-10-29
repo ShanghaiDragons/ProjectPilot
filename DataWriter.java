@@ -149,8 +149,8 @@ public class DataWriter extends DataConstants {
     public static JSONObject getColumnJSON(Column column) {
         JSONObject columnData = new JSONObject();
 
-        columnData.put(COLUMN_NAME, column.getName());
         columnData.put(COLUMN_ID, column.getID().toString());
+        columnData.put(COLUMN_NAME, column.getName());
         columnData.put(COLUMN_SORT_TYPE, column.getSortType());
 
         JSONArray taskIDs = new JSONArray();
@@ -176,12 +176,13 @@ public class DataWriter extends DataConstants {
     public static JSONObject getTaskJSON(Task task) {
         JSONObject taskData = new JSONObject();
 
-        taskData.put(TASK_NAME, task.getName());
         taskData.put(TASK_ID, task.getID().toString());
+        taskData.put(TASK_NAME, task.getName());
         taskData.put(TASK_ASSIGNEE, task.getAssignee().getID().toString());
         taskData.put(TASK_PRIORITY, task.getPriority());
         taskData.put(TASK_STATUS, task.getStatus());
         taskData.put(TASK_DESCRIPTION, task.getDescription());
+        taskData.put(TASK_TASK_HISTORY_ID, task.getTaskHistory().getID().toString());
         
         JSONArray commentIDs = new JSONArray();
         for (Comment comment : task.getComments())

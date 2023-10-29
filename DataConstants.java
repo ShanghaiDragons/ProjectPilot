@@ -40,6 +40,7 @@ public abstract class DataConstants {
 	protected static final String TASK_PRIORITY = "priority";
 	protected static final String TASK_STATUS = "status";
 	protected static final String TASK_DESCRIPTION = "description";
+	protected static final String TASK_TASK_HISTORY_ID = "taskHistoryID";
 	protected static final String TASK_COMMENT_IDS = "commentIDs";
 	protected static final String TASK_GENERAL = "isGeneral"; // boolean
 	protected static final String TASK_NEW_FEATURE = "isNewFeature"; // boolean
