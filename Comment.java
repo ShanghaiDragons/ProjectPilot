@@ -9,27 +9,113 @@ public class Comment {
     private UUID id;
     private User user;
     private Date date;
-    private String comment;
-    private ArrayList<Comment> comments;
+    private String message;
+    private ArrayList<Comment> thread;
 
     /**
-     * @param user
-     * @param task
-     * @param comment
+     * Constructor for new comment
+     * @author ctaks
+     * @param user new user
+     * @param message new message
      */
-    public Comment(UUID id, User user, String comment) {
-        this.user = user;
-        this.comment = comment;
+    public Comment(User user, String message) {
+        setID(this.id);
+        setUser(user);
+        setDate(this.date);
+        setMessage(message);
+        setThread(this.thread);
     }
 
     /**
-     * @param user
-     * @param task
-     * @param comment
+     * Constructor for loading a comment from JSON
+     * @author ctaks
+     * @param id from JSON file
+     * @param user from JSON file
+     * @param date from JSON file
+     * @param message from JSON file
+     * @param thread from JSON file
      */
-    public Comment(User user, String comment) {
-        this.user = user;
-        this.comment = comment;
+    public Comment(UUID id, User user, Date date, String message, ArrayList<Comment> thread) {
+        setID(this.id);
+        setUser(user);
+        setDate(this.date);
+        setMessage(message);
+        setThread(thread);
+    }
+
+    /**
+     * Setter for id
+     * @author ctaks
+     * @param id to be set
+     * @return boolean determining success
+     */
+    public boolean setID(UUID id) {
+        if (id != null) {
+            this.id = id;
+            return true;
+        }
+        else {
+            this.id = UUID.randomUUID();
+            return true;
+        }
+    }
+
+    /**
+     * setter for user
+     * @author ctaks
+     * @param user to be set
+     * @return boolean determining success
+     */
+    public boolean setUser(User user) {
+        if (user != null) {
+            this.user = user;
+            return true;
+        } else {
+            this.user = null;
+            return false;
+        }
+    }
+
+    /**
+     * setter for date
+     * @author ctaks
+     * @param date to be set
+     * @return boolean determining success
+     */
+    public boolean setDate(Date date) {
+        if (date != null) {
+            this.date = date;
+            return true;
+        } else {
+            this.date = new Date();
+            return false;
+        }
+    }
+
+    /**
+     * setter for message
+     * @author ctaks
+     * @param message to be set
+     * @return boolean determining success
+     */
+    public boolean setMessage(String message) {
+        if (message != null) {
+            this.message = message;
+            return true;
+        } else {
+            this.message = "empty";
+            return false;
+        }
+    }
+
+    public boolean setThread(ArrayList<Comment> thread) {
+        if (thread == null || thread.isEmpty()) {
+            this.thread = new ArrayList<Comment>();
+            return false;
+        } else {
+            this.thread = thread;
+            return true;
+        }
     }
 
     /**
@@ -39,7 +125,7 @@ public class Comment {
      */
     public boolean addComment(String comment) {
         if(!comment.isEmpty()){
-        this.comment=comment;
+        this.message=comment;
         return true;
         }
         return false; 
@@ -53,7 +139,7 @@ public class Comment {
      */
     public boolean threadComment(Comment comment) {
         if(comment.getID() != null){
-            comments.add(comment);
+            thread.add(comment);
             return true;
             }
         return false; 
@@ -83,7 +169,7 @@ public class Comment {
      * @return String of the comment's message
      */
     public String getMessage() {
-        return this.comment;
+        return this.message;
     }
 
     /**
@@ -101,6 +187,6 @@ public class Comment {
      * @return ArrayList<Comment> of the comment's thread
      */
     public ArrayList<Comment> getThread() {
-        return this.comments;
+        return this.thread;
     }
 }
