@@ -17,7 +17,7 @@ public class User {
 
     /**
      * Overloaded constructor of user to include UUID
-     * @author Duayne
+     * @author Duayne (edited by ctaks (using the setters))
      * @param id UUID that represents the id
      * @param userName string that represents the user's username
      * @param firstName string that represents the user's first name
@@ -30,19 +30,20 @@ public class User {
      */
     public User(UUID id, String userName, String firstName, String lastName, String password, boolean permissionToAddTask,
                 boolean permissionToMoveTask, boolean permissionToEditTask, boolean permissionToEditColumns) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = userName;
-        this.password = password;
-        this.permissionToAddTask = permissionToAddTask;
-        this.permissionToMoveTask = permissionToMoveTask;
-        this.permissionToEditTask = permissionToEditTask;
-        this.permissionToEditColumns = permissionToEditColumns;
+        setID(id);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setUserName(userName);
+        setPassword(password);
+        setPermissionToAddTask(permissionToAddTask);
+        setPermissionToMoveTask(permissionToMoveTask);
+        setPermissionToEditTask(permissionToEditTask);
+        setPermissionToEditColumns(permissionToEditColumns);
     }
 
     /**
-    * 
+    * Constructor for making a new user
+    * @author ctaks
     * @param userName string that represents the user's username
     * @param firstName string that represents the user's first name
     * @param lastName string that represents the user's last name
@@ -54,14 +55,15 @@ public class User {
     */
     public User(String firstName, String lastName, String userName, String password, boolean permissionToAddTask,
                 boolean permissionToMoveTask, boolean permissionToEditTask, boolean permissionToEditColumns) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = userName;
-        this.password = password;
-        this.permissionToAddTask = permissionToAddTask;
-        this.permissionToMoveTask = permissionToMoveTask;
-        this.permissionToEditTask = permissionToEditTask;
-        this.permissionToEditColumns = permissionToEditColumns;
+        setID(this.id);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setUserName(userName);
+        setPassword(password);
+        setPermissionToAddTask(permissionToAddTask);
+        setPermissionToMoveTask(permissionToMoveTask);
+        setPermissionToEditTask(permissionToEditTask);
+        setPermissionToEditColumns(permissionToEditColumns);
     }
 
     /**
