@@ -18,7 +18,9 @@ public class DataWriter extends DataConstants {
     public static boolean saveUsers() {
         UserList users = UserList.getInstance();
         ArrayList<User> userList = users.getUsers();
-        JSONArray jsonUsers = new JSONArray();
+
+        // JSONArray jsonUsers = new JSONArray();
+        JSONObject jsonUsers = new JSONObject();
 
         /*
         // TEST USERS. TODO: remove when testing is done.
@@ -38,7 +40,7 @@ public class DataWriter extends DataConstants {
 
         // Creating JSON objects
         for(int i=0; i < userList.size(); i++) {
-            jsonUsers.add(getUserJSON(userList.get(i)));
+            jsonUsers.put(USER, getUserJSON(userList.get(i)));
         }
 
         // Write to JSON file
@@ -53,7 +55,6 @@ public class DataWriter extends DataConstants {
         }
     }
 
-
     /**
      * Creates a JSONObject for a user.
      * @author Chris
@@ -67,7 +68,10 @@ public class DataWriter extends DataConstants {
         userDetails.put(USER_LAST_NAME, user.getLastName());
         userDetails.put(USER_USER_NAME, user.getUserName());
         userDetails.put(USER_PASSWORD, user.getPassword());
-        userDetails.put(USER_ADD_TASK, )
+        userDetails.put(USER_ADD_TASK, user.getPermissionToAddTask());
+        userDetails.put(USER_MOVE_TASK, user.getPermissionToMoveTask());
+        userDetails.put(USER_EDIT_TASK, user.getPermissionToEditTask());
+        userDetails.put(USER_EDIT_COLUMN, user.getPermissionToEditColumns());
 
         return userDetails;
     }
