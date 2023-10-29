@@ -1,5 +1,6 @@
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 import org.json.simple.JSONArray;
@@ -11,6 +12,10 @@ import org.json.simple.parser.JSONParser;
  */
 public class DataLoader extends DataConstants {
 
+	public static void main(String[] args) {
+		Project p = getProjects().get(0);
+		System.out.println(p.getTeam().get(1).getFirstName());
+	  }
     /**
 	 * Accesses and displays all users via JSON file reading and loading
 	 * @author Duayne
@@ -35,7 +40,9 @@ public class DataLoader extends DataConstants {
 				  boolean permissionToMoveTask = (boolean)personJSON.get(USER_MOVE_TASK);
 				  boolean permissionToEditTask = (boolean)personJSON.get(USER_EDIT_TASK);
 				  boolean permissionToEditColumns = (boolean)personJSON.get(USER_EDIT_COLUMN);
-				  users.add(new User(id, userName, firstName, lastName, password, permissionToAddTask, permissionToMoveTask, permissionToEditTask, permissionToEditColumns));
+				  User user = new User(id, userName, firstName, lastName, password, permissionToAddTask, permissionToMoveTask, permissionToEditTask, permissionToEditColumns);
+				  if (!users.contains(user))
+				  	users.add(user);
 			  }
 			  
 			  return users;
@@ -59,14 +66,118 @@ public class DataLoader extends DataConstants {
 			  FileReader reader = new FileReader(PROJECT_FILE_NAME);
 			  JSONParser parser = new JSONParser();	
 			  JSONArray projectsJSON = (JSONArray)new JSONParser().parse(reader);
-			  
+			
 			  for(int i=0; i < projectsJSON.size(); i++) {
 				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
-				  UUID id = UUID.fromString((String)projectJSON.get(PROJECT_ID));
 				  String projectName = (String)projectJSON.get(PROJECT_NAME);
-				  User user = (User)projectJSON.get(USER_USER_NAME);
+				  UUID id = UUID.fromString((String)projectJSON.get(PROJECT_ID));
+				  ArrayList<User> team = new ArrayList<User>();
+				  ArrayList<String> tempTeam = (ArrayList<String>)projectJSON.get(PROJECT_TEAM);
+				  for(int j = 0; j < tempTeam.size() - 1; j++)
+					for(int k = 0; k < getUsers().size(); k++)
+						if (UUID.fromString(tempTeam.get(k)).equals(getUsers().get(k).getID()))
+							team.add(getUsers().get(k));
+				  ArrayList<Column> columns = new ArrayList<Column>();
+				  ArrayList<String> tempColumns = (ArrayList<String>)projectJSON.get(PROJECT_COLUMN_IDS);
+				  for(int j = 0; j < tempColumns.size() - 1; j++)
+				  	for(int k = 0; k < tempColumns.get(j).length(); k++)
+						if (UUID.fromString(tempColumns.get(k)).equals(getColumns().get(k).getID()))
+							columns.add(getColumns().get(k));
+				  Date startSprint = (Date)projectJSON.get(PROJECT_START_SPRINT);
+				  Date endSprint = (Date)projectJSON.get(PROJECT_END_SPRINT);
+				  ArrayList<Comment> comments = new ArrayList<Comment>();
+				  ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(PROJECT_COMMENT_IDs);
+				  for(int j = 0; j < tempComments.size() - 1; j++)
+				  	for(int k = 0; k < tempComments.get(j).length(); k++)
+						if (UUID.fromString(tempComments.get(k)).equals(getComments().get(k).getID()))
+							comments.add(getComments().get(k));
+				  projects.add(new Project(projectName, startSprint, endSprint, team, columns, comments));
+			  }
+			  
+			  return projects;
+			  
+		  } catch (Exception e) {
+			  e.printStackTrace();
+		  }
+		  
+		  return null;
+	  }
+
+	  public static ArrayList<Column> getColumns() {
+		  ArrayList<Column> columns = new ArrayList<Column>();
   
-				  projects.add(new Project(id, projectName, user));
+		try {
+			  FileReader reader = new FileReader(PROJECT_FILE_NAME);
+			  JSONParser parser = new JSONParser();	
+			  JSONArray projectsJSON = (JSONArray)new JSONParser().parse(reader);
+			
+			  for(int i=0; i < projectsJSON.size(); i++) {
+				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
+				  String projectName = (String)projectJSON.get(PROJECT_NAME);
+				  UUID id = UUID.fromString((String)projectJSON.get(PROJECT_ID));
+				  String columnName = (String)projectJSON.get(COLUMN_NAME);
+				  ArrayList<Task> tasks = new ArrayList<Task>();
+				  ArrayList<String> tempTasks = (ArrayList<String>)projectJSON.get(COLUMN_TASK_IDS);
+				  for(int j = 0; j < tempTasks.size() - 1; j++)
+					w
+				  String sortType = (String)projectJSON.get(COLUMN_SORT_TYPE);
+				  ArrayList<Comment> comments = new ArrayList<Comment>();
+				  ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(COLUMN_COMMENT_IDS);
+				  for(int j = 0; j < tempComments.size() - 1; j++)
+					for(int k = 0; k < getComments().size(); k++)
+						if (UUID.fromString(tempComments.get(k)).equals(getComments().get(k).getID()))
+							comments.add(getComments().get(k));
+				  columns.add(new Column(columnName, sortType, tasks, comments));
+			  }
+			  
+			  return columns;
+			  
+		  } catch (Exception e) {
+			  e.printStackTrace();
+		  }
+		  
+		  return null;
+	  }
+
+	  public static ArrayList<Comment> getComments() {
+		  ArrayList<Comment> comments = new ArrayList<Comment>();
+  
+		try {
+			  FileReader reader = new FileReader(PROJECT_FILE_NAME);
+			  JSONParser parser = new JSONParser();	
+			  JSONArray projectsJSON = (JSONArray)new JSONParser().parse(reader);
+			
+			  for(int i=0; i < projectsJSON.size(); i++) {
+				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
+				  String projectName = (String)projectJSON.get(PROJECT_NAME);
+				  UUID id = UUID.fromString((String)projectJSON.get(PROJECT_ID));
+				 
+				  comments.add(new Comment(id, null, projectName));
+			  }
+			  
+			  return comments;
+			  
+		  } catch (Exception e) {
+			  e.printStackTrace();
+		  }
+		  
+		  return null;
+	  }
+
+	  public static ArrayList<Task> getTasks() {
+		  ArrayList<Task> tasks = new ArrayList<Task>();
+  
+		try {
+			  FileReader reader = new FileReader(PROJECT_FILE_NAME);
+			  JSONParser parser = new JSONParser();	
+			  JSONArray projectsJSON = (JSONArray)new JSONParser().parse(reader);
+			
+			  for(int i=0; i < projectsJSON.size(); i++) {
+				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
+				  String projectName = (String)projectJSON.get(PROJECT_NAME);
+				  UUID id = UUID.fromString((String)projectJSON.get(PROJECT_ID));
+				  
+				  tasks.add(new Task(null, null, null, null, null));
 			  }
 			  
 			  return projects;

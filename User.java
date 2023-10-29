@@ -30,7 +30,7 @@ public class User {
      */
     public User(UUID id, String userName, String firstName, String lastName, String password, boolean permissionToAddTask,
                 boolean permissionToMoveTask, boolean permissionToEditTask, boolean permissionToEditColumns) {
-        this.id = UUID.randomUUID();
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
