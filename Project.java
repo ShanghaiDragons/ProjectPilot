@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -8,15 +9,24 @@ import java.util.UUID;
 public class Project {
     private UUID id;
     private String name;
-    private Date startSprint;
-    private Date endSprint;
+    private LocalDate startSprint;
+    private LocalDate endSprint;
     private ArrayList<User> team;
     private ArrayList<Column> columns;
     private ArrayList<Comment> comments;
 
-    
-    public Project(String name, Date startSprint, Date endSprint, ArrayList<User> team, ArrayList<Column> columns, ArrayList<Comment> comments) {
+    /**
+     * Constructor for making a new project
+     * @param name new
+     * @param startSprint new
+     * @param endSprint new
+     * @param team new
+     * @param columns new
+     * @param comments new
+     */
+    public Project(String name, LocalDate startSprint, LocalDate endSprint, ArrayList<User> team, ArrayList<Column> columns, ArrayList<Comment> comments) {
         setID(id);
+        setName(name);
         setStartSprint(startSprint);
         setEndSprint(endSprint);
         setTeam(team);
@@ -24,9 +34,19 @@ public class Project {
         setComments(comments);
     }
 
-    
-    public Project(UUID id, String name, User user) {
+    /**
+     * Constructor for loading a project from JSON
+     * @param id from JSON file
+     * @param name from JSON file
+     * @param startSprint from JSON file
+     * @param endSprint from JSON file
+     * @param team from JSON file
+     * @param columns from JSON file
+     * @param comments from JSON file
+     */    
+    public Project(UUID id, String name, LocalDate startSprint, LocalDate endSprint, ArrayList<User> team, ArrayList<Column> columns, ArrayList<Comment> comments) {
         setID(id);
+        setName(name);
         setStartSprint(startSprint);
         setEndSprint(endSprint);
         setTeam(team);
@@ -73,12 +93,12 @@ public class Project {
      * @param start to be set
      * @return boolean determing success
      */
-    public boolean setStartSprint(Date start) {
+    public boolean setStartSprint(LocalDate start) {
         if (start != null) {
             this.startSprint = start;
             return true;
         } else {
-            this.startSprint = new Date();
+            this.startSprint = LocalDate.now();
             return false;
         }
     }
@@ -89,12 +109,12 @@ public class Project {
      * @param start to be set
      * @return boolean determing success
      */
-    public boolean setEndSprint(Date end) {
+    public boolean setEndSprint(LocalDate end) {
         if (end != null) {
             this.endSprint = end;
             return true;
         } else {
-            this.endSprint = new Date();
+            this.endSprint = LocalDate.now();
             return false;
         }
     }
@@ -304,9 +324,9 @@ public class Project {
     /**
      * Gets the sprint start date
      * @author Duayne
-     * @return Date object of the sprint start date
+     * @return LocalDate object of the sprint start date
      */
-    public Date getStartSprint() {
+    public LocalDate getStartSprint() {
         if (this.startSprint != null)
             return startSprint;
         return null;
@@ -315,9 +335,9 @@ public class Project {
     /**
      * Gets the sprint end date
      * @author Duayne
-     * @return Date object of the sprint end date
+     * @return LocalDate object of the sprint end date
      */
-    public Date getEndSprint() {
+    public LocalDate getEndSprint() {
         if (this.endSprint != null)
             return endSprint;
         return null;
@@ -326,14 +346,14 @@ public class Project {
     /**
      * Sets both the sprint start and end dates
      * @author Duayne
-     * @param startSprint Date object of the sprint's start date
-     * @param endSprint Date object of the sprint's end date
+     * @param startSprint LocalDate object of the sprint's start date
+     * @param endSprint LocalDate object of the sprint's end date
      */
-    public void setSprint(Date startSprint, Date endSprint) {
+    public void setSprint(LocalDate startSprint, LocalDate endSprint) {
         if (startSprint == null || endSprint == null)
             return;
         if (startSprint.compareTo(endSprint) > 0) {
-            Date temp = startSprint;
+            LocalDate temp = startSprint;
             startSprint = endSprint;
             endSprint = temp;
         }

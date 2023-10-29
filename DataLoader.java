@@ -1,6 +1,7 @@
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.json.simple.JSONArray;
@@ -83,8 +84,8 @@ public class DataLoader extends DataConstants {
 				  	for(int k = 0; k < tempColumns.get(j).length(); k++)
 						if (UUID.fromString(tempColumns.get(k)).equals(getColumns().get(k).getID()))
 							columns.add(getColumns().get(k));
-				  Date startSprint = (Date)projectJSON.get(PROJECT_START_SPRINT);
-				  Date endSprint = (Date)projectJSON.get(PROJECT_END_SPRINT);
+				  LocalDate startSprint = (LocalDate)projectJSON.get(PROJECT_START_SPRINT);
+				  LocalDate endSprint = (LocalDate)projectJSON.get(PROJECT_END_SPRINT);
 				  ArrayList<Comment> comments = new ArrayList<Comment>();
 				  ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(PROJECT_COMMENT_IDs);
 				  for(int j = 0; j < tempComments.size() - 1; j++)
@@ -245,7 +246,7 @@ public class DataLoader extends DataConstants {
 				  String projectName = (String)projectJSON.get(PROJECT_NAME);
 				  UUID id = UUID.fromString((String)projectJSON.get(TASK_HISTORY_ID));
 				  UUID taskID = UUID.fromString((String)projectJSON.get(TASK_HISTORY_TASK_ID));
-				  Date creationDate = (Date)projectJSON.get(TASK_HISTORY_CREATION_DATE);
+				  LocalDateTime creationDate = (LocalDateTime)projectJSON.get(TASK_HISTORY_CREATION_DATE);
 				  ArrayList<String> nameChanges = new ArrayList<String>();
 				  ArrayList<String> tempNameChanges = (ArrayList<String>)projectJSON.get(TASK_HISTORY_NAME_CHANGES);
 				  for(int j = 0; j < tempNameChanges.size() - 1; j++)

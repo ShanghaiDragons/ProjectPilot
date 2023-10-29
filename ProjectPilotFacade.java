@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 
 /**
  * ProjectPilot Facade class. Acts as a buffer between the UI and everything else.
@@ -84,12 +87,13 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * 
+     * Adds a new project.
+     * @author ctaks
      * @param projectID
-     * @return
+     * @return boolean determining success
      */
-    public boolean addProject(String projectID) {
-        return false;
+    public boolean addProject(String name, LocalDate startSprint, LocalDate endSprint, ArrayList<User> team, ArrayList<Column> columns, ArrayList<Comment> comments) {
+        return projectList.addProject(new Project(name, startSprint, endSprint,team, columns, comments));
     }
 
     /**

@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -8,7 +9,7 @@ import java.util.UUID;
 public class TaskHistory {
   private UUID id;
   private UUID taskID;
-  private Date creationDate;
+  private LocalDateTime creationDate;
   private ArrayList<String> nameChanges;
   private ArrayList<String> descriptionChanges;
   private ArrayList<String> moveChanges;
@@ -28,7 +29,7 @@ public class TaskHistory {
    * @param priorityChanges new
    * @param statusChanges new
    */
-  public TaskHistory(UUID taskID, Date creationDate, ArrayList<String> nameChanges, ArrayList<String> descriptionChanges, ArrayList<String> moveChanges, ArrayList<String> assigneeChanges, ArrayList<String> priorityChanges, ArrayList<String> statusChanges) {
+  public TaskHistory(UUID taskID, LocalDateTime creationDate, ArrayList<String> nameChanges, ArrayList<String> descriptionChanges, ArrayList<String> moveChanges, ArrayList<String> assigneeChanges, ArrayList<String> priorityChanges, ArrayList<String> statusChanges) {
     setID(this.id);
     setTaskID(taskID);
     setCreationDate(creationDate);
@@ -53,7 +54,7 @@ public class TaskHistory {
    * @param priorityChanges from JSON file
    * @param statusChanges from JSON file
    */
-  public TaskHistory(UUID id, UUID taskID, Date creationDate, ArrayList<String> nameChanges, ArrayList<String> descriptionChanges, ArrayList<String> moveChanges, ArrayList<String> assigneeChanges, ArrayList<String> priorityChanges, ArrayList<String> statusChanges) {
+  public TaskHistory(UUID id, UUID taskID, LocalDateTime creationDate, ArrayList<String> nameChanges, ArrayList<String> descriptionChanges, ArrayList<String> moveChanges, ArrayList<String> assigneeChanges, ArrayList<String> priorityChanges, ArrayList<String> statusChanges) {
     setID(id);
     setTaskID(taskID);
     setCreationDate(creationDate);
@@ -105,12 +106,12 @@ public class TaskHistory {
    * @param date to be set
    * @return boolean determining success
    */
-  public boolean setCreationDate(Date date) {
+  public boolean setCreationDate(LocalDateTime date) {
     if (date != null) {
       this.creationDate = date;
       return true;
     } else {
-      this.creationDate = new Date();
+      this.creationDate = LocalDateTime.now();
       return true;
     }
   }
@@ -208,7 +209,7 @@ public boolean setStatusChanges(ArrayList<String> statusChanges) {
    * @author ctaks
    * @return ArrayList<String> of creation dates
    */
-  public Date getCreationDate() {
+  public LocalDateTime getCreationDate() {
     return this.creationDate;
   }
 
@@ -292,7 +293,7 @@ public boolean setStatusChanges(ArrayList<String> statusChanges) {
    * @return boolean determining success
    */
   public boolean addNameChange(String oldS, String newS) {
-    Date time = new Date();
+    LocalDateTime time = LocalDateTime.now();
     if (nameChanges.isEmpty()) {
       if(newS != null) {
         nameChanges.add("["+time.toString()+"]: \""+newS+"\" was set");
@@ -320,7 +321,7 @@ public boolean setStatusChanges(ArrayList<String> statusChanges) {
    * @return boolean determining success
    */
   public boolean addDescriptionChange(String oldS, String newS) {
-    Date time = new Date();
+    LocalDateTime time = LocalDateTime.now();
     if (descriptionChanges.isEmpty()) {
       if(newS != null) {
         descriptionChanges.add("["+time.toString()+"]: \""+newS+"\" was set");
@@ -348,7 +349,7 @@ public boolean setStatusChanges(ArrayList<String> statusChanges) {
    * @return boolean determining success
    */
   public boolean addMoveChange(String oldS, String newS) {
-    Date time = new Date();
+    LocalDateTime time = LocalDateTime.now();
     if (moveChanges.isEmpty()) {
       if(newS != null) {
         moveChanges.add("["+time.toString()+"]: \""+newS+"\" was set");
@@ -376,7 +377,7 @@ public boolean setStatusChanges(ArrayList<String> statusChanges) {
    * @return boolean determining success
    */
   public boolean addAssigneeChange(String oldS, String newS) {
-    Date time = new Date();
+    LocalDateTime time = LocalDateTime.now();
     if (assigneeChanges.isEmpty()) {
       if(newS != null) {
         assigneeChanges.add("["+time.toString()+"]: \""+newS+"\" was set");
@@ -404,7 +405,7 @@ public boolean setStatusChanges(ArrayList<String> statusChanges) {
    * @return boolean determining success
    */
   public boolean addPriorityChange(String oldS, String newS) {
-    Date time = new Date();
+    LocalDateTime time = LocalDateTime.now();
     if (priorityChanges.isEmpty()) {
       if(newS != null) {
         priorityChanges.add("["+time.toString()+"]: \""+newS+"\" was set");
@@ -432,7 +433,7 @@ public boolean setStatusChanges(ArrayList<String> statusChanges) {
    * @return boolean determining success
    */
   public boolean addStatusChange(String oldS, String newS) {
-    Date time = new Date();
+    LocalDateTime time = LocalDateTime.now();
     if (statusChanges.isEmpty()) {
       if(newS != null) {
         statusChanges.add("["+time.toString()+"]: \""+newS+"\" was set");

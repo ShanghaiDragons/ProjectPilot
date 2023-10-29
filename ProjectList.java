@@ -27,6 +27,18 @@ public class ProjectList {
     }
 
     /**
+     * Adds a project to the project list. Technically a setter.
+     * @author ctaks
+     * @param project to be added
+     * @return boolean determining success
+     */
+    public boolean addProject(Project project) {
+        if (project != null)
+           return projects.add(project);
+        return false;
+    }
+
+    /**
     * A method for accessing a project based on its name. Loops through every project and returns the match.
     * @author Chris
     * @param projectName the name of the project
@@ -55,7 +67,8 @@ public class ProjectList {
      * @return boolean determining if the projects were saved.
      */
     public boolean saveProjects() {
-        return DataWriter.saveProjects();
+        DataWriter dw = new DataWriter();
+        return dw.saveProjects();
     }
 
 }

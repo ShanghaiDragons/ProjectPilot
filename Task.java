@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.UUID;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * The atttributes of a task and its functionality
@@ -177,7 +177,7 @@ public abstract class Task {
         } else {
             //TODO: make sure this works!
             ArrayList<String> setter = new ArrayList<String>();
-            Date creationDate = new Date();
+            LocalDateTime creationDate = LocalDateTime.now();
             this.taskHistory = new TaskHistory(this.id, creationDate, setter, setter, setter, setter, setter, setter);
             return false;
         }

@@ -1,5 +1,8 @@
 
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 /**
  * Temporary Driver class. To be removed when the actual UI is made.
  */
@@ -33,12 +36,14 @@ public class TempDriver {
     System.out.println("You are logged in.");
 
     System.out.println("Loading projects...");
-    loadAProject();
-    System.out.println("The project that has been loaded is:");
-    System.out.println(ppf.getCurrentProject().getName());
+    if(!loadAProject()) {
+      System.out.println("No projects found.");
+    } else {
+      System.out.println("The project that has been loaded is:");
+      System.out.println(ppf.getCurrentProject().getName());
 
-    System.out.println("Menu:");
-    
+      System.out.println("Menu:");
+    }
   }
   
   /**
@@ -96,7 +101,11 @@ public class TempDriver {
    * Loads a project
    * @author ctaks
    */
-  public void loadAProject() {
+  public boolean loadAProject() {
+    if (ppf.getProjects() == null) {
+      return false;
+    }
+
     System.out.println("Which project would you like to select?");
     int i = 0;
     for (Project project : ppf.getProjects()) {
@@ -115,6 +124,59 @@ public class TempDriver {
     }
     choice--;
     ppf.loadProject(ppf.getProject(ppf.getProjects().get(choice).getName()).getName());
+    return true;
+  }
+
+  public void createProject() {
+    System.out.println("Creating a project...");
+
+    System.out.println("Enter project name");
+    String name = keyboard.nextLine();
+
+    // creating temp variables to get the project constructed. These can be filled out later in the menus.
+    LocalDate startDate = LocalDate.now();
+    LocalDate endDate = LocalDate.now();
+    ArrayList<User> team = new ArrayList<User>();
+    ArrayList<Column> columns = new ArrayList<Column>();
+    ArrayList<Comment> comments = new ArrayList<Comment>();
+
+    ppf.addProject(name, startDate, endDate, team, columns, comments);
+    /*
+    System.out.println("Enter start sprint INTEGER: month");
+    int startMonth = keyboard.nextInt();
+    keyboard.nextLine();
+    System.out.println("Enter start sprint INTEGER: day");
+    int startDay = keyboard.nextInt();
+    keyboard.nextLine();
+    System.out.println("Enter end sprint INTEGER: month");
+    int endMonth = keyboard.nextInt();
+    keyboard.nextLine();
+    System.out.println("Enter end sprint INTEGER: day");
+    int endDay = keyboard.nextInt();
+    keyboard.nextLine();
+    LocalDate startSprint = LocalDate.of(2023, startMonth, startDay);
+    LocalDate endSprint = LocalDate.of(2023, endMonth, endDay);
+    
+    // Adding the list of users to the project. Yeah it's a lot.
+    System.out.println("Pick from the list of users to add to the project.");
+    int i = 1;
+    for (User user : ppf.getUsers()) {
+      System.out.println("["+i+"]: "+user.getUserName());
+      i++;
+    }
+    System.out.println("Enter the number of the user, then press Enter. When you're done, enter 0.");
+    ArrayList<Integer> usersToSelect = new ArrayList<Integer>();
+    int choice = keyboard.nextInt();
+    keyboard.nextLine();
+    while (choice != 0) {
+      usersToSelect.add(choice);
+      choice = keyboard.nextInt();
+    }
+    ArrayList<User> team = new ArrayList<User>();
+    for (int user : usersToSelect) {
+      team.add(ppf.getUsers().get(user-1));
+    }
+    */
   }
 
   /**

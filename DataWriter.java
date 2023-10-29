@@ -15,7 +15,7 @@ public class DataWriter extends DataConstants {
     * @param usersList the list of users to save
     * @return boolean determining if the save was successful or not
     */   
-    public static boolean saveUsers() {
+    public boolean saveUsers() {
         UserList users = UserList.getInstance();
         ArrayList<User> userList = users.getUsers();
 
@@ -61,7 +61,7 @@ public class DataWriter extends DataConstants {
      * @param user The name of the user
      * @return JSONObject of the user's ID, first/last/user name.
      */
-    public static JSONObject getUserJSON(User user) {
+    public JSONObject getUserJSON(User user) {
         JSONObject userDetails = new JSONObject();
         userDetails.put(USER_ID, user.getID().toString());
         userDetails.put(USER_FIRST_NAME, user.getFirstName());
@@ -82,7 +82,7 @@ public class DataWriter extends DataConstants {
     * @param projectsList the list of projects to save
     * @return boolean determining if the save was successful or not
     */   
-    public static boolean saveProjects() {
+    public boolean saveProjects() {
         ProjectList projects = ProjectList.getInstance();
         ArrayList<Project> projectList = projects.getProjects();
         
@@ -133,7 +133,7 @@ public class DataWriter extends DataConstants {
      * @param project the project name
      * @return JSONObject of the project's data
      */
-    public static JSONObject getProjectJSON(Project project) {
+    public JSONObject getProjectJSON(Project project) {
         JSONObject projectData = new JSONObject();
 
         projectData.put(PROJECT_ID, project.getID().toString());
@@ -168,7 +168,7 @@ public class DataWriter extends DataConstants {
      * @param column the column
      * @return JSONObject of the column's data
      */
-    public static JSONObject getColumnJSON(Column column) {
+    public JSONObject getColumnJSON(Column column) {
         JSONObject columnData = new JSONObject();
 
         columnData.put(COLUMN_ID, column.getID().toString());

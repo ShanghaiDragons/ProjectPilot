@@ -1,4 +1,4 @@
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -8,7 +8,7 @@ import java.util.UUID;
 public class Comment {
     private UUID id;
     private User user;
-    private Date date;
+    private LocalDateTime date;
     private String message;
     private ArrayList<Comment> thread;
 
@@ -35,7 +35,7 @@ public class Comment {
      * @param message from JSON file
      * @param thread from JSON file
      */
-    public Comment(UUID id, User user, Date date, String message, ArrayList<Comment> thread) {
+    public Comment(UUID id, User user, LocalDateTime date, String message, ArrayList<Comment> thread) {
         setID(this.id);
         setUser(user);
         setDate(this.date);
@@ -82,12 +82,12 @@ public class Comment {
      * @param date to be set
      * @return boolean determining success
      */
-    public boolean setDate(Date date) {
+    public boolean setDate(LocalDateTime date) {
         if (date != null) {
             this.date = date;
             return true;
         } else {
-            this.date = new Date();
+            this.date = LocalDateTime.now();
             return false;
         }
     }
@@ -157,9 +157,9 @@ public class Comment {
     /**
      * Get's the comment's date
      * @author ctaks
-     * @return Date of the comment's date
+     * @return LocalDateTime of the comment's date
      */
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return this.date;
     }
 
