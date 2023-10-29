@@ -68,11 +68,16 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * 
+     * logs out the user 
+     * @author theo v 
      * @param user
      * @return
      */
-    public boolean logout(User user) {
+    public boolean logout() {
+        if(user != null){
+            this.user=null;
+            return true;
+        }
         return false;
     }
 
