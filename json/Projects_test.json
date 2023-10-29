@@ -9,21 +9,42 @@
             {
                 "id":"61816792-557a-4c77-a195-4d8b0f23ea9f",
                 "columnName": "To Do",
-                "tasks": "035a22e3-710c-410a-b338-71710fe67ca6",
-                "sortType": "Priority"
+                "taskIDs": [
+                    {
+                        "id": "035a22e3-710c-410a-b338-71710fe67ca6",
+                        "name": "Develop This Product",
+                        "assignee": "c582b373-4a57-478b-9915-0eb105d0e171",
+                        "priority": 1,
+                        "status":"wadlkad",
+                        "description": "Develop this product at this time."
+                        
+                    },
+                    {
+                        "id": "fa0250b7-606c-43de-b1ac-ee61f2ef9bb1",
+                        "taskName": "Make Product B",
+                        "assigneeName": "5743d079-f8db-41d3-b892-7be2b9c1cf1b",
+                        "priority": 2,
+                        "description": "Make product B with so and so features."
+                    }
+                ],
+                "sortType": "Priority",
+                "commentIDs":[]
             },
             {
                 "id":"71816792-557a-4c77-a195-4d8b0f23ea9g",
                 "columnName": "In Progress",
-                "tasks": "fa0250b7-606c-43de-b1ac-ee61f2ef9bb1",
-                "sortType": "Priority"
+                "tasks": [
+                    "fa0250b7-606c-43de-b1ac-ee61f2ef9bb1"
+                ],
+                "sortType": "Priority",
+                "commentIDs":[]
             }
         ],
         "startSprint": "01/01/2023",
         "endSprint": "06/06/2023",
         "user": "c582b373-4a57-478b-9915-0eb105d0e171",
         "name": "Assignment #1",
-        "comments": [
+        "commentIDs": [
             {
                 "id": "49a21594-c6cc-4157-9679-0f328dac2570",
                 "user": "5743d079-f8db-41d3-b892-7be2b9c1cf1b",
