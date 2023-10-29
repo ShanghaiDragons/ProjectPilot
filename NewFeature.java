@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.UUID;
 
 public class NewFeature extends Task{
     private String implementation;
@@ -5,13 +7,29 @@ public class NewFeature extends Task{
 
     /**
      * 
-     * @param taskName
-     * @param asignee
+     * @param name
+     * @param assignee
      * @param priority
+     * @param status
      * @param description
+     * @param comments
      */
-    public NewFeature(String taskName, User assignee, int priority, String status, String description) {  
-        super(taskName, assignee, priority, status, description);
+    public NewFeature(String name, User assignee, int priority, String status, String description, ArrayList<Comment> comments) {  
+        super(name, assignee, priority, status, description, comments);
+    }
+
+    /**
+     * 
+     * @param id
+     * @param name
+     * @param assignee
+     * @param priority
+     * @param status
+     * @param description
+     * @param comments
+     */
+    public NewFeature(UUID id, String name, User assignee, int priority, String status, String description, ArrayList<Comment> comments) {
+        super(name, assignee, priority, status, description, comments);
     }
 
     /**
