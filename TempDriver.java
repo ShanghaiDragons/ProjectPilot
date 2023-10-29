@@ -36,14 +36,16 @@ public class TempDriver {
     System.out.println("You are logged in.");
 
     System.out.println("Loading projects...");
-    if(!loadAProject()) {
-      System.out.println("No projects found.");
-    } else {
-      System.out.println("The project that has been loaded is:");
-      System.out.println(ppf.getCurrentProject().getName());
+    // if(!loadAProject()) {
+      // System.out.println("No projects found.");
+      // createProject();
+    // }
+    loadAProject();
+    System.out.println("The project that has been loaded is:");
+    System.out.println(ppf.getCurrentProject().getName());
 
-      System.out.println("Menu:");
-    }
+    System.out.println("Menu:");
+
   }
   
   /**
@@ -108,6 +110,7 @@ public class TempDriver {
 
     System.out.println("Which project would you like to select?");
     int i = 0;
+    System.out.println("[0] create a new project");
     for (Project project : ppf.getProjects()) {
       System.out.println("["+(i+1)+"] "+project.getName());
       i++;
@@ -123,7 +126,12 @@ public class TempDriver {
         System.out.println("Please try again.");
     }
     choice--;
-    ppf.loadProject(ppf.getProject(ppf.getProjects().get(choice).getName()).getName());
+    if (choice == -1) {
+      createProject();
+      loadAProject();
+    } else {
+      ppf.loadProject(ppf.getProject(ppf.getProjects().get(choice).getName()).getName());
+    }
     return true;
   }
 
@@ -198,6 +206,7 @@ public class TempDriver {
     switch (choice) {
       case 1:
         System.out.println("");
+        columnMenu();
         break;
       case 2:
         System.out.println("");
@@ -216,7 +225,7 @@ public class TempDriver {
         break;
       case 7:
         System.out.println("saving project...");
-        // WILL NOT WORK YET: ppf.saveProjects();
+        ppf.saveProjects();
       default:
         System.out.println("invalid choice");
         break;
@@ -224,7 +233,105 @@ public class TempDriver {
   }
 
   public void columnMenu() {
+    System.out.println("Select a column:");
+      int i = 0;
+      System.out.println("[0] create a new column");
+      for (Column c : ppf.getCurrentProject().getColumns()) {
+        System.out.println("["+i+"]: "+c.getName());
+        i++;
+      }
+      int choice= 0;
+      boolean hasSelected = false;
+      while (!hasSelected) {
+        choice = keyboard.nextInt();
+        keyboard.nextLine();
+        if (choice <= ppf.getCurrentProject().getColumns().size())
+          hasSelected = true;
+        else
+          System.out.println("Please try again.");
+      }
+      choice --;
+      if (choice == -1) {
+        createColumn();
+        columnMenu();
+      } else {
+        // ppf.getCurrentProject().getColumns().get(choice)
+        // System.out.println("Selected column:");
+        System.out.println(ppf.getCurrentProject().getColumns().get(choice).getName()+" menu:"
+        +"\n[1] Task menu"
+        +"\n[2] Change name"
+        +"\n[3] Change sort type"
+        +"\n[4] Comment menu"
+        +"\n[5] Go Back to Project Menu"
+        );
+        int choice2 = keyboard.nextInt();
+        keyboard.nextLine();
+        switch(choice2) {
+          case 1:
+            taskMenu(ppf.getCurrentProject().getColumns().get(choice));
+            break;
+          case 2:
+            break;
+          case 3:
+            break;
+          case 4:
+            break;
+          case 5:
+            break;
+          default:
+            break;
+        }
+      }
+  }
 
+  public void taskMenu(Column c) {
+     System.out.println("Select a task:");
+      int i = 0;
+      System.out.println("[0] create a new task");
+      for (Task t : c.getTasks()) {
+        System.out.println("["+i+"]: "+t.getName());
+        i++;
+      }
+      int choice= 0;
+      boolean hasSelected = false;
+      while (!hasSelected) {
+        choice = keyboard.nextInt();
+        keyboard.nextLine();
+        if (choice <= c.getTasks().size())
+          hasSelected = true;
+        else
+          System.out.println("Please try again.");
+      }
+      choice --;
+      if (choice == -1) {
+        createTask();
+        taskMenu(c);
+      } else {
+
+      }
+  }
+
+  public void createTask() {
+    System.out.println("Creating a task...");
+    System.out.println("Enter task name");
+    String name = keyboard.nextLine();
+
+    String sortType = "default";
+    ArrayList<Task> tasks = new ArrayList<Task>();
+    ArrayList<Comment> comments = new ArrayList<Comment>();
+    ppf.addColumn(name, sortType, tasks, comments);
+  }
+
+  public void createColumn() {
+    System.out.println("Creating a column...");
+
+    System.out.println("Enter column name");
+    String name = keyboard.nextLine();
+
+    String sortType = "default";
+    ArrayList<Task> tasks = new ArrayList<Task>();
+    ArrayList<Comment> comments = new ArrayList<Comment>();
+    ppf.addColumn(name, sortType, tasks, comments);
   }
 
   /**

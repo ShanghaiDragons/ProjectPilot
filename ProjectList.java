@@ -13,6 +13,9 @@ public class ProjectList {
      */
     private ProjectList() {
         projects = DataLoader.getProjects();
+        if (projects == null) {
+            projects = new ArrayList<Project>();
+        }
     }
 
     /**

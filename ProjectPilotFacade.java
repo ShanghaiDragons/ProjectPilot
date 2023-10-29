@@ -119,8 +119,8 @@ public class ProjectPilotFacade {
      * @param columnID
      * @return
      */
-    public boolean addColumn(String columnID) {
-        return false;
+    public boolean addColumn(String name, String sortType, ArrayList<Task> tasks, ArrayList<Comment> comments) {
+        return currentProject.addColumn(new Column(name, sortType, tasks, comments));
     }
 
     /**
@@ -241,9 +241,10 @@ public class ProjectPilotFacade {
      */
     public boolean loadProject(String projectName) {
         for (Project project : projectList.getProjects()) {
-            if (project.getName().equalsIgnoreCase(projectName))
+            if (project.getName().equalsIgnoreCase(projectName)) {
                 currentProject = project;
                 return true;
+            }
         }
         return false;
     }
