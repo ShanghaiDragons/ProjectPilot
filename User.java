@@ -2,9 +2,10 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 /**
- * 
+ * The User class. Holds all the data for a user
  */
 public class User {
+    private UUID id;
     private String firstName;
     private String lastName;
     private String userName;
@@ -13,7 +14,6 @@ public class User {
     private boolean permissionToMoveTask;
     private boolean permissionToEditTask;
     private boolean permissionToEditColumns;
-    private UUID id;
 
     /**
      * Overloaded constructor of user to include UUID
@@ -62,6 +62,87 @@ public class User {
         this.permissionToMoveTask = permissionToMoveTask;
         this.permissionToEditTask = permissionToEditTask;
         this.permissionToEditColumns = permissionToEditColumns;
+    }
+
+    /**
+     * Setter for id
+     * @author ctaks
+     * @param id to be set
+     * @return boolean determining success
+     */
+    public boolean setID(UUID id) {
+        if (id != null) {
+            this.id = id;
+            return true;
+        }
+        else {
+            this.id = UUID.randomUUID();
+            return true;
+        }
+    }
+
+    /**
+     * setter for firstName
+     * @author ctaks
+     * @param firstName to be set
+     * @return boolean determining success
+     */
+    public boolean setFirstName(String firstName) {
+        if (firstName != null) {
+            this.firstName = firstName;
+            return true;
+        } else {
+            this.firstName = "none";
+            return false;
+        }
+    }
+
+    /**
+     * setter for lastName
+     * @author ctaks
+     * @param lastName to be set
+     * @return boolean determining success
+     */
+    public boolean setLastName(String lastName) {
+        if (lastName != null) {
+            this.lastName = lastName;
+            return true;
+        } else {
+            this.lastName = "none";
+            return false;
+        }
+    }
+
+    /**
+     * setter for username
+     * @author ctaks
+     * @param userName to be set
+     * @return boolean determining success
+     */
+    public boolean setUserName(String userName) {
+        if (userName != null) {
+            this.userName = userName;
+            return true;
+        } else {
+            this.userName = "none";
+            return false;
+        }
+    }
+
+    /**
+     * setter for password
+     * @author ctaks
+     * @param password to be set
+     * @return boolean determining success
+     */
+    public boolean setPassword(String password) {
+        if (password != null) {
+            this.password = password;
+            return true;
+        } else {
+            this.password = "none";
+            return false;
+        }
     }
 
     /**
@@ -124,11 +205,20 @@ public class User {
     }
 
     /**
+     * Gets the password of the user
+     * @author ctaks
+     * @return String of the password
+     */
+    public String getPassword() {
+        return this.password;
+    }
+
+    /**
      * Gets the current permission to add a task
      * @author Duayne
      * @return boolean of the permission to add a task
      */
-    public boolean isPermissionToAddTask() {
+    public boolean getPermissionToAddTask() {
         return permissionToAddTask;
     }
 
@@ -146,7 +236,7 @@ public class User {
      * @author Duayne
      * @return boolean of the permission to move a task
      */
-    public boolean isPermissionToMoveTask() {
+    public boolean getPermissionToMoveTask() {
         return permissionToMoveTask;
     }
 
@@ -164,7 +254,7 @@ public class User {
      * @author Duayne
      * @return boolean of the permission to edit a task
      */
-    public boolean isPermissionToEditTask() {
+    public boolean getPermissionToEditTask() {
         return permissionToEditTask;
     }
 
@@ -182,7 +272,7 @@ public class User {
      * @author Duayne
      * @return boolean of the permission to edit a column
      */
-    public boolean isPermissionToEditColumns() {
+    public boolean getPermissionToEditColumns() {
         return permissionToEditColumns;
     }
 

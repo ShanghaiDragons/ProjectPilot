@@ -18,13 +18,13 @@ public class TaskHistory {
   /**
    * Constructor for a new TaskHistory
    * @author ctaks
-   * @param taskID
-   * @param creationDate
-   * @param nameChanges
-   * @param descriptionChanges
-   * @param moveChanges
-   * @param assigneeChanges
-   * @param priorityChanges
+   * @param taskID new
+   * @param creationDate new
+   * @param nameChanges new
+   * @param descriptionChanges new
+   * @param moveChanges new
+   * @param assigneeChanges new
+   * @param priorityChanges new
    */
   public TaskHistory(UUID taskID, Date creationDate, ArrayList<String> nameChanges, ArrayList<String> descriptionChanges, ArrayList<String> moveChanges, ArrayList<String> assigneeChanges, ArrayList<String> priorityChanges) {
     setID(this.id);
