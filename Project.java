@@ -135,17 +135,6 @@ public class Project {
     }
 
     /**
-     * 
-     * @param user
-     * @param project
-     * @param comment
-     * @return
-     */
-    private boolean threadComment(User user, Project project, String comment) {
-        return false;
-    }
-
-    /**
      * Gets the name of the project
      * @author Chris
      * @return the project name (this.projectName)
