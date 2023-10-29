@@ -28,6 +28,7 @@ public abstract class Task {
      * @param comments new comment list
      */
     public Task(String name, User assignee, int priority, String status, String description, ArrayList<Comment> comments) {
+        setTaskHistory(taskHistory);
         setID(this.id);
         setName(name);
         setAssignee(assignee);
@@ -50,6 +51,7 @@ public abstract class Task {
      * @param comments from JSON file
      */
     public Task(UUID id, String name, User assignee, int priority, String status, String description, TaskHistory taskHistory, ArrayList<Comment> comments) {
+        setTaskHistory(taskHistory);
         setID(id);
         setName(name);
         setAssignee(assignee);
@@ -84,9 +86,11 @@ public abstract class Task {
      */
     public boolean setName(String name) {
         if (name != null) {
+            taskHistory.addNameChange(this.name, name);
             this.name = name;
             return true;
         } else {
+            taskHistory.addNameChange(this.name, "setNameERROR");
             this.name = "default";
             return false;
         }
@@ -100,14 +104,15 @@ public abstract class Task {
      */
     public boolean setAssignee(User assignee) {
         if (assignee != null) {
+            taskHistory.addAssigneeChange(this.assignee.getUserName(), assignee.getUserName());
             this.assignee = assignee;
             return true;
         } else {
+            taskHistory.addAssigneeChange("setAssigneeERROR", "setAssigneeERROR");
             this.assignee = null;
             return false;
         }
     }
-
 
     /**
      * Sets the priority of the task
@@ -117,9 +122,11 @@ public abstract class Task {
      */
     public boolean setPriority(int priority) {
         if (priority <= 5 && priority >= 1) {
+            taskHistory.addPriorityChange(Integer.toString(this.priority), Integer.toString(priority));
             this.priority = priority;
             return true;
         } else {
+            taskHistory.addPriorityChange(Integer.toString(this.priority), "5(setPriorityERROR)");
             this.priority = 5;
             return false;
         }
@@ -132,9 +139,11 @@ public abstract class Task {
      */
     public boolean setStatus(String status) {
         if (status != null) {
+            taskHistory.addStatusChange(this.status, status);
             this.status = status;
             return true;
         } else {
+            taskHistory.addStatusChange(this.status, "uknown(setStatusERROR)");
             this.status = "unknown";
             return false;
         }
@@ -148,9 +157,11 @@ public abstract class Task {
      */
     public boolean setDescription(String description) {
         if (description != null) {
+            taskHistory.addDescriptionChange(this.description, description);
             this.description = description;
             return true;
         } else {
+            taskHistory.addDescriptionChange(this.description, "[empty](setDescriptionERROR)");
             this.description = "[empty]";
             return false;
         }
@@ -164,7 +175,7 @@ public abstract class Task {
             //TODO: make sure this works!
             ArrayList<String> setter = new ArrayList<String>();
             Date creationDate = new Date();
-            this.taskHistory = new TaskHistory(this.id, creationDate, setter, setter, setter, setter, setter);
+            this.taskHistory = new TaskHistory(this.id, creationDate, setter, setter, setter, setter, setter, setter);
             return false;
         }
     }

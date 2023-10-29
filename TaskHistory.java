@@ -14,6 +14,7 @@ public class TaskHistory {
   private ArrayList<String> moveChanges;
   private ArrayList<String> assigneeChanges;
   private ArrayList<String> priorityChanges;
+  private ArrayList<String> statusChanges;
 
   /**
    * Constructor for a new TaskHistory
@@ -25,8 +26,9 @@ public class TaskHistory {
    * @param moveChanges new
    * @param assigneeChanges new
    * @param priorityChanges new
+   * @param statusChanges new
    */
-  public TaskHistory(UUID taskID, Date creationDate, ArrayList<String> nameChanges, ArrayList<String> descriptionChanges, ArrayList<String> moveChanges, ArrayList<String> assigneeChanges, ArrayList<String> priorityChanges) {
+  public TaskHistory(UUID taskID, Date creationDate, ArrayList<String> nameChanges, ArrayList<String> descriptionChanges, ArrayList<String> moveChanges, ArrayList<String> assigneeChanges, ArrayList<String> priorityChanges, ArrayList<String> statusChanges) {
     setID(this.id);
     setTaskID(taskID);
     setCreationDate(creationDate);
@@ -35,6 +37,7 @@ public class TaskHistory {
     setMoveChanges(moveChanges);
     setAssigneeChanges(assigneeChanges);
     setPriorityChanges(priorityChanges);
+    setStatusChanges(statusChanges);
   }
 
   /**
@@ -48,8 +51,9 @@ public class TaskHistory {
    * @param moveChanges from JSON file
    * @param assigneeChanges from JSON file
    * @param priorityChanges from JSON file
+   * @param statusChanges from JSON file
    */
-  public TaskHistory(UUID id, UUID taskID, Date creationDate, ArrayList<String> nameChanges, ArrayList<String> descriptionChanges, ArrayList<String> moveChanges, ArrayList<String> assigneeChanges, ArrayList<String> priorityChanges) {
+  public TaskHistory(UUID id, UUID taskID, Date creationDate, ArrayList<String> nameChanges, ArrayList<String> descriptionChanges, ArrayList<String> moveChanges, ArrayList<String> assigneeChanges, ArrayList<String> priorityChanges, ArrayList<String> statusChanges) {
     setID(id);
     setTaskID(taskID);
     setCreationDate(creationDate);
@@ -58,6 +62,7 @@ public class TaskHistory {
     setMoveChanges(moveChanges);
     setAssigneeChanges(assigneeChanges);
     setPriorityChanges(priorityChanges);
+    setStatusChanges(statusChanges);
   }
 
   /**
@@ -188,6 +193,16 @@ public boolean setPriorityChanges(ArrayList<String> priorityChanges) {
   }
 }
 
+public boolean setStatusChanges(ArrayList<String> statusChanges) {
+  if (statusChanges == null || statusChanges.isEmpty()) {
+    this.statusChanges = new ArrayList<String>();
+    return true;
+  } else {
+    this.statusChanges = statusChanges;
+    return true;
+  }
+}
+
   /**
    * creation date getter
    * @author ctaks
@@ -258,5 +273,173 @@ public boolean setPriorityChanges(ArrayList<String> priorityChanges) {
    */
   public UUID getTaskID() {
     return this.taskID;
+  }
+
+  /**
+   * records a name change
+   * @author ctaks
+   * @param oldS the thing that is being replaced
+   * @param newS the thing that will replace
+   * @return boolean determining success
+   */
+  public boolean addNameChange(String oldS, String newS) {
+    Date time = new Date();
+    if (nameChanges.isEmpty()) {
+      if(newS != null) {
+        nameChanges.add("["+time.toString()+"]: \""+newS+"\" was set");
+        return true;
+      } else {
+        nameChanges.add("["+time.toString()+"]: \"ERROR\" was set");
+        return false;
+      }
+    }
+
+    if (oldS != null && newS != null) {
+      nameChanges.add("["+time.toString()+"]: \""+oldS+"\" changed to: \""+newS+"\"");
+      return true;
+    } else {
+      nameChanges.add("["+time.toString()+"]: \"ERROR\" changed to: \"ERROR\"");
+      return false;
+    }
+  }
+
+  /**
+   * records a description change
+   * @author ctaks
+   * @param oldS the thing that is being replaced
+   * @param newS the thing that will replace
+   * @return boolean determining success
+   */
+  public boolean addDescriptionChange(String oldS, String newS) {
+    Date time = new Date();
+    if (descriptionChanges.isEmpty()) {
+      if(newS != null) {
+        descriptionChanges.add("["+time.toString()+"]: \""+newS+"\" was set");
+        return true;
+      } else {
+        descriptionChanges.add("["+time.toString()+"]: \"ERROR\" was set");
+        return false;
+      }
+    } 
+
+    if (oldS != null && newS != null) {
+      descriptionChanges.add("["+time.toString()+"]: \""+oldS+"\" changed to: \""+newS+"\"");
+      return true;
+    } else {
+      descriptionChanges.add("["+time.toString()+"]: \"ERROR\" changed to: \"ERROR\"");
+      return false;
+    }
+  }
+
+  /**
+   * records a move change
+   * @author ctaks
+   * @param oldS the thing that is being replaced
+   * @param newS the thing that will replace
+   * @return boolean determining success
+   */
+  public boolean addMoveChange(String oldS, String newS) {
+    Date time = new Date();
+    if (moveChanges.isEmpty()) {
+      if(newS != null) {
+        moveChanges.add("["+time.toString()+"]: \""+newS+"\" was set");
+        return true;
+      } else {
+        moveChanges.add("["+time.toString()+"]: \"ERROR\" was set");
+        return false;
+      }
+    }
+
+    if (oldS != null && newS != null) {
+      moveChanges.add("["+time.toString()+"]: \""+oldS+"\" changed to: \""+newS+"\"");
+      return true;
+    } else {
+      moveChanges.add("["+time.toString()+"]: \"ERROR\" changed to: \"ERROR\"");
+      return false;
+    }
+  }
+
+  /**
+   * records an assignee change
+   * @author ctaks
+   * @param oldS the thing that is being replaced
+   * @param newS the thing that will replace
+   * @return boolean determining success
+   */
+  public boolean addAssigneeChange(String oldS, String newS) {
+    Date time = new Date();
+    if (assigneeChanges.isEmpty()) {
+      if(newS != null) {
+        assigneeChanges.add("["+time.toString()+"]: \""+newS+"\" was set");
+        return true;
+      } else {
+        assigneeChanges.add("["+time.toString()+"]: \"ERROR\" was set");
+        return false;
+      }
+    }
+
+    if (oldS != null && newS != null) {
+      assigneeChanges.add("["+time.toString()+"]: \""+oldS+"\" changed to: \""+newS+"\"");
+      return true;
+    } else {
+      assigneeChanges.add("["+time.toString()+"]: \"ERROR\" changed to: \"ERROR\"");
+      return false;
+    }
+  }
+
+  /**
+   * records a priority change
+   * @author ctaks
+   * @param oldS the thing that is being replaced
+   * @param newS the thing that will replace
+   * @return boolean determining success
+   */
+  public boolean addPriorityChange(String oldS, String newS) {
+    Date time = new Date();
+    if (priorityChanges.isEmpty()) {
+      if(newS != null) {
+        priorityChanges.add("["+time.toString()+"]: \""+newS+"\" was set");
+        return true;
+      } else {
+        priorityChanges.add("["+time.toString()+"]: \"ERROR\" was set");
+        return false;
+      }
+    }
+
+    if (oldS != null && newS != null) {
+      priorityChanges.add("["+time.toString()+"]: \""+oldS+"\" changed to: \""+newS+"\"");
+      return true;
+    } else {
+      priorityChanges.add("["+time.toString()+"]: \"ERROR\" changed to: \"ERROR\"");
+      return false;
+    }
+  }
+
+  /**
+   * records a status change
+   * @author ctaks
+   * @param oldS the thing that will be replaced
+   * @param newS the thing that will replace
+   * @return boolean determining success
+   */
+  public boolean addStatusChange(String oldS, String newS) {
+    Date time = new Date();
+    if (statusChanges.isEmpty()) {
+      if(newS != null) {
+        statusChanges.add("["+time.toString()+"]: \""+newS+"\" was set");
+        return true;
+      } else {
+        statusChanges.add("["+time.toString()+"]: \"ERROR\" was set");
+        return false;
+      }
+    }
+
+    if (oldS != null && newS != null) {
+      statusChanges.add("["+time.toString()+"]: \""+oldS+"\" changed to: \""+newS+"\"");
+      return true;
+    } else {
+      statusChanges.add("["+time.toString()+"]: \"ERROR\" changed to: \"ERROR\"");
+      return false;
+    }
   }
 }
