@@ -127,17 +127,6 @@ public class Column {
     }
 
     /**
-     * 
-     * @param task
-     * @return
-     */
-    public static boolean moveTask(Task task) {
-        // Implement logic to move the task within the column
-        // Return true if task moved successfully, false otherwise
-        return false; // Placeholder return value
-    }
-
-    /**
      * Edits the column's name
      * @author Duayne
      * @param newColumnName String representation of the new column name
@@ -162,6 +151,20 @@ public class Column {
             return false;
         int size = tasks.size();
         tasks.add(task);
+        return size != tasks.size();
+    }
+
+    /**
+     * Removes a task from the task list in the column
+     * @author Duayne
+     * @param task Task object of task to be removed
+     * @return boolean representing the comparison of the old and new tasks list size
+     */
+    public boolean removeTask(Task task) {
+        if (!tasks.contains(task))
+            return false;
+        int size = tasks.size();
+        tasks.remove(task);
         return size != tasks.size();
     }
 
