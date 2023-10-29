@@ -8,7 +8,7 @@ import java.util.UUID;
  */
 public abstract class Task {
     public static Comparator compareAssignee;
-    private UUID id;
+    protected UUID id;
     protected String name;
     protected User assignee;
     protected int priority;
