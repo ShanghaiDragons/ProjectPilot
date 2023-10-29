@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.UUID;
+import java.util.Date;
 
 /**
  * The atttributes of a task and its functionality
@@ -14,8 +15,8 @@ public abstract class Task {
     protected int priority;
     protected String status;
     protected String description;
-    protected TaskHistory taskHistory;
     protected ArrayList<Comment> comments;
+    protected TaskHistory taskHistory;
 
     /**
      * Constructor for the Task class without UUID
@@ -160,8 +161,10 @@ public abstract class Task {
             this.taskHistory = taskHistory;
             return true;
         } else {
-            //TODO: taskHistory needs to be created.
-            this.taskHistory = null;
+            //TODO: make sure this works!
+            ArrayList<String> setter = new ArrayList<String>();
+            Date creationDate = new Date();
+            this.taskHistory = new TaskHistory(this.id, creationDate, setter, setter, setter, setter, setter);
             return false;
         }
     }
