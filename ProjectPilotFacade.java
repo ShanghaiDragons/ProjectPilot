@@ -89,11 +89,17 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * 
-     * @param projectID
+     * adds project to the project list
+     * @author theo v 
+     * @param projectName
      * @return
      */
-    public boolean addProject(String projectID) {
+    public boolean addProject(Project projectName) {
+        if(projectName!=null){
+            Project newProject = new Project(projectName.getName(), user);
+            projectList.addProject(projectName);
+            return true;
+        }
         return false;
     }
 
