@@ -17,6 +17,9 @@ public abstract class Task {
     protected String description;
     protected ArrayList<Comment> comments;
     protected TaskHistory taskHistory;
+    protected boolean isGeneral;
+    protected boolean isNewFeatrue;
+    protected boolean isBug;
 
     /**
      * Constructor for the Task class without UUID
@@ -289,5 +292,32 @@ public abstract class Task {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Gets the boolean of isGeneral
+     * @author Duayne
+     * @return boolean of isGeneral
+     */
+    public boolean isGeneral() {
+        return isGeneral;
+    }
+
+     /**
+     * Gets the boolean of isNewFeature
+     * @author Duayne
+     * @return boolean of isNewFeature
+     */
+    public boolean isNewFeatrue() {
+        return isNewFeatrue;
+    }
+
+    /**
+     * Gets the boolean of isBug
+     * @author Duayne
+     * @return boolean of isBug
+     */
+    public boolean isBug() {
+        return isBug;
     }
 }

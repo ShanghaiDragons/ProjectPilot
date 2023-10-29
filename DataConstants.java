@@ -56,7 +56,8 @@ public abstract class DataConstants {
 	protected static final String TASK_HISTORY_MOVE_CHANGES = "moveChanges";
 	protected static final String TASK_HISTORY_ASSIGNEE_CHANGES = "assigneeChanges";
 	protected static final String TASK_HISTORY_PRIORITY_CHANGES = "priorityChanges";
-	
+	protected static final String TASK_HISTORY_STATUS_CHANGES = "statusChanges";
+
 	// Comment
 	protected static final String COMMENT = "comment";
 	// protected static final String COMMENT_PROJECT_ID = "projectID";
