@@ -210,6 +210,7 @@ public class DataWriter extends DataConstants {
         taskHData.put(TASK_HISTORY_MOVE_CHANGES, taskH.getMoveChanges());
         taskHData.put(TASK_HISTORY_ASSIGNEE_CHANGES, taskH.getAssigneeChanges());
         taskHData.put(TASK_HISTORY_PRIORITY_CHANGES, taskH.getPriorityChanges());
+        taskHData.put(TASK_HISTORY_STATUS_CHANGES, taskH.getStatusChanges());
 
         return taskHData;
     }

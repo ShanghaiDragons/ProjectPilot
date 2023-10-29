@@ -258,6 +258,15 @@ public boolean setStatusChanges(ArrayList<String> statusChanges) {
   }
 
   /**
+   * status changes getter
+   * @author ctaks
+   * @return ArrayList<String> of status changes
+   */
+  public ArrayList<String> getStatusChanges() {
+    return this.statusChanges;
+  }
+
+  /**
    * Gets the UUID
    * @author ctaks
    * @return UUID of the id
