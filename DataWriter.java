@@ -202,7 +202,7 @@ public class DataWriter extends DataConstants {
         JSONObject taskHData = new JSONObject();
 
         taskHData.put(TASK_HISTORY_ID, taskH.getID().toString());
-        taskHData.put(TASK_HISTORY_TASK_ID, taskH.getTask().getID().toString());
+        taskHData.put(TASK_HISTORY_TASK_ID, taskH.getTaskID().toString());
         taskHData.put(TASK_HISTORY_CREATION_DATE, taskH.getCreationDate());
         taskHData.put(TASK_HISTORY_NAME_CHANGES, taskH.getNameChanges());
         taskHData.put(TASK_HISTORY_DESCRIPTION_CHANGES, taskH.getDescriptionChanges());

@@ -234,7 +234,7 @@ public class Project {
         Column oldDestination = null;
         for (int i = 0; i < columns.size() - 1; i++)
             for (int j = 0; j < columns.get(i).getTasks().size() - 1; j++)
-                if (task == columns.get(i).getTask(task.taskName))
+                if (task == columns.get(i).getTask(task.name))
                     oldDestination = columns.get(i);
         int newColumnSize = newDestination.getTasks().size();
         for (int i = 0; i < columns.size() - 1; i++)
