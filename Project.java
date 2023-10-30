@@ -394,7 +394,7 @@ public class Project {
      * @return the column that has the column ID 
      */
     public Column getColumn(UUID columnID){
-        for (Column column : this.columns){
+        for (Column column : columns){
             if(column.getID()==columnID)
                 return column;
         }
