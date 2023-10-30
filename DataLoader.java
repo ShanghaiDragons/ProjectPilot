@@ -72,24 +72,23 @@ public class DataLoader extends DataConstants {
 						UUID id = UUID.fromString((String)projectJSON.get(PROJECT_ID));
 						ArrayList<User> team = new ArrayList<User>();
 						ArrayList<String> tempTeam = (ArrayList<String>)projectJSON.get(PROJECT_TEAM);
-						for(int j = 0; j < tempTeam.size() - 1; j++)
-						for(int k = 0; k < getUsers().size(); k++)
-							if (!team.contains(getUsers().get(k)) && UUID.fromString(tempTeam.get(k)).equals(getUsers().get(k).getID()))
-								team.add(getUsers().get(k));
+						for(int j = 0; j < tempTeam.size(); j++)
+							if (UUID.fromString(tempTeam.get(j)).equals(getUsers().get(j).getID()))
+								team.add(getUsers().get(j));
 						ArrayList<Column> columns = new ArrayList<Column>();
 						ArrayList<String> tempColumns = (ArrayList<String>)projectJSON.get(PROJECT_COLUMN_IDS);
-						for(int j = 0; j < tempColumns.size() - 1; j++)
-							for(int k = 0; k < tempColumns.get(j).length(); k++)
-							if (UUID.fromString(tempColumns.get(k)).equals(getColumns().get(k).getID()))
-								columns.add(getColumns().get(k));
-						LocalDate startSprint = (LocalDate)projectJSON.get(PROJECT_START_SPRINT);
-						LocalDate endSprint = (LocalDate)projectJSON.get(PROJECT_END_SPRINT);
+						for(int j = 0; j < tempColumns.size(); j++)
+							if (UUID.fromString(tempColumns.get(j)).equals(getColumns().get(j).getID()))
+								columns.add(getColumns().get(j));
+						String start = (String)projectJSON.get(PROJECT_START_SPRINT);
+						LocalDate startSprint = LocalDate.parse(start);
+						String end = (String)projectJSON.get(PROJECT_END_SPRINT);
+						LocalDate endSprint = LocalDate.parse(end);
 						ArrayList<Comment> comments = new ArrayList<Comment>();
 						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(PROJECT_COMMENT_IDs);
-						for(int j = 0; j < tempComments.size() - 1; j++)
-							for(int k = 0; k < tempComments.get(j).length(); k++)
-							if (!comments.contains(getComments().get(k)) && UUID.fromString(tempComments.get(k)).equals(getComments().get(k).getID()))
-								comments.add(getComments().get(k));
+						for(int j = 0; j < tempComments.size(); j++)
+							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
+								comments.add(getComments().get(j));
 						projects.add(new Project(id, projectName, startSprint, endSprint, team, columns, comments));
 					}
 			  }
@@ -120,20 +119,19 @@ public class DataLoader extends DataConstants {
 				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
 				  String name = (String)projectJSON.get(COLUMN_NAME);
 					if (name != null) {
-						UUID id = UUID.fromString((String)projectJSON.get(PROJECT_ID));
+						UUID id = UUID.fromString((String)projectJSON.get(COLUMN_ID));
 						ArrayList<Task> tasks = new ArrayList<Task>();
 						ArrayList<String> tempTasks = (ArrayList<String>)projectJSON.get(COLUMN_TASK_IDS);
-						for(int j = 0; j < tempTasks.size() - 1; j++)
-						for(int k = 0; k < getTasks().size(); k++)
-							if (UUID.fromString(tempTasks.get(k)).equals(getTasks().get(k).getID()))
-								tasks.add(getTasks().get(k));
+						for(int j = 0; j < tempTasks.size(); j++)
+							for (int k = 0; k < getTasks().size(); k++)
+								if (UUID.fromString(tempTasks.get(j)).equals((getTasks().get(k).getID())))
+									tasks.add(getTasks().get(j));
 						String sortType = (String)projectJSON.get(COLUMN_SORT_TYPE);
 						ArrayList<Comment> comments = new ArrayList<Comment>();
 						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(COLUMN_COMMENT_IDS);
-						for(int j = 0; j < tempComments.size() - 1; j++)
-						for(int k = 0; k < getComments().size(); k++)
-							if (UUID.fromString(tempComments.get(k)).equals(getComments().get(k).getID()))
-								comments.add(getComments().get(k));
+						for(int j = 0; j < tempComments.size(); j++)
+							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
+								comments.add(getComments().get(j));
 						columns.add(new Column(id, name, sortType, tasks, comments));
 					}
 			  }
@@ -162,11 +160,25 @@ public class DataLoader extends DataConstants {
 			
 			  for(int i=0; i < projectsJSON.size(); i++) {
 				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
-				  String projectName = (String)projectJSON.get(PROJECT_NAME);
-				  UUID id = UUID.fromString((String)projectJSON.get(PROJECT_ID));
-				 
-				  comments.add(new Comment(id, null, null, projectName, projectsJSON));
+				  String name = (String)projectJSON.get(COMMENT_MESSAGE);
+				  if (name != null) {
+					UUID userId = UUID.fromString((String)projectJSON.get(COMMENT_USER_ID));
+					User user = null;
+					for (User x : getUsers()) {
+						if (x.getID().equals(userId))
+							user = x;
+					}
+					LocalDateTime time = LocalDateTime.now();
+					String message = (String)projectJSON.get(COMMENT_MESSAGE);
+					ArrayList<Comment> commentList = new ArrayList<Comment>();
+						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(COMMENT_THREAD_IDs);
+						for(int j = 0; j < tempComments.size(); j++)
+							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
+								comments.add(getComments().get(j));
+
+				  comments.add(new Comment(userId, user, time, message, commentList));
 			  }
+			}
 			  
 			  return comments;
 			  
@@ -195,27 +207,32 @@ public class DataLoader extends DataConstants {
 				  String name = (String)projectJSON.get(TASK_NAME);
 					if (name != null) {
 						UUID id = UUID.fromString((String)projectJSON.get(TASK_ID));
-						User assignee = (User)projectJSON.get(TASK_ASSIGNEE);
-						int priority = (Integer)projectJSON.get(TASK_PRIORITY);
+						UUID assigneeId = UUID.fromString((String)projectJSON.get(TASK_ASSIGNEE));
+						User assignee = null;
+						for (User user : getUsers()) {
+							if (user.getID().equals(assigneeId))
+								assignee = user;
+						}
+						String num = (String)projectJSON.get(TASK_PRIORITY);
+						int priority = Integer.parseInt(num);
 						String status = (String)projectJSON.get(TASK_STATUS);
 						String description = (String)projectJSON.get(TASK_DESCRIPTION);
 						ArrayList<Comment> comments = new ArrayList<Comment>();
 						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(TASK_COMMENT_IDS);
-						for(int j = 0; j < tempComments.size() - 1; j++)
-						for(int k = 0; k < getComments().size(); k++)
-							if (UUID.fromString(tempComments.get(k)).equals(getComments().get(k).getID()))
-								comments.add(getComments().get(k));
-						boolean isGeneral = (boolean)projectJSON.get(TASK_GENERAL);
-						boolean isNewFeature = (boolean)projectJSON.get(TASK_NEW_FEATURE);
-						boolean isBug = (boolean)projectJSON.get(TASK_BUG);
+						for(int j = 0; j < tempComments.size(); j++)
+							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
+								comments.add(getComments().get(j));
+						// boolean isGeneral = (boolean)projectJSON.get(TASK_GENERAL);
+						// boolean isNewFeature = (boolean)projectJSON.get(TASK_NEW_FEATURE);
+						// boolean isBug = (boolean)projectJSON.get(TASK_BUG);
 						Task task = null;
 					//   TODO: Bug cannot be resolved to a type for some weird reason...
 					//   if(isBug)
 					// 	task = new Bug(id, name, assignee, priority, status, description, comments);
-						if(isGeneral)
-							task = new GeneralTask(id, name, assignee, priority, status, description, comments);
-						if(isNewFeature)
-							task = new NewFeature(id, name, assignee, priority, status, description, comments);
+						// if(isGeneral)
+						task = new GeneralTask(id, name, assignee, priority, status, description, comments);
+						// if(isNewFeature)
+						// 	task = new NewFeature(id, name, assignee, priority, status, description, comments);
 						tasks.add(task);
 					}
 			  }

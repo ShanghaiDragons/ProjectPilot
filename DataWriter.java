@@ -128,7 +128,7 @@ public class DataWriter extends DataConstants {
 
     /**
      * Create a JSONObject for a project
-     * @author Chris
+     * @author Chris edited by Duayne
      * @param project the project name
      * @return JSONObject of the project's data
      */
@@ -157,6 +157,8 @@ public class DataWriter extends DataConstants {
             commentIDs.add(comment.getID().toString());
             jsonProjects.add(getCommentJSON(comment));
         }
+
+        projectData.put(PROJECT_COMMENT_IDs, commentIDs);
 
         return projectData;
     }
@@ -199,10 +201,12 @@ public class DataWriter extends DataConstants {
     public JSONObject getTaskJSON(Task task) {
         JSONObject taskData = new JSONObject();
 
+        int num = task.getPriority();
+        String priority = Integer.toString(num);
         taskData.put(TASK_ID, task.getID().toString());
         taskData.put(TASK_NAME, task.getName());
         taskData.put(TASK_ASSIGNEE, task.getAssignee().getID().toString());
-        taskData.put(TASK_PRIORITY, task.getPriority());
+        taskData.put(TASK_PRIORITY, priority);
         taskData.put(TASK_STATUS, task.getStatus());
         taskData.put(TASK_DESCRIPTION, task.getDescription());
         taskData.put(TASK_TASK_HISTORY_ID, task.getTaskHistory().getID().toString());

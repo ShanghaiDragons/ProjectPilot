@@ -31,5 +31,6 @@ public class GeneralTask extends Task{
      */
     public GeneralTask(UUID id, String name, User assignee, int priority, String status, String description, ArrayList<Comment> comments) {
         super(name, assignee, priority, status, description, comments);
+        setID(id);
     }
 }
