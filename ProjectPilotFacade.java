@@ -157,7 +157,7 @@ public class ProjectPilotFacade {
      * @return
      */
     public boolean removeColumn(String columnID) {
-        Column removedColumn = Project.(columnID);
+        return false;
     }
 
     /**
