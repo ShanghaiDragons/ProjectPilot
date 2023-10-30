@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 
 /**
@@ -152,11 +153,17 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * 
+     * removes column based on column ID 
+     * @author theo v 
      * @param columnID
-     * @return
+     * @return boolean that states whether it has successfully removed column 
      */
     public boolean removeColumn(String columnID) {
+        UUID columnUUID = UUID.fromString(columnID);
+        Column removedColumn = currentProject.getColumn(columnUUID);
+        if(removedColumn!=null){
+            return currentProject.removeColumn(removedColumn);
+        }
         return false;
     }
 
