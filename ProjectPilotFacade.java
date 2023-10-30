@@ -106,7 +106,11 @@ public class ProjectPilotFacade {
      * @param projectID
      * @return
      */
-    public boolean editProject(String projectID) {
+    public boolean editProject(String projectID, String newName, LocalDate newStartDate, LocalDate newEndDate){
+        Project editedProject = projectList.getProject(projectID);
+        if(editedProject!=null){
+            editedProject.setName
+        }
         return false;
     }
 
