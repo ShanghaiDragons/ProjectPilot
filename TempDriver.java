@@ -206,32 +206,33 @@ public class TempDriver {
         createColumn();
         columnMenu();
       } else {
-        // ppf.getCurrentProject().getColumns().get(choice)
-        // System.out.println("Selected column:");
-        System.out.println(ppf.getCurrentProject().getColumns().get(choice).getName()+" menu:"
-        +"\n[1] Task menu"
-        +"\n[2] Change name"
-        +"\n[3] Change sort type"
-        +"\n[4] Comment menu"
-        +"\n[5] Go Back to Project Menu"
-        );
-        int choice2 = keyboard.nextInt();
-        keyboard.nextLine();
-        switch(choice2) {
-          case 1:
-          taskMenu(ppf.getCurrentProject().getColumns().get(choice));
-          break;
-          case 2:
-          break;
-          case 3:
-          break;
-          case 4:
-          break;
-          case 5:
-          projectMenu();
-          break;
-          default:
-          break;
+        int choice2 = 0;
+        while(choice2 != 5 || choice != 1) {
+          System.out.println(ppf.getCurrentProject().getColumns().get(choice).getName()+" menu:"
+          +"\n[1] Task menu"
+          +"\n[2] Change name"
+          +"\n[3] Change sort type"
+          +"\n[4] Comment menu"
+          +"\n[5] Go Back to Project Menu"
+          );
+          choice2 = keyboard.nextInt();
+          keyboard.nextLine();
+          switch(choice2) {
+            case 1:
+            taskMenu(ppf.getCurrentProject().getColumns().get(choice));
+            break;
+            case 2:
+            break;
+            case 3:
+            break;
+            case 4:
+            break;
+            case 5:
+            projectMenu();
+            break;
+            default:
+            break;
+          }
         }
       }
     }
@@ -259,6 +260,8 @@ public class TempDriver {
         createTask(c);
         taskMenu(c);
       } else {
+        int choice2 = 0;
+        while(choice2 != 6)
         System.out.println(c.getTasks().get(choice).getName()+ " menu:"
         +"\n[1] Change name"
         +"\n[2] Change assignee"
@@ -266,24 +269,28 @@ public class TempDriver {
         +"\n[4] Change status"
         +"\n[5] Change description"
         +"\n[6] Go back to Column Menu"
+        +"\n[7] Go back to Project Menu"
         );
-        int choice2 = keyboard.nextInt();
+        choice2 = keyboard.nextInt();
         keyboard.nextLine();
         switch(choice2) {
           case 1:
             break;
           case 2:
-          break;
+            break;
           case 3:
-          break;
+            break;
           case 4:
-          break;
+            break;
           case 5:
-          break;
+            break;
           case 6:
-          columnMenu();
+            columnMenu();
+            break;
+          case 7:
+            projectMenu();
           default:
-          break;
+            break;
         }
       }
     }
