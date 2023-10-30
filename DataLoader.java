@@ -12,11 +12,10 @@ import org.json.simple.parser.JSONParser;
  * The DataLoader class. Loads the data and acts as a medium between the database and the rest of the code
  */
 public class DataLoader extends DataConstants {
-
-	public static void main(String[] args) {
-		Project p = getProjects().get(0);
-		System.out.println(p.getTeam().get(1).getFirstName());
-	  }
+ public static void main(String[] args) {
+	 Project p = getProjects().get(0);
+	 System.out.println(p.getTeam().get(1).getFirstName());
+	}
     /**
 	 * Accesses and displays all users via JSON file reading and loading
 	 * @author Duayne
@@ -67,7 +66,7 @@ public class DataLoader extends DataConstants {
 			  FileReader reader = new FileReader(PROJECT_FILE_NAME);
 			  JSONParser parser = new JSONParser();	
 			  JSONArray projectsJSON = (JSONArray)new JSONParser().parse(reader);
-			
+
 			  for(int i=0; i < projectsJSON.size(); i++) {
 				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
 				  String projectName = (String)projectJSON.get(PROJECT_NAME);

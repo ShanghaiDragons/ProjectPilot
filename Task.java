@@ -73,10 +73,12 @@ public abstract class Task {
     public boolean setID(UUID id) {
         if (id != null) {
             this.id = id;
+            taskHistory.setTaskID(this.id);
             return true;
         }
         else {
             this.id = UUID.randomUUID();
+            taskHistory.setTaskID(this.id);
             return true;
         }
     }
@@ -107,7 +109,10 @@ public abstract class Task {
      */
     public boolean setAssignee(User assignee) {
         if (assignee != null) {
-            taskHistory.addAssigneeChange(this.assignee.getUserName(), assignee.getUserName());
+            if (this.assignee != null)
+                taskHistory.addAssigneeChange(this.assignee.getUserName(), assignee.getUserName());
+            else
+                taskHistory.addAssigneeChange("empty", assignee.getUserName());
             this.assignee = assignee;
             return true;
         } else {
@@ -235,9 +240,7 @@ public abstract class Task {
      * @return Array List of all this task's comments
      */
     public ArrayList<Comment> getComments() {
-        if (!comments.isEmpty())
-            return comments;
-        return null;
+        return this.comments;
     }
 
     /**

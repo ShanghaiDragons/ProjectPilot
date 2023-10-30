@@ -220,7 +220,7 @@ public class ProjectPilotFacade {
      * @param message of the comment
      * @return boolean determining success
      */
-    public boolean addComment(Project project, String message) {
+    public boolean addComment(String message) {
         return currentProject.addComment(this.user, message);
     }
 

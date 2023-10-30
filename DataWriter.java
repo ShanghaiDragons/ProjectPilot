@@ -86,7 +86,7 @@ public class DataWriter extends DataConstants {
         ProjectList projects = ProjectList.getInstance();
         ArrayList<Project> projectList = projects.getProjects();
         
-        // JSONArray jsonProjects = new JSONArray();
+        JSONArray jsonProjectsArray = new JSONArray();
         JSONObject jsonProjects = new JSONObject();
         
         // TEST Project TODO: Remove when testing is done
@@ -99,25 +99,24 @@ public class DataWriter extends DataConstants {
         // Creating JSON objects
         // PROJECT
         for(int i=0; i < projectList.size(); i++) {
-            jsonProjects.put(PROJECT, getProjectJSON(projectList.get(i)));
+            jsonProjects.put(PROJECT+i, getProjectJSON(projectList.get(i)));
             // COLUMN
             for (int j=0; j < projectList.get(i).getColumns().size(); j++) {
-                jsonProjects.put(COLUMN, getColumnJSON(projectList.get(i).getColumns().get(j)));
+                jsonProjects.put(COLUMN+j, getColumnJSON(projectList.get(i).getColumns().get(j)));
                 // TASK
                 for (int k=0; k < projectList.get(i).getColumns().get(j).getTasks().size(); k++) {
-                    jsonProjects.put(TASK, getTaskJSON(projectList.get(i).getColumns().get(j).getTasks().get(k)));
+                    jsonProjects.put(TASK+k, getTaskJSON(projectList.get(i).getColumns().get(j).getTasks().get(k)));
                     // TASK HISTORY
-                    jsonProjects.put(TASK_HISTORY, getTaskHistoryJSON(projectList.get(i).getColumns().get(j).getTasks().get(k).getTaskHistory()));
+                    jsonProjects.put(TASK_HISTORY+k, getTaskHistoryJSON(projectList.get(i).getColumns().get(j).getTasks().get(k).getTaskHistory()));
                 }
             }
-
-            
         }
 
+        jsonProjectsArray.add(jsonProjects);
         // Write to JSON file
         // TODO: hardcoded the filename for testing. change file name for final version. -Chris
-        try (FileWriter file = new FileWriter("json/Projects_test.json")) {
-            file.write(jsonProjects.toJSONString());
+        try (FileWriter file = new FileWriter("json/Projects_test1.json")) {
+            file.write(jsonProjectsArray.toJSONString());
             file.flush();
             return true;
 
@@ -144,8 +143,8 @@ public class DataWriter extends DataConstants {
             team.add(user.getID().toString());
 
         projectData.put(PROJECT_TEAM, team);
-        projectData.put(PROJECT_START_SPRINT, project.getStartSprint());
-        projectData.put(PROJECT_END_SPRINT, project.getEndSprint());
+        projectData.put(PROJECT_START_SPRINT, project.getStartSprint().toString());
+        projectData.put(PROJECT_END_SPRINT, project.getEndSprint().toString());
 
         JSONArray columnIDs = new JSONArray();
         for (Column column : project.getColumns())
@@ -230,7 +229,7 @@ public class DataWriter extends DataConstants {
 
         taskHData.put(TASK_HISTORY_ID, taskH.getID().toString());
         taskHData.put(TASK_HISTORY_TASK_ID, taskH.getTaskID().toString());
-        taskHData.put(TASK_HISTORY_CREATION_DATE, taskH.getCreationDate());
+        taskHData.put(TASK_HISTORY_CREATION_DATE, taskH.getCreationDate().toString());
         taskHData.put(TASK_HISTORY_NAME_CHANGES, taskH.getNameChanges());
         taskHData.put(TASK_HISTORY_DESCRIPTION_CHANGES, taskH.getDescriptionChanges());
         taskHData.put(TASK_HISTORY_MOVE_CHANGES, taskH.getMoveChanges());

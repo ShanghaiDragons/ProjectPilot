@@ -10,6 +10,7 @@ public class TempDriver {
 
   public static final Scanner keyboard = new Scanner(System.in);
   private ProjectPilotFacade ppf;
+  private boolean quit;
 
   /**
    * This method runs the program.
@@ -43,9 +44,11 @@ public class TempDriver {
     loadAProject();
     System.out.println("The project that has been loaded is:");
     System.out.println(ppf.getCurrentProject().getName());
-
-    System.out.println("Menu:");
+    
+    quit = false;
+    while(!quit) {
     projectMenu();
+    }
   }
   
   /**
@@ -148,35 +151,34 @@ public class TempDriver {
     +"\n[3] Change sprint end date"
     +"\n[4] Change project name"
     +"\n[5] Add comment"
-    +"\n[6] Thread comment"
-    +"\n[7] save project");
+    +"\n[6] save project"
+    +"\n[7] quit ProjectPilot");
     int choice = keyboard.nextInt();
     keyboard.nextLine();
     switch (choice) {
       case 1:
-      System.out.println("");
-      columnMenu();
-      break;
+        columnMenu();
+        break;
       case 2:
-        System.out.println("");
         break;
       case 3:
-      System.out.println("");
-      break;
+        break;
       case 4:
-      System.out.println("");
-      break;
+        break;
       case 5:
-      System.out.println("");
-      break;
+        System.out.println("adding comment...\nEnter comment message");
+        String message = keyboard.nextLine();
+        ppf.addComment(message);
+        break;
       case 6:
-      System.out.println("");
-      break;
+        System.out.println("saving project...");
+        ppf.saveProjects();
+        break;
       case 7:
-      System.out.println("saving project...");
-      ppf.saveProjects();
+        quit = true;
+        break;
       default:
-      System.out.println("invalid choice");
+        System.out.println("invalid choice");
         break;
     }
   }

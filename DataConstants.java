@@ -14,7 +14,7 @@ public abstract class DataConstants {
 
 	// Project
 	protected static final String PROJECT = "project";
-	protected static final String PROJECT_FILE_NAME = "json/Projects_test_load.json"; //TODO: change back to correct filename.
+	protected static final String PROJECT_FILE_NAME = "json/Projects_test.json"; //TODO: change back to correct filename.
 	protected static final String PROJECT_NAME = "name";
 	protected static final String PROJECT_ID = "id";
 	protected static final String PROJECT_TEAM = "team";

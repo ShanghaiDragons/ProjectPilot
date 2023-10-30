@@ -1,82 +1,44 @@
 [
-    {
-        "id": "e0363976-479c-4d86-b21d-ac6d7ee02ca5",
-        "team": [
-                    "c582b373-4a57-478b-9915-0eb105d0e171",
-                    "5743d079-f8db-41d3-b892-7be2b9c1cf1b"
-                ],
-        "columnIDs": [
-            {
-                "id":"61816792-557a-4c77-a195-4d8b0f23ea9f",
-                "columnName": "To Do",
-                "taskIDs": [
-                    {
-                        "id": "035a22e3-710c-410a-b338-71710fe67ca6",
-                        "name": "Develop This Product",
-                        "assignee": "c582b373-4a57-478b-9915-0eb105d0e171",
-                        "priority": 1,
-                        "status":"wadlkad",
-                        "description": "Develop this product at this time."
-                        
-                    },
-                    {
-                        "id": "fa0250b7-606c-43de-b1ac-ee61f2ef9bb1",
-                        "taskName": "Make Product B",
-                        "assigneeName": "5743d079-f8db-41d3-b892-7be2b9c1cf1b",
-                        "priority": 2,
-                        "description": "Make product B with so and so features."
-                    }
-                ],
-                "sortType": "Priority",
-                "commentIDs":[]
-            },
-            {
-                "id":"71816792-557a-4c77-a195-4d8b0f23ea9g",
-                "columnName": "In Progress",
-                "tasks": [
-                    "fa0250b7-606c-43de-b1ac-ee61f2ef9bb1"
-                ],
-                "sortType": "Priority",
-                "commentIDs":[]
-            }
-        ],
-        "startSprint": "01/01/2023",
-        "endSprint": "06/06/2023",
-        "user": "c582b373-4a57-478b-9915-0eb105d0e171",
-        "name": "Assignment #1",
-        "commentIDs": [
-            {
-                "id": "49a21594-c6cc-4157-9679-0f328dac2570",
-                "user": "5743d079-f8db-41d3-b892-7be2b9c1cf1b",
-                "date": "2023-10-12",
-                "comment message": "Great progress!",
-                "comment thread": ["49a21594-c6cc-4157-9679-0f328dac2570"]
-            }
-        ],
-        "productBackLog": [
-            {
-                "id": "6bb29b50-f944-4a60-98c6-64696907bc63",
-                "Tasks": [
-                    {
-                        "id": "035a22e3-710c-410a-b338-71710fe67ca6",
-                        "taskName": "Develop This Product",
-                        "assigneeName": "c582b373-4a57-478b-9915-0eb105d0e171",
-                        "priority": 1,
-                        "description": "Develop this product at this time."
-                    },
-                    {
-                        "id": "fa0250b7-606c-43de-b1ac-ee61f2ef9bb1",
-                        "taskName": "Make Product B",
-                        "assigneeName": "5743d079-f8db-41d3-b892-7be2b9c1cf1b",
-                        "priority": 2,
-                        "description": "Make product B with so and so features."
-                    }
-                ],
-                "ArchivedTasks": [
-                    "6cd32127-610e-4bdc-b529-75aaffdf7977",
-                    "45c47ffa-ff60-4e2a-8415-2fa7cf2f2396"
-                ]
-            }
-        ]
+  {
+    "task": {
+      "taskHistoryID": "832b7dfb-9222-4042-b8bb-b7cc3a331d31",
+      "name": "task1",
+      "description": "empty",
+      "id": "75da5a58-1898-418c-aebe-bb440503a551",
+      "assignee": "c582b373-4a57-478b-9915-0eb105d0e171",
+      "priority": 1,
+      "commentIDs": [],
+      "status": "active"
+    },
+    "taskHistory": {
+      "descriptionChanges": [
+        "[2023-10-29T23:07:48.490923900]: \"empty\" was set"
+      ],
+      "statusChanges": ["[2023-10-29T23:07:48.490923900]: \"active\" was set"],
+      "id": "832b7dfb-9222-4042-b8bb-b7cc3a331d31",
+      "creationDate": "2023-10-29T23:07:48.486922500",
+      "moveChanges": [],
+      "priorityChanges": ["[2023-10-29T23:07:48.490923900]: \"1\" was set"],
+      "taskID": "75da5a58-1898-418c-aebe-bb440503a551",
+      "nameChanges": ["[2023-10-29T23:07:48.487923100]: \"task1\" was set"],
+      "assigneeChanges": [
+        "[2023-10-29T23:07:48.489922800]: \"jsmith24\" was set"
+      ]
+    },
+    "column": {
+      "sortType": "default",
+      "id": "b8f489a2-507f-4ad6-88af-d0b45a6da3f9",
+      "taskIDs": ["75da5a58-1898-418c-aebe-bb440503a551"],
+      "commentIDs": [],
+      "columnName": "column1"
+    },
+    "project": {
+      "startSprint": "2023-10-29",
+      "columnIDs": ["b8f489a2-507f-4ad6-88af-d0b45a6da3f9"],
+      "endSprint": "2023-10-29",
+      "name": "1",
+      "id": "7d15419d-07b2-40b9-bc47-78e9345dfffc",
+      "team": []
     }
+  }
 ]
