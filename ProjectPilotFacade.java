@@ -68,11 +68,16 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * 
+     * logs out the user 
+     * @author theo v 
      * @param user
      * @return
      */
-    public boolean logout(User user) {
+    public boolean logout() {
+        if(user != null){
+            this.user=null;
+            return true;
+        }
         return false;
     }
 
@@ -101,16 +106,25 @@ public class ProjectPilotFacade {
      * @param projectID
      * @return
      */
-    public boolean editProject(String projectID) {
+    public boolean editProject(String projectID, String newName, LocalDate newStartDate, LocalDate newEndDate){
+        Project editedProject = projectList.getProject(projectID);
+        if(editedProject!=null){
+            editedProject.setName
+        }
         return false;
     }
 
     /**
-     * 
+     * removes project 
+     * @author theo v
      * @param projectID
      * @return
      */
     public boolean removeProject(String projectID) {
+        Project removedProject = projectList.getProject(projectID);
+        if(removedProject!=null){
+            return projectList.getProjects().remove(removedProject);
+        }
         return false;
     }
 
@@ -267,3 +281,4 @@ public class ProjectPilotFacade {
         return projectList.saveProjects();
     }
 }
+
