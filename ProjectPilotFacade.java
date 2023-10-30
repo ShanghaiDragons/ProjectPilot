@@ -97,8 +97,7 @@ public class ProjectPilotFacade {
     public boolean addProject(Project projectName) {
         if(projectName!=null){
             Project newProject = new Project(projectName.getName(), user);
-            projectList.addProject(projectName);
-            return true;
+            return projectList.addProject(projectName);
         }
         return false;
     }
