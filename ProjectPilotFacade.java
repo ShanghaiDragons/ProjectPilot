@@ -12,6 +12,7 @@ public class ProjectPilotFacade {
     private Project currentProject;
     private UserList userList;
     private ProjectList projectList;
+    private DataWriter dataWriter;
 
     /**
      * ProjectPilotFacade constructor. Initializes userList, projectList, and user.
@@ -20,6 +21,7 @@ public class ProjectPilotFacade {
     public ProjectPilotFacade() {
         userList = UserList.getInstance();
         projectList = ProjectList.getInstance();
+        dataWriter = new DataWriter();
     }
 /**
  * Creates an account for a given user
@@ -106,31 +108,34 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * 
-     * @param projectID
+     * Edits the project attributes (name, Start date, end date) and saves it using dataWriter
+     * @author theo v
+     * @param projectID 
      * @param newName
      * @param newStartDate
      * @param newEndDate
-     * @return
+     * @return boolean that determines whether the project was edited successfully
      */
     public boolean editProject(String projectID, String newName, LocalDate newStartDate, LocalDate newEndDate){
         Project editedProject = projectList.getProject(projectID);
         if(editedProject!=null){
-            // editedProject.setName //EDITED THIS OUT TO SOLVE ERRORS
+            editedProject.setName(newName);
+            editedProject.setSprint(newStartDate, newEndDate);
+            return dataWriter.saveProjects();
         }
         return false;
     }
 
     /**
-     * removes project 
+     * removes project and saves new project list using data writer
      * @author theo v
      * @param projectID
-     * @return
+     * @return boolean that determines if the project was removed
      */
     public boolean removeProject(String projectID) {
         Project removedProject = projectList.getProject(projectID);
-        if(removedProject!=null){
-            return projectList.getProjects().remove(removedProject);
+        if(removedProject!=null && projectList.getProjects().remove(removedProject)){
+            return dataWriter.saveProjects();
         }
         return false;
     }
