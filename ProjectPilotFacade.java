@@ -12,7 +12,6 @@ public class ProjectPilotFacade {
     private Project currentProject;
     private UserList userList;
     private ProjectList projectList;
-    private DataWriter dataWriter;
 
     /**
      * ProjectPilotFacade constructor. Initializes userList, projectList, and user.
@@ -21,7 +20,6 @@ public class ProjectPilotFacade {
     public ProjectPilotFacade() {
         userList = UserList.getInstance();
         projectList = ProjectList.getInstance();
-        dataWriter = new DataWriter();
     }
 /**
  * Creates an account for a given user
@@ -121,7 +119,7 @@ public class ProjectPilotFacade {
         if(editedProject!=null){
             editedProject.setName(newName);
             editedProject.setSprint(newStartDate, newEndDate);
-            return dataWriter.saveProjects();
+            return projectList.saveProjects();
         }
         return false;
     }
@@ -135,7 +133,7 @@ public class ProjectPilotFacade {
     public boolean removeProject(String projectID) {
         Project removedProject = projectList.getProject(projectID);
         if(removedProject!=null && projectList.getProjects().remove(removedProject)){
-            return dataWriter.saveProjects();
+            return projectList.saveProjects();
         }
         return false;
     }
