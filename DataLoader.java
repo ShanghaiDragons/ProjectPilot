@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.text.SimpleDateFormat;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -12,10 +13,7 @@ import org.json.simple.parser.JSONParser;
  * The DataLoader class. Loads the data and acts as a medium between the database and the rest of the code
  */
 public class DataLoader extends DataConstants {
- public static void main(String[] args) {
-	 Project p = getProjects().get(0);
-	 System.out.println(p.getTeam().get(1).getFirstName());
-	}
+
     /**
 	 * Accesses and displays all users via JSON file reading and loading
 	 * @author Duayne
@@ -75,7 +73,7 @@ public class DataLoader extends DataConstants {
 				  ArrayList<String> tempTeam = (ArrayList<String>)projectJSON.get(PROJECT_TEAM);
 				  for(int j = 0; j < tempTeam.size() - 1; j++)
 					for(int k = 0; k < getUsers().size(); k++)
-						if (UUID.fromString(tempTeam.get(k)).equals(getUsers().get(k).getID()))
+						if (!team.contains(getUsers().get(k)) && UUID.fromString(tempTeam.get(k)).equals(getUsers().get(k).getID()))
 							team.add(getUsers().get(k));
 				  ArrayList<Column> columns = new ArrayList<Column>();
 				  ArrayList<String> tempColumns = (ArrayList<String>)projectJSON.get(PROJECT_COLUMN_IDS);
@@ -89,7 +87,7 @@ public class DataLoader extends DataConstants {
 				  ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(PROJECT_COMMENT_IDs);
 				  for(int j = 0; j < tempComments.size() - 1; j++)
 				  	for(int k = 0; k < tempComments.get(j).length(); k++)
-						if (UUID.fromString(tempComments.get(k)).equals(getComments().get(k).getID()))
+						if (!comments.contains(getComments().get(k)) && UUID.fromString(tempComments.get(k)).equals(getComments().get(k).getID()))
 							comments.add(getComments().get(k));
 				  projects.add(new Project(projectName, startSprint, endSprint, team, columns, comments));
 			  }
@@ -120,7 +118,7 @@ public class DataLoader extends DataConstants {
 				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
 				  String projectName = (String)projectJSON.get(PROJECT_NAME);
 				  UUID id = UUID.fromString((String)projectJSON.get(PROJECT_ID));
-				  String columnName = (String)projectJSON.get(COLUMN_NAME);
+				  String name = (String)projectJSON.get(COLUMN_NAME);
 				  ArrayList<Task> tasks = new ArrayList<Task>();
 				  ArrayList<String> tempTasks = (ArrayList<String>)projectJSON.get(COLUMN_TASK_IDS);
 				  for(int j = 0; j < tempTasks.size() - 1; j++)
@@ -134,7 +132,7 @@ public class DataLoader extends DataConstants {
 					for(int k = 0; k < getComments().size(); k++)
 						if (UUID.fromString(tempComments.get(k)).equals(getComments().get(k).getID()))
 							comments.add(getComments().get(k));
-				  columns.add(new Column(columnName, sortType, tasks, comments));
+				  columns.add(new Column(name, sortType, tasks, comments));
 			  }
 			  
 			  return columns;
