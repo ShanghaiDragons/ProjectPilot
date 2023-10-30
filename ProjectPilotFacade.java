@@ -184,7 +184,30 @@ public class ProjectPilotFacade {
      * @param comment
      * @return
      */
-    public boolean addComment(User user, String projectID, String comment) {
+    public <T> boolean addComment(T scrumject, User user, String message) {
+        // PROJECT
+        if (scrumject instanceof Project) {
+            
+            return true;
+        }
+        
+        // COLUMN
+        if (scrumject instanceof Column) {
+
+            return true;
+        }
+
+        // TASK
+        if (scrumject instanceof Task) {
+
+            return true;
+        }
+
+        // COMMENT
+        if (scrumject instanceof Comment) {
+
+            return true;
+        }
         return false;
     }
 

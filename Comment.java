@@ -137,12 +137,11 @@ public class Comment {
      * @param comment the comment to be added
      * @return boolean determining if the addition was a success
      */
-    public boolean threadComment(Comment comment) {
-        if(comment.getID() != null){
-            thread.add(comment);
-            return true;
-            }
-        return false; 
+    public boolean threadComment(User user, String message) {
+        if(user != null && !message.isEmpty())
+            return thread.add(new Comment(user, message));
+        else
+            return false;
     }
 
     /**

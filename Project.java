@@ -269,26 +269,17 @@ public class Project {
     }
 
     /**
-     * 
-     * @param user
-     * @param project
-     * @param comment
-     * @return
+     * Adds a comment to the project
+     * @author ctaks
+     * @param user to be added
+     * @param message to be added
+     * @return boolean determining success
      */
-    private boolean addComment(User user, Project project, String comment) {
-        
-        return false;
-    }
-
-    /**
-     * 
-     * @param user
-     * @param project
-     * @param comment
-     * @return
-     */
-    private boolean threadComment(User user, Project project, String comment) {
-        return false;
+    public boolean addComment(User user, String message) {
+        if(user != null && !message.isEmpty())
+            return comments.add(new Comment(user, message));
+        else
+            return false;
     }
 
     /**
