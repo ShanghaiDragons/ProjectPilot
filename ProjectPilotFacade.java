@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+import java.util.UUID;
 /**
  * ProjectPilot Facade class. Acts as a buffer between the UI and everything else.
  */
@@ -113,11 +113,16 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * 
+     * removes project 
+     * @author theo v
      * @param projectID
      * @return
      */
     public boolean removeProject(String projectID) {
+        Project removedProject = projectList.getProject(projectID);
+        if(removedProject!=null){
+            return projectList.getProjects().remove(removedProject);
+        }
         return false;
     }
 
@@ -273,3 +278,4 @@ public class ProjectPilotFacade {
         return projectList.saveProjects();
     }
 }
+
