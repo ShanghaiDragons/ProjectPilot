@@ -119,19 +119,6 @@ public class Comment {
     }
 
     /**
-     * adds a comment
-     * @author theo v
-     * @param comment string that is the comment
-     */
-    public boolean addComment(String comment) {
-        if(!comment.isEmpty()){
-        this.message=comment;
-        return true;
-        }
-        return false; 
-    }
-
-    /**
      * adding a comment on another comment, hence threading the comments
      * @author theo (edited by ctaks)
      * @param comment the comment to be added

@@ -68,11 +68,16 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * 
+     * logs out the user 
+     * @author theo v 
      * @param user
      * @return
      */
-    public boolean logout(User user) {
+    public boolean logout() {
+        if(user != null){
+            this.user=null;
+            return true;
+        }
         return false;
     }
 
@@ -89,7 +94,12 @@ public class ProjectPilotFacade {
     /**
      * Adds a new project.
      * @author ctaks
-     * @param projectID
+     * @param name to be added
+     * @param startSprint to be added
+     * @param endSprint to be added
+     * @param team to be added
+     * @param columns to be added
+     * @param comments to be added
      * @return boolean determining success
      */
     public boolean addProject(String name, LocalDate startSprint, LocalDate endSprint, ArrayList<User> team, ArrayList<Column> columns, ArrayList<Comment> comments) {
@@ -99,25 +109,41 @@ public class ProjectPilotFacade {
     /**
      * 
      * @param projectID
+     * @param newName
+     * @param newStartDate
+     * @param newEndDate
      * @return
      */
-    public boolean editProject(String projectID) {
+    public boolean editProject(String projectID, String newName, LocalDate newStartDate, LocalDate newEndDate){
+        Project editedProject = projectList.getProject(projectID);
+        if(editedProject!=null){
+            // editedProject.setName //EDITED THIS OUT TO SOLVE ERRORS
+        }
         return false;
     }
 
     /**
-     * 
+     * removes project 
+     * @author theo v
      * @param projectID
      * @return
      */
     public boolean removeProject(String projectID) {
+        Project removedProject = projectList.getProject(projectID);
+        if(removedProject!=null){
+            return projectList.getProjects().remove(removedProject);
+        }
         return false;
     }
 
     /**
-     * 
-     * @param columnID
-     * @return
+     * Adds a column to the current project
+     * @author ctaks
+     * @param name to be added
+     * @param sortType to be added
+     * @param tasks to be added
+     * @param comments to be added
+     * @return boolean determining success
      */
     public boolean addColumn(String name, String sortType, ArrayList<Task> tasks, ArrayList<Comment> comments) {
         return currentProject.addColumn(new Column(name, sortType, tasks, comments));
@@ -151,11 +177,21 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * 
-     * @param taskID
-     * @return
+     * Adds a task to the current project's selected column
+     * @author ctaks
+     * @param c Column that the task needs to be added in
+     * @param name to be added
+     * @param user to be added
+     * @param priority to be added
+     * @param status to be added
+     * @param description to be added
+     * @param comments to be added
+     * @return boolean determining success
      */
-    public boolean addTask(String taskID) {
+    public boolean addTask(Column c, String name, User user, int priority, String status, String description, ArrayList<Comment> comments) {
+        for (Column column : currentProject.getColumns())
+            if (column.getID() == c.getID())
+                return column.addTask(new GeneralTask(name, user, priority, status, description, comments));
         return false;
     }
 
@@ -178,35 +214,62 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * 
-     * @param user
-     * @param projectID
-     * @param comment
-     * @return
+     * Adds a comment to the project
+     * @author ctaks
+     * @param project to add comment to
+     * @param message of the comment
+     * @return boolean determining success
      */
-    public <T> boolean addComment(T scrumject, User user, String message) {
-        // PROJECT
-        if (scrumject instanceof Project) {
-            
-            return true;
-        }
-        
-        // COLUMN
-        if (scrumject instanceof Column) {
+    public boolean addComment(Project project, String message) {
+        return currentProject.addComment(this.user, message);
+    }
 
-            return true;
-        }
+    /**
+     * Adds a comment to the column
+     * @author ctaks
+     * @param column to add comment to
+     * @param message of the comment
+     * @return boolean determining success
+     */
+    public boolean addComment(Column column, String message) {
+         for (Column c : currentProject.getColumns())
+            if (c.getID() == column.getID())
+                return c.addComment(this.user, message);
+        return false;
+    }
 
-        // TASK
-        if (scrumject instanceof Task) {
+    /**
+     * Adds a comment to the task
+     * @author ctaks
+     * @param task to add comment to
+     * @param message of the comment
+     * @return boolean determining success
+     */
+    public boolean addComment(Task task, String message) {
+        for (Column c : currentProject.getColumns())
+            for (Task t : c.getTasks())
+                if (t.getID() == task.getID())
+                    return t.addComment(this.user, message);
+        return false;
+    }
 
-            return true;
-        }
-
-        // COMMENT
-        if (scrumject instanceof Comment) {
-
-            return true;
+    /**
+     * Adds a comment to a comment (threads it)
+     * @author ctaks
+     * @param comment to add comment to
+     * @param message of the comment
+     * @return boolean determining success
+     */
+    public boolean addComment(Comment comment, String message) {
+        if (currentProject.getComment(comment.getID()) != null )
+            return currentProject.getComment(comment.getID()).threadComment(this.user, message);
+        for (Column col : currentProject.getColumns()) {
+            if(col.getComment(comment.getID()) != null)
+                return col.getComment(comment.getID()).threadComment(this.user, message);
+            for (Task t : col.getTasks()) {
+                if(t.getComment(comment.getID()) != null)
+                    return t.getComment(comment.getID()).threadComment(this.user, message);
+            }
         }
         return false;
     }
@@ -290,3 +353,4 @@ public class ProjectPilotFacade {
         return projectList.saveProjects();
     }
 }
+

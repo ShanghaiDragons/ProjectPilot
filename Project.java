@@ -362,6 +362,20 @@ public class Project {
             return team;
         return null;
     }
+    
+    /**
+     * Gets a specified comment
+     * @author ctaks
+     * @param commentID The specified comment's ID
+     * @return Comment of the comment
+     */
+    public Comment getComment(UUID commentID) {
+        for (Comment comment : this.comments) {
+            if (comment.getID() == commentID)
+                return comment;
+        }
+        return null;
+    }
 
     /**
      * Gets the project's comments
