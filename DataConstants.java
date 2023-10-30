@@ -25,7 +25,7 @@ public abstract class DataConstants {
 
 	// Column
 	protected static final String COLUMN = "column";
-	protected static final String COLUMN_NAME = "columnName";
+	protected static final String COLUMN_NAME = "name";
 	protected static final String COLUMN_ID = "id";
 	protected static final String COLUMN_SORT_TYPE = "sortType";
 	protected static final String COLUMN_TASK_IDS = "taskIDs";

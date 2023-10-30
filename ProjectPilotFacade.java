@@ -35,8 +35,7 @@ public class ProjectPilotFacade {
             return user;
         user = new User(firstName, lastName, userName, password, false,
                         false, false, false);
-        // Uncomment code below when the addUser method is added and implemented to the UserList class
-        // userList.addUser();
+        userList.addUser(user);
         return user;
     }
 
@@ -211,8 +210,18 @@ public class ProjectPilotFacade {
         return userList.getUsers();
     }
 
+    /**
+     * Gets all of the tasks in the current project
+     * @author Duayne
+     * @return Array list of all tasks in the project
+     */
     public ArrayList<Task> getTasks() {
-        return null;
+        Project p = getCurrentProject();
+        ArrayList<Task> allTasks = new ArrayList<Task>();
+        for (int i = 0; i < p.getColumns().size(); i++)
+            for (int j = 0; j < p.getColumns().get(i).getTasks().size(); j++)
+                allTasks.add(p.getColumns().get(i).getTasks().get(j));
+        return allTasks;
     }
 
     /**
