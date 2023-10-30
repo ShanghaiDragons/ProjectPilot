@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -7,43 +8,163 @@ import java.util.UUID;
  */
 public class Project {
     private UUID id;
+    private String name;
+    private LocalDate startSprint;
+    private LocalDate endSprint;
     private ArrayList<User> team;
     private ArrayList<Column> columns;
-    private Date startSprint;
-    private Date endSprint;
-    private User user;
-    private String projectName;
     private ArrayList<Comment> comments;
-    private ProductBacklog productBacklog;
 
     /**
-     * 
-     * @param id
-     * @param projectName
-     * @param user
+     * Constructor for making a new project
+     * @param name new
+     * @param startSprint new
+     * @param endSprint new
+     * @param team new
+     * @param columns new
+     * @param comments new
      */
-    public Project(UUID id, String projectName, User user) {
-        this.id = id;
-        this.projectName = projectName;
-        this.user = user;
-        this.team = new ArrayList<>();
-        this.columns = new ArrayList<>();
-        this.comments = new ArrayList<>();
-        this.productBacklog = new ProductBacklog();
+    public Project(String name, LocalDate startSprint, LocalDate endSprint, ArrayList<User> team, ArrayList<Column> columns, ArrayList<Comment> comments) {
+        setID(id);
+        setName(name);
+        setStartSprint(startSprint);
+        setEndSprint(endSprint);
+        setTeam(team);
+        setColumns(columns);
+        setComments(comments);
     }
 
     /**
-     * 
-     * @param projectName
-     * @param user
+     * Constructor for loading a project from JSON
+     * @param id from JSON file
+     * @param name from JSON file
+     * @param startSprint from JSON file
+     * @param endSprint from JSON file
+     * @param team from JSON file
+     * @param columns from JSON file
+     * @param comments from JSON file
+     */    
+    public Project(UUID id, String name, LocalDate startSprint, LocalDate endSprint, ArrayList<User> team, ArrayList<Column> columns, ArrayList<Comment> comments) {
+        setID(id);
+        setName(name);
+        setStartSprint(startSprint);
+        setEndSprint(endSprint);
+        setTeam(team);
+        setColumns(columns);
+        setComments(comments);
+    }
+
+    /**
+     * Setter for id
+     * @author ctaks
+     * @param id to be set
+     * @return boolean determining success
      */
-    public Project(String projectName, User user) {
-        this.projectName = projectName;
-        this.user = user;
-        this.team = new ArrayList<>();
-        this.columns = new ArrayList<>();
-        this.comments = new ArrayList<>();
-        this.productBacklog = new ProductBacklog();
+    public boolean setID(UUID id) {
+        if (id != null) {
+            this.id = id;
+            return true;
+        }
+        else {
+            this.id = UUID.randomUUID();
+            return true;
+        }
+    }
+
+    /**
+     * Setter for name
+     * @author ctaks
+     * @param name to be set
+     * @return boolean determing success
+     */
+    public boolean setName(String name) {
+        if (name != null) {
+            this.name = name;
+            return true;
+        } else {
+            this.name = "default";
+            return false;
+        }
+    }
+
+    /**
+     * setter for startSprint
+     * @author ctaks
+     * @param start to be set
+     * @return boolean determing success
+     */
+    public boolean setStartSprint(LocalDate start) {
+        if (start != null) {
+            this.startSprint = start;
+            return true;
+        } else {
+            this.startSprint = LocalDate.now();
+            return false;
+        }
+    }
+
+     /**
+     * setter for endSprint
+     * @author ctaks
+     * @param start to be set
+     * @return boolean determing success
+     */
+    public boolean setEndSprint(LocalDate end) {
+        if (end != null) {
+            this.endSprint = end;
+            return true;
+        } else {
+            this.endSprint = LocalDate.now();
+            return false;
+        }
+    }
+
+    /**
+     * Setter for team
+     * @author ctaks
+     * @param team to be set
+     * @return boolean determing success
+     */
+    public boolean setTeam(ArrayList<User> team) {
+        if (team == null || team.isEmpty()) {
+            this.team = new ArrayList<User>();
+            return true;
+        } else {
+            this.team = team;
+            return true;
+        }
+    }
+
+    /**
+     * setter for column
+     * @author ctaks
+     * @param column to be set
+     * @return boolean determing success
+     */
+    public boolean setColumns(ArrayList<Column> columns) {
+        if (columns == null || columns.isEmpty()) {
+            this.columns = new ArrayList<Column>();
+            return true;
+        } else {
+            this.columns = columns;
+            return true;
+        }
+    }
+
+    /**
+     * Setter for comments
+     * @author ctaks
+     * @param comments to be set
+     * @return boolean determing success
+     */
+    public boolean setComments(ArrayList<Comment> comments) {
+        if (comments == null || comments.isEmpty()) {
+            this.comments = new ArrayList<Comment>();
+            return true;
+        } else {
+            this.comments = comments;
+            return true;
+        }
     }
 
     /**
@@ -123,6 +244,31 @@ public class Project {
     }
 
     /**
+     * Moves task from one column to another column
+     * @author Duayne
+     * @param newDestination Column object of the new column the task will be moved into
+     * @param task Task object of the task to be moved
+     * @return boolean that represents a change after removing from one column and adding to the other
+     */
+    public boolean moveTask(Column newDestination, Task task) {
+        Column oldDestination = null;
+        for (int i = 0; i < columns.size() - 1; i++)
+            for (int j = 0; j < columns.get(i).getTasks().size() - 1; j++)
+                if (task == columns.get(i).getTask(task.name))
+                    oldDestination = columns.get(i);
+        int newColumnSize = newDestination.getTasks().size();
+        for (int i = 0; i < columns.size() - 1; i++)
+            if (newDestination == columns.get(i))
+                columns.get(i).addTask(task);
+        if (oldDestination == null)
+            return false;
+        int oldColumnSize = oldDestination.getTasks().size();
+        oldDestination.removeTask(task);
+        return (oldColumnSize != oldDestination.getTasks().size() &&
+                newColumnSize != newDestination.getTasks().size());
+    }
+
+    /**
      * 
      * @param user
      * @param project
@@ -137,11 +283,11 @@ public class Project {
     /**
      * Gets the name of the project
      * @author Chris
-     * @return the project name (this.projectName)
+     * @return the project name (this.name)
      */
     public String getName() {
-        if (this.projectName != null)
-            return this.projectName;
+        if (this.name != null)
+            return this.name;
         else
             return "no name found";
     }
@@ -167,9 +313,9 @@ public class Project {
     /**
      * Gets the sprint start date
      * @author Duayne
-     * @return Date object of the sprint start date
+     * @return LocalDate object of the sprint start date
      */
-    public Date getStartSprint() {
+    public LocalDate getStartSprint() {
         if (this.startSprint != null)
             return startSprint;
         return null;
@@ -178,9 +324,9 @@ public class Project {
     /**
      * Gets the sprint end date
      * @author Duayne
-     * @return Date object of the sprint end date
+     * @return LocalDate object of the sprint end date
      */
-    public Date getEndSprint() {
+    public LocalDate getEndSprint() {
         if (this.endSprint != null)
             return endSprint;
         return null;
@@ -189,14 +335,14 @@ public class Project {
     /**
      * Sets both the sprint start and end dates
      * @author Duayne
-     * @param startSprint Date object of the sprint's start date
-     * @param endSprint Date object of the sprint's end date
+     * @param startSprint LocalDate object of the sprint's start date
+     * @param endSprint LocalDate object of the sprint's end date
      */
-    public void setSprint(Date startSprint, Date endSprint) {
+    public void setSprint(LocalDate startSprint, LocalDate endSprint) {
         if (startSprint == null || endSprint == null)
             return;
         if (startSprint.compareTo(endSprint) > 0) {
-            Date temp = startSprint;
+            LocalDate temp = startSprint;
             startSprint = endSprint;
             endSprint = temp;
         }
@@ -223,17 +369,6 @@ public class Project {
     public ArrayList<Comment> getComments() {
         if (this.comments != null)
             return comments;
-        return null;
-    }
-
-    /**
-     * Gets the project's backlog
-     * @author Duayne
-     * @return Array List of tasks in the project
-     */
-    public ProductBacklog getProductBacklog() {
-        if (this.productBacklog != null)
-            return productBacklog;
         return null;
     }
 }

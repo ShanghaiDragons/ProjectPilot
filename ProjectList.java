@@ -13,6 +13,9 @@ public class ProjectList {
      */
     private ProjectList() {
         projects = DataLoader.getProjects();
+        if (projects == null) {
+            projects = new ArrayList<Project>();
+        }
     }
 
     /**
@@ -24,6 +27,18 @@ public class ProjectList {
             projectListInstance = new ProjectList();
         }
         return projectListInstance;
+    }
+
+    /**
+     * Adds a project to the project list. Technically a setter.
+     * @author ctaks
+     * @param project to be added
+     * @return boolean determining success
+     */
+    public boolean addProject(Project project) {
+        if (project != null)
+           return projects.add(project);
+        return false;
     }
 
     /**
@@ -55,23 +70,8 @@ public class ProjectList {
      * @return boolean determining if the projects were saved.
      */
     public boolean saveProjects() {
-        return DataWriter.saveProjects();
+        DataWriter dw = new DataWriter();
+        return dw.saveProjects();
     }
-    /**
-     * adds project to the projectlist, but checks to see if the project already exists within the project list 
-     * @author theo v 
-     * @param projectName
-     * @return
-     */
-    public boolean addProject(Project newProject){
-        if(newProject!=null){
-            for(Project existingProject:projects){
-                if(existingProject.getName().equals(newProject.getName())){
-                    return false;
-                }
-            }
-            projects.add(newProject);
-            return true;
-    }
-    return false;
-}}
+
+}

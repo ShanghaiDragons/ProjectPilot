@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.UUID;
+import java.time.LocalDateTime;
 
 /**
  * The atttributes of a task and its functionality
@@ -8,112 +9,194 @@ import java.util.UUID;
  */
 public abstract class Task {
     public static Comparator compareAssignee;
-    private UUID id;
-    protected String taskName;
+    protected UUID id;
+    protected String name;
     protected User assignee;
     protected int priority;
+    protected String status;
     protected String description;
-    protected ArrayList<Comment> taskComments;
-
+    protected ArrayList<Comment> comments;
+    protected TaskHistory taskHistory;
+    protected boolean isGeneral;
+    protected boolean isNewFeatrue;
+    protected boolean isBug;
 
     /**
      * Constructor for the Task class without UUID
-     * @author Duayne
-     * @param taskName String of the task's name 
+     * @author Duayne (edited by ctaks)
+     * @param name String of the task's name 
      * @param assignee User that is assigned to the task
      * @param priority Integer representing the task's priority
      * @param description String describing the task
+     * @param comments new comment list
      */
-    public Task(String taskName, User assignee, int priority, String description) {
-        this.taskName = taskName;
-        this.assignee = assignee;
-        this.priority = priority;
-        this.description = description;
-        this.taskComments= new ArrayList<>();
+    public Task(String name, User assignee, int priority, String status, String description, ArrayList<Comment> comments) {
+        setTaskHistory(taskHistory);
+        setID(this.id);
+        setName(name);
+        setAssignee(assignee);
+        setPriority(priority);
+        setStatus(status);
+        setDescription(description);
+        setComments(comments);
     }
+
+    /**
+     * Constructor for loading a task
+     * @author ctaks
+     * @param id from JSON file
+     * @param name from JSON file
+     * @param assignee from JSON file
+     * @param priority from JSON file
+     * @param status from JSON file
+     * @param description from JSON file
+     * @param taskHistory from JSON file
+     * @param comments from JSON file
+     */
+    public Task(UUID id, String name, User assignee, int priority, String status, String description, TaskHistory taskHistory, ArrayList<Comment> comments) {
+        setTaskHistory(taskHistory);
+        setID(id);
+        setName(name);
+        setAssignee(assignee);
+        setPriority(priority);
+        setStatus(status);
+        setDescription(description);
+        setComments(comments);
+    }
+
+    /**
+     * Setter for id
+     * @author ctaks
+     * @param id to be set
+     * @return boolean determining success
+     */
+    public boolean setID(UUID id) {
+        if (id != null) {
+            this.id = id;
+            return true;
+        }
+        else {
+            this.id = UUID.randomUUID();
+            return true;
+        }
+    }
+
     /**
      * Sets the name of the task
-     * @author Duayne
-     * @param taskName String of the updated task name
+     * @author Duayne (edited by ctaks)
+     * @param name String of the updated task name
+     * @return boolean determining success
      */
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
+    public boolean setName(String name) {
+        if (name != null) {
+            taskHistory.addNameChange(this.name, name);
+            this.name = name;
+            return true;
+        } else {
+            taskHistory.addNameChange(this.name, "setNameERROR");
+            this.name = "default";
+            return false;
+        }
     }
 
     /**
      * Sets the assignee to the task
-     * @author Duayne
+     * @author Duayne (edited by ctaks)
      * @param assignee User object that is to be assigned to the task
+     * @return boolean determining success
      */
-    public void setAssignee(User assignee) {
-        this.assignee = assignee;
+    public boolean setAssignee(User assignee) {
+        if (assignee != null) {
+            taskHistory.addAssigneeChange(this.assignee.getUserName(), assignee.getUserName());
+            this.assignee = assignee;
+            return true;
+        } else {
+            taskHistory.addAssigneeChange("setAssigneeERROR", "setAssigneeERROR");
+            this.assignee = null;
+            return false;
+        }
     }
 
     /**
      * Sets the priority of the task
-     * @author Duayne
+     * @author Duayne (edited by ctaks)
      * @param priority Integer representation of the priority
+     * @return boolean determining success
      */
-    public void setPriority(int priority) {
-        if (this.priority <= 5 && this.priority >= 1)
+    public boolean setPriority(int priority) {
+        if (priority <= 5 && priority >= 1) {
+            taskHistory.addPriorityChange(Integer.toString(this.priority), Integer.toString(priority));
             this.priority = priority;
+            return true;
+        } else {
+            taskHistory.addPriorityChange(Integer.toString(this.priority), "5(setPriorityERROR)");
+            this.priority = 5;
+            return false;
+        }
+    }
+
+    /**
+     * setter for status
+     * @param status to be set
+     * @return boolean determining success
+     */
+    public boolean setStatus(String status) {
+        if (status != null) {
+            taskHistory.addStatusChange(this.status, status);
+            this.status = status;
+            return true;
+        } else {
+            taskHistory.addStatusChange(this.status, "uknown(setStatusERROR)");
+            this.status = "unknown";
+            return false;
+        }
     }
 
     /**
      * Sets the description of the task
-     * @author Duayne
+     * @author Duayne (edited by ctaks)
      * @param description String representation of the task description
+     * @return boolean determining success
      */
-    public void setDescription(String description) {
-        this.description = description;
+    public boolean setDescription(String description) {
+        if (description != null) {
+            taskHistory.addDescriptionChange(this.description, description);
+            this.description = description;
+            return true;
+        } else {
+            taskHistory.addDescriptionChange(this.description, "[empty](setDescriptionERROR)");
+            this.description = "[empty]";
+            return false;
+        }
     }
 
-    /**
-     * A boolean check to see if the task name was changed
-     * @author Duayne
-     * @param newTaskName String representation of the new task name
-     * @return Returns the comparison of the new and old task name
-     */
-    public boolean editTaskName(String newTaskName) {
-        String oldTaskName = this.taskName;
-        setTaskName(newTaskName);
-        return oldTaskName != newTaskName;
+    public boolean setTaskHistory(TaskHistory taskHistory) {
+        if (taskHistory != null) {
+            this.taskHistory = taskHistory;
+            return true;
+        } else {
+            //TODO: make sure this works!
+            ArrayList<String> setter = new ArrayList<String>();
+            LocalDateTime creationDate = LocalDateTime.now();
+            this.taskHistory = new TaskHistory(this.id, creationDate, setter, setter, setter, setter, setter, setter);
+            return false;
+        }
     }
 
-    /**
-     * A boolean check to see if the task assignee was changed
-     * @author Duayne
-     * @param newAssignee User object to be assigned to the task
-     * @return Returns the comparison of the new and old task assignee
+     /**
+     * Setter for comments
+     * @author ctaks
+     * @param comments to be set
+     * @return boolean determing success
      */
-    public boolean editAssignee(User newAssignee) {
-        User oldAssignee = this.assignee;
-        setAssignee(newAssignee);
-        return oldAssignee != newAssignee;
-    }
-
-    /**
-     * A boolean check to see if the task priority was changed
-     * @author Duayne
-     * @param newPriority Integer representation of the new priority
-     * @return Returns the comparison of the new and old task priority
-     */
-    public boolean editPriority(int newPriority) {
-        int oldPriority = this.priority;
-        setPriority(newPriority);
-        return oldPriority != newPriority;
-    }
-
-    /**
-     * A boolean check to see if the task description was changed
-     * @author Duayne
-     * @param newDescription String representation of the new description
-     * @return Returns the comparison of the new and old task description
-     */
-    public boolean editDescription(String newDescription) {
-        String oldDescription = this.description;
-        setDescription(newDescription);
-        return oldDescription != newDescription;
+    public boolean setComments(ArrayList<Comment> comments) {
+        if (comments == null || comments.isEmpty()) {
+            this.comments = new ArrayList<Comment>();
+            return true;
+        } else {
+            this.comments = comments;
+            return true;
+        }
     }
 
     /**
@@ -126,10 +209,10 @@ public abstract class Task {
     public boolean addComment(User user, String message) {
         if (user == null || message.equals(null))
             return false;
-        int size = taskComments.size();
-        Comment comment = new Comment(user, this, message);
-        taskComments.add(comment);
-        return size != taskComments.size();
+        int size = comments.size();
+        Comment comment = new Comment(user, message);
+        comments.add(comment);
+        return size != comments.size();
     }
 
     /**
@@ -139,9 +222,9 @@ public abstract class Task {
      * @return Comment that matches the UUID of the comment searched for
      */
     public Comment getComment(UUID id) {
-        for ( int i = 0; i < taskComments.size() - 1; i++ ) {
-            if ( taskComments.get(i).getID() == id )
-                return taskComments.get(i);
+        for ( int i = 0; i < comments.size() - 1; i++ ) {
+            if ( comments.get(i).getID() == id )
+                return comments.get(i);
         }
         return null;
     }
@@ -152,8 +235,8 @@ public abstract class Task {
      * @return Array List of all this task's comments
      */
     public ArrayList<Comment> getComments() {
-        if (!taskComments.isEmpty())
-            return taskComments;
+        if (!comments.isEmpty())
+            return comments;
         return null;
     }
 
@@ -181,7 +264,7 @@ public abstract class Task {
      * @return task name
      */
     public String getName(){
-        return taskName;
+        return name;
     }
 
     /**
@@ -191,5 +274,59 @@ public abstract class Task {
      */
     public UUID getID() {
         return this.id;
+    }
+
+    /**
+     * Get's the task status
+     * @author ctaks
+     * @return UUID of the task's status
+     */
+    public String getStatus() {
+        return this.status;
+    }
+
+    /**
+     * Get's the task description
+     * @author ctaks
+     * @return String of the task description
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Get's the task's TaskHistory
+     * @author ctaks
+     * @return TaskHistory of the task history
+     */
+    public TaskHistory getTaskHistory() {
+        return this.taskHistory;
+    }
+
+    /**
+     * Gets the boolean of isGeneral
+     * @author Duayne
+     * @return boolean of isGeneral
+     */
+    public boolean isGeneral() {
+        return isGeneral;
+    }
+
+     /**
+     * Gets the boolean of isNewFeature
+     * @author Duayne
+     * @return boolean of isNewFeature
+     */
+    public boolean isNewFeatrue() {
+        return isNewFeatrue;
+    }
+
+    /**
+     * Gets the boolean of isBug
+     * @author Duayne
+     * @return boolean of isBug
+     */
+    public boolean isBug() {
+        return isBug;
     }
 }

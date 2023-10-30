@@ -1,5 +1,8 @@
 import java.util.ArrayList;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+
 /**
  * ProjectPilot Facade class. Acts as a buffer between the UI and everything else.
  */
@@ -89,17 +92,13 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * adds project to the project list
-     * @author theo v 
-     * @param projectName
-     * @return
+     * Adds a new project.
+     * @author ctaks
+     * @param projectID
+     * @return boolean determining success
      */
-    public boolean addProject(Project projectName) {
-        if(projectName!=null){
-            Project newProject = new Project(projectName.getName(), user);
-            return projectList.addProject(projectName);
-        }
-        return false;
+    public boolean addProject(String name, LocalDate startSprint, LocalDate endSprint, ArrayList<User> team, ArrayList<Column> columns, ArrayList<Comment> comments) {
+        return projectList.addProject(new Project(name, startSprint, endSprint,team, columns, comments));
     }
 
     /**
@@ -130,8 +129,8 @@ public class ProjectPilotFacade {
      * @param columnID
      * @return
      */
-    public boolean addColumn(String columnID) {
-        return false;
+    public boolean addColumn(String name, String sortType, ArrayList<Task> tasks, ArrayList<Comment> comments) {
+        return currentProject.addColumn(new Column(name, sortType, tasks, comments));
     }
 
     /**
@@ -252,9 +251,10 @@ public class ProjectPilotFacade {
      */
     public boolean loadProject(String projectName) {
         for (Project project : projectList.getProjects()) {
-            if (project.getName().equalsIgnoreCase(projectName))
+            if (project.getName().equalsIgnoreCase(projectName)) {
                 currentProject = project;
                 return true;
+            }
         }
         return false;
     }

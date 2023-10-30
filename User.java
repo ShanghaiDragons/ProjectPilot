@@ -2,9 +2,10 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 /**
- * 
+ * The User class. Holds all the data for a user
  */
 public class User {
+    private UUID id;
     private String firstName;
     private String lastName;
     private String userName;
@@ -13,11 +14,10 @@ public class User {
     private boolean permissionToMoveTask;
     private boolean permissionToEditTask;
     private boolean permissionToEditColumns;
-    private UUID id;
 
     /**
      * Overloaded constructor of user to include UUID
-     * @author Duayne
+     * @author Duayne (edited by ctaks (using the setters))
      * @param id UUID that represents the id
      * @param userName string that represents the user's username
      * @param firstName string that represents the user's first name
@@ -30,19 +30,20 @@ public class User {
      */
     public User(UUID id, String userName, String firstName, String lastName, String password, boolean permissionToAddTask,
                 boolean permissionToMoveTask, boolean permissionToEditTask, boolean permissionToEditColumns) {
-        this.id = UUID.randomUUID();
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = userName;
-        this.password = password;
-        this.permissionToAddTask = permissionToAddTask;
-        this.permissionToMoveTask = permissionToMoveTask;
-        this.permissionToEditTask = permissionToEditTask;
-        this.permissionToEditColumns = permissionToEditColumns;
+        setID(id);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setUserName(userName);
+        setPassword(password);
+        setPermissionToAddTask(permissionToAddTask);
+        setPermissionToMoveTask(permissionToMoveTask);
+        setPermissionToEditTask(permissionToEditTask);
+        setPermissionToEditColumns(permissionToEditColumns);
     }
 
     /**
-    * 
+    * Constructor for making a new user
+    * @author ctaks
     * @param userName string that represents the user's username
     * @param firstName string that represents the user's first name
     * @param lastName string that represents the user's last name
@@ -54,14 +55,96 @@ public class User {
     */
     public User(String firstName, String lastName, String userName, String password, boolean permissionToAddTask,
                 boolean permissionToMoveTask, boolean permissionToEditTask, boolean permissionToEditColumns) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = userName;
-        this.password = password;
-        this.permissionToAddTask = permissionToAddTask;
-        this.permissionToMoveTask = permissionToMoveTask;
-        this.permissionToEditTask = permissionToEditTask;
-        this.permissionToEditColumns = permissionToEditColumns;
+        setID(this.id);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setUserName(userName);
+        setPassword(password);
+        setPermissionToAddTask(permissionToAddTask);
+        setPermissionToMoveTask(permissionToMoveTask);
+        setPermissionToEditTask(permissionToEditTask);
+        setPermissionToEditColumns(permissionToEditColumns);
+    }
+
+    /**
+     * Setter for id
+     * @author ctaks
+     * @param id to be set
+     * @return boolean determining success
+     */
+    public boolean setID(UUID id) {
+        if (id != null) {
+            this.id = id;
+            return true;
+        }
+        else {
+            this.id = UUID.randomUUID();
+            return true;
+        }
+    }
+
+    /**
+     * setter for firstName
+     * @author ctaks
+     * @param firstName to be set
+     * @return boolean determining success
+     */
+    public boolean setFirstName(String firstName) {
+        if (firstName != null) {
+            this.firstName = firstName;
+            return true;
+        } else {
+            this.firstName = "none";
+            return false;
+        }
+    }
+
+    /**
+     * setter for lastName
+     * @author ctaks
+     * @param lastName to be set
+     * @return boolean determining success
+     */
+    public boolean setLastName(String lastName) {
+        if (lastName != null) {
+            this.lastName = lastName;
+            return true;
+        } else {
+            this.lastName = "none";
+            return false;
+        }
+    }
+
+    /**
+     * setter for username
+     * @author ctaks
+     * @param userName to be set
+     * @return boolean determining success
+     */
+    public boolean setUserName(String userName) {
+        if (userName != null) {
+            this.userName = userName;
+            return true;
+        } else {
+            this.userName = "none";
+            return false;
+        }
+    }
+
+    /**
+     * setter for password
+     * @author ctaks
+     * @param password to be set
+     * @return boolean determining success
+     */
+    public boolean setPassword(String password) {
+        if (password != null) {
+            this.password = password;
+            return true;
+        } else {
+            this.password = "none";
+            return false;
+        }
     }
 
     /**
@@ -85,84 +168,6 @@ public class User {
     */
     public boolean verifyPassword(String password) {
         return this.password.equals(password);
-    }
-
-    /**
-    * Adds a task to the product backlog if the user has permission to add tasks
-    *@author theo 
-    * @param task
-     */
-    public boolean addTask(Task task) {
-        if(!permissionToAddTask){
-        return false;
-        }
-        ArrayList<Task> tasks = ProductBacklog.getTasks(); 
-        tasks.add(task);
-        return true;
-        
-    }
-
-    /**
-    * Edits the task based on the parameters
-    * @author theo v
-    * @param task
-    * @param newtaskName
-    * @param newAssignee
-    * @param newPriority 
-    * @param newDescription 
-    */
-    public boolean editTask(Task task, String newtaskName, User newAssignee, int newPriority, String newDescription) {        // return the different edits in the task
-        if(!permissionToEditTask){
-            return false;
-        }
-        if(newtaskName!=null && !newtaskName.isEmpty()){
-            task.setTaskName(newtaskName);
-        }
-        if(newAssignee!=null){
-            task.setAssignee(newAssignee);
-        }
-        if(newPriority>0&&newPriority<4){
-            task.setPriority(newPriority);
-        }
-        if(newDescription!=null){
-            task.setDescription(newDescription);
-        }
-        return true;
-    }
-
-/**
- * Edits the column name 
- * @author theo 
- * @param newColumnName new column name
-* @return
-*/
-//WHAT DO YOU EDIT IN COLUMNS? NAME? DELETE TASKS? COLOR? MAKE SURE TO ADD MORE
-    public boolean editColumns(String newColumnName) {
-        if(!permissionToEditColumns){
-        return false;
-        }
-        if(!newColumnName.isEmpty()){
-            Column.setColumnName(newColumnName);
-        }
-        return true;
-    }
-    
-    /**
-    * moves the task from one column to another
-    * @author theo 
-    * @param task task that is getting moved
-    * @return
-    */
-    public boolean moveTask(Task task) {
-       if(!permissionToMoveTask){
-        return false;
-       }
-       Column.moveTask(task);
-       return true;
-    }
-    
-    public String toString() {
-        return "User: " + userName + ", First Name:" + firstName + " Last Name:" + lastName+" UUID: "+id;
     }
 
     /**
@@ -202,11 +207,20 @@ public class User {
     }
 
     /**
+     * Gets the password of the user
+     * @author ctaks
+     * @return String of the password
+     */
+    public String getPassword() {
+        return this.password;
+    }
+
+    /**
      * Gets the current permission to add a task
      * @author Duayne
      * @return boolean of the permission to add a task
      */
-    public boolean isPermissionToAddTask() {
+    public boolean getPermissionToAddTask() {
         return permissionToAddTask;
     }
 
@@ -224,7 +238,7 @@ public class User {
      * @author Duayne
      * @return boolean of the permission to move a task
      */
-    public boolean isPermissionToMoveTask() {
+    public boolean getPermissionToMoveTask() {
         return permissionToMoveTask;
     }
 
@@ -242,7 +256,7 @@ public class User {
      * @author Duayne
      * @return boolean of the permission to edit a task
      */
-    public boolean isPermissionToEditTask() {
+    public boolean getPermissionToEditTask() {
         return permissionToEditTask;
     }
 
@@ -260,7 +274,7 @@ public class User {
      * @author Duayne
      * @return boolean of the permission to edit a column
      */
-    public boolean isPermissionToEditColumns() {
+    public boolean getPermissionToEditColumns() {
         return permissionToEditColumns;
     }
 
