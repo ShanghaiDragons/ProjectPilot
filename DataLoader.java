@@ -72,24 +72,24 @@ public class DataLoader extends DataConstants {
 				  ArrayList<String> tempTeam = (ArrayList<String>)projectJSON.get(PROJECT_TEAM);
 				  for(int j = 0; j < tempTeam.size() - 1; j++)
 					for(int k = 0; k < getUsers().size(); k++)
-						if (UUID.fromString(tempTeam.get(k)).equals(getUsers().get(k).getID()))
+						if (!team.contains(getUsers().get(k)) && UUID.fromString(tempTeam.get(k)).equals(getUsers().get(k).getID()))
 							team.add(getUsers().get(k));
-				  ArrayList<Column> columns = (ArrayList<Column>)projectJSON.get(PROJECT_COLUMN_IDS);
-				//   ArrayList<String> tempColumns = (ArrayList<String>)projectJSON.get(PROJECT_COLUMN_IDS);
-				//   for(int j = 0; j < tempColumns.size(); j++)
-				// 	if (UUID.fromString(tempColumns.get(j)).equals(getColumns().get(j).getID()))
-				// 		columns.add(getColumns().get(j));
+				  ArrayList<Column> columns = new ArrayList<Column>();
+				  ArrayList<String> tempColumns = (ArrayList<String>)projectJSON.get(PROJECT_COLUMN_IDS);
+				  for(int j = 0; j < tempColumns.size(); j++)
+					if (!columns.contains(getColumns().get(j)) && UUID.fromString(tempColumns.get(j)).equals(getColumns().get(j).getID()))
+						columns.add(getColumns().get(j));
 				  String start = (String)projectJSON.get(PROJECT_START_SPRINT);
 				  String end = (String)projectJSON.get(PROJECT_END_SPRINT);
 				  SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
 				  Date startSprint = formatter1.parse(start);
 				  Date endSprint = formatter1.parse(end);
-				  ArrayList<Comment> comments = (ArrayList<Comment>)projectJSON.get(PROJECT_COMMENT_IDs);
-				//   ArrayList<String> tempComments = ;
-				//   for(int j = 0; j < tempComments.size() - 1; j++)
-				//   	for(int k = 0; k < tempComments.get(j).length(); k++)
-				// 		if (UUID.fromString(tempComments.get(k)).equals(getComments().get(k).getID()))
-				// 			comments.add(getComments().get(k));
+				  ArrayList<Comment> comments = new ArrayList<Comment>();
+				  ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(PROJECT_COMMENT_IDs);
+				  for(int j = 0; j < tempComments.size() - 1; j++)
+				  	for(int k = 0; k < tempComments.get(j).length(); k++)
+						if (!comments.contains(getComments().get(k)) && UUID.fromString(tempComments.get(k)).equals(getComments().get(k).getID()))
+							comments.add(getComments().get(k));
 				  projects.add(new Project(projectName, startSprint, endSprint, team, columns, comments));
 			  }
 			  
