@@ -8,7 +8,7 @@ import java.util.UUID;
  * The DataWriter class. Saves the user/project changes to JSON files.
  */
 public class DataWriter extends DataConstants {
-
+    private JSONArray jsonProjects = new JSONArray();
     /**
      * Saves the list of users to the user JSON file.
     * @author Chris
@@ -86,8 +86,8 @@ public class DataWriter extends DataConstants {
         ProjectList projects = ProjectList.getInstance();
         ArrayList<Project> projectList = projects.getProjects();
         
-        JSONArray jsonProjectsArray = new JSONArray();
-        JSONObject jsonProjects = new JSONObject();
+        // JSONArray jsonProjectsArray = new JSONArray();
+        // JSONArray jsonProjects = new JSONArray();
         
         // TEST Project TODO: Remove when testing is done
         // User testUser = new User(UUID.randomUUID(), "testUsername", "testFirstname", "testLastname", "testPassword", false, false, false, false);
@@ -99,24 +99,24 @@ public class DataWriter extends DataConstants {
         // Creating JSON objects
         // PROJECT
         for(int i=0; i < projectList.size(); i++) {
-            jsonProjects.put(PROJECT+i, getProjectJSON(projectList.get(i)));
+            jsonProjects.add(getProjectJSON(projectList.get(i)));
             // COLUMN
             for (int j=0; j < projectList.get(i).getColumns().size(); j++) {
-                jsonProjects.put(COLUMN+j, getColumnJSON(projectList.get(i).getColumns().get(j)));
+                jsonProjects.add(getColumnJSON(projectList.get(i).getColumns().get(j)));
                 // TASK
                 for (int k=0; k < projectList.get(i).getColumns().get(j).getTasks().size(); k++) {
-                    jsonProjects.put(TASK+k, getTaskJSON(projectList.get(i).getColumns().get(j).getTasks().get(k)));
+                    jsonProjects.add(getTaskJSON(projectList.get(i).getColumns().get(j).getTasks().get(k)));
                     // TASK HISTORY
-                    jsonProjects.put(TASK_HISTORY+k, getTaskHistoryJSON(projectList.get(i).getColumns().get(j).getTasks().get(k).getTaskHistory()));
+                    jsonProjects.add(getTaskHistoryJSON(projectList.get(i).getColumns().get(j).getTasks().get(k).getTaskHistory()));
                 }
             }
         }
 
-        jsonProjectsArray.add(jsonProjects);
+        // jsonProjectsArray.add(jsonProjects);
         // Write to JSON file
         // TODO: hardcoded the filename for testing. change file name for final version. -Chris
-        try (FileWriter file = new FileWriter("json/Projects_test1.json")) {
-            file.write(jsonProjectsArray.toJSONString());
+        try (FileWriter file = new FileWriter("json/Projects_test2.json")) {
+            file.write(jsonProjects.toJSONString());
             file.flush();
             return true;
 
@@ -155,7 +155,7 @@ public class DataWriter extends DataConstants {
         JSONArray commentIDs = new JSONArray();
         for (Comment comment : project.getComments()) {
             commentIDs.add(comment.getID().toString());
-            projectData.put(COMMENT, getCommentJSON(comment));
+            jsonProjects.add(getCommentJSON(comment));
         }
 
         return projectData;
@@ -183,7 +183,7 @@ public class DataWriter extends DataConstants {
         JSONArray commentIDs = new JSONArray();
         for (Comment comment : column.getComments()) {
             commentIDs.add(comment.getID().toString());
-            columnData.put(COMMENT, getCommentJSON(comment));
+            jsonProjects.add(getCommentJSON(comment));
         }
 
         columnData.put(COLUMN_COMMENT_IDS, commentIDs);
@@ -196,7 +196,7 @@ public class DataWriter extends DataConstants {
      * @param task the task
      * @return JSONObject of a task's data
      */
-    public static JSONObject getTaskJSON(Task task) {
+    public JSONObject getTaskJSON(Task task) {
         JSONObject taskData = new JSONObject();
 
         taskData.put(TASK_ID, task.getID().toString());
@@ -210,7 +210,7 @@ public class DataWriter extends DataConstants {
         JSONArray commentIDs = new JSONArray();
         for (Comment comment : task.getComments()) {
             commentIDs.add(comment.getID().toString());
-            taskData.put(COMMENT, getCommentJSON(comment));
+            jsonProjects.add(getCommentJSON(comment));
         }
 
         taskData.put(TASK_COMMENT_IDS, commentIDs);
@@ -246,7 +246,7 @@ public class DataWriter extends DataConstants {
      * @param comment the comment
      * @return JSONObject of the comment data
      */
-    public static JSONObject getCommentJSON(Comment comment) {
+    public JSONObject getCommentJSON(Comment comment) {
         JSONObject commentData = new JSONObject();
 
         commentData.put(COMMENT_USER_ID, comment.getUser().getID().toString());
@@ -256,7 +256,7 @@ public class DataWriter extends DataConstants {
         JSONArray commentIDs = new JSONArray();
         for (Comment threadcomment : comment.getThread()) {
             commentIDs.add(threadcomment.getID().toString());
-            commentData.put(COMMENT, getCommentJSON(comment));
+            jsonProjects.add(getCommentJSON(comment));
         }
 
         commentData.put(COMMENT_THREAD_IDs, commentIDs);
