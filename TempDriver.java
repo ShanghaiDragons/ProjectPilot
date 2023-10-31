@@ -132,10 +132,31 @@ public class TempDriver {
   public void projectPilotMenu() {
     System.out.println("Main menu:"
     +"\n[1] project menu"
-    +"\n[2] user menu "
-    +"\n[] "
-    +"\n[] Quit ProjectPilot"
+    +"\n[2] user menu"
+    +"\n[3] save"
+    +"\n[4] Quit ProjectPilot"
     );
+    int choice = keyboard.nextInt();
+    keyboard.nextLine();
+    switch (choice) {
+      case 1:
+        projectMenu();
+        break;
+      case 2:
+        userMenu();
+        break;
+      case 3:
+        System.out.println("saving projects...");
+        ppf.saveProjects();
+        System.out.println("saving users...");
+        ppf.saveUsers();
+        break;
+      case 4:
+        quit = true;
+        break;
+      default:
+        break;
+    }
   }
 
   public void projectMenu() {
