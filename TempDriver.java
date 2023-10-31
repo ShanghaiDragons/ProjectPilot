@@ -35,19 +35,9 @@ public class TempDriver {
         System.out.println("fail");
     }
     System.out.println("You are logged in.");
-
-    System.out.println("Loading projects...");
-    // if(!loadAProject()) {
-      // System.out.println("No projects found.");
-      // createProject();
-    // }
-    loadAProject();
-    System.out.println("The project that has been loaded is:");
-    System.out.println(ppf.getCurrentProject().getName());
-    
     quit = false;
     while(!quit) {
-    projectMenu();
+    projectPilotMenu();
     }
   }
   
@@ -138,7 +128,8 @@ public class TempDriver {
     return true;
   }
   
-  public void ProjectPilotMenu() {
+  // TODO: finish
+  public void projectPilotMenu() {
     System.out.println("Main menu:"
     +"\n[1] project menu"
     +"\n[2] user menu "
@@ -147,11 +138,6 @@ public class TempDriver {
     );
   }
 
-  /**
-   * project menu
-   * @author ctaks
-   * TODO: finish
-   */
   public void projectMenu() {
     System.out.println(ppf.getCurrentProject().getName()+" menu:"
     +"\n[1] Columns menu"
@@ -254,7 +240,7 @@ public class TempDriver {
         ppf.saveProjects();
         break;
       case 9:
-        ProjectPilotMenu();
+        projectPilotMenu();
         break;
       default:
         System.out.println("invalid choice");
@@ -291,7 +277,7 @@ public class TempDriver {
           +"\n[1] Task menu"
           +"\n[2] Change name"
           +"\n[3] Change sort type"
-          +"\n[4] "
+          +"\n[4] Move task"
           +"\n[4] Comment menu"
           +"\n[5] Go Back to Project Menu"
           );
@@ -302,22 +288,23 @@ public class TempDriver {
               taskMenu(ppf.getCurrentProject().getColumns().get(choice));
               break;
             case 2:
-               System.out.println("Enter a new column name");
-               String newname = keyboard.nextLine();
-               ppf.getCurrentProject().getColumns().get(choice).setName(newname);
-            break;
+              System.out.println("Enter a new column name");
+              String newname = keyboard.nextLine();
+              ppf.getCurrentProject().getColumns().get(choice).setName(newname);
+              break;
             case 3:
               System.out.println("Enter a new sortType");
-               String newSortType = keyboard.nextLine();
-               ppf.getCurrentProject().getColumns().get(choice).setSortType(newSortType);
-            break;
+              String newSortType = keyboard.nextLine();
+              ppf.getCurrentProject().getColumns().get(choice).setSortType(newSortType);
+              break;
             case 4:
-            break;
+              moveTask(ppf.getCurrentProject().getColumns().get(choice));
+             break;
             case 5:
-            projectMenu();
-            break;
+              projectMenu();
+              break;
             default:
-            break;
+              break;
           }
         }
       }
@@ -456,42 +443,6 @@ public class TempDriver {
       ArrayList<Comment> comments = new ArrayList<Comment>();
   
       ppf.addProject(name, startDate, endDate, team, columns, comments);
-      /*
-      System.out.println("Enter start sprint INTEGER: month");
-      int startMonth = keyboard.nextInt();
-      keyboard.nextLine();
-      System.out.println("Enter start sprint INTEGER: day");
-      int startDay = keyboard.nextInt();
-      keyboard.nextLine();
-      System.out.println("Enter end sprint INTEGER: month");
-      int endMonth = keyboard.nextInt();
-      keyboard.nextLine();
-      System.out.println("Enter end sprint INTEGER: day");
-      int endDay = keyboard.nextInt();
-      keyboard.nextLine();
-      LocalDate startSprint = LocalDate.of(2023, startMonth, startDay);
-      LocalDate endSprint = LocalDate.of(2023, endMonth, endDay);
-      
-      // Adding the list of users to the project. Yeah it's a lot.
-      System.out.println("Pick from the list of users to add to the project.");
-      int i = 1;
-      for (User user : ppf.getUsers()) {
-        System.out.println("["+i+"]: "+user.getUserName());
-        i++;
-      }
-      System.out.println("Enter the number of the user, then press Enter. When you're done, enter 0.");
-      ArrayList<Integer> usersToSelect = new ArrayList<Integer>();
-      int choice = keyboard.nextInt();
-      keyboard.nextLine();
-      while (choice != 0) {
-        usersToSelect.add(choice);
-        choice = keyboard.nextInt();
-      }
-      ArrayList<User> team = new ArrayList<User>();
-      for (int user : usersToSelect) {
-        team.add(ppf.getUsers().get(user-1));
-      }
-      */
     }
 
   public void createColumn() {
@@ -516,6 +467,45 @@ public class TempDriver {
     System.out.println("Enter a comment message");
     String message = keyboard.nextLine();
     return message;
+  }
+
+  public void moveTask(Column c) {
+    System.out.println("Pick a task to move");
+    int i = 0;
+    for (Task t : c.getTasks()) {
+      System.out.println("["+(i+1)+"]: "+t.getName());
+      i++;
+    }
+    int choice= 0;
+      boolean hasSelected = false;
+      while (!hasSelected) {
+        choice = keyboard.nextInt();
+        keyboard.nextLine();
+        if (choice <= c.getTasks().size())
+          hasSelected = true;
+          else
+          System.out.println("Please try again.");
+        }
+      choice --;
+    System.out.println("Pick a column to move the task to");
+    int j = 0;
+    for (Column col : ppf.getCurrentProject().getColumns()) {
+      System.out.println("["+(i+1)+"]: "+col.getName());
+      i++;
+    }
+    int cchoice = 0;
+    boolean colSelect = false;
+    while (!colSelect) {
+      cchoice = keyboard.nextInt();
+      keyboard.nextLine();
+      if (cchoice <= ppf.getCurrentProject().getColumns().size())
+        hasSelected = true;
+      else
+        System.out.println("Please try again.");
+    }
+    choice --;
+    System.out.println("Moving [Task]: "+c.getTasks().get(choice).getName()+" to [Column]: "+ppf.getCurrentProject().getColumns().get(cchoice).getName());
+    ppf.moveTask()
   }
 
   /**
