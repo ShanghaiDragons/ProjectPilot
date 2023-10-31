@@ -14,12 +14,6 @@ public class ProjectPilotFacade {
     private UserList userList;
     private ProjectList projectList;
 
-    public static void main(String[] args) {
-        ProjectPilotFacade ppf = new ProjectPilotFacade();
-        ppf.currentProject = ppf.getProjects().get(1);
-        ppf.getProjects();
-        System.out.println(ppf.removeTask("5ec3e313-bec6-4b00-8a39-89e522c96c3a"));
-      }
     /**
      * ProjectPilotFacade constructor. Initializes userList, projectList, and user.
      * @author ctaks
