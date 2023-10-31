@@ -64,7 +64,7 @@ public class DataLoader extends DataConstants {
 			  FileReader reader = new FileReader(PROJECT_FILE_NAME);
 			  JSONParser parser = new JSONParser();	
 			  JSONArray projectsJSON = (JSONArray)new JSONParser().parse(reader);
-
+			
 			  for(int i=0; i < projectsJSON.size(); i++) {
 				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
 				  String projectName = (String)projectJSON.get(PROJECT_NAME);
@@ -77,9 +77,10 @@ public class DataLoader extends DataConstants {
 								team.add(getUsers().get(j));
 						ArrayList<Column> columns = new ArrayList<Column>();
 						ArrayList<String> tempColumns = (ArrayList<String>)projectJSON.get(PROJECT_COLUMN_IDS);
-						for(int j = 0; j < tempColumns.size(); j++)
-							if (UUID.fromString(tempColumns.get(j)).equals(getColumns().get(j).getID()))
-								columns.add(getColumns().get(j));
+						for(int j = 0; j < getColumns().size(); j++)
+							for(int k = 0; k < tempColumns.size(); k++)
+								if (UUID.fromString(tempColumns.get(k)).equals(getColumns().get(j).getID()))
+									columns.add(getColumns().get(j));
 						String start = (String)projectJSON.get(PROJECT_START_SPRINT);
 						LocalDate startSprint = LocalDate.parse(start);
 						String end = (String)projectJSON.get(PROJECT_END_SPRINT);
@@ -122,9 +123,9 @@ public class DataLoader extends DataConstants {
 						UUID id = UUID.fromString((String)projectJSON.get(COLUMN_ID));
 						ArrayList<Task> tasks = new ArrayList<Task>();
 						ArrayList<String> tempTasks = (ArrayList<String>)projectJSON.get(COLUMN_TASK_IDS);
-						for(int j = 0; j < tempTasks.size(); j++)
-							for (int k = 0; k < getTasks().size(); k++)
-								if (UUID.fromString(tempTasks.get(j)).equals((getTasks().get(k).getID())))
+						for (int k = 0; k < tempTasks.size(); k++)
+							for(int j = 0; j < getTasks().size(); j++)
+								if (UUID.fromString(tempTasks.get(k)).equals((getTasks().get(j).getID())))
 									tasks.add(getTasks().get(j));
 						String sortType = (String)projectJSON.get(COLUMN_SORT_TYPE);
 						ArrayList<Comment> comments = new ArrayList<Comment>();
