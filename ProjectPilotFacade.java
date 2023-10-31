@@ -241,12 +241,18 @@ public class ProjectPilotFacade {
     
 
     /**
-     * 
+     * sorts tasks based on the sort type (alphabetical, user, priority)
+     * @author theo 
      * @param sortType
      * @return
      */
-    public boolean sortTasks(String sortType) {
-        return false;
+    public boolean sortTasks(String columnID, String sortType) {
+        UUID columnUUID = UUID.fromString(columnID);
+        Column sortedColumn = currentProject.getColumn(columnUUID);
+        if (sortedColumn != null && sortedColumn.sortTasks(sortType)) {
+            return true; 
+        }
+        return false; 
     }
 
     /**
