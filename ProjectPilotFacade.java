@@ -13,7 +13,6 @@ public class ProjectPilotFacade {
     private Project currentProject;
     private UserList userList;
     private ProjectList projectList;
-    private Column currentColumn;
 
     /**
      * ProjectPilotFacade constructor. Initializes userList, projectList, and user.
@@ -169,29 +168,49 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * 
-     * @param columnID
-     * @return
+     * Edits the specified column's attributes.
+     * @author theo 
+     * @param columnID ID of the column to be edited
+     * @param newName   New name for the column
+     * @param sortType  New sort type for the column
+     * @return boolean that states whether the column has been successfully edited
      */
-    public boolean editColumn(String columnID) {
+    public boolean editColumn(String columnID, String newName, String newsortType) {
+        UUID columnUUID = UUID.fromString(columnID);
+        Column editedColumn = currentProject.getColumn(columnUUID);
+        if (editedColumn != null) {
+            if (newName != null && !newName.isEmpty()) {
+                editedColumn.setName(newName);
+            }
+            if (newsortType != null && !newsortType.isEmpty()) {
+                editedColumn.setSortType(newsortType);
+            }
+            return true;
+        }
         return false;
     }
 
+
     /**
-     * Moves a task from one column to another
-     * @author Duayne
-     * @param taskID String of the task's ID
-     * @return boolean of whether the task isn't in the old column and also in the new column
+     * moves tasks from the source column to the destination column using their respective IDs
+     * @author theo v
+     * @param taskID String that represents the UUID of the task that is being moved
+     * @param sourcecolumnID String that represents the UUID of the column where the task resides
+     * @param destinationcolumnID String that represents the UUID of the column where the task is going to be moved in 
+     * @return whether or not moving the task was executed properly 
      */
-    public boolean moveTask(Column destination, String taskID) {
+    public boolean moveTask(String sourcecolumnID, String destinationcolumnID, String taskID) {
+        UUID destinationcolumnUUID = UUID.fromString(destinationcolumnID);
         UUID taskUUID = UUID.fromString(taskID);
-        Task task = null;
-        for(Task t : getTasks()) {
-            if(t.getID().equals(taskUUID))
-                task = t;
+        UUID sourcecolumnUUID = UUID.fromString(sourcecolumnID);
+        Column destinationColumn = currentProject.getColumn(destinationcolumnUUID);
+        Column sourceColumn = currentProject.getColumn(sourcecolumnUUID);
+        if(sourceColumn==null || destinationColumn==null){
+            return false;
         }
-        currentProject.moveTask(destination, task);
-        return !currentColumn.getTasks().contains(task) && destination.getTasks().contains(task);
+        Task movedTask = sourceColumn.getTask(taskID);
+        currentProject.moveTask(destinationColumn, movedTask);
+        return true;
     }
 
     /**
@@ -214,7 +233,7 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * edits the task's attributes 
+     * edits the specified task's attributes in the specified column
      * @author theo
      * @param taskID
      * @param newName
@@ -225,8 +244,10 @@ public class ProjectPilotFacade {
      * @param comments
      * @return
      */  
-    public boolean editTask(String taskID, String newName, User newAssignee, int newPriority, String newStatus, String newDescription, ArrayList<Comment> comments) {
-        Task editedTask = currentColumn.getTask(taskID);
+    public boolean editTask(String columnID, String taskID, String newName, User newAssignee, int newPriority, String newStatus, String newDescription, ArrayList<Comment> comments) {
+        UUID columnUUID = UUID.fromString(columnID);
+        Column chosentaskColumn = currentProject.getColumn(columnUUID);
+        Task editedTask = chosentaskColumn.getTask(taskID);
         if (editedTask != null && newName != null && !newName.isEmpty()) {
             editedTask.setName(newName);
             if (newAssignee != null) {
@@ -247,14 +268,35 @@ public class ProjectPilotFacade {
         return false;
     }
     
+    /**
+     * Removes a user from the project
+     * @author Duayne
+     * @param userID String of the user's UUID to remove from the team
+     * @return boolean of the removed user not contained in the project's team
+     */
+    public boolean removeUser(String userID) {
+        User person = null;
+        for(User u : getUsers()) {
+            if(u.getID().equals(UUID.fromString(userID)))
+                person = u;
+        }
+        currentProject.removeUser(person);
+        return !currentProject.getTeam().contains(person);
+    }
 
     /**
-     * 
+     * sorts tasks based on the sort type (alphabetical, user, priority)
+     * @author theo 
      * @param sortType
      * @return
      */
-    public boolean sortTasks(String sortType) {
-        return false;
+    public boolean sortTasks(String columnID, String sortType) {
+        UUID columnUUID = UUID.fromString(columnID);
+        Column sortedColumn = currentProject.getColumn(columnUUID);
+        if (sortedColumn != null && sortedColumn.sortTasks(sortType)) {
+            return true; 
+        }
+        return false; 
     }
 
     /**
