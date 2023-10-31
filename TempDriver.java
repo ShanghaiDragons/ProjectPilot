@@ -505,7 +505,7 @@ public class TempDriver {
     }
     choice --;
     System.out.println("Moving [Task]: "+c.getTasks().get(choice).getName()+" to [Column]: "+ppf.getCurrentProject().getColumns().get(cchoice).getName());
-    ppf.moveTask()
+    ppf.moveTask(c, ppf.getCurrentProject().getColumns().get(cchoice), c.getTasks().get(choice));
   }
 
   /**

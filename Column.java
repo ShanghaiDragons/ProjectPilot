@@ -192,16 +192,28 @@ public class Column {
     }
 
     /**
-     * Gets a specified task
+     * Gets a specified task by name search
      * @author ctaks
      * @param taskName the name of the task
      * @return Task of the task, if it matches.
      */
     public Task getTask(String taskName) {
-        for (Task task : this.tasks) {
+        for (Task task : this.tasks)
             if (task.getName().equalsIgnoreCase(taskName))
                 return task;
-        }
+        return null;
+    }
+
+    /**
+     * Gets a specified task by UUID search
+     * @author ctaks
+     * @param taskID the UUID of the task
+     * @return Task of the task if it finds one.
+     */
+    public Task getTask(UUID taskID) {
+        for (Task task : this.tasks)
+            if (task.getID() == taskID)
+                return task;
         return null;
     }
 
