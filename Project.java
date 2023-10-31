@@ -387,4 +387,17 @@ public class Project {
             return comments;
         return null;
     }
+    /**
+     * gets column based on columnID 
+     * @author theo v 
+     * @param columnID
+     * @return the column that has the column ID 
+     */
+    public Column getColumn(UUID columnID){
+        for (Column column : columns){
+            if(column.getID()==columnID)
+                return column;
+        }
+        return null;
+}
 }
