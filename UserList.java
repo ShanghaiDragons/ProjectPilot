@@ -46,12 +46,12 @@ public class UserList {
         return users;
     }
     
-/**
-* @author theo v
-* Adds user to the userlist
-* @param userName
-* @return
-*/
+    /**
+    * @author theo v
+    * Adds user to the userlist
+    * @param userName
+    * @return
+    */
     public User addUser(User userName){
         if(userName!=null){
             return null;
@@ -59,17 +59,27 @@ public class UserList {
         users.add(userName);
         return userName;
     }
-/**
- * @author theo v 
- * Removes a user from the user list
- * @param userName
- */
+    /**
+     * @author theo v 
+     * Removes a user from the user list
+     * @param userName
+     */
     public User removeUser(User userName){
         if(userName!=null){
             return null;
         }
         users.remove(userName);
         return userName;
+    }
+
+    /**
+     * Saves the current users
+     * @author ctaks
+     * @return boolean determining success
+     */
+    public boolean saveUsers() {
+        DataWriter dw = new DataWriter();
+        return dw.saveUsers();
     }
 }
 
