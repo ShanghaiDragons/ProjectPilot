@@ -206,7 +206,7 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * edits the task's attributes 
+     * edits the specified task's attributes in the specified column
      * @author theo
      * @param taskID
      * @param newName
@@ -217,8 +217,10 @@ public class ProjectPilotFacade {
      * @param comments
      * @return
      */  
-    public boolean editTask(String taskID, String newName, User newAssignee, int newPriority, String newStatus, String newDescription, ArrayList<Comment> comments) {
-        Task editedTask = currentColumn.getTask(taskID);
+    public boolean editTask(String columnID, String taskID, String newName, User newAssignee, int newPriority, String newStatus, String newDescription, ArrayList<Comment> comments) {
+        UUID columnUUID = UUID.fromString(columnID);
+        Column chosentaskColumn = currentProject.getColumn(columnUUID);
+        Task editedTask = chosentaskColumn.getTask(taskID);
         if (editedTask != null && newName != null && !newName.isEmpty()) {
             editedTask.setName(newName);
             if (newAssignee != null) {
