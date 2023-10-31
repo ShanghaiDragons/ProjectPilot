@@ -13,7 +13,7 @@ public class ProjectPilotFacade {
     private Project currentProject;
     private UserList userList;
     private ProjectList projectList;
-
+    
     /**
      * ProjectPilotFacade constructor. Initializes userList, projectList, and user.
      * @author ctaks
@@ -22,22 +22,68 @@ public class ProjectPilotFacade {
         userList = UserList.getInstance();
         projectList = ProjectList.getInstance();
     }
-/**
- * Creates an account for a given user
- * @author Duayne
- * @param userName string that represents the user's username
- * @param firstName string that represents the user's first name
- * @param lastName string that represents the user's last name
- * @param password string that represents the user's password
- * @return Returns the user that was created with the given parameters
- */
-    public User createAccount(String firstName, String lastName, String userName, String password) {
-        if (this.user != null)
-            return user;
-        user = new User(firstName, lastName, userName, password, false,
-                        false, false, false);
-        userList.addUser(user);
-        return user;
+    /**
+     * Gets the list of users in the databse
+     * @author ctaks
+     * @return ArrayList<User> of the users in the database
+     */
+    public ArrayList<User> getUsers() {
+        return userList.getUsers();
+    }
+    
+    /**
+     * Gets all of the tasks in the current project
+     * @author Duayne
+     * @return Array list of all tasks in the project
+     */
+    public ArrayList<Task> getTasks() {
+        Project p = getCurrentProject();
+        ArrayList<Task> allTasks = new ArrayList<Task>();
+        for (int i = 0; i < p.getColumns().size(); i++)
+            for (int j = 0; j < p.getColumns().get(i).getTasks().size(); j++)
+                allTasks.add(p.getColumns().get(i).getTasks().get(j));
+        return allTasks;
+    }
+    
+    /**
+     * Gets the User
+     * @author Chris
+     * @return user
+     */
+    public User getUser() {
+        return this.user;
+    }
+    
+    /**
+     * Gets the current Project.
+     * @author ctaks
+     * @return Project of the current project
+     */
+    public Project getCurrentProject() {
+        return this.currentProject;
+    }
+
+    /**
+     * Gets the Current Projects
+     * @author ctaks
+     * @return ArrayList<Project> of the current projects
+     */
+    public ArrayList<Project> getProjects() {
+        return projectList.getProjects();
+    }
+    
+    /**
+     * Gets a project
+     * @author ctaks
+     * @param projectName the project's name
+     * @return the project
+     */
+    public Project getProject(String projectName) {
+        for (Project project : projectList.getProjects()) {
+            if (project.getName().equalsIgnoreCase(projectName))
+                return project;
+        }
+        return null;
     }
 
     /**
@@ -49,6 +95,24 @@ public class ProjectPilotFacade {
         if (projectPilotFacade == null)
             projectPilotFacade = new ProjectPilotFacade();
         return projectPilotFacade;
+    }
+    
+    /**
+     * Creates an account for a given user
+     * @author Duayne
+     * @param userName string that represents the user's username
+     * @param firstName string that represents the user's first name
+     * @param lastName string that represents the user's last name
+     * @param password string that represents the user's password
+     * @return Returns the user that was created with the given parameters
+     */
+    public User createAccount(String firstName, String lastName, String userName, String password) {
+        if (this.user != null)
+            return user;
+        user = new User(firstName, lastName, userName, password, false,
+                        false, false, false);
+        userList.addUser(user);
+        return user;
     }
 
     /**
@@ -373,61 +437,6 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * Gets the list of users in the databse
-     * @author ctaks
-     * @return ArrayList<User> of the users in the database
-     */
-    public ArrayList<User> getUsers() {
-        return userList.getUsers();
-    }
-
-    /**
-     * Gets all of the tasks in the current project
-     * @author Duayne
-     * @return Array list of all tasks in the project
-     */
-    public ArrayList<Task> getTasks() {
-        Project p = getCurrentProject();
-        ArrayList<Task> allTasks = new ArrayList<Task>();
-        for (int i = 0; i < p.getColumns().size(); i++)
-            for (int j = 0; j < p.getColumns().get(i).getTasks().size(); j++)
-                allTasks.add(p.getColumns().get(i).getTasks().get(j));
-        return allTasks;
-    }
-
-    /**
-     * Gets the User
-     * @author Chris
-     * @return user
-     */
-    public User getUser() {
-        return this.user;
-    }
-
-    /**
-     * Gets the Current Projects
-     * @author ctaks
-     * @return ArrayList<Project> of the current projects
-     */
-    public ArrayList<Project> getProjects() {
-        return projectList.getProjects();
-    }
-
-    /**
-     * Gets a project
-     * @author ctaks
-     * @param projectName the project's name
-     * @return the project
-     */
-    public Project getProject(String projectName) {
-        for (Project project : projectList.getProjects()) {
-            if (project.getName().equalsIgnoreCase(projectName))
-                return project;
-        }
-        return null;
-    }
-
-    /**
      * Setter for currentProject.
      * @author ctaks
      * @param projectName the project's name
@@ -441,15 +450,6 @@ public class ProjectPilotFacade {
             }
         }
         return false;
-    }
-
-    /**
-     * Gets the current Project.
-     * @author ctaks
-     * @return Project of the current project
-     */
-    public Project getCurrentProject() {
-        return this.currentProject;
     }
 
     /**
