@@ -82,16 +82,6 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * 
-     * @param userID
-     * @param action
-     * @return
-     */
-    public boolean manageAccount(String userID, String action) {
-        return false;
-    }
-
-    /**
      * Adds a new project.
      * @author ctaks
      * @param name to be added
@@ -195,7 +185,7 @@ public class ProjectPilotFacade {
      * moves tasks from the source column to the destination column using their respective IDs
      * @author theo v
      * @param taskID String that represents the UUID of the task that is being moved
-     * @param sourcecolumnID String that represents the UUID of the column where the task resides
+     * @param sourcecolumnID String that represents the UUID of the column where the task currently resides
      * @param destinationcolumnID String that represents the UUID of the column where the task is going to be moved in 
      * @return whether or not moving the task was executed properly 
      */

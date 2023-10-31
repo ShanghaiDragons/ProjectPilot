@@ -354,7 +354,7 @@ public class Project {
 
     /**
      * Gets the project's team
-     * @author Duayne
+     * @author Duayne 
      * @return Array List of users in the team
      */
     public ArrayList<User> getTeam() {
