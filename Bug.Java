@@ -38,17 +38,27 @@ public class Bug extends Task{
     }
 
     public void setBugEnvironment(String bugEnvironment) {
-      
         this.bugEnvironment = bugEnvironment;
     }
 
     public void setBugReproduction(ArrayList<String> bugReproduction) {
-        
         this.bugReproduction = bugReproduction;
     }
-
-    public void setUser(User user) {
-        
-        this.user = user;
+    /**
+     * retrieves the string Bug  environment
+     * @author theo
+     */
+    public String getBugEnvironment() {
+        return bugEnvironment;
     }
+
+    /**
+     * retrieves  bugReproduction array list
+     * @author theo 
+     */
+    public ArrayList<String> getBugReproduction() {
+        return bugReproduction;
+    }
+
+
 }

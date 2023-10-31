@@ -49,4 +49,12 @@ public class NewFeature extends Task{
         
         this.updateNumber = updateNumber;
     }
+    
+    public String getImplementation() {
+        return implementation;
+    }
+
+    public String getUpdateNumber() {
+        return updateNumber;
+    }
 }
