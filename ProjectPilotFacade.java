@@ -185,19 +185,32 @@ public class ProjectPilotFacade {
             if (newsortType != null && !newsortType.isEmpty()) {
                 editedColumn.setSortType(newsortType);
             }
-        return true;
+            return true;
+        }
+        return false;
     }
-    return false;
-}
 
 
     /**
-     * 
-     * @param taskID
-     * @return
+     * moves tasks from the source column to the destination column using their respective IDs
+     * @author theo v
+     * @param taskID String that represents the UUID of the task that is being moved
+     * @param sourcecolumnID String that represents the UUID of the column where the task resides
+     * @param destinationcolumnID String that represents the UUID of the column where the task is going to be moved in 
+     * @return whether or not moving the task was executed properly 
      */
-    public boolean moveTask(String taskID) {
-        return false;
+    public boolean moveTask(String sourcecolumnID, String destinationcolumnID, String taskID) {
+        UUID destinationcolumnUUID = UUID.fromString(destinationcolumnID);
+        UUID taskUUID = UUID.fromString(taskID);
+        UUID sourcecolumnUUID = UUID.fromString(sourcecolumnID);
+        Column destinationColumn = currentProject.getColumn(destinationcolumnUUID);
+        Column sourceColumn = currentProject.getColumn(sourcecolumnUUID);
+        if(sourceColumn==null || destinationColumn==null){
+            return false;
+        }
+        Task movedTask = sourceColumn.getTask(taskID);
+        currentProject.moveTask(destinationColumn, movedTask);
+        return true;
     }
 
     /**
