@@ -168,13 +168,28 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * 
-     * @param columnID
-     * @return
+     * Edits the specified column's attributes.
+     * @author theo 
+     * @param columnID ID of the column to be edited
+     * @param newName   New name for the column
+     * @param sortType  New sort type for the column
+     * @return boolean that states whether the column has been successfully edited
      */
-    public boolean editColumn(String columnID) {
-        return false;
+    public boolean editColumn(String columnID, String newName, String newsortType) {
+        UUID columnUUID = UUID.fromString(columnID);
+        Column editedColumn = currentProject.getColumn(columnUUID);
+        if (editedColumn != null) {
+            if (newName != null && !newName.isEmpty()) {
+                editedColumn.setName(newName);
+            }
+            if (newsortType != null && !newsortType.isEmpty()) {
+                editedColumn.setSortType(newsortType);
+            }
+        return true;
     }
+    return false;
+}
+
 
     /**
      * 
