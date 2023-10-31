@@ -13,6 +13,7 @@ public class ProjectPilotFacade {
     private Project currentProject;
     private UserList userList;
     private ProjectList projectList;
+    private Column currentColumn;
 
     /**
      * ProjectPilotFacade constructor. Initializes userList, projectList, and user.
@@ -205,13 +206,39 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * 
+     * edits the task's attributes 
+     * @author theo
      * @param taskID
+     * @param newName
+     * @param newAssignee
+     * @param newPriority
+     * @param newStatus
+     * @param newDescription
+     * @param comments
      * @return
-     */
-    public boolean editTask(String taskID) {
+     */  
+    public boolean editTask(String taskID, String newName, User newAssignee, int newPriority, String newStatus, String newDescription, ArrayList<Comment> comments) {
+        Task editedTask = currentColumn.getTask(taskID);
+        if (editedTask != null && newName != null && !newName.isEmpty()) {
+            editedTask.setName(newName);
+            if (newAssignee != null) {
+                editedTask.setAssignee(newAssignee);
+            }
+            editedTask.setPriority(newPriority);
+            if (newStatus != null && !newStatus.isEmpty()) {
+                editedTask.setStatus(newStatus);
+            }
+            if (newDescription != null) {
+                editedTask.setDescription(newDescription);
+            }
+            if (comments != null) {
+                editedTask.setComments(comments);
+            }
+            return true;
+        }
         return false;
     }
+    
 
     /**
      * 
