@@ -168,21 +168,49 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * 
-     * @param columnID
-     * @return
+     * Edits the specified column's attributes.
+     * @author theo 
+     * @param columnID ID of the column to be edited
+     * @param newName   New name for the column
+     * @param sortType  New sort type for the column
+     * @return boolean that states whether the column has been successfully edited
      */
-    public boolean editColumn(String columnID) {
+    public boolean editColumn(String columnID, String newName, String newsortType) {
+        UUID columnUUID = UUID.fromString(columnID);
+        Column editedColumn = currentProject.getColumn(columnUUID);
+        if (editedColumn != null) {
+            if (newName != null && !newName.isEmpty()) {
+                editedColumn.setName(newName);
+            }
+            if (newsortType != null && !newsortType.isEmpty()) {
+                editedColumn.setSortType(newsortType);
+            }
+            return true;
+        }
         return false;
     }
 
+
     /**
-     * 
-     * @param taskID
-     * @return
+     * moves tasks from the source column to the destination column using their respective IDs
+     * @author theo v
+     * @param taskID String that represents the UUID of the task that is being moved
+     * @param sourcecolumnID String that represents the UUID of the column where the task resides
+     * @param destinationcolumnID String that represents the UUID of the column where the task is going to be moved in 
+     * @return whether or not moving the task was executed properly 
      */
-    public boolean moveTask(String taskID) {
-        return false;
+    public boolean moveTask(String sourcecolumnID, String destinationcolumnID, String taskID) {
+        UUID destinationcolumnUUID = UUID.fromString(destinationcolumnID);
+        UUID taskUUID = UUID.fromString(taskID);
+        UUID sourcecolumnUUID = UUID.fromString(sourcecolumnID);
+        Column destinationColumn = currentProject.getColumn(destinationcolumnUUID);
+        Column sourceColumn = currentProject.getColumn(sourcecolumnUUID);
+        if(sourceColumn==null || destinationColumn==null){
+            return false;
+        }
+        Task movedTask = sourceColumn.getTask(taskID);
+        currentProject.moveTask(destinationColumn, movedTask);
+        return true;
     }
 
     /**
