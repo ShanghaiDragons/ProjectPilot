@@ -178,12 +178,20 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * 
-     * @param taskID
-     * @return
+     * Moves a task from one column to another
+     * @author Duayne
+     * @param taskID String of the task's ID
+     * @return boolean of whether the task isn't in the old column and also in the new column
      */
-    public boolean moveTask(String taskID) {
-        return false;
+    public boolean moveTask(Column destination, String taskID) {
+        UUID taskUUID = UUID.fromString(taskID);
+        Task task = null;
+        for(Task t : getTasks()) {
+            if(t.getID().equals(taskUUID))
+                task = t;
+        }
+        currentProject.moveTask(destination, task);
+        return !currentColumn.getTasks().contains(task) && destination.getTasks().contains(task);
     }
 
     /**
