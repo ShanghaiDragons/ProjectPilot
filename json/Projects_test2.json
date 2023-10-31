@@ -20,21 +20,23 @@
     "taskName": "task1",
     "assignee": "c582b373-4a57-478b-9915-0eb105d0e171",
     "priority": "1",
-    "taskTaskHistoryID": "be62d653-481a-4f10-b5db-6fba3c311589",
+    "taskTaskHistoryID": "b19aa7f8-2134-4a79-a2e7-a0b94a7a0dab",
     "taskCommentIDs": [],
     "taskID": "b8452bee-a781-49fb-8b21-7fdbd12477d0",
     "status": "active"
   },
   {
-    "taskHistoryID": "be62d653-481a-4f10-b5db-6fba3c311589",
-    "descriptionChanges": ["[2023-10-30T15:48:33.809798]: \"empty\" was set"],
-    "statusChanges": ["[2023-10-30T15:48:33.809798]: \"active\" was set"],
+    "taskHistoryID": "b19aa7f8-2134-4a79-a2e7-a0b94a7a0dab",
+    "descriptionChanges": [
+      "[2023-10-30T18:10:00.209809600]: \"empty\" was set"
+    ],
+    "statusChanges": ["[2023-10-30T18:10:00.209809600]: \"active\" was set"],
     "taskHistoryTaskID": "b8452bee-a781-49fb-8b21-7fdbd12477d0",
-    "creationDate": "2023-10-30T15:48:33.809798",
+    "creationDate": "2023-10-30T18:10:00.209809600",
     "moveChanges": [],
-    "priorityChanges": ["[2023-10-30T15:48:33.809798]: \"1\" was set"],
-    "nameChanges": ["[2023-10-30T15:48:33.809798]: \"task1\" was set"],
-    "assigneeChanges": ["[2023-10-30T15:48:33.809798]: \"jsmith24\" was set"]
+    "priorityChanges": ["[2023-10-30T18:10:00.209809600]: \"1\" was set"],
+    "nameChanges": ["[2023-10-30T18:10:00.209809600]: \"task1\" was set"],
+    "assigneeChanges": ["[2023-10-30T18:10:00.209809600]: \"jsmith24\" was set"]
   },
   {
     "startSprint": "2023-10-30",
@@ -42,73 +44,14 @@
     "team": [],
     "projectName": "project2",
     "projectID": "6b13405f-f345-48be-986e-7aa9d216ae23",
-    "projectColumnIDs": [
-      "0fc621cc-efe4-4885-b1be-b0238696b4ad",
-      "c0f65797-a22d-489c-b406-f10f16a730c1"
-    ],
+    "projectColumnIDs": ["4feb7ba5-a130-4c8c-9874-5a10a2e43385"],
     "projectCommentIDs": []
   },
   {
     "sortType": "default",
-    "columnID": "0fc621cc-efe4-4885-b1be-b0238696b4ad",
+    "columnID": "4feb7ba5-a130-4c8c-9874-5a10a2e43385",
     "columnTaskIDs": [],
-    "columnName": "column2",
-    "columnCommentIDs": []
-  },
-  {
-    "sortType": "default",
-    "columnID": "c0f65797-a22d-489c-b406-f10f16a730c1",
-    "columnTaskIDs": [
-      "91c5ad4d-36b6-492e-b9a4-e4d5cdd69408",
-      "5ec3e313-bec6-4b00-8a39-89e522c96c3a"
-    ],
     "columnName": "column1",
     "columnCommentIDs": []
-  },
-  {
-    "description": "empty",
-    "taskName": "task1",
-    "assignee": "c582b373-4a57-478b-9915-0eb105d0e171",
-    "priority": "1",
-    "taskTaskHistoryID": "40dd4eeb-1590-438d-9d81-f8c062e95778",
-    "taskCommentIDs": [],
-    "taskID": "91c5ad4d-36b6-492e-b9a4-e4d5cdd69408",
-    "status": "active"
-  },
-  {
-    "taskHistoryID": "40dd4eeb-1590-438d-9d81-f8c062e95778",
-    "descriptionChanges": [
-      "[2023-10-30T15:50:08.316411200]: \"empty\" was set"
-    ],
-    "statusChanges": ["[2023-10-30T15:50:08.316411200]: \"active\" was set"],
-    "taskHistoryTaskID": "91c5ad4d-36b6-492e-b9a4-e4d5cdd69408",
-    "creationDate": "2023-10-30T15:50:08.316411200",
-    "moveChanges": [],
-    "priorityChanges": ["[2023-10-30T15:50:08.316411200]: \"1\" was set"],
-    "nameChanges": ["[2023-10-30T15:50:08.316411200]: \"task1\" was set"],
-    "assigneeChanges": ["[2023-10-30T15:50:08.316411200]: \"jsmith24\" was set"]
-  },
-  {
-    "description": "empty",
-    "taskName": "task2",
-    "assignee": "c582b373-4a57-478b-9915-0eb105d0e171",
-    "priority": "1",
-    "taskTaskHistoryID": "3cda5643-03ba-4451-bcb8-49545c6371f8",
-    "taskCommentIDs": [],
-    "taskID": "5ec3e313-bec6-4b00-8a39-89e522c96c3a",
-    "status": "active"
-  },
-  {
-    "taskHistoryID": "3cda5643-03ba-4451-bcb8-49545c6371f8",
-    "descriptionChanges": [
-      "[2023-10-30T15:50:11.324097300]: \"empty\" was set"
-    ],
-    "statusChanges": ["[2023-10-30T15:50:11.324097300]: \"active\" was set"],
-    "taskHistoryTaskID": "5ec3e313-bec6-4b00-8a39-89e522c96c3a",
-    "creationDate": "2023-10-30T15:50:11.324097300",
-    "moveChanges": [],
-    "priorityChanges": ["[2023-10-30T15:50:11.324097300]: \"1\" was set"],
-    "nameChanges": ["[2023-10-30T15:50:11.324097300]: \"task2\" was set"],
-    "assigneeChanges": ["[2023-10-30T15:50:11.324097300]: \"jsmith24\" was set"]
   }
 ]

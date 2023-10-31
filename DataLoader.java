@@ -115,6 +115,7 @@ public class DataLoader extends DataConstants {
 			  JSONParser parser = new JSONParser();	
 			  JSONArray projectsJSON = (JSONArray)new JSONParser().parse(reader);
 			
+			
 			  for(int i=0; i < projectsJSON.size(); i++) {
 				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
 				  String name = (String)projectJSON.get(COLUMN_NAME);

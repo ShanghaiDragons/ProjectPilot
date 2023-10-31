@@ -19,8 +19,8 @@ public class DataWriter extends DataConstants {
         UserList users = UserList.getInstance();
         ArrayList<User> userList = users.getUsers();
 
-        // JSONArray jsonUsers = new JSONArray();
-        JSONObject jsonUsers = new JSONObject();
+        JSONArray jsonUsers = new JSONArray();
+        // JSONObject jsonUsers = new JSONObject();
 
         /*
         // TEST USERS. TODO: remove when testing is done.
@@ -40,7 +40,7 @@ public class DataWriter extends DataConstants {
 
         // Creating JSON objects
         for(int i=0; i < userList.size(); i++) {
-            jsonUsers.put(USER, getUserJSON(userList.get(i)));
+            jsonUsers.add(getUserJSON(userList.get(i)));
         }
 
         // Write to JSON file
