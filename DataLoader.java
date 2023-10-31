@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
-import java.text.SimpleDateFormat;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -219,22 +218,16 @@ public class DataLoader extends DataConstants {
 						int priority = Integer.parseInt(num);
 						String status = (String)projectJSON.get(TASK_STATUS);
 						String description = (String)projectJSON.get(TASK_DESCRIPTION);
+						TaskHistory taskHistory = null;
+						UUID taskHistoryID = (UUID.fromString((String)projectJSON.get(TASK_TASK_HISTORY_ID)));
+						if (taskHistoryID.equals(getTaskHistory().getID()))
+							taskHistory = getTaskHistory();
 						ArrayList<Comment> comments = new ArrayList<Comment>();
 						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(TASK_COMMENT_IDS);
 						for(int j = 0; j < tempComments.size(); j++)
 							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
 								comments.add(getComments().get(j));
-						// boolean isGeneral = (boolean)projectJSON.get(TASK_GENERAL);
-						// boolean isNewFeature = (boolean)projectJSON.get(TASK_NEW_FEATURE);
-						// boolean isBug = (boolean)projectJSON.get(TASK_BUG);
-						Task task = null;
-					//   TODO: Bug cannot be resolved to a type for some weird reason...
-					//   if(isBug)
-					// 	task = new Bug(id, name, assignee, priority, status, description, comments);
-						// if(isGeneral)
-						task = new GeneralTask(id, name, assignee, priority, status, description, comments);
-						// if(isNewFeature)
-						// 	task = new NewFeature(id, name, assignee, priority, status, description, comments);
+						Task task = new Task(assigneeId, name, assignee, priority, status, description, taskHistory, comments);
 						tasks.add(task);
 					}
 			  }
@@ -253,8 +246,8 @@ public class DataLoader extends DataConstants {
 	 * @author Duayne
 	 * @return ArrayList object containing a task's history
 	 */
-	  public static ArrayList<String> getTaskHistory() {
-		ArrayList<String> taskHistory = new ArrayList<String>();
+	  public static TaskHistory getTaskHistory() {
+		TaskHistory taskHistory = null;
   
 		try {
 			  FileReader reader = new FileReader(PROJECT_FILE_NAME);
@@ -291,8 +284,7 @@ public class DataLoader extends DataConstants {
 						ArrayList<String> tempStatusChanges = (ArrayList<String>)projectJSON.get(TASK_HISTORY_PRIORITY_CHANGES);
 						for(int j = 0; j < tempStatusChanges.size() - 1; j++)
 						statusChanges.add(tempStatusChanges.get(j));
-						TaskHistory taskString = new TaskHistory(id, taskID, creationDate, tempNameChanges, tempDescriptionChanges, tempMoveChanges, tempAssigneeChanges, tempPriorityChanges, tempStatusChanges);
-						taskHistory.add(taskString.toString());
+						taskHistory = new TaskHistory(id, taskID, creationDate, tempNameChanges, tempDescriptionChanges, tempMoveChanges, tempAssigneeChanges, tempPriorityChanges, tempStatusChanges);
 					}
 			  }
 			  
