@@ -13,7 +13,6 @@ public class ProjectPilotFacade {
     private Project currentProject;
     private UserList userList;
     private ProjectList projectList;
-    private Column currentColumn;
 
     /**
      * ProjectPilotFacade constructor. Initializes userList, projectList, and user.
