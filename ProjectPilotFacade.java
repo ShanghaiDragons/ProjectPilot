@@ -14,6 +14,12 @@ public class ProjectPilotFacade {
     private UserList userList;
     private ProjectList projectList;
 
+    public static void main(String[] args) {
+        ProjectPilotFacade ppf = new ProjectPilotFacade();
+        ppf.currentProject = ppf.getProjects().get(1);
+        ppf.getProjects();
+        System.out.println(ppf.removeTask("5ec3e313-bec6-4b00-8a39-89e522c96c3a"));
+      }
     /**
      * ProjectPilotFacade constructor. Initializes userList, projectList, and user.
      * @author ctaks
@@ -267,22 +273,6 @@ public class ProjectPilotFacade {
         }
         return false;
     }
-    
-    /**
-     * Removes a user from the project
-     * @author Duayne
-     * @param userID String of the user's UUID to remove from the team
-     * @return boolean of the removed user not contained in the project's team
-     */
-    public boolean removeUser(String userID) {
-        User person = null;
-        for(User u : getUsers()) {
-            if(u.getID().equals(UUID.fromString(userID)))
-                person = u;
-        }
-        currentProject.removeUser(person);
-        return !currentProject.getTeam().contains(person);
-    }
 
     /**
      * sorts tasks based on the sort type (alphabetical, user, priority)
@@ -297,6 +287,44 @@ public class ProjectPilotFacade {
             return true; 
         }
         return false; 
+    }
+
+    /**
+     * Removes the task from the current project
+     * @author Duayne
+     * @param taskID String of the task UUID to be removed
+     * @return boolean representing the task not existing
+     */
+    public boolean removeTask(String taskID) {
+        UUID taskUUID = UUID.fromString(taskID);
+        Task task = null;
+        for (int i = 0; i < currentProject.getColumns().size(); i++)
+            for (int j = 0; j < currentProject.getColumns().get(i).getTasks().size(); j++)
+                if (currentProject.getColumns().get(i).getTasks().get(j).getID().equals(taskUUID)) {
+                    task = currentProject.getColumns().get(i).getTasks().get(j);
+                    currentProject.getColumns().get(i).removeTask(task);
+                }
+        for (int i = 0; i < currentProject.getColumns().size(); i++)
+            for (int j = 0; j < currentProject.getColumns().get(i).getTasks().size(); j++)
+                if (!currentProject.getColumns().get(i).getTasks().contains(task))
+                    return true;
+        return false;
+    }
+
+    /**
+     * Removes a user from the project
+     * @author Duayne
+     * @param userID String of the user's UUID to remove from the team
+     * @return boolean of the removed user not contained in the project's team
+     */
+    public boolean removeUser(String userID) {
+        User person = null;
+        for(User u : getUsers()) {
+            if(u.getID().equals(UUID.fromString(userID)))
+                person = u;
+        }
+        currentProject.removeUser(person);
+        return !currentProject.getTeam().contains(person);
     }
 
     /**
