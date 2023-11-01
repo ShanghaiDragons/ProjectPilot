@@ -172,26 +172,29 @@ public class DataLoader extends DataConstants {
 					String message = (String)projectJSON.get(COMMENT_MESSAGE);
 				  if (message != null) {
 						UUID commentID = UUID.fromString((String)projectJSON.get(COMMENT_ID));
-					UUID userId = UUID.fromString((String)projectJSON.get(COMMENT_USER_ID));
-					User user = null;
-					for (User x : getUsers()) {
-						if (x.getID().equals(userId))
-							user = x;
-					}
-					String time = (String)projectJSON.get(COMMENT_DATE);
-					LocalDateTime commentDate = LocalDateTime.parse(time);
-					ArrayList<Comment> commentList = new ArrayList<Comment>();
-						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(COMMENT_THREAD_IDs);
-						for(int j = 0; j < getComments().size(); j++) {
-							for (int k = 0; k < tempComments.size(); k++) {
-								if (UUID.fromString(tempComments.get(k)).equals(getComments().get(j).getID())) {
-									commentList.add(getComments().get(j));
-								}
-							}
+						UUID userId = UUID.fromString((String)projectJSON.get(COMMENT_USER_ID));
+						User user = null;
+						for (User x : getUsers()) {
+							if (x.getID().equals(userId))
+								user = x;
 						}
-				  comments.add(new Comment(commentID, user, commentDate, message, commentList));
-			  }
-			}
+						String time = (String)projectJSON.get(COMMENT_DATE);
+						LocalDateTime commentDate = LocalDateTime.parse(time);
+						ArrayList<Comment> commentList = new ArrayList<Comment>();
+							ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(COMMENT_THREAD_IDs);
+							//for(int j = 0; j < getComments().size(); j++) {
+								//for(int j = 0; i < 3; j++) {  // HARD CODED FOR SCENARIO :) TODO: fix later!!
+									//System.out.println("test");
+								// for (int k = 0; k < tempComments.size(); k++) {
+								for (int k = 0; k < tempComments.size(); k++) {
+									if (UUID.fromString(tempComments.get(k)).equals(getComments().get(k).getID())) {
+										commentList.add(getComments().get(k));
+									}
+								}
+							//}
+						comments.add(new Comment(commentID, user, commentDate, message, commentList));
+			  	}
+				}
 			
 			// for (Comment c : comments)
 				// System.out.println(c.getMessage());
