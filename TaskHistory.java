@@ -131,7 +131,8 @@ public class TaskHistory {
       return true;
     }
   }
-/**
+
+  /**
  * setter for descriptionChanges
  * @author ctaks
  * @param descriptionChanges to be set
@@ -146,6 +147,7 @@ public boolean setDescriptionChanges(ArrayList<String> descriptionChanges) {
     return true;
   }
 }
+
 /**
  * setter for moveChanges
  * @author ctaks

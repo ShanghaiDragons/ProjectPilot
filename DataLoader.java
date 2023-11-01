@@ -177,8 +177,7 @@ public class DataLoader extends DataConstants {
 					String message = (String)projectJSON.get(COMMENT_MESSAGE);
 					ArrayList<Comment> commentList = new ArrayList<Comment>();
 					ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(COMMENT_THREAD_IDs);
-					for(int j = 0; j < getComments().size(); j++)
-						for(int k = 0; k < tempComments.size(); k++)
+					for(int j = 0; j < tempComments.size(); j++)
 						if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
 							comments.add(getComments().get(j));
 
@@ -231,8 +230,7 @@ public class DataLoader extends DataConstants {
 								taskHistory = getTaskHistory().get(j);
 						ArrayList<Comment> comments = new ArrayList<Comment>();
 						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(TASK_COMMENT_IDS);
-						for(int j = 0; j < getComments().size(); j++)
-							for(int k = 0; k < tempComments.size(); k++)
+						for(int j = 0; j < tempComments.size(); j++)
 							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
 								comments.add(getComments().get(j));
 						Task task = new Task(id, name, assignee, priority, status, description, taskHistory, comments);
