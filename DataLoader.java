@@ -78,9 +78,8 @@ public class DataLoader extends DataConstants {
 						ArrayList<String> tempColumns = (ArrayList<String>)projectJSON.get(PROJECT_COLUMN_IDS);
 						for(int j = 0; j < getColumns().size(); j++)
 							for(int k = 0; k < tempColumns.size(); k++)
-								if (UUID.fromString(tempColumns.get(k)).equals(getColumns().get(j).getID())) {
+								if (UUID.fromString(tempColumns.get(k)).equals(getColumns().get(j).getID()))
 									columns.add(getColumns().get(j));
-								}
 						String start = (String)projectJSON.get(PROJECT_START_SPRINT);
 						LocalDate startSprint = LocalDate.parse(start);
 						String end = (String)projectJSON.get(PROJECT_END_SPRINT);
@@ -125,13 +124,10 @@ public class DataLoader extends DataConstants {
 						UUID id = UUID.fromString((String)projectJSON.get(COLUMN_ID));
 						ArrayList<Task> tasks = new ArrayList<Task>();
 						ArrayList<String> tempTasks = (ArrayList<String>)projectJSON.get(COLUMN_TASK_IDS);
-						for(int j = 0; j < getTasks().size(); j++) {
-							for (int k = 0; k < tempTasks.size(); k++) {
-								if (UUID.fromString(tempTasks.get(k)).equals((getTasks().get(j).getID()))) {
+						for (int k = 0; k < tempTasks.size(); k++)
+							for(int j = 0; j < getTasks().size(); j++)
+								if (UUID.fromString(tempTasks.get(k)).equals((getTasks().get(j).getID())))
 									tasks.add(getTasks().get(j));
-								}
-							}
-						}
 						String sortType = (String)projectJSON.get(COLUMN_SORT_TYPE);
 						ArrayList<Comment> comments = new ArrayList<Comment>();
 						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(COLUMN_COMMENT_IDS);
@@ -166,8 +162,8 @@ public class DataLoader extends DataConstants {
 			
 			  for(int i=0; i < projectsJSON.size(); i++) {
 				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
-				  String name = (String)projectJSON.get(COMMENT_MESSAGE);
-				  if (name != null) {
+				  UUID commentID = UUID.fromString((String)projectJSON.get(COMMENT_ID));
+				  if (commentID != null) {
 					UUID userId = UUID.fromString((String)projectJSON.get(COMMENT_USER_ID));
 					User user = null;
 					for (User x : getUsers()) {
@@ -183,7 +179,7 @@ public class DataLoader extends DataConstants {
 							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
 								comments.add(getComments().get(j));
 
-				  comments.add(new Comment(userId, user, commentDate, message, commentList));
+				  comments.add(new Comment(commentID, user, commentDate, message, commentList));
 			  }
 			}
 			  
@@ -235,7 +231,7 @@ public class DataLoader extends DataConstants {
 						for(int j = 0; j < tempComments.size(); j++)
 							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
 								comments.add(getComments().get(j));
-						Task task = new Task(id, name, assignee, priority, status, description, taskHistory, comments);
+						Task task = new Task(assigneeId, name, assignee, priority, status, description, taskHistory, comments);
 						tasks.add(task);
 					}
 			  }
