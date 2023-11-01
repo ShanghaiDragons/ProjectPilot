@@ -86,9 +86,10 @@ public class DataLoader extends DataConstants {
 						LocalDate endSprint = LocalDate.parse(end);
 						ArrayList<Comment> comments = new ArrayList<Comment>();
 						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(PROJECT_COMMENT_IDs);
-						for(int j = 0; j < tempComments.size(); j++)
+						for(int j = 0; j < tempComments.size(); j++) {
 							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
 								comments.add(getComments().get(j));
+						}
 						projects.add(new Project(id, projectName, startSprint, endSprint, team, columns, comments));
 					}
 			  }
@@ -161,8 +162,8 @@ public class DataLoader extends DataConstants {
 			
 			  for(int i=0; i < projectsJSON.size(); i++) {
 				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
-				  String name = (String)projectJSON.get(COMMENT_MESSAGE);
-				  if (name != null) {
+				  UUID commentID = UUID.fromString((String)projectJSON.get(COMMENT_ID));
+				  if (commentID != null) {
 					UUID userId = UUID.fromString((String)projectJSON.get(COMMENT_USER_ID));
 					User user = null;
 					for (User x : getUsers()) {
@@ -178,7 +179,7 @@ public class DataLoader extends DataConstants {
 							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
 								comments.add(getComments().get(j));
 
-				  comments.add(new Comment(userId, user, commentDate, message, commentList));
+				  comments.add(new Comment(commentID, user, commentDate, message, commentList));
 			  }
 			}
 			  
