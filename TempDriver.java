@@ -3,7 +3,9 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Temporary Driver class. To be removed when the actual UI is made.
@@ -11,6 +13,8 @@ import java.io.*;
 public class TempDriver {
 
   public static final String fileName = "prints/ProjectPilotPrint.txt";
+  public static final String TAB = "  ";
+  public static final String ENTER = "\n";
   public static final Scanner keyboard = new Scanner(System.in);
   private ProjectPilotFacade ppf;
   private boolean quit;
@@ -172,6 +176,7 @@ public class TempDriver {
   }
 
   public void projectMenu() {
+    loadAProject();
     System.out.println(ppf.getCurrentProject().getName()+" menu:"
     +"\n[1] Columns menu"
     +"\n[2] Change sprint start date"
@@ -542,8 +547,34 @@ public class TempDriver {
   }
 
   public void printProjects() {
-    // Scanner fileReader = new Scanner(new File("test.txt"));
-    // PrintWriter fileWriter = new PrintWriter(new FileOutputStream(new File("test.txt")));
+    System.out.println("Printing...");
+    try {
+      File file = new File(fileName);
+      file.createNewFile();
+      FileWriter fw = new FileWriter(fileName);
+      
+      // WRITE TO FILE
+      if (ppf.getProjects() != null && ppf.getProjects().size() != 0) {
+        for(Project p : ppf.getProjects()) {
+          fw.write("[Project]: "+p.getName()+ENTER);
+          if (p.getComments().size() != 0) {
+            for (Comment c : p.getComments()) {
+              fw.write("[Project Comment]: "+c.getMessage()+ENTER);
+            }
+          }
+          if (p.getColumns().size() != 0) {
+            for (Column c : p.getColumns()) {
+              fw.write("[Column]: "+c.getName());
+            }
+          }
+        }
+      }
+      fw.close();
+
+    } catch (IOException e) {
+      System.out.println("ERROR");
+      e.printStackTrace();
+    }
   }
 
   /**
