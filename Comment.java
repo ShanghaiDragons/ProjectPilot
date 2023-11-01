@@ -36,7 +36,7 @@ public class Comment {
      * @param thread from JSON file
      */
     public Comment(UUID id, User user, LocalDateTime date, String message, ArrayList<Comment> thread) {
-        setID(this.id);
+        setID(id);
         setUser(user);
         setDate(this.date);
         setMessage(message);

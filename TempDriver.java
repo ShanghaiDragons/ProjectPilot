@@ -539,6 +539,51 @@ public class TempDriver {
     }
 
     public void commentCommentMenu(Comment c) {
+      System.out.println("select a comment");
+      int i = 0;
+      System.out.println("[0] create a new comment");
+      for (Comment com : c.getThread()) {
+        System.out.println("["+(i+1)+"]: "+com.getUser().getUserName()+": "+com.getMessage());
+        i++;
+      }
+      int choice = 0;
+      boolean hasSelected = false;
+      while(!hasSelected) {
+        choice = keyboard.nextInt();
+        keyboard.nextLine();
+        if (choice <= c.getThread().size())
+          hasSelected = true;
+        else
+          System.out.println("Please try again.");
+      }
+      choice--;
+      if (choice == -1) {
+        c.threadComment(ppf.getUser(), createComment());
+      } else {
+        int choice2 = 0;
+        while(choice2 != 1) {
+          System.out.println(c.getThread().get(choice)+" menu:"
+          +"\n[1] comment thread menu"
+          +"\n[2] change message"
+          +"\n[3] Go back to projects menu"
+          );
+          choice2 = keyboard.nextInt();
+          keyboard.nextLine();
+          switch(choice2) {
+            case 1:
+              commentCommentMenu(c.getThread().get(choice));
+              break;
+            case 2:
+              System.out.println("Enter a new message");
+              String newmessage = keyboard.nextLine();
+              c.getThread().get(choice).setMessage(newmessage);
+              break;
+            case 3:
+              projectMenu();
+              break;
+          }
+        }
+      }
 
     }
     
