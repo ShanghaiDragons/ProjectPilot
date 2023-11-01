@@ -3,8 +3,11 @@
 [User]: Atticus Finch (AtticusFinch)
 
 [Project]: Electric Missiles
+  [Project Comment]: [Atticus]: dragon
     [Column]: To Do
         [TASK]: Initialize super algorithm to detonate at warp speed
+          [Task Comment]: [Atticus]: something
+          [Task Comment]: [Atticus]: something else
     [Column]: Doing
 
 [Project]: Soap Free Washers
