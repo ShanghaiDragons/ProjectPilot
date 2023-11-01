@@ -43,7 +43,7 @@ public class ProjectList {
 
     /**
     * A method for accessing a project based on its name. Loops through every project and returns the match.
-    * @author Chris
+    * @author ctaks
     * @param projectName the name of the project
     * @return the project that matches the given project name
     */
@@ -57,7 +57,7 @@ public class ProjectList {
 
     /**
      * Gets the current list of projects
-     * @author Chris
+     * @author ctaks
      * @return the ArrayList<Project> of projects.
      */
     public ArrayList<Project> getProjects() {

@@ -459,5 +459,14 @@ public class ProjectPilotFacade {
     public boolean saveProjects() {
         return projectList.saveProjects();
     }
+
+    /**
+     * Saves the current user list
+     * @author ctaks
+     * @return boolean determing if the save was successful.
+     */
+    public boolean saveUsers() {
+        return userList.saveUsers();
+    }
 }
 

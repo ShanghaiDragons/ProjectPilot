@@ -3,11 +3,14 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.io.*;
+
 /**
  * Temporary Driver class. To be removed when the actual UI is made.
  */
 public class TempDriver {
 
+  public static final String fileName = "prints/ProjectPilotPrint.txt";
   public static final Scanner keyboard = new Scanner(System.in);
   private ProjectPilotFacade ppf;
   private boolean quit;
@@ -37,7 +40,7 @@ public class TempDriver {
     System.out.println("You are logged in.");
     quit = false;
     while(!quit) {
-    projectPilotMenu();
+    mainMenu();
     }
   }
   
@@ -129,13 +132,43 @@ public class TempDriver {
   }
   
   // TODO: finish
-  public void projectPilotMenu() {
+  public void mainMenu() {
     System.out.println("Main menu:"
     +"\n[1] project menu"
-    +"\n[2] user menu "
-    +"\n[] "
-    +"\n[] Quit ProjectPilot"
+    +"\n[2] user menu"
+    +"\n[3] print to text file"
+    +"\n[4] save"
+    +"\n[5] Quit ProjectPilot"
     );
+    int choice = keyboard.nextInt();
+    keyboard.nextLine();
+    switch (choice) {
+      case 1:
+        projectMenu();
+        break;
+      case 2:
+        userMenu();
+        break;
+      case 3:
+        printProjects();
+        break;
+      case 4:
+        System.out.println("saving projects...");
+        ppf.saveProjects();
+        System.out.println("saving users...");
+        ppf.saveUsers();
+        break;
+      case 5:
+        quit = true;
+        break;
+      default:
+        break;
+    }
+  }
+
+  public void userMenu() {
+    System.out.println("Not in the scope of TempDriver");
+    mainMenu();
   }
 
   public void projectMenu() {
@@ -240,7 +273,7 @@ public class TempDriver {
         ppf.saveProjects();
         break;
       case 9:
-        projectPilotMenu();
+        mainMenu();
         break;
       default:
         System.out.println("invalid choice");
@@ -506,6 +539,11 @@ public class TempDriver {
     choice --;
     System.out.println("Moving [Task]: "+c.getTasks().get(choice).getName()+" to [Column]: "+ppf.getCurrentProject().getColumns().get(cchoice).getName());
     ppf.moveTask(c, ppf.getCurrentProject().getColumns().get(cchoice), c.getTasks().get(choice));
+  }
+
+  public void printProjects() {
+    // Scanner fileReader = new Scanner(new File("test.txt"));
+    // PrintWriter fileWriter = new PrintWriter(new FileOutputStream(new File("test.txt")));
   }
 
   /**
