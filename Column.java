@@ -211,6 +211,19 @@ public class Column {
     }
     
     /**
+     * Gets a specified task by UUID search
+     * @author ctaks
+     * @param taskID the UUID of the task
+     * @return Task of the task if it finds one.
+     */
+    public Task getTask(UUID taskID) {
+        for (Task task : this.tasks)
+            if (task.getID() == taskID)
+                return task;
+        return null;
+    }
+    
+    /**
      * Edits the column's name
      * @author Duayne
      * @param newColumnName String representation of the new column name
@@ -274,6 +287,8 @@ public class Column {
        }
        return true;
     }
+
+
     /**
      * sorts the tasks by assignee
      * @author theo v

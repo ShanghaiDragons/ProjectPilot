@@ -11,41 +11,24 @@ public class DataWriter extends DataConstants {
     private JSONArray jsonProjects = new JSONArray();
     /**
      * Saves the list of users to the user JSON file.
-    * @author Chris
+    * @author ctaks
     * @param usersList the list of users to save
     * @return boolean determining if the save was successful or not
     */   
     public boolean saveUsers() {
         UserList users = UserList.getInstance();
         ArrayList<User> userList = users.getUsers();
-
         JSONArray jsonUsers = new JSONArray();
-        // JSONObject jsonUsers = new JSONObject();
-
-        /*
-        // TEST USERS. TODO: remove when testing is done.
-        UUID userID1 = UUID.randomUUID();
-        User user1 = new User(userID1, "testUsername", "testFirstname", "testLastname", "testPassword", false, false, false, false);
-        User user2 = new User(UUID.randomUUID(), "TestUsername2", "testFirstname2", "testLastName2", "testPassword2", false, false, false, false);
-        jsonUsers.add(getUserJSON(user1));
-        jsonUsers.add(getUserJSON(user2));
-        ArrayList<String> things = new ArrayList();
-        things.add("test1");
-        things.add("test2");
-        things.add("test3");
-        JSONObject thingobj = new JSONObject();
-        thingobj.put("things", things);
-        jsonUsers.add(thingobj);
-        */
 
         // Creating JSON objects
         for(int i=0; i < userList.size(); i++) {
             jsonUsers.add(getUserJSON(userList.get(i)));
+            System.out.println("SAVING USER: "+userList.get(i).getUserName());
         }
 
         // Write to JSON file
         // TODO: hardcoded the filename for testing. Change for final version. -Chris
-        try (FileWriter file = new FileWriter("json/Users_test_write1.json")) {
+        try (FileWriter file = new FileWriter(USER_FILE_NAME)) {
             file.write(jsonUsers.toJSONString());
             return true;
 
@@ -57,7 +40,7 @@ public class DataWriter extends DataConstants {
 
     /**
      * Creates a JSONObject for a user.
-     * @author Chris
+     * @author ctaks
      * @param user The name of the user
      * @return JSONObject of the user's ID, first/last/user name.
      */
@@ -78,7 +61,7 @@ public class DataWriter extends DataConstants {
 
     /**
      * Saves the projects to the project JSON file.
-    * @author Chris
+    * @author ctaks
     * @param projectsList the list of projects to save
     * @return boolean determining if the save was successful or not
     */   
@@ -112,10 +95,8 @@ public class DataWriter extends DataConstants {
             }
         }
 
-        // jsonProjectsArray.add(jsonProjects);
         // Write to JSON file
-        // TODO: hardcoded the filename for testing. change file name for final version. -Chris
-        try (FileWriter file = new FileWriter("json/Projects_test2.json")) {
+        try (FileWriter file = new FileWriter(PROJECT_FILE_NAME)) {
             file.write(jsonProjects.toJSONString());
             file.flush();
             return true;
@@ -128,7 +109,7 @@ public class DataWriter extends DataConstants {
 
     /**
      * Create a JSONObject for a project
-     * @author Chris edited by Duayne
+     * @author ctaks edited by Duayne
      * @param project the project name
      * @return JSONObject of the project's data
      */
@@ -165,7 +146,7 @@ public class DataWriter extends DataConstants {
 
     /**
      * Create a JSONObject for a column
-     * @author Chris
+     * @author ctaks
      * @param column the column
      * @return JSONObject of the column's data
      */
@@ -195,6 +176,7 @@ public class DataWriter extends DataConstants {
 
     /**
      * Creates a JSONObject for a task
+     * @author ctaks
      * @param task the task
      * @return JSONObject of a task's data
      */
@@ -253,6 +235,7 @@ public class DataWriter extends DataConstants {
     public JSONObject getCommentJSON(Comment comment) {
         JSONObject commentData = new JSONObject();
 
+        commentData.put(COMMENT_ID, comment.getID().toString());
         commentData.put(COMMENT_USER_ID, comment.getUser().getID().toString());
         commentData.put(COMMENT_DATE, comment.getDate().toString());
         commentData.put(COMMENT_MESSAGE, comment.getMessage());
@@ -260,7 +243,7 @@ public class DataWriter extends DataConstants {
         JSONArray commentIDs = new JSONArray();
         for (Comment threadcomment : comment.getThread()) {
             commentIDs.add(threadcomment.getID().toString());
-            jsonProjects.add(getCommentJSON(comment));
+            jsonProjects.add(getCommentJSON(threadcomment));
         }
 
         commentData.put(COMMENT_THREAD_IDs, commentIDs);

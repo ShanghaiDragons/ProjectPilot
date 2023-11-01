@@ -86,9 +86,13 @@ public class DataLoader extends DataConstants {
 						LocalDate endSprint = LocalDate.parse(end);
 						ArrayList<Comment> comments = new ArrayList<Comment>();
 						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(PROJECT_COMMENT_IDs);
-						for(int j = 0; j < tempComments.size(); j++)
-							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
-								comments.add(getComments().get(j));
+						for(int j = 0; j < getComments().size(); j++) {
+							for (int k = 0; k < tempComments.size(); k++) {
+								if (UUID.fromString(tempComments.get(k)).equals(getComments().get(j).getID())) {
+									comments.add(getComments().get(j));
+								}
+							}
+						}
 						projects.add(new Project(id, projectName, startSprint, endSprint, team, columns, comments));
 					}
 			  }
@@ -130,9 +134,13 @@ public class DataLoader extends DataConstants {
 						String sortType = (String)projectJSON.get(COLUMN_SORT_TYPE);
 						ArrayList<Comment> comments = new ArrayList<Comment>();
 						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(COLUMN_COMMENT_IDS);
-						for(int j = 0; j < tempComments.size(); j++)
-							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
-								comments.add(getComments().get(j));
+						for(int j = 0; j < getComments().size(); j++) {
+							for (int k = 0; k < tempComments.size(); k++) {
+								if (UUID.fromString(tempComments.get(k)).equals(getComments().get(j).getID())) {
+									comments.add(getComments().get(j));
+								}
+							}
+						}
 						columns.add(new Column(id, name, sortType, tasks, comments));
 					}
 			  }
@@ -161,26 +169,33 @@ public class DataLoader extends DataConstants {
 			
 			  for(int i=0; i < projectsJSON.size(); i++) {
 				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
-				  String name = (String)projectJSON.get(COMMENT_MESSAGE);
-				  if (name != null) {
+					String message = (String)projectJSON.get(COMMENT_MESSAGE);
+				  if (message != null) {
+						UUID commentID = UUID.fromString((String)projectJSON.get(COMMENT_ID));
 					UUID userId = UUID.fromString((String)projectJSON.get(COMMENT_USER_ID));
 					User user = null;
 					for (User x : getUsers()) {
 						if (x.getID().equals(userId))
 							user = x;
 					}
-					LocalDateTime time = LocalDateTime.now();
-					String message = (String)projectJSON.get(COMMENT_MESSAGE);
+					String time = (String)projectJSON.get(COMMENT_DATE);
+					LocalDateTime commentDate = LocalDateTime.parse(time);
 					ArrayList<Comment> commentList = new ArrayList<Comment>();
 						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(COMMENT_THREAD_IDs);
-						for(int j = 0; j < tempComments.size(); j++)
-							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
-								comments.add(getComments().get(j));
-
-				  comments.add(new Comment(userId, user, time, message, commentList));
+						for(int j = 0; j < getComments().size(); j++) {
+							for (int k = 0; k < tempComments.size(); k++) {
+								if (UUID.fromString(tempComments.get(k)).equals(getComments().get(j).getID())) {
+									commentList.add(getComments().get(j));
+								}
+							}
+						}
+				  comments.add(new Comment(commentID, user, commentDate, message, commentList));
 			  }
 			}
-			  
+			
+			// for (Comment c : comments)
+				// System.out.println(c.getMessage());
+			
 			  return comments;
 			  
 		  } catch (Exception e) {
@@ -220,14 +235,20 @@ public class DataLoader extends DataConstants {
 						String description = (String)projectJSON.get(TASK_DESCRIPTION);
 						TaskHistory taskHistory = null;
 						UUID taskHistoryID = (UUID.fromString((String)projectJSON.get(TASK_TASK_HISTORY_ID)));
-						if (taskHistoryID.equals(getTaskHistory().getID()))
-							taskHistory = getTaskHistory();
+						//TODO: fix later
+						for (int j = 0; j < getTaskHistory().size(); j++)
+							if (taskHistoryID.equals(getTaskHistory().get(j).getID()))
+								taskHistory = getTaskHistory().get(j);
 						ArrayList<Comment> comments = new ArrayList<Comment>();
 						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(TASK_COMMENT_IDS);
-						for(int j = 0; j < tempComments.size(); j++)
-							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
-								comments.add(getComments().get(j));
-						Task task = new Task(assigneeId, name, assignee, priority, status, description, taskHistory, comments);
+						for(int j = 0; j < getComments().size(); j++) {
+							for (int k = 0; k < tempComments.size(); k++) {
+								if (UUID.fromString(tempComments.get(k)).equals(getComments().get(j).getID())) {
+									comments.add(getComments().get(j));
+								}
+							}
+						}
+						Task task = new Task(id, name, assignee, priority, status, description, taskHistory, comments);
 						tasks.add(task);
 					}
 			  }
@@ -246,9 +267,8 @@ public class DataLoader extends DataConstants {
 	 * @author Duayne
 	 * @return ArrayList object containing a task's history
 	 */
-	  public static TaskHistory getTaskHistory() {
-		TaskHistory taskHistory = null;
-  
+	  public static ArrayList<TaskHistory> getTaskHistory() {
+		ArrayList<TaskHistory> list = new ArrayList<TaskHistory>();
 		try {
 			  FileReader reader = new FileReader(PROJECT_FILE_NAME);
 			  JSONParser parser = new JSONParser();	
@@ -256,8 +276,10 @@ public class DataLoader extends DataConstants {
 			
 			  for(int i=0; i < projectsJSON.size(); i++) {
 				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
-				  LocalDateTime creationDate = (LocalDateTime)projectJSON.get(TASK_HISTORY_CREATION_DATE);
-					if (creationDate != null) {
+				  String historyID = (String)projectJSON.get(TASK_HISTORY_ID);
+					if (historyID != null) {
+						String date = (String)projectJSON.get(TASK_HISTORY_CREATION_DATE);
+						LocalDateTime creationDate = LocalDateTime.parse(date);
 						UUID id = UUID.fromString((String)projectJSON.get(TASK_HISTORY_ID));
 						UUID taskID = UUID.fromString((String)projectJSON.get(TASK_HISTORY_TASK_ID));
 						ArrayList<String> nameChanges = new ArrayList<String>();
@@ -284,11 +306,12 @@ public class DataLoader extends DataConstants {
 						ArrayList<String> tempStatusChanges = (ArrayList<String>)projectJSON.get(TASK_HISTORY_PRIORITY_CHANGES);
 						for(int j = 0; j < tempStatusChanges.size() - 1; j++)
 						statusChanges.add(tempStatusChanges.get(j));
-						taskHistory = new TaskHistory(id, taskID, creationDate, tempNameChanges, tempDescriptionChanges, tempMoveChanges, tempAssigneeChanges, tempPriorityChanges, tempStatusChanges);
+						TaskHistory taskHistory = new TaskHistory(id, taskID, creationDate, tempNameChanges, tempDescriptionChanges, tempMoveChanges, tempAssigneeChanges, tempPriorityChanges, tempStatusChanges);
+						list.add(taskHistory);
 					}
 			  }
 			  
-			  return taskHistory;
+			  return list;
 			  
 		  } catch (Exception e) {
 			  e.printStackTrace();

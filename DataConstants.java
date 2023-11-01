@@ -1,7 +1,7 @@
 public abstract class DataConstants {
 	// User
 	protected static final String USER = "user";
-	protected static final String USER_FILE_NAME = "json/Users_test.json";
+	protected static final String USER_FILE_NAME = "json/UsersScenario"; //TODO: change to correct
 	protected static final String USER_ID = "id";
 	protected static final String USER_USER_NAME = "userName";
 	protected static final String USER_FIRST_NAME = "firstName";
@@ -14,7 +14,7 @@ public abstract class DataConstants {
 
 	// Project
 	protected static final String PROJECT = "project";
-	protected static final String PROJECT_FILE_NAME = "json/Projects_test2.json"; //TODO: change back to correct filename.
+	protected static final String PROJECT_FILE_NAME = "json/ProjectsScenario.json"; //TODO: change back to correct filename.
 	protected static final String PROJECT_NAME = "projectName";
 	protected static final String PROJECT_ID = "projectID";
 	protected static final String PROJECT_TEAM = "team";
@@ -64,6 +64,7 @@ public abstract class DataConstants {
 	// protected static final String COMMENT_PROJECT_ID = "projectID";
 	// protected static final String COMMENT_COLUMN_ID = "columnID";
 	// protected static final String COMMENT_TASK_ID = "taskID";
+	protected static final String COMMENT_ID = "commentID";
 	protected static final String COMMENT_USER_ID = "commentUserID";
 	protected static final String COMMENT_DATE = "commentDate";
 	protected static final String COMMENT_MESSAGE = "commentMessage";

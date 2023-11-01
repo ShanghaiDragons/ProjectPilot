@@ -99,20 +99,15 @@ public class ProjectPilotFacade {
     
     /**
      * Creates an account for a given user
-     * @author Duayne
+     * @author Duayne (edit by ctaks - changed return type from User to boolean, and changed literally everything else)
      * @param userName string that represents the user's username
      * @param firstName string that represents the user's first name
      * @param lastName string that represents the user's last name
      * @param password string that represents the user's password
      * @return Returns the user that was created with the given parameters
      */
-    public User createAccount(String firstName, String lastName, String userName, String password) {
-        if (this.user != null)
-            return user;
-        user = new User(firstName, lastName, userName, password, false,
-                        false, false, false);
-        userList.addUser(user);
-        return user;
+    public boolean createAccount(String firstName, String lastName, String userName, String password) {
+        return userList.addUser(new User(firstName, lastName, userName, password, true, true, true, true));
     }
 
     /**
@@ -244,27 +239,16 @@ public class ProjectPilotFacade {
         return false;
     }
 
-
     /**
-     * moves tasks from the source column to the destination column using their respective IDs
-     * @author theo v
-     * @param taskID String that represents the UUID of the task that is being moved
-     * @param sourcecolumnID String that represents the UUID of the column where the task currently resides
-     * @param destinationcolumnID String that represents the UUID of the column where the task is going to be moved in 
-     * @return whether or not moving the task was executed properly 
+     * Moves the task from one column to the next
+     * @author ctaks
+     * @param sourceColumn task origin
+     * @param destinationColumn task destination
+     * @param task to be moved
+     * @return boolean determining success
      */
-    public boolean moveTask(String sourcecolumnID, String destinationcolumnID, String taskID) {
-        UUID destinationcolumnUUID = UUID.fromString(destinationcolumnID);
-        UUID taskUUID = UUID.fromString(taskID);
-        UUID sourcecolumnUUID = UUID.fromString(sourcecolumnID);
-        Column destinationColumn = currentProject.getColumn(destinationcolumnUUID);
-        Column sourceColumn = currentProject.getColumn(sourcecolumnUUID);
-        if(sourceColumn==null || destinationColumn==null){
-            return false;
-        }
-        Task movedTask = sourceColumn.getTask(taskID);
-        currentProject.moveTask(destinationColumn, movedTask);
-        return true;
+    public boolean moveTask(Column sourceColumn, Column destinationColumn, Task task) {
+        return this.currentProject.moveTask(sourceColumn, destinationColumn, task);
     }
 
     /**
@@ -459,6 +443,15 @@ public class ProjectPilotFacade {
      */
     public boolean saveProjects() {
         return projectList.saveProjects();
+    }
+
+    /**
+     * Saves the current user list
+     * @author ctaks
+     * @return boolean determing if the save was successful.
+     */
+    public boolean saveUsers() {
+        return userList.saveUsers();
     }
 }
 
