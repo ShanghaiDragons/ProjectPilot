@@ -13,7 +13,8 @@ import java.io.IOException;
 public class TempDriver {
 
   public static final String fileName = "prints/ProjectPilotPrint.txt";
-  public static final String TAB = "  ";
+  public static final String TAB = "    ";
+  public static final String HTAB = "  ";
   public static final String ENTER = "\n";
   public static final Scanner keyboard = new Scanner(System.in);
   private ProjectPilotFacade ppf;
@@ -171,7 +172,8 @@ public class TempDriver {
   }
 
   public void userMenu() {
-    System.out.println("Not in the scope of TempDriver");
+    System.out.println("This just makes a new account");
+    makeNewAccount();
     mainMenu();
   }
 
@@ -554,17 +556,50 @@ public class TempDriver {
       FileWriter fw = new FileWriter(fileName);
       
       // WRITE TO FILE
+      //PROJECT
       if (ppf.getProjects() != null && ppf.getProjects().size() != 0) {
         for(Project p : ppf.getProjects()) {
           fw.write("[Project]: "+p.getName()+ENTER);
+          // PROJECT COMMENT
           if (p.getComments().size() != 0) {
             for (Comment c : p.getComments()) {
-              fw.write("[Project Comment]: "+c.getMessage()+ENTER);
+              fw.write(HTAB+"[Project Comment]: "+c.getMessage()+ENTER);
             }
           }
+          // COLUMN
           if (p.getColumns().size() != 0) {
             for (Column c : p.getColumns()) {
-              fw.write("[Column]: "+c.getName());
+              fw.write(TAB+"[Column]: "+c.getName()+ENTER);
+              // COLUMN COMMENT
+              if (c.getComments().size() != 0) {
+                for (Comment com : c.getComments()) {
+                  fw.write(TAB+HTAB+"[Column Comment]: "+com.getMessage()+ENTER);
+                  // COLUMN COMMENT THREAD
+                  if (com.getThread().size() != 0) {
+                    for (Comment tcom : com.getThread()) {
+                      fw.write(TAB+TAB+TAB+"[Task Comment Threaded Comment]"+tcom.getMessage()+ENTER);
+                    }
+                  }
+                }
+              }
+              // TASK
+              if (c.getTasks().size() != 0) {
+                for (Task t : c.getTasks()) {
+                  fw.write(TAB+TAB+"[TASK]: "+t.getName()+ENTER);
+                  // TASK COMMENT
+                  if (t.getComments().size() != 0) {
+                    for (Comment com : t.getComments()) {
+                      fw.write(TAB+TAB+HTAB+"[Task Comment]: "+com.getMessage()+ENTER);
+                      // TASK COMMENT THREAD
+                      if (com.getThread().size() != 0) {
+                        for (Comment tcom : com.getThread()) {
+                          fw.write(TAB+TAB+TAB+"[Task Comment Threaded Comment]"+tcom.getMessage()+ENTER);
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
