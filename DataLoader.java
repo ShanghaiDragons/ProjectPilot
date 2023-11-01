@@ -80,7 +80,6 @@ public class DataLoader extends DataConstants {
 							for(int k = 0; k < tempColumns.size(); k++)
 								if (UUID.fromString(tempColumns.get(k)).equals(getColumns().get(j).getID())) {
 									columns.add(getColumns().get(j));
-									System.out.println("GOT A COLUMN");
 								}
 						String start = (String)projectJSON.get(PROJECT_START_SPRINT);
 						LocalDate startSprint = LocalDate.parse(start);
@@ -88,9 +87,10 @@ public class DataLoader extends DataConstants {
 						LocalDate endSprint = LocalDate.parse(end);
 						ArrayList<Comment> comments = new ArrayList<Comment>();
 						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(PROJECT_COMMENT_IDs);
-						for(int j = 0; j < tempComments.size(); j++)
+						for(int j = 0; j < tempComments.size(); j++) {
 							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
 								comments.add(getComments().get(j));
+						}
 						projects.add(new Project(id, projectName, startSprint, endSprint, team, columns, comments));
 					}
 			  }
@@ -125,17 +125,10 @@ public class DataLoader extends DataConstants {
 						UUID id = UUID.fromString((String)projectJSON.get(COLUMN_ID));
 						ArrayList<Task> tasks = new ArrayList<Task>();
 						ArrayList<String> tempTasks = (ArrayList<String>)projectJSON.get(COLUMN_TASK_IDS);
-
-						//for (String s : tempTasks)
-							// System.out.println(s);
-
 						for(int j = 0; j < getTasks().size(); j++) {
 							for (int k = 0; k < tempTasks.size(); k++) {
-								System.out.println("tempTask: "+UUID.fromString(tempTasks.get(k)));
-								System.out.println("getTask:  "+(getTasks().get(j).getID())+"\n");
 								if (UUID.fromString(tempTasks.get(k)).equals((getTasks().get(j).getID()))) {
 									tasks.add(getTasks().get(j));
-									System.out.println("GOT A TASK, BITCH");
 								}
 							}
 						}
