@@ -292,33 +292,6 @@ public abstract class Task {
     }
     
     /**
-     * Gets the boolean of isGeneral
-     * @author Duayne
-     * @return boolean of isGeneral
-     */
-    public boolean isGeneral() {
-        return isGeneral;
-    }
-    
-    /**
-     * Gets the boolean of isNewFeature
-     * @author Duayne
-     * @return boolean of isNewFeature
-     */
-    public boolean isNewFeatrue() {
-        return isNewFeatrue;
-    }
-    
-    /**
-     * Gets the boolean of isBug
-     * @author Duayne
-     * @return boolean of isBug
-     */
-    public boolean isBug() {
-        return isBug;
-    }
-    
-    /**
      * Adds a comment to the task
      * @author Duayne
      * @param user User object of the current user
