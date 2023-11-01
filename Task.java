@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  * The atttributes of a task and its functionality
  * @author Duayne
  */
-public abstract class Task {
+public class Task {
     public static Comparator compareAssignee;
     protected UUID id;
     protected String name;
@@ -17,9 +17,6 @@ public abstract class Task {
     protected String description;
     protected ArrayList<Comment> comments;
     protected TaskHistory taskHistory;
-    protected boolean isGeneral;
-    protected boolean isNewFeatrue;
-    protected boolean isBug;
 
     /**
      * Constructor for the Task class without UUID

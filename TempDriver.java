@@ -138,6 +138,15 @@ public class TempDriver {
     return true;
   }
   
+  public void ProjectPilotMenu() {
+    System.out.println("Main menu:"
+    +"\n[1] project menu"
+    +"\n[2] user menu "
+    +"\n[] "
+    +"\n[] Quit ProjectPilot"
+    );
+  }
+
   /**
    * project menu
    * @author ctaks
@@ -153,7 +162,7 @@ public class TempDriver {
     +"\n[6] Add team member"
     +"\n[7] Remove team member"
     +"\n[8] save project"
-    +"\n[9] quit ProjectPilot");
+    +"\n[9] back to main menu");
     int choice = keyboard.nextInt();
     keyboard.nextLine();
     switch (choice) {
@@ -245,7 +254,7 @@ public class TempDriver {
         ppf.saveProjects();
         break;
       case 9:
-        quit = true;
+        ProjectPilotMenu();
         break;
       default:
         System.out.println("invalid choice");
@@ -282,6 +291,7 @@ public class TempDriver {
           +"\n[1] Task menu"
           +"\n[2] Change name"
           +"\n[3] Change sort type"
+          +"\n[4] "
           +"\n[4] Comment menu"
           +"\n[5] Go Back to Project Menu"
           );

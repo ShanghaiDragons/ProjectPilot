@@ -269,7 +269,7 @@ public class ProjectPilotFacade {
 
     /**
      * Adds a task to the current project's selected column
-     * @author ctaks
+     * @author ctaks edited by Duayne
      * @param c Column that the task needs to be added in
      * @param name to be added
      * @param user to be added
@@ -282,7 +282,7 @@ public class ProjectPilotFacade {
     public boolean addTask(Column c, String name, User user, int priority, String status, String description, ArrayList<Comment> comments) {
         for (Column column : currentProject.getColumns())
             if (column.getID() == c.getID())
-                return column.addTask(new GeneralTask(name, user, priority, status, description, comments));
+                return column.addTask(new Task(name, user, priority, status, description, comments));
         return false;
     }
 
