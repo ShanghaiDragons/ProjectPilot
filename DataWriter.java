@@ -243,7 +243,7 @@ public class DataWriter extends DataConstants {
         JSONArray commentIDs = new JSONArray();
         for (Comment threadcomment : comment.getThread()) {
             commentIDs.add(threadcomment.getID().toString());
-            jsonProjects.add(getCommentJSON(comment));
+            jsonProjects.add(getCommentJSON(threadcomment));
         }
 
         commentData.put(COMMENT_THREAD_IDs, commentIDs);

@@ -182,7 +182,7 @@ public class DataLoader extends DataConstants {
 					LocalDateTime commentDate = LocalDateTime.parse(time);
 					ArrayList<Comment> commentList = new ArrayList<Comment>();
 						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(COMMENT_THREAD_IDs);
-						for(int j = 0; j < getCommentNumber(); j++) {
+						for(int j = 0; j < getComments().size(); j++) {
 							for (int k = 0; k < tempComments.size(); k++) {
 								if (UUID.fromString(tempComments.get(k)).equals(getComments().get(j).getID())) {
 									commentList.add(getComments().get(j));
@@ -203,32 +203,6 @@ public class DataLoader extends DataConstants {
 		  }
 		  
 		  return null;
-	  }
-
-		public static int getCommentNumber() {
-			int total = 0;
-			// ArrayList<Comment> comments = new ArrayList<Comment>();
-  
-		try {
-			  FileReader reader = new FileReader(PROJECT_FILE_NAME);
-			  JSONParser parser = new JSONParser();	
-			  JSONArray projectsJSON = (JSONArray)new JSONParser().parse(reader);
-			
-			  for(int i=0; i < projectsJSON.size(); i++) {
-				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
-					String message = (String)projectJSON.get(COMMENT_MESSAGE);
-					// System.out.println("message: "+message);
-				  if (message != null) {
-				  total++;
-			  }
-			}	
-			  return total;
-			  
-		  } catch (Exception e) {
-			  e.printStackTrace();
-		  }
-		  
-		  return 0;
 	  }
 
 	/**
