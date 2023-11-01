@@ -78,8 +78,10 @@ public class DataLoader extends DataConstants {
 						ArrayList<String> tempColumns = (ArrayList<String>)projectJSON.get(PROJECT_COLUMN_IDS);
 						for(int j = 0; j < getColumns().size(); j++)
 							for(int k = 0; k < tempColumns.size(); k++)
-								if (UUID.fromString(tempColumns.get(k)).equals(getColumns().get(j).getID()))
+								if (UUID.fromString(tempColumns.get(k)).equals(getColumns().get(j).getID())) {
 									columns.add(getColumns().get(j));
+									System.out.println("GOT A COLUMN");
+								}
 						String start = (String)projectJSON.get(PROJECT_START_SPRINT);
 						LocalDate startSprint = LocalDate.parse(start);
 						String end = (String)projectJSON.get(PROJECT_END_SPRINT);
@@ -123,10 +125,20 @@ public class DataLoader extends DataConstants {
 						UUID id = UUID.fromString((String)projectJSON.get(COLUMN_ID));
 						ArrayList<Task> tasks = new ArrayList<Task>();
 						ArrayList<String> tempTasks = (ArrayList<String>)projectJSON.get(COLUMN_TASK_IDS);
-						for (int k = 0; k < tempTasks.size(); k++)
-							for(int j = 0; j < getTasks().size(); j++)
-								if (UUID.fromString(tempTasks.get(k)).equals((getTasks().get(j).getID())))
+
+						//for (String s : tempTasks)
+							// System.out.println(s);
+
+						for(int j = 0; j < getTasks().size(); j++) {
+							for (int k = 0; k < tempTasks.size(); k++) {
+								System.out.println("tempTask: "+UUID.fromString(tempTasks.get(k)));
+								System.out.println("getTask:  "+(getTasks().get(j).getID())+"\n");
+								if (UUID.fromString(tempTasks.get(k)).equals((getTasks().get(j).getID()))) {
 									tasks.add(getTasks().get(j));
+									System.out.println("GOT A TASK, BITCH");
+								}
+							}
+						}
 						String sortType = (String)projectJSON.get(COLUMN_SORT_TYPE);
 						ArrayList<Comment> comments = new ArrayList<Comment>();
 						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(COLUMN_COMMENT_IDS);
@@ -230,7 +242,7 @@ public class DataLoader extends DataConstants {
 						for(int j = 0; j < tempComments.size(); j++)
 							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
 								comments.add(getComments().get(j));
-						Task task = new Task(assigneeId, name, assignee, priority, status, description, taskHistory, comments);
+						Task task = new Task(id, name, assignee, priority, status, description, taskHistory, comments);
 						tasks.add(task);
 					}
 			  }

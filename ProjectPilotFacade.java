@@ -24,20 +24,15 @@ public class ProjectPilotFacade {
     }
 /**
  * Creates an account for a given user
- * @author Duayne
+ * @author Duayne (edit by ctaks - changed return type from User to boolean, and changed literally everything else)
  * @param userName string that represents the user's username
  * @param firstName string that represents the user's first name
  * @param lastName string that represents the user's last name
  * @param password string that represents the user's password
  * @return Returns the user that was created with the given parameters
  */
-    public User createAccount(String firstName, String lastName, String userName, String password) {
-        if (this.user != null)
-            return user;
-        user = new User(firstName, lastName, userName, password, false,
-                        false, false, false);
-        userList.addUser(user);
-        return user;
+    public boolean createAccount(String firstName, String lastName, String userName, String password) {
+        return userList.addUser(new User(firstName, lastName, userName, password, true, true, true, true));
     }
 
     /**

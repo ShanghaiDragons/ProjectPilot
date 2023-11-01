@@ -23,6 +23,7 @@ public class DataWriter extends DataConstants {
         // Creating JSON objects
         for(int i=0; i < userList.size(); i++) {
             jsonUsers.add(getUserJSON(userList.get(i)));
+            System.out.println("SAVING USER: "+userList.get(i).getUserName());
         }
 
         // Write to JSON file

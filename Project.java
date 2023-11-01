@@ -174,7 +174,7 @@ public class Project {
      * @param type UserType enumeration that categorizes the user based on permissions
      * @return boolean that represents a change after adding user to the team
      */
-    public boolean addUser(User user, UserType type) {
+    public boolean addTeamMember(User user, UserType type) {
         int size = team.size();
         if (type == UserType.SCRUM_MASTER) {
             user.setPermissionToAddTask(true);
