@@ -10,6 +10,9 @@ public class UserList {
      */
     private UserList() {
         users = DataLoader.getUsers();
+        if (users == null) {
+            users = new ArrayList<User>();
+        }
     }
 
     /**
@@ -43,33 +46,27 @@ public class UserList {
      * @return the ArrayList<User> of users
      */
     public ArrayList<User> getUsers() {
-        return users;
+        return this.users;
     }
     
     /**
-    * @author theo v
+    * @author theo v (edited by ctaks to return boolean instead of "User")
     * Adds user to the userlist
-    * @param userName
-    * @return
+    * @param user the user to add
+    * @return boolean determining success
     */
-    public User addUser(User userName){
-        if(userName!=null){
-            return null;
-        }
-        users.add(userName);
-        return userName;
+    public boolean addUser(User user){
+        return users.add(user);
     }
+
     /**
-     * @author theo v 
+     * @author theo v (edited by ctaks to return boolean instead of "User")
      * Removes a user from the user list
-     * @param userName
+     * @param user the user to remove
+     * @return boolean determining success
      */
-    public User removeUser(User userName){
-        if(userName!=null){
-            return null;
-        }
-        users.remove(userName);
-        return userName;
+    public boolean removeUser(User user){
+        return users.remove(user);
     }
 
     /**

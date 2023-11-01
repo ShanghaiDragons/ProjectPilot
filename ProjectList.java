@@ -19,8 +19,9 @@ public class ProjectList {
     }
 
     /**
-     * 
-     * @return
+     * Creates an instance of ProjectList
+     * @author theo
+     * @return an instance of the projectList
      */
     public static ProjectList getInstance() {
         if (projectListInstance == null) {
