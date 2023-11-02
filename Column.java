@@ -12,7 +12,7 @@ public class Column {
     private String sortType;
     private ArrayList<Task> tasks;
     private ArrayList<Comment> comments;
-
+    
     /**
      * Makes a new, fresh column. Meaning a new list of tasks and comments are created.
      * @author ctaks
@@ -28,7 +28,7 @@ public class Column {
         setTasks(tasks);
         setComments(comments);
     }
-
+    
     /**
      * For loading a column. Needs an ID.
      * @param id id from JSON file
@@ -44,13 +44,14 @@ public class Column {
         setTasks(tasks);
         setComments(comments);
     }
-
+    
     /**
      * Setter for id
      * @author ctaks
      * @param id to be set
      * @return boolean determining success
      */
+
     public boolean setID(UUID id) {
         if (id != null) {
             this.id = id;
@@ -61,7 +62,7 @@ public class Column {
             return true;
         }
     }
-
+    
     /**
      * Setter for name
      * @author ctaks
@@ -77,23 +78,7 @@ public class Column {
             return false;
         }
     }
-
-    /**
-     * setter for sortType
-     * @author ctaks
-     * @param sortType to be set
-     * @return boolean determining success
-     */
-    public boolean setSortType(String sortType) {
-        if (sortType != null) {
-            this.sortType = sortType;
-            return true;
-        } else {
-            this.sortType = "default";
-            return false;
-        }
-    }
-
+    
     /**
      * Setter for tasks
      * @author ctaks
@@ -109,23 +94,135 @@ public class Column {
             return true;
         }
     }
-
+    
     /**
      * Setter for comments
      * @author ctaks
      * @param comments to be set
      * @return boolean determing success
      */
-    public boolean setComments(ArrayList<Comment> comments) {
-        if (comments == null || comments.isEmpty()) {
-            this.comments = new ArrayList<Comment>();
+     public boolean setComments(ArrayList<Comment> comments) {
+            if (comments == null || comments.isEmpty()) {
+                this.comments = new ArrayList<Comment>();
+                return true;
+            } else {
+                this.comments = comments;
+                return true;
+            }
+        }
+    
+    /**
+     * setter for sortType
+     * @author ctaks
+     * @param sortType to be set
+     * @return boolean determining success
+     */
+    public boolean setSortType(String sortType) {
+        if (sortType != null) {
+            this.sortType = sortType;
             return true;
         } else {
-            this.comments = comments;
-            return true;
+            this.sortType = "default";
+            return false;
         }
     }
-
+    
+    /**
+     * sets column name 
+     * @param newColumnName
+     */
+    public void setColumnName(String newColumnName){
+        if(!newColumnName.isEmpty()){
+            this.name = newColumnName;
+        }
+    }
+    
+    /**
+     * Gets the column's tasks
+     * @author ctaks
+     * @return ArrayList<Task> of the column's tasks
+     */
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
+    
+    /**
+     * Gets the column name
+     * @author ctaks
+     * @return String of the column's name
+     */
+    public String getName() {
+        return this.name;
+    }
+    
+    /**
+     * Gets the column's UUID
+     * @author ctaks
+     * @return UUID of the column's UUID
+     */
+    public UUID getID() {
+        return this.id;
+    }
+    
+    /**
+     * Get's the column's sort type
+     * @author ctaks
+     * @return String of the column's sort type
+     */
+    public String getSortType() {
+        return this.sortType;
+    }
+    
+    /**
+     * Gets a specified comment
+     * @author ctaks
+     * @param commentID The specified comment's ID
+     * @return Comment of the comment
+     */
+    public Comment getComment(UUID commentID) {
+        for (Comment comment : this.comments) {
+            if (comment.getID() == commentID)
+            return comment;
+        }
+        return null;
+    }
+    
+    /**
+     * Get's the column's comments
+     * @author ctaks
+     * @return ArrayList<Comment> of the column's comments
+     */
+    public ArrayList<Comment> getComments() {
+        return this.comments;
+    }
+    
+    /**
+     * Gets a specified task
+     * @author ctaks
+     * @param taskName the name of the task
+     * @return Task of the task, if it matches.
+     */
+    public Task getTask(String taskName) {
+        for (Task task : this.tasks) {
+            if (task.getName().equalsIgnoreCase(taskName))
+            return task;
+        }
+        return null;
+    }
+    
+    /**
+     * Gets a specified task by UUID search
+     * @author ctaks
+     * @param taskID the UUID of the task
+     * @return Task of the task if it finds one.
+     */
+    public Task getTask(UUID taskID) {
+        for (Task task : this.tasks)
+            if (task.getID() == taskID)
+                return task;
+        return null;
+    }
+    
     /**
      * Edits the column's name
      * @author Duayne
@@ -134,12 +231,12 @@ public class Column {
      */
     public boolean editColumnName(String newColumnName) {
         if (newColumnName.equals(null))
-            return false;
+        return false;
         String oldName = name;
         setColumnName(newColumnName);
         return !oldName.equals(name);
     }
-
+    
     /**
      * Adds task to the columns list of tasks
      * @author Duayne
@@ -148,12 +245,12 @@ public class Column {
      */
     public boolean addTask(Task task) {
         if (task == null)
-            return false;
+        return false;
         int size = tasks.size();
         tasks.add(task);
         return size != tasks.size();
     }
-
+    
     /**
      * Removes a task from the task list in the column
      * @author Duayne
@@ -167,7 +264,7 @@ public class Column {
         tasks.remove(task);
         return size != tasks.size();
     }
-
+    
     /**
      * Sorts arraylist task based on what the sort type is (assignee,priority,aphabetical)
      * @author theo 
@@ -191,54 +288,20 @@ public class Column {
        return true;
     }
 
-    /**
-     * Gets a specified task by name search
-     * @author ctaks
-     * @param taskName the name of the task
-     * @return Task of the task, if it matches.
-     */
-    public Task getTask(String taskName) {
-        for (Task task : this.tasks)
-            if (task.getName().equalsIgnoreCase(taskName))
-                return task;
-        return null;
-    }
-
-    /**
-     * Gets a specified task by UUID search
-     * @author ctaks
-     * @param taskID the UUID of the task
-     * @return Task of the task if it finds one.
-     */
-    public Task getTask(UUID taskID) {
-        for (Task task : this.tasks)
-            if (task.getID() == taskID)
-                return task;
-        return null;
-    }
-
-    /**
-     * Gets the column's tasks
-     * @author ctaks
-     * @return ArrayList<Task> of the column's tasks
-     */
-    public ArrayList<Task> getTasks() {
-        return this.tasks;
-    }
 
     /**
      * sorts the tasks by assignee
      * @author theo v
-     * @return sorted tasks by assignee
+     * @return assignee sorted tasks array list
      */
     private void sortAssignee(){
         Collections.sort(tasks, Task.compareAssignee);
-
+        
     }
     /**
      * alphabetically sorts the tasks array by the task name
      * @author theo
-     * @return
+     * @return alphabetically sorted tasks array list
      */
     public ArrayList<Task> sortAlphabetical(){
         tasks.sort(Comparator.comparing(Task::getName));
@@ -247,48 +310,11 @@ public class Column {
     /**
      * sorts the tasks by priority number and returns that sorted arraylist
      * @author theo 
-     * @return sorted tasks by priority
+     * @return priority sorted tasks arraylist
      */
     public ArrayList<Task> sortPriority(){
     tasks.sort(Comparator.comparingInt(Task::getPriority));
     return tasks;
-    }
-
-    /**
-     * sets column name 
-     * @param newColumnName
-     */
-    public void setColumnName(String newColumnName){
-        if(!newColumnName.isEmpty()){
-            this.name = newColumnName;
-        }
-    }
-
-    /**
-     * Gets the column name
-     * @author ctaks
-     * @return String of the column's name
-     */
-    public String getName() {
-        return this.name;
-    }
-
-    /**
-     * Gets the column's UUID
-     * @author ctaks
-     * @return UUID of the column's UUID
-     */
-    public UUID getID() {
-        return this.id;
-    }
-
-    /**
-     * Get's the column's sort type
-     * @author ctaks
-     * @return String of the column's sort type
-     */
-    public String getSortType() {
-        return this.sortType;
     }
     /**
      * adds a comment to the column
@@ -304,37 +330,5 @@ public class Column {
             return size != comments.size();
         }
         return false;
-        /*public boolean addComment(User user, String message) {
-            if (user == null || message.equals(null))
-                return false;
-            int size = taskComments.size();
-            Comment comment = new Comment(user, this, message);
-            taskComments.add(comment);
-            return size != taskComments.size();
-        }*/
-    }
-
-    /**
-     * Gets a specified comment
-     * @author ctaks
-     * @param commentID The specified comment's ID
-     * @return Comment of the comment
-     */
-    public Comment getComment(UUID commentID) {
-        for (Comment comment : this.comments) {
-            if (comment.getID() == commentID)
-                return comment;
-        }
-        return null;
-    }
-
-    /**
-     * Get's the column's comments
-     * @author ctaks
-     * @return ArrayList<Comment> of the column's comments
-     */
-    public ArrayList<Comment> getComments() {
-        return this.comments;
     }
 }
-   

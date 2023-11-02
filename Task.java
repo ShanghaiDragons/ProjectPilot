@@ -201,6 +201,93 @@ public class Task {
         }
     }
 
+    
+    /**
+     * Gets the comment that is searched
+     * @author Duayne
+     * @param id UUID of the targeted comment
+     * @return Comment that matches the UUID of the comment searched for
+     */
+    public Comment getComment(UUID id) {
+        for ( int i = 0; i < comments.size() - 1; i++ ) {
+            if ( comments.get(i).getID() == id )
+            return comments.get(i);
+        }
+        return null;
+    }
+    
+    /**
+     * Gets all the comments for the task
+     * @author Duayne
+     * @return Array List of all this task's comments
+     */
+    public ArrayList<Comment> getComments() {
+        return this.comments;
+    }
+    
+    /**
+     * gets the assignee
+     * @author theo 
+     * @return assignee 
+     */
+    public User getAssignee(){
+        return assignee;
+    }
+    
+    /**
+     * returns the priority int value 
+     * @author theo 
+     * @return returns the priority number 
+     */
+    public int getPriority(){
+        return priority;
+    }
+    
+    /**
+     * gets the task name
+     * @author theo 
+     * @return task name
+     */
+    public String getName(){
+        return name;
+    }
+    
+    /**
+     * Get's the task UUID
+     * @author ctaks
+     * @return UUID of the task's UUID
+     */
+    public UUID getID() {
+        return this.id;
+    }
+    
+    /**
+     * Get's the task status
+     * @author ctaks
+     * @return UUID of the task's status
+     */
+    public String getStatus() {
+        return this.status;
+    }
+    
+    /**
+     * Get's the task description
+     * @author ctaks
+     * @return String of the task description
+     */
+    public String getDescription() {
+        return this.description;
+    }
+    
+    /**
+     * Get's the task's TaskHistory
+     * @author ctaks
+     * @return TaskHistory of the task history
+     */
+    public TaskHistory getTaskHistory() {
+        return this.taskHistory;
+    }
+    
     /**
      * Adds a comment to the task
      * @author Duayne
@@ -215,91 +302,5 @@ public class Task {
         Comment comment = new Comment(user, message);
         comments.add(comment);
         return size != comments.size();
-    }
-
-    /**
-     * Gets the comment that is searched
-     * @author Duayne
-     * @param id UUID of the targeted comment
-     * @return Comment that matches the UUID of the comment searched for
-     */
-    public Comment getComment(UUID id) {
-        for ( int i = 0; i < comments.size() - 1; i++ ) {
-            if ( comments.get(i).getID() == id )
-                return comments.get(i);
-        }
-        return null;
-    }
-
-    /**
-     * Gets all the comments for the task
-     * @author Duayne
-     * @return Array List of all this task's comments
-     */
-    public ArrayList<Comment> getComments() {
-        return this.comments;
-    }
-
-    /**
-     * gets the assignee
-     * @author theo 
-     * @return assignee 
-     */
-    public User getAssignee(){
-        return assignee;
-    }
-
-    /**
-     * returns the priority int value 
-     * @author theo 
-     * @return returns the priority number 
-     */
-    public int getPriority(){
-        return priority;
-    }
-
-    /**
-     * gets the task name
-     * @author theo 
-     * @return task name
-     */
-    public String getName(){
-        return name;
-    }
-
-    /**
-     * Get's the task UUID
-     * @author ctaks
-     * @return UUID of the task's UUID
-     */
-    public UUID getID() {
-        return this.id;
-    }
-
-    /**
-     * Get's the task status
-     * @author ctaks
-     * @return UUID of the task's status
-     */
-    public String getStatus() {
-        return this.status;
-    }
-
-    /**
-     * Get's the task description
-     * @author ctaks
-     * @return String of the task description
-     */
-    public String getDescription() {
-        return this.description;
-    }
-
-    /**
-     * Get's the task's TaskHistory
-     * @author ctaks
-     * @return TaskHistory of the task history
-     */
-    public TaskHistory getTaskHistory() {
-        return this.taskHistory;
     }
 }

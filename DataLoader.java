@@ -86,10 +86,13 @@ public class DataLoader extends DataConstants {
 						LocalDate endSprint = LocalDate.parse(end);
 						ArrayList<Comment> comments = new ArrayList<Comment>();
 						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(PROJECT_COMMENT_IDs);
-						for(int j = 0; j < getComments().size(); j++)
-							for(int k = 0; k < tempComments.size(); k++)
-							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
-								comments.add(getComments().get(j));
+						for(int j = 0; j < getComments().size(); j++) {
+							for (int k = 0; k < tempComments.size(); k++) {
+								if (UUID.fromString(tempComments.get(k)).equals(getComments().get(j).getID())) {
+									comments.add(getComments().get(j));
+								}
+							}
+						}
 						projects.add(new Project(id, projectName, startSprint, endSprint, team, columns, comments));
 					}
 			  }
@@ -131,10 +134,13 @@ public class DataLoader extends DataConstants {
 						String sortType = (String)projectJSON.get(COLUMN_SORT_TYPE);
 						ArrayList<Comment> comments = new ArrayList<Comment>();
 						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(COLUMN_COMMENT_IDS);
-						for(int j = 0; j < getComments().size(); j++)
-							for(int k = 0; k < tempComments.size(); k++)
-							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
-								comments.add(getComments().get(j));
+						for(int j = 0; j < getComments().size(); j++) {
+							for (int k = 0; k < tempComments.size(); k++) {
+								if (UUID.fromString(tempComments.get(k)).equals(getComments().get(j).getID())) {
+									comments.add(getComments().get(j));
+								}
+							}
+						}
 						columns.add(new Column(id, name, sortType, tasks, comments));
 					}
 			  }
@@ -163,28 +169,36 @@ public class DataLoader extends DataConstants {
 			
 			  for(int i=0; i < projectsJSON.size(); i++) {
 				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
-				  String name = (String)projectJSON.get(COMMENT_ID);
-				  if (name != null) {
-					UUID userId = UUID.fromString((String)projectJSON.get(COMMENT_USER_ID));
-					UUID commentID = UUID.fromString(name);
-					User user = null;
-					for (User x : getUsers()) {
-						if (x.getID().equals(userId))
-							user = x;
-					}
-					String time = (String)projectJSON.get(COMMENT_DATE);
-					LocalDateTime commentDate = LocalDateTime.parse(time);
 					String message = (String)projectJSON.get(COMMENT_MESSAGE);
-					ArrayList<Comment> commentList = new ArrayList<Comment>();
-					ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(COMMENT_THREAD_IDs);
-					for(int j = 0; j < tempComments.size(); j++)
-						if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
-							comments.add(getComments().get(j));
-
-				  comments.add(new Comment(commentID, user, commentDate, message, commentList));
-			  }
-			}
-			  
+				  if (message != null) {
+						UUID commentID = UUID.fromString((String)projectJSON.get(COMMENT_ID));
+						UUID userId = UUID.fromString((String)projectJSON.get(COMMENT_USER_ID));
+						User user = null;
+						for (User x : getUsers()) {
+							if (x.getID().equals(userId))
+								user = x;
+						}
+						String time = (String)projectJSON.get(COMMENT_DATE);
+						LocalDateTime commentDate = LocalDateTime.parse(time);
+						ArrayList<Comment> commentList = new ArrayList<Comment>();
+							ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(COMMENT_THREAD_IDs);
+							//for(int j = 0; j < getComments().size(); j++) {
+								//for(int j = 0; i < 3; j++) {  // HARD CODED FOR SCENARIO :) TODO: fix later!!
+									//System.out.println("test");
+								// for (int k = 0; k < tempComments.size(); k++) {
+								for (int k = 0; k < tempComments.size(); k++) {
+									if (UUID.fromString(tempComments.get(k)).equals(getComments().get(k).getID())) {
+										commentList.add(getComments().get(k));
+									}
+								}
+							//}
+						comments.add(new Comment(commentID, user, commentDate, message, commentList));
+			  	}
+				}
+			
+			// for (Comment c : comments)
+				// System.out.println(c.getMessage());
+			
 			  return comments;
 			  
 		  } catch (Exception e) {
@@ -230,9 +244,13 @@ public class DataLoader extends DataConstants {
 								taskHistory = getTaskHistory().get(j);
 						ArrayList<Comment> comments = new ArrayList<Comment>();
 						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(TASK_COMMENT_IDS);
-						for(int j = 0; j < tempComments.size(); j++)
-							if (UUID.fromString(tempComments.get(j)).equals(getComments().get(j).getID()))
-								comments.add(getComments().get(j));
+						for(int j = 0; j < getComments().size(); j++) {
+							for (int k = 0; k < tempComments.size(); k++) {
+								if (UUID.fromString(tempComments.get(k)).equals(getComments().get(j).getID())) {
+									comments.add(getComments().get(j));
+								}
+							}
+						}
 						Task task = new Task(id, name, assignee, priority, status, description, taskHistory, comments);
 						tasks.add(task);
 					}

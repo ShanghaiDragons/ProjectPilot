@@ -42,7 +42,7 @@ public class TempDriver {
       default:
         System.out.println("fail");
     }
-    System.out.println("You are logged in.");
+    System.out.println("Welcome "+ppf.getUser().getFirstName()+" "+ppf.getUser().getLastName());
     quit = false;
     while(!quit) {
     mainMenu();
@@ -162,6 +162,7 @@ public class TempDriver {
         ppf.saveProjects();
         System.out.println("saving users...");
         ppf.saveUsers();
+        mainMenu();
         break;
       case 5:
         quit = true;
@@ -539,6 +540,51 @@ public class TempDriver {
     }
 
     public void commentCommentMenu(Comment c) {
+      System.out.println("select a comment");
+      int i = 0;
+      System.out.println("[0] create a new comment");
+      for (Comment com : c.getThread()) {
+        System.out.println("["+(i+1)+"]: "+com.getUser().getUserName()+": "+com.getMessage());
+        i++;
+      }
+      int choice = 0;
+      boolean hasSelected = false;
+      while(!hasSelected) {
+        choice = keyboard.nextInt();
+        keyboard.nextLine();
+        if (choice <= c.getThread().size())
+          hasSelected = true;
+        else
+          System.out.println("Please try again.");
+      }
+      choice--;
+      if (choice == -1) {
+        c.threadComment(ppf.getUser(), createComment());
+      } else {
+        int choice2 = 0;
+        while(choice2 != 1) {
+          System.out.println(c.getThread().get(choice)+" menu:"
+          +"\n[1] comment thread menu"
+          +"\n[2] change message"
+          +"\n[3] Go back to projects menu"
+          );
+          choice2 = keyboard.nextInt();
+          keyboard.nextLine();
+          switch(choice2) {
+            case 1:
+              commentCommentMenu(c.getThread().get(choice));
+              break;
+            case 2:
+              System.out.println("Enter a new message");
+              String newmessage = keyboard.nextLine();
+              c.getThread().get(choice).setMessage(newmessage);
+              break;
+            case 3:
+              projectMenu();
+              break;
+          }
+        }
+      }
 
     }
     
@@ -603,8 +649,8 @@ public class TempDriver {
     System.out.println("Pick a column to move the task to");
     int j = 0;
     for (Column col : ppf.getCurrentProject().getColumns()) {
-      System.out.println("["+(i+1)+"]: "+col.getName());
-      i++;
+      System.out.println("["+(j+1)+"]: "+col.getName());
+      j++;
     }
     int cchoice = 0;
     boolean colSelect = false;
@@ -612,11 +658,11 @@ public class TempDriver {
       cchoice = keyboard.nextInt();
       keyboard.nextLine();
       if (cchoice <= ppf.getCurrentProject().getColumns().size())
-        hasSelected = true;
+        colSelect = true;
       else
         System.out.println("Please try again.");
     }
-    choice --;
+    cchoice --;
     System.out.println("Moving [Task]: "+c.getTasks().get(choice).getName()+" to [Column]: "+ppf.getCurrentProject().getColumns().get(cchoice).getName());
     ppf.moveTask(c, ppf.getCurrentProject().getColumns().get(cchoice), c.getTasks().get(choice));
   }
@@ -663,7 +709,7 @@ public class TempDriver {
               // TASK
               if (c.getTasks().size() != 0) {
                 for (Task t : c.getTasks()) {
-                  fw.write(TAB+TAB+"[TASK]: "+t.getName()+ENTER);
+                  fw.write(TAB+TAB+"[TASK]: "+t.getName()+" [Assignee]: "+t.getAssignee().getUserName()+ENTER);
                   // TASK COMMENT
                   if (t.getComments().size() != 0) {
                     for (Comment com : t.getComments()) {
