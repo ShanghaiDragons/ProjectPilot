@@ -3,11 +3,12 @@
 [User]: Atticus Finch (AtticusFinch)
 
 [Project]: Electric Missiles
-  [Project Comment]: [Atticus]: dragon
     [Column]: To Do
-        [TASK]: Initialize super algorithm to detonate at warp speed
-          [Task Comment]: [Atticus]: Initialize super algorithm to detonate at warp speed
+        [TASK]: Curve the metal to make a cylindrical shape [Assignee]: Atticus
+          [Task Comment]: [Jeff]: Not cylindrical enough
+          [Task Comment]: [AtticusFinch]: What's a cylinder
     [Column]: Doing
+        [TASK]: Make impossible burger possible [Assignee]: Atticus
 
 [Project]: Soap Free Washers
 

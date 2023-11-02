@@ -54,7 +54,7 @@ public class User {
     * @param permissionToEditColumns boolean that represents the user's permission to edit columns
     */
     public User(String firstName, String lastName, String userName, String password, boolean permissionToAddTask,
-                boolean permissionToMoveTask, boolean permissionToEditTask, boolean permissionToEditColumns) {
+    boolean permissionToMoveTask, boolean permissionToEditTask, boolean permissionToEditColumns) {
         setID(this.id);
         setFirstName(firstName);
         setLastName(lastName);
@@ -65,7 +65,7 @@ public class User {
         setPermissionToEditTask(permissionToEditTask);
         setPermissionToEditColumns(permissionToEditColumns);
     }
-
+    
     /**
      * Setter for id
      * @author ctaks
@@ -82,7 +82,7 @@ public class User {
             return true;
         }
     }
-
+    
     /**
      * setter for firstName
      * @author ctaks
@@ -98,7 +98,7 @@ public class User {
             return false;
         }
     }
-
+    
     /**
      * setter for lastName
      * @author ctaks
@@ -114,7 +114,7 @@ public class User {
             return false;
         }
     }
-
+    
     /**
      * setter for username
      * @author ctaks
@@ -130,7 +130,7 @@ public class User {
             return false;
         }
     }
-
+    
     /**
      * setter for password
      * @author ctaks
@@ -146,28 +146,40 @@ public class User {
             return false;
         }
     }
-
+    
     /**
-    * verifies whether the user has entered the username and password correctly
-    * @author theo v
-    * @param username
-    * @param password
-    * @return 
-    */
-    public boolean login(String username, String password) {
-        if(username==null || password==null){
-            return false;
-        }
-        return this.userName.equals(username) && verifyPassword(password);
+     * Sets the permission to add a task
+     * @author Duayne
+     * @param permissionToEditColumns boolean to which to set the permission
+     */
+    public void setPermissionToAddTask(boolean permissionToAddTask) {
+        this.permissionToAddTask = permissionToAddTask;
+    }
+    
+    /**
+     * Sets the permission to move a task
+     * @author Duayne
+     * @param permissionToEditColumns boolean to which to set the permission
+     */
+    public void setPermissionToMoveTask(boolean permissionToMoveTask) {
+        this.permissionToMoveTask = permissionToMoveTask;
     }
 
     /**
-    * 
-    * @param password
-    * @return
-    */
-    public boolean verifyPassword(String password) {
-        return this.password.equals(password);
+     * Sets the permission to edit a task
+     * @author Duayne
+     * @param permissionToEditColumns boolean to which to set the permission
+     */
+    public void setPermissionToEditTask(boolean permissionToEditTask) {
+        this.permissionToEditTask = permissionToEditTask;
+    }
+    /**
+     * Sets the permission to edit a column
+     * @author Duayne
+     * @param permissionToEditColumns boolean to which to set the permission
+     */
+    public void setPermissionToEditColumns(boolean permissionToEditColumns) {
+        this.permissionToEditColumns = permissionToEditColumns;
     }
 
     /**
@@ -187,7 +199,7 @@ public class User {
     public String getFirstName() {
         return this.firstName;
     }
-
+    
     /**
      * Gets the last name of the user
      * @author Chris
@@ -196,7 +208,7 @@ public class User {
     public String getLastName() {
         return this.lastName;
     }
-
+    
     /**
      * Gets the username of the user
      * @author Chris
@@ -205,7 +217,7 @@ public class User {
     public String getUserName() {
         return this.userName;
     }
-
+    
     /**
      * Gets the password of the user
      * @author ctaks
@@ -223,16 +235,7 @@ public class User {
     public boolean getPermissionToAddTask() {
         return permissionToAddTask;
     }
-
-    /**
-     * Sets the permission to add a task
-     * @author Duayne
-     * @param permissionToEditColumns boolean to which to set the permission
-     */
-    public void setPermissionToAddTask(boolean permissionToAddTask) {
-        this.permissionToAddTask = permissionToAddTask;
-    }
-
+    
     /**
      * Gets the current permission to move a task
      * @author Duayne
@@ -241,16 +244,7 @@ public class User {
     public boolean getPermissionToMoveTask() {
         return permissionToMoveTask;
     }
-
-    /**
-     * Sets the permission to move a task
-     * @author Duayne
-     * @param permissionToEditColumns boolean to which to set the permission
-     */
-    public void setPermissionToMoveTask(boolean permissionToMoveTask) {
-        this.permissionToMoveTask = permissionToMoveTask;
-    }
-
+    
     /**
      * Gets the current permission to edit a task
      * @author Duayne
@@ -261,15 +255,6 @@ public class User {
     }
 
     /**
-     * Sets the permission to edit a task
-     * @author Duayne
-     * @param permissionToEditColumns boolean to which to set the permission
-     */
-    public void setPermissionToEditTask(boolean permissionToEditTask) {
-        this.permissionToEditTask = permissionToEditTask;
-    }
-
-    /**
      * Gets the current permission to edit a column
      * @author Duayne
      * @return boolean of the permission to edit a column
@@ -277,13 +262,28 @@ public class User {
     public boolean getPermissionToEditColumns() {
         return permissionToEditColumns;
     }
-
+    
     /**
-     * Sets the permission to edit a column
-     * @author Duayne
-     * @param permissionToEditColumns boolean to which to set the permission
+     * verifies whether the user has entered the username and password correctly
+     * @author theo v
+     * @param username
+     * @param password
+     * @return boolean that states whether the user has successfully logged in or not
      */
-    public void setPermissionToEditColumns(boolean permissionToEditColumns) {
-        this.permissionToEditColumns = permissionToEditColumns;
+    public boolean login(String username, String password) {
+        if(username==null || password==null){
+            return false;
+        }
+        return this.userName.equals(username) && verifyPassword(password);
+    }
+    
+    /**
+    * verifies whether or not the password entered is correct
+    *@author theo v 
+    * @param password
+    * @return boolean that states whether String input matches the password
+    */
+    public boolean verifyPassword(String password) {
+        return this.password.equals(password);
     }
 }

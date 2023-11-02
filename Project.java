@@ -166,7 +166,127 @@ public class Project {
             return true;
         }
     }
+    /**
+     * Sets both the sprint start and end dates
+     * @author Duayne
+     * @param startSprint LocalDate object of the sprint's start date
+     * @param endSprint LocalDate object of the sprint's end date
+     */
+    public void setSprint(LocalDate startSprint, LocalDate endSprint) {
+        if (startSprint == null || endSprint == null)
+        return;
+        if (startSprint.compareTo(endSprint) > 0) {
+            LocalDate temp = startSprint;
+            startSprint = endSprint;
+            endSprint = temp;
+        }
+        this.startSprint = startSprint;
+        this.endSprint = endSprint;
+    }
 
+    /**
+     * Gets the name of the project
+     * @author Chris
+     * @return the project name (this.name)
+     */
+    public String getName() {
+        if (this.name != null)
+        return this.name;
+        else
+        return "no name found";
+    }
+    
+    /**
+     * Gets the id of the project
+     * @author Chris
+     * @return UUID of the project ID
+     */
+    public UUID getID() {
+        return this.id;
+    }
+    
+    
+    /**
+     * Gets the sprint start date
+     * @author Duayne
+     * @return LocalDate object of the sprint start date
+     */
+    public LocalDate getStartSprint() {
+        if (this.startSprint != null)
+        return startSprint;
+        return null;
+    }
+    
+    /**
+     * Gets the sprint end date
+     * @author Duayne
+     * @return LocalDate object of the sprint end date
+     */
+    public LocalDate getEndSprint() {
+        if (this.endSprint != null)
+        return endSprint;
+        return null;
+    }
+    
+    
+    /**
+     * Gets the project's team
+     * @author Duayne 
+     * @return Array List of users in the team
+     */
+    public ArrayList<User> getTeam() {
+        if (this.team != null)
+        return team;
+        return null;
+    }
+    
+    /**
+     * Gets a specified comment
+     * @author ctaks
+     * @param commentID The specified comment's ID
+     * @return Comment of the comment
+     */
+    public Comment getComment(UUID commentID) {
+        for (Comment comment : this.comments) {
+            if (comment.getID() == commentID)
+            return comment;
+        }
+        return null;
+    }
+    
+    /**
+     * Gets the project's comments
+     * @author Duayne
+     * @return Array List of comments in the comment list
+     */
+    public ArrayList<Comment> getComments() {
+        if (this.comments != null)
+        return comments;
+        return null;
+    }
+    /**
+     * gets column based on columnID 
+     * @author theo v 
+     * @param columnID
+     * @return the column that has the column ID 
+     */
+    public Column getColumn(UUID columnID){
+        for (Column column : columns){
+            if(column.getID()==columnID)
+            return column;
+        }
+        return null;
+    }
+    
+    /**
+     * Gets the current columns
+     * @author ctaks
+     * @return ArrayList<Column> of current columns
+     */
+    public ArrayList<Column> getColumns() {
+        return this.columns;
+    }
+    
     /**
      * Adds user to the team and assigns permissions
      * @author Duayne
@@ -200,7 +320,7 @@ public class Project {
         }
         return false;
     }
-
+    
     /**
      * Removes the given user from the project team
      * @author Duayne
@@ -214,7 +334,7 @@ public class Project {
         team.remove(user);
         return size != team.size();
     }
-
+    
     /**
      * Adds a column to the project
      * @author Duayne
@@ -228,7 +348,7 @@ public class Project {
         columns.add(column);
         return size != columns.size();
     }
-
+    
     /**
      * Removes a column from the project
      * @author Duayne
@@ -242,7 +362,7 @@ public class Project {
         columns.remove(column);
         return size == columns.size();
     }
-
+    
     /**
      * Moves a task from one column to another column
      * @param sourceColumn task origin
@@ -256,7 +376,7 @@ public class Project {
         else
             return false;
     }
-
+    
     /**
      * Adds a comment to the project
      * @author ctaks
@@ -270,123 +390,4 @@ public class Project {
         else
             return false;
     }
-
-    /**
-     * Gets the name of the project
-     * @author Chris
-     * @return the project name (this.name)
-     */
-    public String getName() {
-        if (this.name != null)
-            return this.name;
-        else
-            return "no name found";
-    }
-
-    /**
-     * Gets the id of the project
-     * @author Chris
-     * @return UUID of the project ID
-     */
-    public UUID getID() {
-        return this.id;
-    }
-
-    /**
-     * Gets the current columns
-     * @author ctaks
-     * @return ArrayList<Column> of current columns
-     */
-    public ArrayList<Column> getColumns() {
-        return this.columns;
-    }
-
-    /**
-     * Gets the sprint start date
-     * @author Duayne
-     * @return LocalDate object of the sprint start date
-     */
-    public LocalDate getStartSprint() {
-        if (this.startSprint != null)
-            return startSprint;
-        return null;
-    }
-
-    /**
-     * Gets the sprint end date
-     * @author Duayne
-     * @return LocalDate object of the sprint end date
-     */
-    public LocalDate getEndSprint() {
-        if (this.endSprint != null)
-            return endSprint;
-        return null;
-    }
-
-    /**
-     * Sets both the sprint start and end dates
-     * @author Duayne
-     * @param startSprint LocalDate object of the sprint's start date
-     * @param endSprint LocalDate object of the sprint's end date
-     */
-    public void setSprint(LocalDate startSprint, LocalDate endSprint) {
-        if (startSprint == null || endSprint == null)
-            return;
-        if (startSprint.compareTo(endSprint) > 0) {
-            LocalDate temp = startSprint;
-            startSprint = endSprint;
-            endSprint = temp;
-        }
-        this.startSprint = startSprint;
-        this.endSprint = endSprint;
-    }
-
-    /**
-     * Gets the project's team
-     * @author Duayne
-     * @return Array List of users in the team
-     */
-    public ArrayList<User> getTeam() {
-        if (this.team != null)
-            return team;
-        return null;
-    }
-    
-    /**
-     * Gets a specified comment
-     * @author ctaks
-     * @param commentID The specified comment's ID
-     * @return Comment of the comment
-     */
-    public Comment getComment(UUID commentID) {
-        for (Comment comment : this.comments) {
-            if (comment.getID() == commentID)
-                return comment;
-        }
-        return null;
-    }
-
-    /**
-     * Gets the project's comments
-     * @author Duayne
-     * @return Array List of comments in the comment list
-     */
-    public ArrayList<Comment> getComments() {
-        if (this.comments != null)
-            return comments;
-        return null;
-    }
-    /**
-     * gets column based on columnID 
-     * @author theo v 
-     * @param columnID
-     * @return the column that has the column ID 
-     */
-    public Column getColumn(UUID columnID){
-        for (Column column : columns){
-            if(column.getID()==columnID)
-                return column;
-        }
-        return null;
-}
 }
