@@ -2,7 +2,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
