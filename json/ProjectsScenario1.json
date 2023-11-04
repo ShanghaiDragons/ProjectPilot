@@ -7,27 +7,68 @@
     "projectID": "1a052f47-2d76-4811-b1ad-8bf1ad253956",
     "projectColumnIDs": [
       "d09985b0-fab2-4b2f-aa1b-42acf1c59d8f",
-      "f195163f-a33a-4969-b05a-c15e555e067a"
+      "f195163f-a33a-4969-b05a-c15e555e067a",
+      "1e7c81fe-c34c-4aba-b0ab-244e300c32de"
     ],
     "projectCommentIDs": []
   },
   {
     "sortType": "default",
     "columnID": "d09985b0-fab2-4b2f-aa1b-42acf1c59d8f",
-    "columnTaskIDs": ["94d94a26-7dd0-46f1-9519-4c701140c074"],
+    "columnTaskIDs": ["592d1227-6cde-4442-bb9a-e8efb6093a1a"],
     "columnName": "To Do",
     "columnCommentIDs": []
   },
   {
     "commentThreadIDs": [],
-    "commentDate": "2023-11-01T14:15:48.762051500",
+    "commentDate": "2023-11-01T19:24:33.775361100",
+    "commentID": "4550c082-2ad7-4a9b-986e-96910482d87f",
+    "commentMessage": "Avoid civilians Jeff!",
+    "commentUserID": "2554c384-1ae7-4f93-b775-9f64384d19c3"
+  },
+  {
+    "description": "empty",
+    "taskName": "Initialize super algorithm to detonate at warp speed",
+    "assignee": "7f3dd8cb-e013-4c21-ace5-2ad5d7e2688d",
+    "priority": "1",
+    "taskTaskHistoryID": "dd800e35-4bf8-4586-9eb5-509c7ae5d6fa",
+    "taskCommentIDs": ["4550c082-2ad7-4a9b-986e-96910482d87f"],
+    "taskID": "592d1227-6cde-4442-bb9a-e8efb6093a1a",
+    "status": "active"
+  },
+  {
+    "taskHistoryID": "dd800e35-4bf8-4586-9eb5-509c7ae5d6fa",
+    "descriptionChanges": ["[2023-11-01T19:24:14.494402]: \"empty\" was set"],
+    "statusChanges": ["[2023-11-01T19:24:14.494402]: \"active\" was set"],
+    "taskHistoryTaskID": "592d1227-6cde-4442-bb9a-e8efb6093a1a",
+    "creationDate": "2023-11-01T19:24:14.405505100",
+    "moveChanges": [],
+    "priorityChanges": ["[2023-11-01T19:24:14.494402]: \"1\" was set"],
+    "nameChanges": [
+      "[2023-11-01T19:24:14.493391800]: \"Initialize super algorithm to detonate at warp speed\" was set"
+    ],
+    "assigneeChanges": [
+      "[2023-11-01T19:24:14.493391800]: \"Atticus\" was set",
+      "[2023-11-01T19:24:21.462322700]: \"Atticus\" changed to: \"Jeff\""
+    ]
+  },
+  {
+    "sortType": "default",
+    "columnID": "f195163f-a33a-4969-b05a-c15e555e067a",
+    "columnTaskIDs": ["94d94a26-7dd0-46f1-9519-4c701140c074"],
+    "columnName": "Doing",
+    "columnCommentIDs": []
+  },
+  {
+    "commentThreadIDs": [],
+    "commentDate": "2023-11-01T19:23:39.264148600",
     "commentID": "0cce4f51-b7bf-4388-91d6-c4436cba42a2",
     "commentMessage": "Not cylindrical enough",
     "commentUserID": "7f3dd8cb-e013-4c21-ace5-2ad5d7e2688d"
   },
   {
     "commentThreadIDs": [],
-    "commentDate": "2023-11-01T14:15:48.766673100",
+    "commentDate": "2023-11-01T19:23:39.269148200",
     "commentID": "7e71ca9b-25e5-45e3-b81f-2707080e1eef",
     "commentMessage": "What's a cylinder",
     "commentUserID": "a9256349-f7a5-4f40-9ee5-4dcc1a489cf0"
@@ -35,7 +76,7 @@
   {
     "description": "empty",
     "taskName": "Curve the metal to make a cylindrical shape",
-    "assignee": "2554c384-1ae7-4f93-b775-9f64384d19c3",
+    "assignee": "7f3dd8cb-e013-4c21-ace5-2ad5d7e2688d",
     "priority": "1",
     "taskTaskHistoryID": "5bb89e73-7819-459b-8251-fac369ccdd24",
     "taskCommentIDs": [
@@ -51,7 +92,8 @@
       "[2023-11-01T14:01:44.531149800]: \"empty\" was set",
       "[2023-11-01T14:05:40.782548100]: \"ERROR\" changed to: \"ERROR\"",
       "[2023-11-01T14:14:00.620470500]: \"ERROR\" changed to: \"ERROR\"",
-      "[2023-11-01T14:15:48.767995400]: \"ERROR\" changed to: \"ERROR\""
+      "[2023-11-01T14:15:48.767995400]: \"ERROR\" changed to: \"ERROR\"",
+      "[2023-11-01T19:23:39.270143300]: \"ERROR\" changed to: \"ERROR\""
     ],
     "statusChanges": [
       "[2023-11-01T14:01:44.531149800]: \"1\" was set",
@@ -60,7 +102,9 @@
       "[2023-11-01T14:14:00.620470500]: \"0\" changed to: \"1\"",
       "[2023-11-01T14:14:00.620470500]: \"ERROR\" changed to: \"ERROR\"",
       "[2023-11-01T14:15:48.767995400]: \"0\" changed to: \"1\"",
-      "[2023-11-01T14:15:48.767995400]: \"ERROR\" changed to: \"ERROR\""
+      "[2023-11-01T14:15:48.767995400]: \"ERROR\" changed to: \"ERROR\"",
+      "[2023-11-01T19:23:39.270143300]: \"0\" changed to: \"1\"",
+      "[2023-11-01T19:23:39.270143300]: \"ERROR\" changed to: \"ERROR\""
     ],
     "taskHistoryTaskID": "94d94a26-7dd0-46f1-9519-4c701140c074",
     "creationDate": "2023-11-01T14:01:44.451903900",
@@ -72,26 +116,31 @@
       "[2023-11-01T14:14:00.620470500]: \"0\" changed to: \"1\"",
       "[2023-11-01T14:14:00.620470500]: \"ERROR\" changed to: \"ERROR\"",
       "[2023-11-01T14:15:48.767995400]: \"0\" changed to: \"1\"",
-      "[2023-11-01T14:15:48.767995400]: \"ERROR\" changed to: \"ERROR\""
+      "[2023-11-01T14:15:48.767995400]: \"ERROR\" changed to: \"ERROR\"",
+      "[2023-11-01T19:23:39.270143300]: \"0\" changed to: \"1\"",
+      "[2023-11-01T19:23:39.270143300]: \"ERROR\" changed to: \"ERROR\""
     ],
     "nameChanges": [
       "[2023-11-01T14:01:44.523134300]: \"Curve the metal to make a cylindrical shape\" was set",
       "[2023-11-01T14:05:40.782548100]: \"ERROR\" changed to: \"ERROR\"",
       "[2023-11-01T14:14:00.620470500]: \"ERROR\" changed to: \"ERROR\"",
-      "[2023-11-01T14:15:48.767995400]: \"ERROR\" changed to: \"ERROR\""
+      "[2023-11-01T14:15:48.767995400]: \"ERROR\" changed to: \"ERROR\"",
+      "[2023-11-01T19:23:39.270143300]: \"ERROR\" changed to: \"ERROR\""
     ],
     "assigneeChanges": [
       "[2023-11-01T14:01:44.531149800]: \"Atticus\" was set",
       "[2023-11-01T14:05:40.782548100]: \"empty\" changed to: \"Atticus\"",
       "[2023-11-01T14:14:00.620470500]: \"empty\" changed to: \"Atticus\"",
-      "[2023-11-01T14:15:48.767995400]: \"empty\" changed to: \"Atticus\""
+      "[2023-11-01T14:15:48.767995400]: \"empty\" changed to: \"Atticus\"",
+      "[2023-11-01T19:23:39.270143300]: \"empty\" changed to: \"Atticus\"",
+      "[2023-11-01T19:26:03.060645500]: \"Atticus\" changed to: \"Jeff\""
     ]
   },
   {
     "sortType": "default",
-    "columnID": "f195163f-a33a-4969-b05a-c15e555e067a",
+    "columnID": "1e7c81fe-c34c-4aba-b0ab-244e300c32de",
     "columnTaskIDs": ["bfec92c6-7b46-42cc-b443-418a2d3938e0"],
-    "columnName": "Doing",
+    "columnName": "Abandoned",
     "columnCommentIDs": []
   },
   {
@@ -107,17 +156,30 @@
   {
     "taskHistoryID": "bd601310-01f5-465e-9290-0c57288b36f4",
     "descriptionChanges": [
-      "[2023-11-01T14:16:51.905245200]: \"empty\" was set"
+      "[2023-11-01T14:16:51.905245200]: \"empty\" was set",
+      "[2023-11-01T19:23:39.964072]: \"ERROR\" changed to: \"ERROR\""
     ],
-    "statusChanges": ["[2023-11-01T14:16:51.905245200]: \"active\" was set"],
+    "statusChanges": [
+      "[2023-11-01T14:16:51.905245200]: \"1\" was set",
+      "[2023-11-01T19:23:39.964072]: \"0\" changed to: \"1\"",
+      "[2023-11-01T19:23:39.964072]: \"ERROR\" changed to: \"ERROR\""
+    ],
     "taskHistoryTaskID": "bfec92c6-7b46-42cc-b443-418a2d3938e0",
     "creationDate": "2023-11-01T14:16:51.847596900",
     "moveChanges": [],
-    "priorityChanges": ["[2023-11-01T14:16:51.905245200]: \"1\" was set"],
-    "nameChanges": [
-      "[2023-11-01T14:16:51.905245200]: \"Make impossible burger possible\" was set"
+    "priorityChanges": [
+      "[2023-11-01T14:16:51.905245200]: \"1\" was set",
+      "[2023-11-01T19:23:39.964072]: \"0\" changed to: \"1\"",
+      "[2023-11-01T19:23:39.964072]: \"ERROR\" changed to: \"ERROR\""
     ],
-    "assigneeChanges": ["[2023-11-01T14:16:51.905245200]: \"Atticus\" was set"]
+    "nameChanges": [
+      "[2023-11-01T14:16:51.905245200]: \"Make impossible burger possible\" was set",
+      "[2023-11-01T19:23:39.964072]: \"ERROR\" changed to: \"ERROR\""
+    ],
+    "assigneeChanges": [
+      "[2023-11-01T14:16:51.905245200]: \"Atticus\" was set",
+      "[2023-11-01T19:23:39.964072]: \"empty\" changed to: \"Atticus\""
+    ]
   },
   {
     "startSprint": "2023-11-01",
