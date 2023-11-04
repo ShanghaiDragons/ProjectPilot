@@ -27,10 +27,8 @@ public class DataLoader extends DataConstants {
 	 */
 	public DataLoader() {
 		setUsers();
-		setProjects();
+		setProjectObjects();
 	}
-
-	
 
     /**
 	 * Accesses and displays all users via JSON file reading and loading
@@ -38,38 +36,48 @@ public class DataLoader extends DataConstants {
 	 * @return ArrayList<User> of all users from the JSON file
 	 */
     public boolean setUsers() {
-		//ArrayList<User> users = new ArrayList<User>();
-  
 		try {
 			// read the user file
 			this.userFile = (JSONArray)new JSONParser().parse(new FileReader(USER_FILE_NAME));
 			  
 			// Interates over the userFile and adds users to an ArrayList<User>
-			for(int i=0; i < userFile.size(); i++) {
-				JSONObject userObject = (JSONObject)userFile.get(i);
-				UUID id = UUID.fromString((String)userObject.get(USER_ID));
-				String userName = (String)userObject.get(USER_USER_NAME);
-				String firstName = (String)userObject.get(USER_FIRST_NAME);
-				String lastName = (String)userObject.get(USER_LAST_NAME);
-				String password = (String)userObject.get(USER_PASSWORD);
-				boolean permissionToAddTask = (boolean)userObject.get(USER_ADD_TASK);
-				boolean permissionToMoveTask = (boolean)userObject.get(USER_MOVE_TASK);
-				boolean permissionToEditTask = (boolean)userObject.get(USER_EDIT_TASK);
-				boolean permissionToEditColumns = (boolean)userObject.get(USER_EDIT_COLUMN);
-				User user = new User(id, userName, firstName, lastName, password, permissionToAddTask, permissionToMoveTask, permissionToEditTask, permissionToEditColumns);
-				if (!this.users.contains(user)) {
-					this.users.add(user);
-					this.userFile.remove(i);
+			if (userFile != null && userFile.size() > 0) {
+				for(int i=0; i < userFile.size(); i++) {
+					JSONObject userObject = (JSONObject)userFile.get(i);
+					UUID id = UUID.fromString((String)userObject.get(USER_ID));
+					String userName = (String)userObject.get(USER_USER_NAME);
+					String firstName = (String)userObject.get(USER_FIRST_NAME);
+					String lastName = (String)userObject.get(USER_LAST_NAME);
+					String password = (String)userObject.get(USER_PASSWORD);
+					boolean permissionToAddTask = (boolean)userObject.get(USER_ADD_TASK);
+					boolean permissionToMoveTask = (boolean)userObject.get(USER_MOVE_TASK);
+					boolean permissionToEditTask = (boolean)userObject.get(USER_EDIT_TASK);
+					boolean permissionToEditColumns = (boolean)userObject.get(USER_EDIT_COLUMN);
+					User user = new User(id, userName, firstName, lastName, password, permissionToAddTask, permissionToMoveTask, permissionToEditTask, permissionToEditColumns);
+					if (!this.users.contains(user)) {
+						this.users.add(user);
+						this.userFile.remove(i);
+					}
 				}
-			}
-			  
-			return true;
+				return true;
+			}	
 			  
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		  
+		if (users == null || users.size() < 1) {
+			this.users = new ArrayList<User>();
+		}
 		return false;
+	}
+	
+	/**
+	 * Getter for the list of users
+	 * @author ctaks
+	 * @return ArrayList<User> of the users loaded from json
+	 */
+	public ArrayList<User> getUsers() {
+		return this.users;
 	}
 
 	/**
@@ -77,48 +85,49 @@ public class DataLoader extends DataConstants {
 	 * @author ctaks
 	 * @return boolean determining success
 	 */
-	public static boolean setProjects() {
+	public static boolean setProjectObjects() {
 		try {
 			projectFile = (JSONArray)new JSONParser().parse(new FileReader(PROJECT_FILE_NAME));
 
-			for(int i = 0; i < projectFile.size(); i++) {
-				JSONObject JObj = (JSONObject)projectFile.get(i);
-				// Projects
-				String projectName = (String)JObj.get(PROJECT_NAME);
-				if (projectName != null) {
-					projects.add(JObj);
-				}
-				// Columns
-				else if(projectName == null) {
-					String columnName = (String)JObj.get(COLUMN_NAME);
-					if (columnName != null) {
-						columns.add(JObj);
+			if (projectFile != null && projectFile.size() > 0) {
+				for(int i = 0; i < projectFile.size(); i++) {
+					JSONObject JObj = (JSONObject)projectFile.get(i);
+					// Projects
+					String projectName = (String)JObj.get(PROJECT_NAME);
+					if (projectName != null) {
+						projects.add(JObj);
 					}
-					// Tasks
-					else if (columnName == null) {
-						String taskName = (String)JObj.get(TASK_NAME);
-						if (taskName != null) {
-							tasks.add(JObj);
+					// Columns
+					else if(projectName == null) {
+						String columnName = (String)JObj.get(COLUMN_NAME);
+						if (columnName != null) {
+							columns.add(JObj);
 						}
-						// TaskHistories
-						else if (taskName == null) {
-							String taskHistoryID = (String)JObj.get(TASK_HISTORY_ID);
-							if (taskHistoryID != null) {
-								taskHistories.add(JObj);
+						// Tasks
+						else if (columnName == null) {
+							String taskName = (String)JObj.get(TASK_NAME);
+							if (taskName != null) {
+								tasks.add(JObj);
 							}
-							// Comments
-							else if (taskHistoryID == null) {
-								String message = (String)JObj.get(COMMENT_MESSAGE);
-								if (message != null) {
-									comments.add(JObj);
+							// TaskHistories
+							else if (taskName == null) {
+								String taskHistoryID = (String)JObj.get(TASK_HISTORY_ID);
+								if (taskHistoryID != null) {
+									taskHistories.add(JObj);
+								}
+								// Comments
+								else if (taskHistoryID == null) {
+									String message = (String)JObj.get(COMMENT_MESSAGE);
+									if (message != null) {
+										comments.add(JObj);
+									}
 								}
 							}
 						}
 					}
 				}
+				return true;
 			}
-			return true;
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -130,7 +139,7 @@ public class DataLoader extends DataConstants {
 	* @author Duayne (rewritten by ctaks)
 	* @return ArrayList object containing all projects
 	*/
-	public static ArrayList<Project> getProjects() {
+	public ArrayList<Project> getProjects() {
 		ArrayList<Project> projectList = new ArrayList<Project>();
   
 		try {	
@@ -144,18 +153,21 @@ public class DataLoader extends DataConstants {
 					ArrayList<User> team = new ArrayList<User>();
 					ArrayList<String> jsonTeam = (ArrayList<String>)projects.get(i).get(PROJECT_TEAM);
 					for(int j = 0; j < jsonTeam.size(); j++) {
-						for (User user : getUsers()) {
-
+						for (User user : this.users) {
+							if (user.getID() == UUID.fromString(jsonTeam.get(j))) {
+								team.add(user);
+							}
 						}
 						if (UUID.fromString(jsonTeam.get(j)).equals(getUsers().get(j).getID().toString())) {
 							team.add(getUsers().get(j));
 						}
 					}
 					ArrayList<Column> columns = new ArrayList<Column>();
-					ArrayList<String> tempColumns = (ArrayList<String>)projectJSON.get(PROJECT_COLUMN_IDS);
+					ArrayList<String> jsonColumns = (ArrayList<String>)projects.get(i).get(PROJECT_COLUMN_IDS);
+					// TODO: Continue where you left off!
 					for(int j = 0; j < getColumns().size(); j++)
-						for(int k = 0; k < tempColumns.size(); k++)
-							if (UUID.fromString(tempColumns.get(k)).equals(getColumns().get(j).getID()))
+						for(int k = 0; k < jsonColumns.size(); k++)
+							if (UUID.fromString(jsonColumns.get(k)).equals(getColumns().get(j).getID()))
 								columns.add(getColumns().get(j));
 					String start = (String)projectJSON.get(PROJECT_START_SPRINT);
 					LocalDate startSprint = LocalDate.parse(start);
