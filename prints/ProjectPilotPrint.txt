@@ -6,6 +6,7 @@
     [Column]: To Do
         [TASK]: Curve the metal to make a cylindrical shape [Assignee]: Atticus
           [Task Comment]: [Jeff]: Not cylindrical enough
+            [Task Comment Threaded Comment]: [Atticus]: How about you do it Jeff
           [Task Comment]: [AtticusFinch]: What's a cylinder
     [Column]: Doing
         [TASK]: Make impossible burger possible [Assignee]: Atticus
