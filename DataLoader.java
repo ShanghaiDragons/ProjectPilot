@@ -104,7 +104,7 @@ public class DataLoader extends DataConstants {
 	public boolean setProjectObjects() {
 		try {
 			projectFile = (JSONArray)new JSONParser().parse(new FileReader(PROJECT_FILE_NAME));
-
+			
 			if (projectFile != null && projectFile.size() > 0) {
 				for(int i = 0; i < projectFile.size(); i++) {
 					JSONObject JObj = (JSONObject)projectFile.get(i);
@@ -244,9 +244,10 @@ public class DataLoader extends DataConstants {
 	}
 
 	/**
-	 * 
-	 * @param jtask
-	 * @return
+	 * Loads a task from the given task JSONObject
+	 * @author ctaks
+	 * @param jtask to be loaded
+	 * @return Task task loaded from the JSONObject
 	 */
 	public Task makeTask(JSONObject jtask) {
 		String name = (String)jtask.get(TASK_NAME);
@@ -289,9 +290,10 @@ public class DataLoader extends DataConstants {
 	}
 
 	/**
-	 * 
-	 * @param jTaskHistory
-	 * @return
+	 * Loads a task's history from the given TaskHistory JSONObject
+	 * @author ctaks
+	 * @param jTaskHistory to be loaded
+	 * @return TaskHistory task history loaded from the JSONObject
 	 */
 	public TaskHistory makeTaskHistory(JSONObject jTaskHistory) {
 		String historyID = (String)jTaskHistory.get(TASK_HISTORY_ID);
@@ -314,9 +316,10 @@ public class DataLoader extends DataConstants {
 	}
 
 	/**
-	 * 
-	 * @param jComment
-	 * @return
+	 * Loads a comment from the given comment JSONObject. Recursively calls itself for threaded comments.
+	 * @author ctaks
+	 * @param jComment to be loaded
+	 * @return Comment comment loaded from the JSONObject
 	 */
 	public Comment makeComment(JSONObject jComment) {
 		String message = (String)jComment.get(COMMENT_MESSAGE);
