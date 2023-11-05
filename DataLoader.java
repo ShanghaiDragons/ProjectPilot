@@ -14,12 +14,12 @@ import org.json.simple.parser.JSONParser;
 public class DataLoader extends DataConstants {
 	private JSONArray userFile = new JSONArray();
 	private ArrayList<User> users;
-	private static JSONArray projectFile = new JSONArray();
-	private static ArrayList<JSONObject> projects;
-	private static ArrayList<JSONObject> columns;
-	private static ArrayList<JSONObject> tasks;
-	private static ArrayList<JSONObject> taskHistories;
-	private static ArrayList<JSONObject> comments;
+	private JSONArray projectFile = new JSONArray();
+	private ArrayList<JSONObject> jsonProjects;
+	private ArrayList<JSONObject> jsonColumns;
+	private ArrayList<JSONObject> jsonTasks;
+	private ArrayList<JSONObject> jsonTaskHistories;
+	private ArrayList<JSONObject> jsonComments;
 
 	/**
 	 * DataLoader constructor. Populates the class variables once so that the json files are only have to be loaded once.
@@ -85,7 +85,7 @@ public class DataLoader extends DataConstants {
 	 * @author ctaks
 	 * @return boolean determining success
 	 */
-	public static boolean setProjectObjects() {
+	public boolean setProjectObjects() {
 		try {
 			projectFile = (JSONArray)new JSONParser().parse(new FileReader(PROJECT_FILE_NAME));
 
@@ -95,31 +95,31 @@ public class DataLoader extends DataConstants {
 					// Projects
 					String projectName = (String)JObj.get(PROJECT_NAME);
 					if (projectName != null) {
-						projects.add(JObj);
+						jsonProjects.add(JObj);
 					}
 					// Columns
 					else if(projectName == null) {
 						String columnName = (String)JObj.get(COLUMN_NAME);
 						if (columnName != null) {
-							columns.add(JObj);
+							jsonColumns.add(JObj);
 						}
 						// Tasks
 						else if (columnName == null) {
 							String taskName = (String)JObj.get(TASK_NAME);
 							if (taskName != null) {
-								tasks.add(JObj);
+								jsonTasks.add(JObj);
 							}
 							// TaskHistories
 							else if (taskName == null) {
 								String taskHistoryID = (String)JObj.get(TASK_HISTORY_ID);
 								if (taskHistoryID != null) {
-									taskHistories.add(JObj);
+									jsonTaskHistories.add(JObj);
 								}
 								// Comments
 								else if (taskHistoryID == null) {
 									String message = (String)JObj.get(COMMENT_MESSAGE);
 									if (message != null) {
-										comments.add(JObj);
+										jsonComments.add(JObj);
 									}
 								}
 							}
@@ -141,38 +141,36 @@ public class DataLoader extends DataConstants {
 	*/
 	public ArrayList<Project> getProjects() {
 		ArrayList<Project> projectList = new ArrayList<Project>();
-  
 		try {	
-			//JSONArray projectsJSON = (JSONArray)new JSONParser().parse(new FileReader(PROJECT_FILE_NAME));
-			
-			for(int i=0; i < projects.size(); i++) {
-				//JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
-				String projectName = (String)projects.get(i).get(PROJECT_NAME);
+			for(int i=0; i < jsonProjects.size(); i++) {
+				String projectName = (String)jsonProjects.get(i).get(PROJECT_NAME);
 				if (projectName != null) {
-					UUID id = UUID.fromString((String)projects.get(i).get(PROJECT_ID));
+					UUID id = UUID.fromString((String)jsonProjects.get(i).get(PROJECT_ID));
+					//String start = (String)jsonProjects.get(i).get(PROJECT_START_SPRINT);
+					LocalDate startSprint = LocalDate.parse((String)jsonProjects.get(i).get(PROJECT_START_SPRINT));
+					//String end = (String)jsonProjects.get(i).get(PROJECT_END_SPRINT);
+					LocalDate endSprint = LocalDate.parse((String)jsonProjects.get(i).get(PROJECT_END_SPRINT));
+					// Teams
 					ArrayList<User> team = new ArrayList<User>();
-					ArrayList<String> jsonTeam = (ArrayList<String>)projects.get(i).get(PROJECT_TEAM);
-					for(int j = 0; j < jsonTeam.size(); j++) {
+					ArrayList<String> jsonTeam = (ArrayList<String>)jsonProjects.get(i).get(PROJECT_TEAM);
+					for(String jTeamID : jsonTeam) {
 						for (User user : this.users) {
-							if (user.getID() == UUID.fromString(jsonTeam.get(j))) {
+							if (user.getID() == UUID.fromString(jTeamID)) {
 								team.add(user);
 							}
 						}
-						if (UUID.fromString(jsonTeam.get(j)).equals(getUsers().get(j).getID().toString())) {
-							team.add(getUsers().get(j));
+					}
+					// Columns
+					ArrayList<Column> columns = new ArrayList<Column>();
+					ArrayList<String> projectColumnIDs = (ArrayList<String>)jsonProjects.get(i).get(PROJECT_COLUMN_IDS);
+					for (String pColID : projectColumnIDs) {
+						for (JSONObject jcolumn : this.jsonColumns) {
+							if (UUID.fromString((String)jcolumn.get(COLUMN_ID)) == UUID.fromString(pColID)) {
+								columns.add(makeColumn(jcolumn));
+							}
 						}
 					}
-					ArrayList<Column> columns = new ArrayList<Column>();
-					ArrayList<String> jsonColumns = (ArrayList<String>)projects.get(i).get(PROJECT_COLUMN_IDS);
-					// TODO: Continue where you left off!
-					for(int j = 0; j < getColumns().size(); j++)
-						for(int k = 0; k < jsonColumns.size(); k++)
-							if (UUID.fromString(jsonColumns.get(k)).equals(getColumns().get(j).getID()))
-								columns.add(getColumns().get(j));
-					String start = (String)projectJSON.get(PROJECT_START_SPRINT);
-					LocalDate startSprint = LocalDate.parse(start);
-					String end = (String)projectJSON.get(PROJECT_END_SPRINT);
-					LocalDate endSprint = LocalDate.parse(end);
+					// Comments
 					ArrayList<Comment> comments = new ArrayList<Comment>();
 					ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(PROJECT_COMMENT_IDs);
 					for(int j = 0; j < getComments().size(); j++) {
@@ -185,14 +183,117 @@ public class DataLoader extends DataConstants {
 					projectList.add(new Project(id, projectName, startSprint, endSprint, team, columns, comments));
 				}
 			}
-			  
 			return projectList;
 			  
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		  
 		return null;
+	}
+
+	/**
+	 * Loads a column's data by passing in its json data
+	 * @author ctaks
+	 * @param jcolumn json data to be turned into a column
+	 * @return Column column of the passed in json data
+	 */
+	public Column makeColumn(JSONObject jcolumn) {
+		String name = (String)jcolumn.get(COLUMN_NAME);
+		if (name != null) {
+			UUID id = UUID.fromString((String)jcolumn.get(COLUMN_ID));
+			String sortType = (String)jcolumn.get(COLUMN_SORT_TYPE);
+			// tasks
+			ArrayList<Task> tasks = new ArrayList<Task>();
+			ArrayList<String> columnTaskIDs = (ArrayList<String>)jcolumn.get(COLUMN_TASK_IDS);
+			for (String cTaskID : columnTaskIDs) {
+				for (JSONObject jtask : jsonTasks) {
+					if (UUID.fromString((String)jtask.get(TASK_ID)) == UUID.fromString(cTaskID)) {
+						tasks.add(makeTask(jtask));
+					}
+				}
+			}
+		} else {
+			// if, for some reason, a column's JSONObject was not passed in:
+			return new Column("error", "default", new ArrayList<Task>(), new ArrayList<Comment>());
+		}
+	}
+
+	/**
+	 * 
+	 * @param jtask
+	 * @return
+	 */
+	public Task makeTask(JSONObject jtask) {
+		String name = (String)jtask.get(TASK_NAME);
+		if (name != null) {
+			UUID id = UUID.fromString((String)jtask.get(TASK_ID));
+			int priority = (int)jtask.get(TASK_PRIORITY); // TODO: make sure this works
+			String status = (String)jtask.get(TASK_STATUS);
+			String description = (String)jtask.get(TASK_DESCRIPTION);
+			// assignee
+			User assignee;
+			UUID assigneeID = UUID.fromString((String)jtask.get(TASK_ASSIGNEE));
+			for (User user : users) {
+				if (user.getID() == assigneeID) {
+					assignee = user;
+				}
+			}
+			// taskHistory
+			TaskHistory taskHistory;
+			UUID taskHistoryID = (UUID.fromString((String)jtask.get(TASK_TASK_HISTORY_ID)));
+			for (JSONObject jTaskHistory : jsonTaskHistories) {
+				if (UUID.fromString((String)jTaskHistory.get(TASK_HISTORY_ID)) == taskHistoryID) {
+					taskHistory = makeTaskHistory(jTaskHistory);
+				}
+			}
+			// comments
+			ArrayList<Comment> comments = new ArrayList<Comment>();
+			ArrayList<String> taskCommentIDs = (ArrayList<String>)jtask.get(TASK_COMMENT_IDS);
+			for (String tComID : taskCommentIDs) {
+				for (JSONObject jComment : jsonComments) {
+					if (UUID.fromString((String)jtask.get(COLUMN_ID)) == UUID.fromString(tComID)) {
+						comments.add(makeComment(jComment));
+					}
+				}
+			}
+		} else {
+			// if, for some reason, a task's JSONObject was not passed in:
+			return new Task("error", users.get(0), 1, "error", "error", new ArrayList<Comment>());
+		}
+	}
+
+	/**
+	 * 
+	 * @param jTaskHistory
+	 * @return
+	 */
+	public TaskHistory makeTaskHistory(JSONObject jTaskHistory) {
+		String historyID = (String)jTaskHistory.get(TASK_HISTORY_ID);
+		if (historyID != null) {
+			UUID id = UUID.fromString(historyID);
+			UUID taskID = UUID.fromString((String)jTaskHistory.get(TASK_TASK_HISTORY_ID));
+			LocalDateTime creationDate = LocalDateTime.parse((String)jTaskHistory.get(TASK_HISTORY_CREATION_DATE));
+			ArrayList<String> nameChanges = (ArrayList<String>)jTaskHistory.get(TASK_HISTORY_NAME_CHANGES);
+			ArrayList<String> descriptionChanges = (ArrayList<String>)jTaskHistory.get(TASK_HISTORY_DESCRIPTION_CHANGES);
+			ArrayList<String> moveChanges = (ArrayList<String>)jTaskHistory.get(TASK_HISTORY_MOVE_CHANGES);
+			ArrayList<String> assigneeChanges = (ArrayList<String>)jTaskHistory.get(TASK_HISTORY_ASSIGNEE_CHANGES);
+			ArrayList<String> priorityChanges = (ArrayList<String>)jTaskHistory.get(TASK_HISTORY_PRIORITY_CHANGES);
+			ArrayList<String> statusChanges = (ArrayList<String>)jTaskHistory.get(TASK_HISTORY_STATUS_CHANGES);
+
+			return new TaskHistory(id, taskID, creationDate, nameChanges, descriptionChanges, moveChanges, assigneeChanges, priorityChanges, statusChanges);
+		} else {
+			// if, for some reason, a TaskHistory JSONObject was not passed in, it returns null. A new TaskHistory will be created in the Task constructor
+			return null;
+		}
+	}
+
+	public Comment makeComment(JSONObject jComment) {
+		String message = (String)jComment.get(COMMENT_MESSAGE);
+		if (message != null) {
+			
+		} else {
+			// TODO: figure out what should happen
+		}
 	}
 
 	/**
@@ -297,7 +398,7 @@ public class DataLoader extends DataConstants {
 		  return null;
 	  }
 
-	/**
+	 /**
 	 * Accesses and displays all tasks via JSON file reading and loading
 	 * @author Duayne
 	 * @return ArrayList object containing all column's tasks
