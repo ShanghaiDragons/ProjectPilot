@@ -12,314 +12,349 @@ import org.json.simple.parser.JSONParser;
  * The DataLoader class. Loads the data and acts as a medium between the database and the rest of the code
  */
 public class DataLoader extends DataConstants {
+	private static DataLoader dataLoaderInstance;
+	private JSONArray userFile;
+	private ArrayList<User> users;
+	private JSONArray projectFile;
+	private ArrayList<JSONObject> jsonProjects;
+	private ArrayList<JSONObject> jsonColumns;
+	private ArrayList<JSONObject> jsonTasks;
+	private ArrayList<JSONObject> jsonTaskHistories;
+	private ArrayList<JSONObject> jsonComments;
+
+	/**
+	 * DataLoader constructor. Populates the class variables so that the json files are only have to be loaded once.
+	 * @author ctaks
+	 */
+	public DataLoader() {
+		userFile = new JSONArray();
+		projectFile = new JSONArray();
+		this.users = new ArrayList<User>();
+		this.jsonProjects = new ArrayList<JSONObject>();
+		this.jsonColumns = new ArrayList<JSONObject>();
+		this.jsonTasks = new ArrayList<JSONObject>();
+		this.jsonTaskHistories = new ArrayList<JSONObject>();
+		this.jsonComments = new ArrayList<JSONObject>();
+		setUsers();
+		setProjectObjects();
+	}
+
+	/**
+	 * Gets/creates a static instance of DataLoader. This is so things are only ever loaded once.
+	 * @author ctaks
+	 * @return DataLoader static instance
+	 */
+	public static DataLoader getInstance() {
+		if (dataLoaderInstance == null) {
+			dataLoaderInstance = new DataLoader();
+		}
+		return dataLoaderInstance;
+	}
 
     /**
 	 * Accesses and displays all users via JSON file reading and loading
-	 * @author Duayne
-	 * @return ArrayList object containing all registered users
+	 * @author Duayne (edited by ctaks)
+	 * @return ArrayList<User> of all users from the JSON file
 	 */
-    public static ArrayList<User> getUsers() {
-		ArrayList<User> users = new ArrayList<User>();
-  
+    public boolean setUsers() {
 		try {
-			  FileReader reader = new FileReader(USER_FILE_NAME);
-			  JSONParser parser = new JSONParser();	
-			  JSONArray peopleJSON = (JSONArray)new JSONParser().parse(reader);
+			// read the user file
+			this.userFile = (JSONArray)new JSONParser().parse(new FileReader(USER_FILE_NAME));
 			  
-			  for(int i=0; i < peopleJSON.size(); i++) {
-				  JSONObject personJSON = (JSONObject)peopleJSON.get(i);
-				  UUID id = UUID.fromString((String)personJSON.get(USER_ID));
-				  String userName = (String)personJSON.get(USER_USER_NAME);
-				  String firstName = (String)personJSON.get(USER_FIRST_NAME);
-				  String lastName = (String)personJSON.get(USER_LAST_NAME);
-				  String password = (String)personJSON.get(USER_PASSWORD);
-				  boolean permissionToAddTask = (boolean)personJSON.get(USER_ADD_TASK);
-				  boolean permissionToMoveTask = (boolean)personJSON.get(USER_MOVE_TASK);
-				  boolean permissionToEditTask = (boolean)personJSON.get(USER_EDIT_TASK);
-				  boolean permissionToEditColumns = (boolean)personJSON.get(USER_EDIT_COLUMN);
-				  User user = new User(id, userName, firstName, lastName, password, permissionToAddTask, permissionToMoveTask, permissionToEditTask, permissionToEditColumns);
-				  if (!users.contains(user))
-				  	users.add(user);
-			  }
+			// Interates over the userFile and adds users to an ArrayList<User>
+			if (userFile != null && userFile.size() > 0) {
+				for(int i=0; i < userFile.size(); i++) {
+					JSONObject userObject = (JSONObject)userFile.get(i);
+					UUID id = UUID.fromString((String)userObject.get(USER_ID));
+					String userName = (String)userObject.get(USER_USER_NAME);
+					String firstName = (String)userObject.get(USER_FIRST_NAME);
+					String lastName = (String)userObject.get(USER_LAST_NAME);
+					String password = (String)userObject.get(USER_PASSWORD);
+					boolean permissionToAddTask = (boolean)userObject.get(USER_ADD_TASK);
+					boolean permissionToMoveTask = (boolean)userObject.get(USER_MOVE_TASK);
+					boolean permissionToEditTask = (boolean)userObject.get(USER_EDIT_TASK);
+					boolean permissionToEditColumns = (boolean)userObject.get(USER_EDIT_COLUMN);
+					User user = new User(id, userName, firstName, lastName, password, permissionToAddTask, permissionToMoveTask, permissionToEditTask, permissionToEditColumns);
+					if (!this.users.contains(user)) {
+						this.users.add(user);
+						//this.userFile.remove(i);
+					}
+				}
+				return true;
+			}	
 			  
-			  return users;
-			  
-		  } catch (Exception e) {
-			  e.printStackTrace();
-		  }
-		  
-		  return null;
-	  }
-  
-	  /**
-	   * Accesses and displays all projects via JSON file reading and loading
-	   * @author Duayne
-	   * @return ArrayList object containing all projects
-	   */
-	  public static ArrayList<Project> getProjects() {
-		  ArrayList<Project> projects = new ArrayList<Project>();
-  
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (users == null || users.size() < 1) {
+			this.users = new ArrayList<User>();
+		}
+		return false;
+	}
+	
+	/**
+	 * Getter for the list of users
+	 * @author ctaks
+	 * @return ArrayList<User> of the users loaded from json
+	 */
+	public ArrayList<User> getUsers() {
+		return this.users;
+	}
+
+	/**
+	 * Read the JSON file and loads all the data from it into respective ArrayList<JSONObject>s
+	 * @author ctaks
+	 * @return boolean determining success
+	 */
+	public boolean setProjectObjects() {
 		try {
-			  FileReader reader = new FileReader(PROJECT_FILE_NAME);
-			  JSONParser parser = new JSONParser();	
-			  JSONArray projectsJSON = (JSONArray)new JSONParser().parse(reader);
+			projectFile = (JSONArray)new JSONParser().parse(new FileReader(PROJECT_FILE_NAME));
 			
-			  for(int i=0; i < projectsJSON.size(); i++) {
-				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
-				  String projectName = (String)projectJSON.get(PROJECT_NAME);
+			if (projectFile != null && projectFile.size() > 0) {
+				for(int i = 0; i < projectFile.size(); i++) {
+					JSONObject JObj = (JSONObject)projectFile.get(i);
+					// Projects
+					String projectName = (String)JObj.get(PROJECT_NAME);
 					if (projectName != null) {
-						UUID id = UUID.fromString((String)projectJSON.get(PROJECT_ID));
-						ArrayList<User> team = new ArrayList<User>();
-						ArrayList<String> tempTeam = (ArrayList<String>)projectJSON.get(PROJECT_TEAM);
-						for(int j = 0; j < tempTeam.size(); j++)
-							if (UUID.fromString(tempTeam.get(j)).equals(getUsers().get(j).getID()))
-								team.add(getUsers().get(j));
-						ArrayList<Column> columns = new ArrayList<Column>();
-						ArrayList<String> tempColumns = (ArrayList<String>)projectJSON.get(PROJECT_COLUMN_IDS);
-						for(int j = 0; j < getColumns().size(); j++)
-							for(int k = 0; k < tempColumns.size(); k++)
-								if (UUID.fromString(tempColumns.get(k)).equals(getColumns().get(j).getID()))
-									columns.add(getColumns().get(j));
-						String start = (String)projectJSON.get(PROJECT_START_SPRINT);
-						LocalDate startSprint = LocalDate.parse(start);
-						String end = (String)projectJSON.get(PROJECT_END_SPRINT);
-						LocalDate endSprint = LocalDate.parse(end);
-						ArrayList<Comment> comments = new ArrayList<Comment>();
-						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(PROJECT_COMMENT_IDs);
-						for(int j = 0; j < getComments().size(); j++) {
-							for (int k = 0; k < tempComments.size(); k++) {
-								if (UUID.fromString(tempComments.get(k)).equals(getComments().get(j).getID())) {
-									comments.add(getComments().get(j));
-								}
-							}
-						}
-						projects.add(new Project(id, projectName, startSprint, endSprint, team, columns, comments));
+						jsonProjects.add(JObj);
 					}
-			  }
-			  
-			  return projects;
-			  
-		  } catch (Exception e) {
-			  e.printStackTrace();
-		  }
-		  
-		  return null;
-	  }
-
-	/**
-	 * Accesses and displays all Columns via JSON file reading and loading
-	 * @author Duayne
-	 * @return ArrayList object containing all project's columns
-	 */
-	  public static ArrayList<Column> getColumns() {
-		  ArrayList<Column> columns = new ArrayList<Column>();
-  
-		try {
-			  FileReader reader = new FileReader(PROJECT_FILE_NAME);
-			  JSONParser parser = new JSONParser();	
-			  JSONArray projectsJSON = (JSONArray)new JSONParser().parse(reader);
-			
-			
-			  for(int i=0; i < projectsJSON.size(); i++) {
-				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
-				  String name = (String)projectJSON.get(COLUMN_NAME);
-					if (name != null) {
-						UUID id = UUID.fromString((String)projectJSON.get(COLUMN_ID));
-						ArrayList<Task> tasks = new ArrayList<Task>();
-						ArrayList<String> tempTasks = (ArrayList<String>)projectJSON.get(COLUMN_TASK_IDS);
-						for (int k = 0; k < tempTasks.size(); k++)
-							for(int j = 0; j < getTasks().size(); j++)
-								if (UUID.fromString(tempTasks.get(k)).equals((getTasks().get(j).getID())))
-									tasks.add(getTasks().get(j));
-						String sortType = (String)projectJSON.get(COLUMN_SORT_TYPE);
-						ArrayList<Comment> comments = new ArrayList<Comment>();
-						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(COLUMN_COMMENT_IDS);
-						for(int j = 0; j < getComments().size(); j++) {
-							for (int k = 0; k < tempComments.size(); k++) {
-								if (UUID.fromString(tempComments.get(k)).equals(getComments().get(j).getID())) {
-									comments.add(getComments().get(j));
-								}
+					// Columns
+					else if(projectName == null) {
+						String columnName = (String)JObj.get(COLUMN_NAME);
+						if (columnName != null) {
+							jsonColumns.add(JObj);
+						}
+						// Tasks
+						else if (columnName == null) {
+							String taskName = (String)JObj.get(TASK_NAME);
+							if (taskName != null) {
+								jsonTasks.add(JObj);
 							}
-						}
-						columns.add(new Column(id, name, sortType, tasks, comments));
-					}
-			  }
-			  
-			  return columns;
-			  
-		  } catch (Exception e) {
-			  e.printStackTrace();
-		  }
-		  
-		  return null;
-	  }
-
-	/**
-	 * Accesses and displays all comments via JSON file reading and loading
-	 * @author Duayne
-	 * @return ArrayList object containing all comments
-	 */
-	  public static ArrayList<Comment> getComments() {
-		  ArrayList<Comment> comments = new ArrayList<Comment>();
-  
-		try {
-			  FileReader reader = new FileReader(PROJECT_FILE_NAME);
-			  JSONParser parser = new JSONParser();	
-			  JSONArray projectsJSON = (JSONArray)new JSONParser().parse(reader);
-			
-			  for(int i=0; i < projectsJSON.size(); i++) {
-				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
-					String message = (String)projectJSON.get(COMMENT_MESSAGE);
-				  if (message != null) {
-						UUID commentID = UUID.fromString((String)projectJSON.get(COMMENT_ID));
-						UUID userId = UUID.fromString((String)projectJSON.get(COMMENT_USER_ID));
-						User user = null;
-						for (User x : getUsers()) {
-							if (x.getID().equals(userId))
-								user = x;
-						}
-						String time = (String)projectJSON.get(COMMENT_DATE);
-						LocalDateTime commentDate = LocalDateTime.parse(time);
-						ArrayList<Comment> commentList = new ArrayList<Comment>();
-							ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(COMMENT_THREAD_IDs);
-							//for(int j = 0; j < getComments().size(); j++) {
-								//for(int j = 0; i < 3; j++) {  // HARD CODED FOR SCENARIO :) TODO: fix later!!
-									//System.out.println("test");
-								// for (int k = 0; k < tempComments.size(); k++) {
-								for (int k = 0; k < tempComments.size(); k++) {
-									if (UUID.fromString(tempComments.get(k)).equals(getComments().get(k).getID())) {
-										commentList.add(getComments().get(k));
+							// TaskHistories
+							else if (taskName == null) {
+								String taskHistoryID = (String)JObj.get(TASK_HISTORY_ID);
+								if (taskHistoryID != null) {
+									jsonTaskHistories.add(JObj);
+								}
+								// Comments
+								else if (taskHistoryID == null) {
+									String message = (String)JObj.get(COMMENT_MESSAGE);
+									if (message != null) {
+										jsonComments.add(JObj);
 									}
 								}
-							//}
-						comments.add(new Comment(commentID, user, commentDate, message, commentList));
-			  	}
-				}
-			
-			// for (Comment c : comments)
-				// System.out.println(c.getMessage());
-			
-			  return comments;
-			  
-		  } catch (Exception e) {
-			  e.printStackTrace();
-		  }
-		  
-		  return null;
-	  }
-
-	/**
-	 * Accesses and displays all tasks via JSON file reading and loading
-	 * @author Duayne
-	 * @return ArrayList object containing all column's tasks
-	 */
-	  public static ArrayList<Task> getTasks() {
-		  ArrayList<Task> tasks = new ArrayList<Task>();
-  
-		try {
-			  FileReader reader = new FileReader(PROJECT_FILE_NAME);
-			  JSONParser parser = new JSONParser();	
-			  JSONArray projectsJSON = (JSONArray)new JSONParser().parse(reader);
-			
-			  for(int i=0; i < projectsJSON.size(); i++) {
-				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
-				  String name = (String)projectJSON.get(TASK_NAME);
-					if (name != null) {
-						UUID id = UUID.fromString((String)projectJSON.get(TASK_ID));
-						UUID assigneeId = UUID.fromString((String)projectJSON.get(TASK_ASSIGNEE));
-						User assignee = null;
-						for (User user : getUsers()) {
-							if (user.getID().equals(assigneeId))
-								assignee = user;
-						}
-						String num = (String)projectJSON.get(TASK_PRIORITY);
-						int priority = Integer.parseInt(num);
-						String status = (String)projectJSON.get(TASK_STATUS);
-						String description = (String)projectJSON.get(TASK_DESCRIPTION);
-						TaskHistory taskHistory = null;
-						UUID taskHistoryID = (UUID.fromString((String)projectJSON.get(TASK_TASK_HISTORY_ID)));
-						//TODO: fix later
-						for (int j = 0; j < getTaskHistory().size(); j++)
-							if (taskHistoryID.equals(getTaskHistory().get(j).getID()))
-								taskHistory = getTaskHistory().get(j);
-						ArrayList<Comment> comments = new ArrayList<Comment>();
-						ArrayList<String> tempComments = (ArrayList<String>)projectJSON.get(TASK_COMMENT_IDS);
-						for(int j = 0; j < getComments().size(); j++) {
-							for (int k = 0; k < tempComments.size(); k++) {
-								if (UUID.fromString(tempComments.get(k)).equals(getComments().get(j).getID())) {
-									comments.add(getComments().get(j));
-								}
 							}
 						}
-						Task task = new Task(id, name, assignee, priority, status, description, taskHistory, comments);
-						tasks.add(task);
 					}
-			  }
+				}
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+  
+	/**
+	* Accesses and displays all projects via JSON file reading and loading
+	* @author Duayne (rewritten by ctaks)
+	* @return ArrayList object containing all projects
+	*/
+	public ArrayList<Project> getProjects() {
+		ArrayList<Project> projectList = new ArrayList<Project>();
+		try {	
+			for(JSONObject jProject : jsonProjects) {
+				String projectName = (String)jProject.get(PROJECT_NAME);
+				if (projectName != null) {
+					UUID id = UUID.fromString((String)jProject.get(PROJECT_ID));
+					LocalDate startSprint = LocalDate.parse((String)jProject.get(PROJECT_START_SPRINT));
+					LocalDate endSprint = LocalDate.parse((String)jProject.get(PROJECT_END_SPRINT));
+					// Teams
+					ArrayList<User> team = new ArrayList<User>();
+					ArrayList<String> jsonTeam = (ArrayList<String>)jProject.get(PROJECT_TEAM);
+					for(String jTeamID : jsonTeam) {
+						for (User user : this.users) {
+							if (user.getID().equals(UUID.fromString(jTeamID))) {
+								team.add(user);
+							}
+						}
+					}
+					// Columns
+					ArrayList<Column> columns = new ArrayList<Column>();
+					ArrayList<String> projectColumnIDs = (ArrayList<String>)jProject.get(PROJECT_COLUMN_IDS);
+					for (String pColID : projectColumnIDs) {
+						for (JSONObject jcolumn : this.jsonColumns) {
+							if (UUID.fromString(pColID).equals(UUID.fromString((String)jcolumn.get(COLUMN_ID)))) {
+								columns.add(makeColumn(jcolumn));
+							}
+						}
+					}
+					// Comments
+					ArrayList<Comment> comments = new ArrayList<Comment>();
+					ArrayList<String> projectCommentIDs = (ArrayList<String>)jProject.get(PROJECT_COMMENT_IDs);
+					for (String pComID : projectCommentIDs) {
+						for (JSONObject jComment : this.jsonComments) {
+							if (UUID.fromString(pComID).equals(UUID.fromString((String)jComment.get(COMMENT_ID)))) {
+								comments.add(makeComment(jComment));
+							}
+						}
+					}
+					projectList.add(new Project(id, projectName, startSprint, endSprint, team, columns, comments));
+				}
+			}
+			return projectList;
 			  
-			  return tasks;
-			  
-		  } catch (Exception e) {
-			  e.printStackTrace();
-		  }
-		  
-		  return null;
-	  }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	/**
-	 * Accesses and displays the task history via JSON file reading and loading
-	 * @author Duayne
-	 * @return ArrayList object containing a task's history
+	 * Loads a column's data by passing in its json data
+	 * @author ctaks
+	 * @param jcolumn json data to be turned into a column
+	 * @return Column column of the passed in json data
 	 */
-	  public static ArrayList<TaskHistory> getTaskHistory() {
-		ArrayList<TaskHistory> list = new ArrayList<TaskHistory>();
-		try {
-			  FileReader reader = new FileReader(PROJECT_FILE_NAME);
-			  JSONParser parser = new JSONParser();	
-			  JSONArray projectsJSON = (JSONArray)new JSONParser().parse(reader);
-			
-			  for(int i=0; i < projectsJSON.size(); i++) {
-				  JSONObject projectJSON = (JSONObject)projectsJSON.get(i);
-				  String historyID = (String)projectJSON.get(TASK_HISTORY_ID);
-					if (historyID != null) {
-						String date = (String)projectJSON.get(TASK_HISTORY_CREATION_DATE);
-						LocalDateTime creationDate = LocalDateTime.parse(date);
-						UUID id = UUID.fromString((String)projectJSON.get(TASK_HISTORY_ID));
-						UUID taskID = UUID.fromString((String)projectJSON.get(TASK_HISTORY_TASK_ID));
-						ArrayList<String> nameChanges = new ArrayList<String>();
-						ArrayList<String> tempNameChanges = (ArrayList<String>)projectJSON.get(TASK_HISTORY_NAME_CHANGES);
-						for(int j = 0; j < tempNameChanges.size() - 1; j++)
-						nameChanges.add(tempNameChanges.get(j));
-						ArrayList<String> descriptionChanges = new ArrayList<String>();
-						ArrayList<String> tempDescriptionChanges = (ArrayList<String>)projectJSON.get(TASK_HISTORY_DESCRIPTION_CHANGES);
-						for(int j = 0; j < tempDescriptionChanges.size() - 1; j++)
-						descriptionChanges.add(tempDescriptionChanges.get(j));
-						ArrayList<String> moveChanges = new ArrayList<String>();
-						ArrayList<String> tempMoveChanges = (ArrayList<String>)projectJSON.get(TASK_HISTORY_MOVE_CHANGES);
-						for(int j = 0; j < tempMoveChanges.size() - 1; j++)
-						moveChanges.add(tempMoveChanges.get(j));
-						ArrayList<String> assigneeChanges = new ArrayList<String>();
-						ArrayList<String> tempAssigneeChanges = (ArrayList<String>)projectJSON.get(TASK_HISTORY_ASSIGNEE_CHANGES);
-						for(int j = 0; j < tempAssigneeChanges.size() - 1; j++)
-						assigneeChanges.add(tempAssigneeChanges.get(j));
-						ArrayList<String> priorityChanges = new ArrayList<String>();
-						ArrayList<String> tempPriorityChanges = (ArrayList<String>)projectJSON.get(TASK_HISTORY_PRIORITY_CHANGES);
-						for(int j = 0; j < tempDescriptionChanges.size() - 1; j++)
-						priorityChanges.add(tempDescriptionChanges.get(j));
-						ArrayList<String> statusChanges = new ArrayList<String>();
-						ArrayList<String> tempStatusChanges = (ArrayList<String>)projectJSON.get(TASK_HISTORY_PRIORITY_CHANGES);
-						for(int j = 0; j < tempStatusChanges.size() - 1; j++)
-						statusChanges.add(tempStatusChanges.get(j));
-						TaskHistory taskHistory = new TaskHistory(id, taskID, creationDate, tempNameChanges, tempDescriptionChanges, tempMoveChanges, tempAssigneeChanges, tempPriorityChanges, tempStatusChanges);
-						list.add(taskHistory);
+	public Column makeColumn(JSONObject jcolumn) {
+		String name = (String)jcolumn.get(COLUMN_NAME);
+		if (name != null) {
+			UUID id = UUID.fromString((String)jcolumn.get(COLUMN_ID));
+			String sortType = (String)jcolumn.get(COLUMN_SORT_TYPE);
+			// tasks
+			ArrayList<Task> tasks = new ArrayList<Task>();
+			ArrayList<String> columnTaskIDs = (ArrayList<String>)jcolumn.get(COLUMN_TASK_IDS);
+			for (String cTaskID : columnTaskIDs) {
+				for (JSONObject jtask : jsonTasks) {
+					if (UUID.fromString(cTaskID).equals(UUID.fromString((String)jtask.get(TASK_ID)))) {
+						tasks.add(makeTask(jtask));
 					}
-			  }
-			  
-			  return list;
-			  
-		  } catch (Exception e) {
-			  e.printStackTrace();
-		  }
-		  
-		  return null;
-	  }
+				}
+			}
+			// comments
+			ArrayList<Comment> comments = new ArrayList<Comment>();
+			ArrayList<String> columnCommentIDs = (ArrayList<String>)jcolumn.get(COLUMN_COMMENT_IDS);
+			for (String cComID : columnCommentIDs) {
+				for (JSONObject jComment : jsonComments) {
+					if (UUID.fromString(cComID).equals(UUID.fromString((String)jComment.get(COMMENT_ID)))) {
+						comments.add(makeComment(jComment));
+					}
+				}
+			}
+			return new Column(id, name, sortType, tasks, comments);
+		} else {
+			// if, for some reason, a column's JSONObject was not passed in:
+			return new Column("error", "default", new ArrayList<Task>(), new ArrayList<Comment>());
+		}
 	}
+
+	/**
+	 * Loads a task from the given task JSONObject
+	 * @author ctaks
+	 * @param jtask to be loaded
+	 * @return Task task loaded from the JSONObject
+	 */
+	public Task makeTask(JSONObject jtask) {
+		String name = (String)jtask.get(TASK_NAME);
+		if (name != null) {
+			UUID id = UUID.fromString((String)jtask.get(TASK_ID));
+			int priority = Integer.parseInt((String)jtask.get(TASK_PRIORITY));
+			String status = (String)jtask.get(TASK_STATUS);
+			String description = (String)jtask.get(TASK_DESCRIPTION);
+			// assignee
+			User assignee = null;
+			UUID assigneeID = UUID.fromString((String)jtask.get(TASK_ASSIGNEE));
+			for (User user : users) {
+				if (user.getID().equals(assigneeID)) {
+					assignee = user;
+				}
+			}
+			// taskHistory
+			TaskHistory taskHistory = null;
+			UUID taskHistoryID = (UUID.fromString((String)jtask.get(TASK_TASK_HISTORY_ID)));
+			for (JSONObject jTaskHistory : jsonTaskHistories) {
+				if (UUID.fromString((String)jTaskHistory.get(TASK_HISTORY_ID)).equals(taskHistoryID)) {
+					taskHistory = makeTaskHistory(jTaskHistory);
+				}
+			}
+			// comments
+			ArrayList<Comment> comments = new ArrayList<Comment>();
+			ArrayList<String> taskCommentIDs = (ArrayList<String>)jtask.get(TASK_COMMENT_IDS);
+			for (String tComID : taskCommentIDs) {
+				for (JSONObject jComment : jsonComments) {
+					if (UUID.fromString(tComID).equals(UUID.fromString((String)jComment.get(COMMENT_ID)))) {
+						comments.add(makeComment(jComment));
+					}
+				}
+			}
+			return new Task(id, name, assignee, priority, status, description, taskHistory, comments);
+		} else {
+			// if, for some reason, a task's JSONObject was not passed in:
+			return new Task("error", users.get(0), 1, "error", "error", new ArrayList<Comment>());
+		}
+	}
+
+	/**
+	 * Loads a task's history from the given TaskHistory JSONObject
+	 * @author ctaks
+	 * @param jTaskHistory to be loaded
+	 * @return TaskHistory task history loaded from the JSONObject
+	 */
+	public TaskHistory makeTaskHistory(JSONObject jTaskHistory) {
+		String historyID = (String)jTaskHistory.get(TASK_HISTORY_ID);
+		if (historyID != null) {
+			UUID id = UUID.fromString(historyID);
+			UUID taskID = UUID.fromString((String)jTaskHistory.get(TASK_HISTORY_TASK_ID));
+			LocalDateTime creationDate = LocalDateTime.parse((String)jTaskHistory.get(TASK_HISTORY_CREATION_DATE));
+			ArrayList<String> nameChanges = (ArrayList<String>)jTaskHistory.get(TASK_HISTORY_NAME_CHANGES);
+			ArrayList<String> descriptionChanges = (ArrayList<String>)jTaskHistory.get(TASK_HISTORY_DESCRIPTION_CHANGES);
+			ArrayList<String> moveChanges = (ArrayList<String>)jTaskHistory.get(TASK_HISTORY_MOVE_CHANGES);
+			ArrayList<String> assigneeChanges = (ArrayList<String>)jTaskHistory.get(TASK_HISTORY_ASSIGNEE_CHANGES);
+			ArrayList<String> priorityChanges = (ArrayList<String>)jTaskHistory.get(TASK_HISTORY_PRIORITY_CHANGES);
+			ArrayList<String> statusChanges = (ArrayList<String>)jTaskHistory.get(TASK_HISTORY_STATUS_CHANGES);
+
+			return new TaskHistory(id, taskID, creationDate, nameChanges, descriptionChanges, moveChanges, assigneeChanges, priorityChanges, statusChanges);
+		} else {
+			// if, for some reason, a TaskHistory JSONObject was not passed in, it returns null. A new TaskHistory will be created in the Task constructor
+			return null;
+		}
+	}
+
+	/**
+	 * Loads a comment from the given comment JSONObject. Recursively calls itself for threaded comments.
+	 * @author ctaks
+	 * @param jComment to be loaded
+	 * @return Comment comment loaded from the JSONObject
+	 */
+	public Comment makeComment(JSONObject jComment) {
+		String message = (String)jComment.get(COMMENT_MESSAGE);
+		if (message != null) {
+			UUID id = UUID.fromString((String)jComment.get(COMMENT_ID));
+			// User
+			User commenter = null;
+			UUID userID = UUID.fromString((String)jComment.get(COMMENT_USER_ID));
+			for (User user : users) {
+				if (user.getID().equals(userID)) {
+					commenter = user;
+				}
+			}
+			LocalDateTime date = LocalDateTime.parse((String)jComment.get(COMMENT_DATE));
+			// Threaded comments (otherwise known as comment comments)
+			ArrayList<Comment> thread = new ArrayList<Comment>();
+			ArrayList<String> commentIDs = (ArrayList<String>)jComment.get(COMMENT_THREAD_IDs);
+			if (commentIDs != null && !commentIDs.isEmpty()) {
+				for (String cComID : commentIDs) {
+					for (JSONObject jCComment : jsonComments) {
+						if (UUID.fromString(cComID).equals(UUID.fromString((String)jCComment.get(COMMENT_ID)))) {
+							thread.add(makeComment(jCComment));
+						}
+					}
+				}
+			}
+			return new Comment(id, commenter, date, message, thread);
+		} else {
+			// if, for some reason, a comment's JSONObject was not passed in:
+			return new Comment(users.get(0), "error");
+		}
+	}
+}

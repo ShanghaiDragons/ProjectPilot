@@ -6,13 +6,15 @@ import java.util.ArrayList;
 public class ProjectList {
     private static ProjectList projectListInstance;
     private ArrayList<Project> projects;
+    private DataLoader dataLoader;
 
     /**
      * ProjectList constructor. Uses DataLoader to initialize the projects
      * @author ctaks
      */
     private ProjectList() {
-        projects = DataLoader.getProjects();
+        dataLoader = DataLoader.getInstance();
+        projects = dataLoader.getProjects();
         if (projects == null) {
             projects = new ArrayList<Project>();
         }
