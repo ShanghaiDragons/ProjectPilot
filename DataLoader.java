@@ -23,7 +23,7 @@ public class DataLoader extends DataConstants {
 	private ArrayList<JSONObject> jsonComments;
 
 	/**
-	 * DataLoader constructor. Populates the class variables once so that the json files are only have to be loaded once.
+	 * DataLoader constructor. Populates the class variables so that the json files are only have to be loaded once.
 	 * @author ctaks
 	 */
 	public DataLoader() {
@@ -39,6 +39,11 @@ public class DataLoader extends DataConstants {
 		setProjectObjects();
 	}
 
+	/**
+	 * Gets/creates a static instance of DataLoader. This is so things are only ever loaded once.
+	 * @author ctaks
+	 * @return DataLoader static instance
+	 */
 	public static DataLoader getInstance() {
 		if (dataLoaderInstance == null) {
 			dataLoaderInstance = new DataLoader();
