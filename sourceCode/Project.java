@@ -1,3 +1,4 @@
+package sourceCode;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -365,12 +366,16 @@ public class Project {
     
     /**
      * Moves a task from one column to another column
+     * @author ctaks
      * @param sourceColumn task origin
      * @param destinationColumn task destination
      * @param task to be moved
      * @return boolean determining success of both move and deletion of task from source column
      */
     public boolean moveTask(Column sourceColumn, Column destinationColumn, Task task) {
+        if (sourceColumn.getID().equals(destinationColumn.getID())) {
+            return true; // If the source/destination columns are the same, the task is already "moved".
+        }
         if (getColumn(destinationColumn.getID()).addTask(getColumn(sourceColumn.getID()).getTask(task.getID())))
             return getColumn(sourceColumn.getID()).getTasks().remove(task);
         else

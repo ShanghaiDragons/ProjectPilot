@@ -1,11 +1,15 @@
 package Testing;
 
+import sourceCode.*;
+
+
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import Column;
@@ -15,25 +19,28 @@ import Task;
 import User;
 
 public class ProjectTest {
-    private Project project;
+    private Project testProject;
     private ArrayList<User> team;
     private ArrayList<Column> columnlist;
     private ArrayList<Comment> commentlist;
     private ArrayList<Task> tasklist;
+    private User scrumMaster;
+    private User viewer;
+    private User collaborator;
 
-    Column ToDo = new Column("To Do", "alphabetical", tasklist, commentlist);
-    Column InProgress = new Column("In Progress", "alphabetical", tasklist, commentlist);
-    Column Done = new Column("Done", "alphabetical", tasklist, commentlist);
+    @Before
+    public void setUp() {
+        ArrayList<User> team = new ArrayList<>();
+        ArrayList<Column> columnlist = new ArrayList<>();
+        ArrayList<Comment> commentlist = new ArrayList<>();
+        Project testProject = new Project("ProjectTest", LocalDate.now(), LocalDate.now(), team, columnlist, commentlist);
+        User scrumMaster = new User("Scrum", "Master", "sMaster", "password", true, true, true, true);
+        User collaborator = new User("Collab", "Borator", "cBorator", "password", false, true, true, false);
+        User viewer = new User("Vi", "Ewer", "vEwer", "password", false, false, false, false);
+    }
     //Adding a scrum master to the team
     @Test
     public void addUsers(){
-        Project testProject = new Project("ProjectTest",LocalDate.now(), LocalDate.now(),team, columnlist, commentlist);
-        
-        //initializing different types of users
-        User scrumMaster = new User("Scrum", "Master", "sMaster","password", true,true,true,true);
-        User collaborator = new User ("Collab","Borator", "cBorator", "password", false, true, true, false);
-        User viewer = new User ("Vi", "Ewer", "vEwer", "password", false, false, false, false);
-        
         //checking to see if they are added to the project user list 
         assertTrue(testProject.addTeamMember(scrumMaster, UserType.SCRUM_MASTER));
         assertTrue(testProject.addTeamMember(collaborator, UserType.COLLABORATOR));
@@ -53,9 +60,8 @@ public class ProjectTest {
     //remove user when one user is in the project 
     @Test
     public void TestRemoveUser(){
-        Project testProject = new Project("ProjectTest",LocalDate.now(), LocalDate.now(),team, columnlist, commentlist);
         User user = new User("John", "Doe", "jdoe", "password", true,true,true,true);
-        project.addTeamMember(user, UserType.SCRUM_MASTER);
+        testProject.addTeamMember(user, UserType.SCRUM_MASTER);
         assertTrue(testProject.removeUser(user));
     }
 

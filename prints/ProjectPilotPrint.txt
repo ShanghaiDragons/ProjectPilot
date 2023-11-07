@@ -12,5 +12,7 @@
         [TASK]: Make impossible burger possible [Assignee]: Atticus
 
 [Project]: Soap Free Washers
+    [Column]: To Do
+        [TASK]: Figure out a sustainable soap replacement [Assignee]: Atticus
 
 [Project]: Air Computers

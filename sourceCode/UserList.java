@@ -1,15 +1,18 @@
+package sourceCode;
 import java.util.ArrayList;
 
 public class UserList {
     private static UserList userListInstance;
     private ArrayList<User> users;
+    private DataLoader dataLoader;
 
     /**
      * UserList constructor. Uses DataLoader to initialize the users
      * @author ctaks
      */
     private UserList() {
-        users = DataLoader.getUsers();
+        dataLoader = DataLoader.getInstance();
+        users = dataLoader.getUsers();
         if (users == null) {
             users = new ArrayList<User>();
         }
