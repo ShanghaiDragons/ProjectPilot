@@ -9,11 +9,6 @@
             [Task Comment Threaded Comment]: [Atticus]: How about you do it Jeff
           [Task Comment]: [AtticusFinch]: What's a cylinder
     [Column]: Doing
-        [TASK]: Curve the metal to make a cylindrical shape [Assignee]: Jeff
-          [Task Comment]: [Jeff]: Not cylindrical enough
-            [Task Comment Threaded Comment]: [Atticus]: How about you do it Jeff
-          [Task Comment]: [AtticusFinch]: What's a cylinder
-    [Column]: Abandoned
         [TASK]: Make impossible burger possible [Assignee]: Atticus
 
 [Project]: Soap Free Washers
