@@ -26,7 +26,7 @@ public class DataLoader extends DataConstants {
 	 * DataLoader constructor. Populates the class variables so that the json files are only have to be loaded once.
 	 * @author ctaks
 	 */
-	public DataLoader() {
+	private DataLoader() {
 		userFile = new JSONArray();
 		projectFile = new JSONArray();
 		this.users = new ArrayList<User>();
@@ -35,8 +35,8 @@ public class DataLoader extends DataConstants {
 		this.jsonTasks = new ArrayList<JSONObject>();
 		this.jsonTaskHistories = new ArrayList<JSONObject>();
 		this.jsonComments = new ArrayList<JSONObject>();
-		setUsers();
-		setProjectObjects();
+		loadUsers();
+		loadProjectObjects();
 	}
 
 	/**
@@ -54,14 +54,13 @@ public class DataLoader extends DataConstants {
     /**
 	 * Accesses and displays all users via JSON file reading and loading
 	 * @author Duayne (edited by ctaks)
-	 * @return ArrayList<User> of all users from the JSON file
+	 * @return boolean determining success
 	 */
-    public boolean setUsers() {
+    private boolean loadUsers() {
 		try {
 			// read the user file
 			this.userFile = (JSONArray)new JSONParser().parse(new FileReader(USER_FILE_NAME));
-			  
-			// Interates over the userFile and adds users to an ArrayList<User>
+
 			if (userFile != null && userFile.size() > 0) {
 				for(int i=0; i < userFile.size(); i++) {
 					JSONObject userObject = (JSONObject)userFile.get(i);
@@ -77,7 +76,6 @@ public class DataLoader extends DataConstants {
 					User user = new User(id, userName, firstName, lastName, password, permissionToAddTask, permissionToMoveTask, permissionToEditTask, permissionToEditColumns);
 					if (!this.users.contains(user)) {
 						this.users.add(user);
-						//this.userFile.remove(i);
 					}
 				}
 				return true;
@@ -106,54 +104,49 @@ public class DataLoader extends DataConstants {
 	 * @author ctaks
 	 * @return boolean determining success
 	 */
-	public boolean setProjectObjects() {
+	private boolean loadProjectObjects() {
 		try {
 			projectFile = (JSONArray)new JSONParser().parse(new FileReader(PROJECT_FILE_NAME));
-			
-			if (projectFile != null && projectFile.size() > 0) {
-				for(int i = 0; i < projectFile.size(); i++) {
-					JSONObject JObj = (JSONObject)projectFile.get(i);
-					// Projects
-					String projectName = (String)JObj.get(PROJECT_NAME);
-					if (projectName != null) {
-						jsonProjects.add(JObj);
-					}
-					// Columns
-					else if(projectName == null) {
-						String columnName = (String)JObj.get(COLUMN_NAME);
-						if (columnName != null) {
-							jsonColumns.add(JObj);
-						}
-						// Tasks
-						else if (columnName == null) {
-							String taskName = (String)JObj.get(TASK_NAME);
-							if (taskName != null) {
-								jsonTasks.add(JObj);
-							}
-							// TaskHistories
-							else if (taskName == null) {
-								String taskHistoryID = (String)JObj.get(TASK_HISTORY_ID);
-								if (taskHistoryID != null) {
-									jsonTaskHistories.add(JObj);
-								}
-								// Comments
-								else if (taskHistoryID == null) {
-									String message = (String)JObj.get(COMMENT_MESSAGE);
-									if (message != null) {
-										jsonComments.add(JObj);
-									}
-								}
-							}
-						}
-					}
-				}
-				return true;
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return false;
-	}
+		if (projectFile != null && projectFile.size() > 0) {
+			for(int i = 0; i < projectFile.size(); i++) {
+				JSONObject JObj = (JSONObject)projectFile.get(i);
+				// Projects
+				String projectName = (String)JObj.get(PROJECT_NAME);
+				if (projectName != null) {
+					jsonProjects.add(JObj);
+					continue;
+				}
+				// Columns
+				String columnName = (String)JObj.get(COLUMN_NAME);
+				if (columnName != null) {
+					jsonColumns.add(JObj);
+					continue;
+				}
+				// Tasks
+				String taskName = (String)JObj.get(TASK_NAME);
+				if (taskName != null) {
+					jsonTasks.add(JObj);
+					continue;
+				}
+				// TaskHistories
+				String taskHistoryID = (String)JObj.get(TASK_HISTORY_ID);
+				if (taskHistoryID != null) {
+					jsonTaskHistories.add(JObj);
+					continue;
+				}
+				// Comments
+				String message = (String)JObj.get(COMMENT_MESSAGE);
+				if (message != null) {
+					jsonComments.add(JObj);
+				}
+			}
+			return true;
+		}
+	return false;
+}
   
 	/**
 	* Accesses and displays all projects via JSON file reading and loading
@@ -216,7 +209,7 @@ public class DataLoader extends DataConstants {
 	 * @param jcolumn json data to be turned into a column
 	 * @return Column column of the passed in json data
 	 */
-	public Column makeColumn(JSONObject jcolumn) {
+	private Column makeColumn(JSONObject jcolumn) {
 		String name = (String)jcolumn.get(COLUMN_NAME);
 		if (name != null) {
 			UUID id = UUID.fromString((String)jcolumn.get(COLUMN_ID));
@@ -254,7 +247,7 @@ public class DataLoader extends DataConstants {
 	 * @param jtask to be loaded
 	 * @return Task task loaded from the JSONObject
 	 */
-	public Task makeTask(JSONObject jtask) {
+	private Task makeTask(JSONObject jtask) {
 		String name = (String)jtask.get(TASK_NAME);
 		if (name != null) {
 			UUID id = UUID.fromString((String)jtask.get(TASK_ID));
@@ -300,7 +293,7 @@ public class DataLoader extends DataConstants {
 	 * @param jTaskHistory to be loaded
 	 * @return TaskHistory task history loaded from the JSONObject
 	 */
-	public TaskHistory makeTaskHistory(JSONObject jTaskHistory) {
+	private TaskHistory makeTaskHistory(JSONObject jTaskHistory) {
 		String historyID = (String)jTaskHistory.get(TASK_HISTORY_ID);
 		if (historyID != null) {
 			UUID id = UUID.fromString(historyID);
@@ -326,7 +319,7 @@ public class DataLoader extends DataConstants {
 	 * @param jComment to be loaded
 	 * @return Comment comment loaded from the JSONObject
 	 */
-	public Comment makeComment(JSONObject jComment) {
+	private Comment makeComment(JSONObject jComment) {
 		String message = (String)jComment.get(COMMENT_MESSAGE);
 		if (message != null) {
 			UUID id = UUID.fromString((String)jComment.get(COMMENT_ID));
