@@ -1,7 +1,13 @@
+package sourceCode;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.UUID;
+
+import Comment;
+import Task;
+import User;
 
 /**
  * This class represents a generic column in the scrum board 

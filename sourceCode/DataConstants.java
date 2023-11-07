@@ -1,3 +1,4 @@
+package sourceCode;
 public abstract class DataConstants {
 	// User
 	protected static final String USER = "user";
