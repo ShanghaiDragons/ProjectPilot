@@ -1,3 +1,5 @@
+package Testing;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
@@ -5,6 +7,8 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import sourceCode.*;
 
 class DataLoaderTest {
 	private UserList users = UserList.getInstance();
@@ -21,27 +25,34 @@ class DataLoaderTest {
 	
 	@AfterEach
 	public void tearDown() {
-		Users.getInstance().getUsers().clear();
-		DataWriter.saveUsers();
-	}
+		UserList.getInstance().getUsers().clear();
+		DataWriter dw = new DataWriter();
+		dw.saveUsers();
+		}
 	
 	
 	@Test
 	void testGetUsersSize() {
-		userList = DataLoader.getUsers();
+		userList = UserList.getInstance().getUsers();
 		assertEquals(2, userList.size());
 	}
 
 	@Test
 	void testGetUsersSizeZero() {
-		Users.getInstance().getUsers().clear();
-		DataWriter.saveUsers();
+		UserList.getInstance().getUsers().clear();
+		DataWriter dw = new DataWriter();
+		dw.saveUsers();
 		assertEquals(0, userList.size());
 	}
 	
 	@Test
-	void testGetUserFirstUserName() {
-		userList = DataLoader.getUsers();
-		assertEquals("asmith", userList.get(0).getUserName());
+	void testGetUserName() {
+		assertEquals("aSmith24", UserList.getInstance().getUser("aSmith24").getUserName());
+	}
+
+	@Test
+	void testGetUserFirstName() {
+		userList = UserList.getInstance().getUsers();
+		assertEquals("aSmith24", userList.get(0).getUserName());
 	}
 }
