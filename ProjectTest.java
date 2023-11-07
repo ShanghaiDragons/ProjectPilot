@@ -1,3 +1,7 @@
+<<<<<<< HEAD:ProjectTest.java
+=======
+package Testing;
+>>>>>>> f79808d3f7d9a434c89dc7bea0900dc729dd984b:Testing/ProjectTest.java
 
 import static org.junit.Assert.assertTrue;
 
