@@ -12,31 +12,31 @@ import java.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
 
-import Column;
-import Comment;
-import Project;
-import Task;
-import User;
-
 public class ProjectTest {
     private Project testProject;
     private ArrayList<User> team;
     private ArrayList<Column> columnlist;
     private ArrayList<Comment> commentlist;
     private ArrayList<Task> tasklist;
-    private User scrumMaster;
-    private User viewer;
-    private User collaborator;
+    private User scrumMaster, collaborator, viewer;
+    private Column ToDo,InProgress,Done;
+    private Comment comment1,comment2;
 
     @Before
     public void setUp() {
-        ArrayList<User> team = new ArrayList<>();
-        ArrayList<Column> columnlist = new ArrayList<>();
-        ArrayList<Comment> commentlist = new ArrayList<>();
-        Project testProject = new Project("ProjectTest", LocalDate.now(), LocalDate.now(), team, columnlist, commentlist);
-        User scrumMaster = new User("Scrum", "Master", "sMaster", "password", true, true, true, true);
-        User collaborator = new User("Collab", "Borator", "cBorator", "password", false, true, true, false);
-        User viewer = new User("Vi", "Ewer", "vEwer", "password", false, false, false, false);
+        team = new ArrayList<>();
+        columnlist = new ArrayList<>();
+        commentlist = new ArrayList<>();
+        testProject = new Project("ProjectTest", LocalDate.now(), LocalDate.now(), team, columnlist, commentlist);
+        scrumMaster = new User("Scrum", "Master", "sMaster", "password", true, true, true, true);
+        collaborator = new User("Collab", "Borator", "cBorator", "password", false, true, true, false);
+        viewer = new User("Vi", "Ewer", "vEwer", "password", false, false, false, false);
+        ToDo = new Column("To Do", "alphabetical", new ArrayList<>(), new ArrayList<>());
+        InProgress = new Column("In Progress", "alphabetical", new ArrayList<>(), new ArrayList<>());
+        Done = new Column("Done", "alphabetical", new ArrayList<>(), new ArrayList<>());
+        testProject.addColumn(ToDo);
+        testProject.addColumn(Done);
+        testProject.addColumn(InProgress);
     }
     //Adding a scrum master to the team
     @Test
@@ -73,16 +73,19 @@ public class ProjectTest {
     }
 
     //add column
+    @Test
     public void TestAddColumn(){
         Project testProject = new Project("ProjectTest",LocalDate.now(), LocalDate.now(),team, columnlist, commentlist);
         assertTrue(testProject.addColumn(ToDo));
     }
     //add comment
+    @Test
     public void TestAddComment(){
         Project testProject = new Project("ProjectTest",LocalDate.now(), LocalDate.now(),team, columnlist, commentlist);
         assertTrue(testProject.addComment(scrumMaster, "Test"));
     }
     //move task
+    @Test
     public void TestMoveTask(){
         assertTrue(testProject.moveTask(TASKKKKKKKK));
     }
