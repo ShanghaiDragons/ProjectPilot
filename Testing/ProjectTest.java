@@ -1,5 +1,6 @@
 package Testing;
 
+
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -10,7 +11,6 @@ import sourceCode.Project;
 public class ProjectTest {
     @Test
     public void testDataLoader() {
-        Column column;
         assertTrue(true);
     }
 
