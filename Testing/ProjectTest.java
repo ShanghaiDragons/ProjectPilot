@@ -1,16 +1,11 @@
 package Testing;
-
 import sourceCode.*;
-
-
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import java.util.ArrayList;
 import java.time.LocalDate;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.TestInstance;
 
 public class ProjectTest {
     private Project testProject;
@@ -31,7 +26,7 @@ public class ProjectTest {
         collaborator = new User("Collab", "Borator", "cBorator", "password", false, true, true, false);
         viewer = new User("Vi", "Ewer", "vEwer", "password", false, false, false, false);
         user1 = new User("First","Last","User","Password",true, true, true, true);
-        User nonTeamMember = new User("Non", "Team", "Member", "password", true,true,true,true);
+        nonTeamMember = new User("Non", "Team", "Member", "password", true,true,true,true);
         ToDo = new Column("To Do", "alphabetical", new ArrayList<>(), new ArrayList<>());
         InProgress = new Column("In Progress", "alphabetical", new ArrayList<>(), new ArrayList<>());
         Done = new Column("Done", "alphabetical", new ArrayList<>(), new ArrayList<>());
@@ -68,12 +63,45 @@ public class ProjectTest {
         assertFalse(testProject.addTeamMember(nulluser, null));
     }
 
+    // Adding a user with an empty first name
+    @Test
+    public void testAddUserWithEmptyUserName(){
+        User user = new User("", "LastName", "username123", "password123", true, true, true, true);
+        assertFalse(testProject.addTeamMember(user, UserType.SCRUM_MASTER));
+    }
+
+    // Adding a user with an empty last name
+    @Test
+    public void testAddUserWithEmptyFirstName(){
+        User user = new User("FirstName", "", "username123", "password123", true, true, true, true);
+        assertFalse(testProject.addTeamMember(user, UserType.SCRUM_MASTER));
+    }
+
+    // Adding a user with an empty username name
+        @Test
+    public void testAddUserWithEmptyLastName(){
+        User user = new User("FirstName", "LastName", "", "password123", true, true, true, true);
+        assertFalse(testProject.addTeamMember(user, UserType.SCRUM_MASTER));
+    }
+
+    // Adding a user with an empty password
+    @Test
+    public void testAddUserWithEmptyPassword(){
+        User user = new User("FirstName", "LastName", "username123", "", true, true, true, true);
+        assertFalse(testProject.addTeamMember(user, UserType.SCRUM_MASTER));
+    }
+
+    //adding user with null usertype
+    @Test
+    public void testAddUserWithNullUserType(){
+        User user = new User("FirstName", "LastName", "username123", "", true, true, true, true);
+        assertFalse(testProject.addTeamMember(user, null));
+    }
+
     //remove user when one user is in the project 
     @Test
     public void TestRemoveUser(){
-        User user = new User("John", "Doe", "jdoe", "password", true,true,true,true);
-        testProject.addTeamMember(user, UserType.SCRUM_MASTER);
-        assertTrue(testProject.removeUser(user));
+        assertTrue(testProject.removeUser(scrumMaster));
     }
     //remove user not in team
     @Test
@@ -123,8 +151,15 @@ public class ProjectTest {
     //add comment from non team users
     @Test
     public void TestAddCommentFromNonTeamUsers(){
-        assertFalse(testProject.addComment(nonTeamMember,"Test Comment from non team member");
+        assertFalse(testProject.addComment(nonTeamMember,"Test Comment from non team member"));
     }
+
+    //add duplicate task in column
+    @Test
+    public void TestAddDupeTask(){
+        assertFalse(ToDo.addTask(task1));
+    }
+
     //add non existing task
     @Test
     public void TestAddNonExistingTask(){
@@ -136,6 +171,7 @@ public class ProjectTest {
     public void TestMoveTaskFromToDoToInProgress(){
         assertTrue(testProject.moveTask(ToDo, InProgress,task1));
     }
+
     //move task from in progress to done
     @Test 
     public void TestMoveTaskFromInProgressToDone(){
@@ -146,7 +182,10 @@ public class ProjectTest {
     public void TestMoveTaskFromDoneToToDo(){
         assertTrue(testProject.moveTask(Done,ToDo,task3));
     }
-
+    //move task to the same column
+    public void TestMoveTaskToSameColumn(){
+        assertFalse(testProject.moveTask(Done,Done,task3));
+    }
     //attempt to move a task that is not in the given source column 
     @Test 
     public void TestMoveTaskThatIsNotInSourceColumn(){
@@ -168,6 +207,5 @@ public class ProjectTest {
     public void testDataLoader() {
         assertTrue(true);
     }
-
 }
 
