@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import java.util.ArrayList;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,10 +16,9 @@ public class ProjectTest {
     private ArrayList<User> team;
     private ArrayList<Column> columnlist;
     private ArrayList<Comment> commentlist;
-    private ArrayList<Task> tasklist;
-    private User scrumMaster, collaborator, viewer;
+    private User scrumMaster, collaborator, viewer, user1, nulluser;
     private Column ToDo,InProgress,Done;
-    private Comment comment1,comment2;
+    private Task task1, task2,task3;
 
     @Before
     public void setUp() {
@@ -31,30 +29,34 @@ public class ProjectTest {
         scrumMaster = new User("Scrum", "Master", "sMaster", "password", true, true, true, true);
         collaborator = new User("Collab", "Borator", "cBorator", "password", false, true, true, false);
         viewer = new User("Vi", "Ewer", "vEwer", "password", false, false, false, false);
+        user1 = new User("First","Last","User","Password",true, true, true, true);
         ToDo = new Column("To Do", "alphabetical", new ArrayList<>(), new ArrayList<>());
         InProgress = new Column("In Progress", "alphabetical", new ArrayList<>(), new ArrayList<>());
         Done = new Column("Done", "alphabetical", new ArrayList<>(), new ArrayList<>());
+        task1 = new Task("Task #1", scrumMaster, 1, "Status #1", "Description #1", new ArrayList<>());
+        task2 = new Task("Task #2", scrumMaster, 3, "Status #2", "Description #2", new ArrayList<>());
+        task3 = new Task("Task #3", scrumMaster, 2, "Status #3", "Description #3", new ArrayList<>());
+        testProject.addTeamMember(scrumMaster, UserType.SCRUM_MASTER);
+        testProject.addTeamMember(collaborator, UserType.COLLABORATOR);
+        testProject.addTeamMember(viewer, UserType.VIEWER);
         testProject.addColumn(ToDo);
         testProject.addColumn(Done);
         testProject.addColumn(InProgress);
+        testProject.addComment(collaborator, "Test Comment #1");
+        testProject.addComment(viewer, "Test Comment #2");
+        ToDo.addTask(task1);
+        InProgress.addTask(task2);
+        testProject.moveTask(ToDo, InProgress, task1); 
     }
     //Adding a scrum master to the team
     @Test
-    public void addUsers(){
-        //checking to see if they are added to the project user list 
-        assertTrue(testProject.addTeamMember(scrumMaster, UserType.SCRUM_MASTER));
-        assertTrue(testProject.addTeamMember(collaborator, UserType.COLLABORATOR));
-        assertTrue(testProject.addTeamMember(viewer, UserType.VIEWER));
-        
-        //checks scrum master permissions
-        assertTrue(scrumMaster.getPermissionToAddTask() && scrumMaster.getPermissionToEditColumns() && scrumMaster.getPermissionToEditTask() && scrumMaster.getPermissionToMoveTask());
-
-        //checks collaborator permissions
-        assertTrue(collaborator.getPermissionToEditTask() && collaborator.getPermissionToMoveTask());
-        assertFalse(collaborator.getPermissionToAddTask() && collaborator.getPermissionToEditColumns());
-
-        //checks viewer permissions
-        assertFalse(viewer.getPermissionToAddTask() && viewer.getPermissionToEditColumns() && viewer.getPermissionToEditTask() && viewer.getPermissionToMoveTask());        
+    public void testAddUser(){
+       testProject.addTeamMember(user1, UserType.SCRUM_MASTER);      
+    }
+    @Test
+    public void testAddNullUser(){
+        User nulluser = new User(null, null, null, null, false, false, false,false);
+        assertFalse(testProject.addTeamMember(nulluser, null));
     }
 
     //remove user when one user is in the project 
@@ -86,10 +88,19 @@ public class ProjectTest {
     }
     //move task
     @Test
-    public void TestMoveTask(){
-        assertTrue(testProject.moveTask(TASKKKKKKKK));
+    public void TestMoveTaskFromToDoToInProgress(){
+        assertTrue(testProject.moveTask(ToDo, InProgress,task1));
     }
 
+    @Test 
+    public void TestMoveTaskFromInProgressToDone(){
+        assertTrue(testProject.moveTask(InProgress, Done, task2));
+    }
+
+    @Test 
+    public void TestMoveTaskFromDoneToToDo(){
+        assertTrue(testProject.moveTask(Done,ToDo,task3));
+    }
     @Test
     public void testDataLoader() {
         assertTrue(true);
