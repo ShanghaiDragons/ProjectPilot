@@ -10,15 +10,16 @@ import java.time.LocalDate;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.TestInstance;
 
 public class ProjectTest {
     private Project testProject;
     private ArrayList<User> team;
     private ArrayList<Column> columnlist;
     private ArrayList<Comment> commentlist;
-    private User scrumMaster, collaborator, viewer, user1, nulluser;
-    private Column ToDo,InProgress,Done;
-    private Task task1, task2,task3;
+    private User scrumMaster, collaborator, viewer, user1, nonExistingUser,nonTeamMember;
+    private Column ToDo,InProgress,Done, nonexistingcolumn;
+    private Task task1, task2,task3, nonexistingTask;
 
     @Before
     public void setUp() {
@@ -30,6 +31,7 @@ public class ProjectTest {
         collaborator = new User("Collab", "Borator", "cBorator", "password", false, true, true, false);
         viewer = new User("Vi", "Ewer", "vEwer", "password", false, false, false, false);
         user1 = new User("First","Last","User","Password",true, true, true, true);
+        User nonTeamMember = new User("Non", "Team", "Member", "password", true,true,true,true);
         ToDo = new Column("To Do", "alphabetical", new ArrayList<>(), new ArrayList<>());
         InProgress = new Column("In Progress", "alphabetical", new ArrayList<>(), new ArrayList<>());
         Done = new Column("Done", "alphabetical", new ArrayList<>(), new ArrayList<>());
@@ -46,13 +48,20 @@ public class ProjectTest {
         testProject.addComment(viewer, "Test Comment #2");
         ToDo.addTask(task1);
         InProgress.addTask(task2);
-        testProject.moveTask(ToDo, InProgress, task1); 
+        Done.addTask(task3);
     }
     //Adding a scrum master to the team
     @Test
     public void testAddUser(){
-       testProject.addTeamMember(user1, UserType.SCRUM_MASTER);      
+       assertTrue(testProject.addTeamMember(user1, UserType.SCRUM_MASTER));
     }
+
+    //adding a duplicate user
+    @Test 
+    public void testAddDuplicateUser(){
+        assertFalse(testProject.addTeamMember(scrumMaster, UserType.SCRUM_MASTER));
+    }
+    //adding null value user
     @Test
     public void testAddNullUser(){
         User nulluser = new User(null, null, null, null, false, false, false,false);
@@ -66,40 +75,94 @@ public class ProjectTest {
         testProject.addTeamMember(user, UserType.SCRUM_MASTER);
         assertTrue(testProject.removeUser(user));
     }
+    //remove user not in team
+    @Test
+    public void TestRemoveNonTeamUser(){
+        assertFalse(testProject.removeUser(nonTeamMember));
+    }
+    //remove nonexisting user
+    @Test
+    public void TestRemoveNonExistingUser(){
+        assertFalse(testProject.removeUser(nonExistingUser));
+    }
 
     //remove column 
     @Test
     public void TestRemoveColumn(){
-        Project testProject = new Project("ProjectTest",LocalDate.now(), LocalDate.now(),team, columnlist, commentlist);
         assertTrue(testProject.removeColumn(ToDo));
+    }
+
+    //remove non existing column
+    @Test
+    public void TestNonExistingColumn(){
+        assertFalse(testProject.removeColumn(nonexistingcolumn));
     }
 
     //add column
     @Test
     public void TestAddColumn(){
-        Project testProject = new Project("ProjectTest",LocalDate.now(), LocalDate.now(),team, columnlist, commentlist);
         assertTrue(testProject.addColumn(ToDo));
+    }
+
+    //test add duplicate column 
+    @Test
+    public void TestAddDuplicateColumn(){
+        assertFalse(testProject.addColumn(ToDo));
+    }
+
+    //adding a null column
+    public void TestAddNullColumn(){
+        Column nullColumn = new Column(null,null,null,null);
+        assertFalse(testProject.addColumn(nullColumn));
     }
     //add comment
     @Test
     public void TestAddComment(){
-        Project testProject = new Project("ProjectTest",LocalDate.now(), LocalDate.now(),team, columnlist, commentlist);
         assertTrue(testProject.addComment(scrumMaster, "Test"));
     }
-    //move task
+    //add comment from non team users
+    @Test
+    public void TestAddCommentFromNonTeamUsers(){
+        assertFalse(testProject.addComment(nonTeamMember,"Test Comment from non team member");
+    }
+    //add non existing task
+    @Test
+    public void TestAddNonExistingTask(){
+        assertFalse(ToDo.addTask(nonexistingTask));
+    }
+
+    //move task from to do to in progress 
     @Test
     public void TestMoveTaskFromToDoToInProgress(){
         assertTrue(testProject.moveTask(ToDo, InProgress,task1));
     }
-
+    //move task from in progress to done
     @Test 
     public void TestMoveTaskFromInProgressToDone(){
         assertTrue(testProject.moveTask(InProgress, Done, task2));
     }
-
+    //move task from done to do
     @Test 
     public void TestMoveTaskFromDoneToToDo(){
         assertTrue(testProject.moveTask(Done,ToDo,task3));
+    }
+
+    //attempt to move a task that is not in the given source column 
+    @Test 
+    public void TestMoveTaskThatIsNotInSourceColumn(){
+        assertFalse(testProject.moveTask(ToDo,Done,task3));
+    }
+
+    //moving a non existing task
+    @Test
+    public void TestMovingNonexistingTask(){
+        assertFalse(testProject.moveTask(InProgress, Done, nonexistingTask));
+    }
+
+    //removing non existing task
+    @Test
+    public void TestRemoveNonExistingTask(){
+        assertFalse(ToDo.removeTask(nonexistingTask));
     }
     @Test
     public void testDataLoader() {
