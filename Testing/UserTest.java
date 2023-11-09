@@ -6,7 +6,7 @@ import org.junit.Test;
 
 
 public class UserTest {
-    User user = new User("username", "First", "Last", "password",true,true,true,true);
+    User user = new User("First", "Name", "username", "password",true,true,true,true);
     
     // Test verifying correct login 
     @Test
@@ -30,6 +30,24 @@ public class UserTest {
         assertFalse(user.login("", "password"));
         assertFalse(user.login("username", ""));
         assertFalse(user.login("", ""));
+    }
+    // Test verifying correct password
+    @Test
+    public void testCorrectPasswordVerification() {
+        assertTrue(user.verifyPassword("password"));
+    }
+
+    // Test verifying incorrect password
+    @Test
+    public void testIncorrectPasswordVerification() {
+        assertFalse(user.verifyPassword("wrongpassword"));
+    }
+
+    // Test verifying null or empty password
+    @Test
+    public void testPasswordVerificationWithNullOrEmptyPassword() {
+        assertFalse(user.verifyPassword(null));
+        assertFalse(user.verifyPassword(""));
     }
 
 }
