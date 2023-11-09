@@ -199,7 +199,10 @@ public class ProjectPilotFacade {
      * @return boolean determining success
      */
     public boolean addColumn(String name, String sortType, ArrayList<Task> tasks, ArrayList<Comment> comments) {
+        if(currentProject != null){
         return currentProject.addColumn(new Column(name, sortType, tasks, comments));
+        }
+        return false;
     }
 
     /**
