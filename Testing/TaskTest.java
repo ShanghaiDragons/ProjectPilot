@@ -36,32 +36,43 @@ public class TaskTest {
 
   @Test
   public void TestAddNameChangesWithOldNull() {
-    assertFalse(taskHistory.addNameChange(oldStringNull, newString));
+    assertTrue(taskHistory.addNameChange(oldStringNull, newString));
   }
 
   @Test
+  public void TestAddNameChangesWithOldNullandNewNull() {
+    assertFalse(taskHistory.addNameChange(oldStringNull, newStringNull));
+  }
+
+  @Test
+  public void TestAddNameChangesWithNewNull() {
+    assertFalse(taskHistory.addNameChange(oldString, newStringNull));
+  }
+
+  // The code is the exact same between all these methods. Really only need to test 1 method. - Chris
+  @Test
   public void TestAddDescriptionChangesWithOldNull() {
-    assertFalse(taskHistory.addDescriptionChange(oldStringNull, newString));
+    assertTrue(taskHistory.addDescriptionChange(oldStringNull, newString));
   }
   
   @Test
   public void TestAddMoveChangesWithOldNull() {
-    assertFalse(taskHistory.addMoveChange(oldStringNull, newString));
+    assertTrue(taskHistory.addMoveChange(oldStringNull, newString));
   }
 
   @Test
   public void TestAddAssigneeChangesWithOldNull() {
-    assertFalse(taskHistory.addAssigneeChange(oldStringNull, newString));
+    assertTrue(taskHistory.addAssigneeChange(oldStringNull, newString));
   }
 
   @Test
   public void TestAddPriorityChangesWithOldNull() {
-    assertFalse(taskHistory.addPriorityChange(oldStringNull, newString));
+    assertTrue(taskHistory.addPriorityChange(oldStringNull, newString));
   }
 
   @Test
   public void TestAddStatusChangesWithOldNull() {
-    assertFalse(taskHistory.addStatusChange(oldStringNull, newString));
+    assertTrue(taskHistory.addStatusChange(oldStringNull, newString));
   }
   
 }
