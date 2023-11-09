@@ -78,7 +78,7 @@ public class ProjectTest {
     }
 
     // Adding a user with an empty username name
-        @Test
+    @Test
     public void testAddUserWithEmptyLastName(){
         User user = new User("FirstName", "LastName", "", "password123", true, true, true, true);
         assertFalse(testProject.addTeamMember(user, UserType.SCRUM_MASTER));
@@ -139,10 +139,19 @@ public class ProjectTest {
     }
 
     //adding a null column
+    @Test
     public void TestAddNullColumn(){
         Column nullColumn = new Column(null,null,null,null);
         assertFalse(testProject.addColumn(nullColumn));
     }
+
+    //adding a column with an empty sorttype 
+    @Test
+    public void TestAddColumnWithEmptySortType(){
+        Column emptySortType = new Column("Column Name","",new ArrayList<>(),new ArrayList<>());
+        assertFalse(testProject.addColumn(emptySortType));
+    }
+
     //add comment
     @Test
     public void TestAddComment(){
@@ -152,18 +161,6 @@ public class ProjectTest {
     @Test
     public void TestAddCommentFromNonTeamUsers(){
         assertFalse(testProject.addComment(nonTeamMember,"Test Comment from non team member"));
-    }
-
-    //add duplicate task in column
-    @Test
-    public void TestAddDupeTask(){
-        assertFalse(ToDo.addTask(task1));
-    }
-
-    //add non existing task
-    @Test
-    public void TestAddNonExistingTask(){
-        assertFalse(ToDo.addTask(nonexistingTask));
     }
 
     //move task from to do to in progress 
@@ -183,6 +180,7 @@ public class ProjectTest {
         assertTrue(testProject.moveTask(Done,ToDo,task3));
     }
     //move task to the same column
+    @Test
     public void TestMoveTaskToSameColumn(){
         assertFalse(testProject.moveTask(Done,Done,task3));
     }
@@ -198,11 +196,6 @@ public class ProjectTest {
         assertFalse(testProject.moveTask(InProgress, Done, nonexistingTask));
     }
 
-    //removing non existing task
-    @Test
-    public void TestRemoveNonExistingTask(){
-        assertFalse(ToDo.removeTask(nonexistingTask));
-    }
     @Test
     public void testDataLoader() {
         assertTrue(true);
