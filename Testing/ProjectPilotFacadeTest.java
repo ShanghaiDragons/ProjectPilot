@@ -27,7 +27,6 @@ public class ProjectPilotFacadeTest {
         projectPilotFacade.addColumn("Column2", "sortType", new ArrayList<>(), new ArrayList<>());
         sourceColumn = projectPilotFacade.getProjects().get(0).getColumns().get(0);
         destinationColumn = projectPilotFacade.getProjects().get(0).getColumns().get(1);
-        projectPilotFacade.saveProjects();
     } 
     
     //testing creating a new account and when a duplicate account is created 
@@ -94,7 +93,7 @@ public class ProjectPilotFacadeTest {
     @Test
     public void testMoveTask() {
         projectPilotFacade.addTask(sourceColumn, "Task1", user, 1, "New", "Description", new ArrayList<>());
-        task= projectPilotFacade.getTasks().get(0);
+        task= projectPilotFacade.getCurrentProject().getColumns().get(1).getTasks().get(1);
         assertTrue(projectPilotFacade.moveTask(sourceColumn,destinationColumn,task));
     }
 
