@@ -31,6 +31,7 @@ class DataLoaderTest {
 		}
 	
 	
+		
 	@Test
 	void testGetUsersSize() {
 		userList = UserList.getInstance().getUsers();

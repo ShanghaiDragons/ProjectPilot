@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.*;
 
 public class ProjectTest {
     private Project testProject;
@@ -78,7 +79,7 @@ public class ProjectTest {
     }
 
     // Adding a user with an empty username name
-        @Test
+    @Test
     public void testAddUserWithEmptyLastName(){
         User user = new User("FirstName", "LastName", "", "password123", true, true, true, true);
         assertFalse(testProject.addTeamMember(user, UserType.SCRUM_MASTER));
@@ -139,6 +140,7 @@ public class ProjectTest {
     }
 
     //adding a null column
+    @Test
     public void TestAddNullColumn(){
         Column nullColumn = new Column(null,null,null,null);
         assertFalse(testProject.addColumn(nullColumn));
@@ -183,6 +185,7 @@ public class ProjectTest {
         assertTrue(testProject.moveTask(Done,ToDo,task3));
     }
     //move task to the same column
+    @Test
     public void TestMoveTaskToSameColumn(){
         assertFalse(testProject.moveTask(Done,Done,task3));
     }
