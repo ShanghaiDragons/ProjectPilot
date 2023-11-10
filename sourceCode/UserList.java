@@ -53,12 +53,17 @@ public class UserList {
     }
     
     /**
-    * @author theo v (edited by ctaks to return boolean instead of "User")
+    * @author theo v (edited by ctaks to return boolean instead of "User", also to check for duplicate names)
     * Adds user to the userlist
     * @param user the user to add
     * @return boolean determining success
     */
     public boolean addUser(User user){
+        for (User member : users) {
+            if (user.getUserName().equals(member.getUserName())) {
+                return false;
+            }
+        }
         return users.add(user);
     }
 
