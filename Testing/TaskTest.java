@@ -22,7 +22,7 @@ public class TaskTest {
   @Before
   public void setup() {
     name = "test name";
-    assignee = new User("test", "test", "tester", "p", true, true, true, true);
+    assignee = new User("test", "test", "tester", "p");
     priority1 = 1;
     priority2 = 2;
     priority3 = 3;

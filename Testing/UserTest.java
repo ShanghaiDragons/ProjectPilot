@@ -6,7 +6,7 @@ import org.junit.Test;
 
 
 public class UserTest {
-    User user = new User("First", "Name", "username", "password",true,true,true,true);
+    User user = new User("First", "Name", "username", "password");
     
     // Test verifying correct login 
     @Test

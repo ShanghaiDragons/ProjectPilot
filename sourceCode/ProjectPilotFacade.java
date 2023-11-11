@@ -121,6 +121,7 @@ public class ProjectPilotFacade {
     public boolean login(String userName, String password) {
         if (userList.getUser(userName) != null) {
             currentUser = userList.getUser(userName);
+            //loadRole();
             return currentUser.login(userName, password);
         } else {
             return false;
@@ -168,11 +169,11 @@ public class ProjectPilotFacade {
     /**
      * removes project and saves new project list using data writer
      * @author theo v
-     * @param projectID
+     * @param projectName
      * @return boolean that determines if the project was removed
      */
-    public boolean removeProject(String projectID) {
-        Project removedProject = projectList.getProject(projectID);
+    public boolean removeProject(String projectName) {
+        Project removedProject = projectList.getProject(projectName);
         if(removedProject!=null && projectList.getProjects().remove(removedProject)){
             return projectList.saveProjects();
         }
@@ -358,7 +359,7 @@ public class ProjectPilotFacade {
     /**
      * Setter for currentProject. ALso sets the currentRole based on the currentUser's role in the project.
      * @author ctaks
-     * @param projectName the project's name
+     * @param projectID the project's UUID
      * @return boolean determining if it set the project or not.
      */
     public boolean loadProject(UUID projectID) {

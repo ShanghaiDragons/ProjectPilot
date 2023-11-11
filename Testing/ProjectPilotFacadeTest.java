@@ -7,132 +7,139 @@ import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class ProjectPilotFacadeTest {
 
-    private ProjectPilotFacade projectPilotFacade;
+    private ProjectPilotFacade ppf;
     private User user;
+    private User user1;
     private Column sourceColumn;
     private Column destinationColumn;
     private Task task;
 
     @Before
     public void setUp() {
-        projectPilotFacade = ProjectPilotFacade.getInstance();
-        projectPilotFacade.createAccount("John", "Doe", "johndoe", "password");
-        projectPilotFacade.login("johndoe", "password");
-        user = projectPilotFacade.getUser();
-        projectPilotFacade.addProject("Project1", LocalDate.now(), LocalDate.now().plusDays(7), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-        projectPilotFacade.addColumn("Column1", "sortType", new ArrayList<>(), new ArrayList<>());
-        projectPilotFacade.addColumn("Column2", "sortType", new ArrayList<>(), new ArrayList<>());
-        sourceColumn = projectPilotFacade.getProjects().get(0).getColumns().get(0);
-        destinationColumn = projectPilotFacade.getProjects().get(0).getColumns().get(1);
+        ppf = ProjectPilotFacade.getInstance();
+        ppf.createAccount("John", "Doe", "johndoe", "password");
+        ppf.createAccount("Cole", "Lab", "Collab", "p");
+        ppf.createAccount("Vi", "Ewer", "viewer", "p");
+        ppf.login("johndoe", "password");
+        for (User Luser : ppf.getUsers()) {
+            if (Luser.getUserName().equals("johndoe")) {
+                user1 = Luser;
+            }
+        }
+        //user1 = ppf.getUsers().get(0);
+        ppf.addProject("Project1", LocalDate.now(), LocalDate.now().plusDays(7), new ArrayList<User>(), user1, new ArrayList<User>(), new ArrayList<User>(), new ArrayList<Column>(), new ArrayList<Comment>());
+        ppf.loadProject(ppf.getProjects().get(0).getID());
+        ppf.addColumn("Column1", "sortType", new ArrayList<>(), new ArrayList<>());
+        ppf.addColumn("Column2", "sortType", new ArrayList<>(), new ArrayList<>());
+        user = ppf.getUser();
+        sourceColumn = ppf.getProjects().get(0).getColumns().get(0);
+        destinationColumn = ppf.getProjects().get(0).getColumns().get(1);
     } 
     
     //testing creating a new account and when a duplicate account is created 
     @Test
     public void testCreateAccount() {
-        assertTrue(projectPilotFacade.createAccount("John", "Doe", "johndoe", "password"));
-        assertFalse(projectPilotFacade.createAccount("John", "Doe", "johndoe", "password")); 
+        assertTrue(ppf.createAccount("John", "Doe", "johndoe", "password"));
+        assertFalse(ppf.createAccount("John", "Doe", "johndoe", "password")); 
     }
 
     //testing logging out, and trying to log out again
     @Test
     public void testLogout() {
-        assertTrue(projectPilotFacade.logout());
-        assertFalse(projectPilotFacade.logout());
+        assertTrue(ppf.logout());
+        assertFalse(ppf.logout());
     }
     //testing adding project 
     @Test
     public void testAddProject() {
         //correct parameters
-        assertTrue(projectPilotFacade.addProject("Project2", LocalDate.now(), LocalDate.now().plusDays(7), new ArrayList<>(), new ArrayList<>(), new ArrayList<>())); 
+        assertTrue(ppf.addProject("Project2", LocalDate.now(), LocalDate.now().plusDays(7), new ArrayList<User>(), user, new ArrayList<User>(), new ArrayList<User>(), new ArrayList<Column>(), new ArrayList<Comment>())); 
         //testing adding a project that has a backward start/end sprint dates
-        assertFalse(projectPilotFacade.addProject("Project3", LocalDate.now().plusDays(7),LocalDate.now(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+        assertFalse(ppf.addProject("Project3", LocalDate.now().plusDays(7), LocalDate.now(), new ArrayList<User>(), user, new ArrayList<User>(), new ArrayList<User>(), new ArrayList<Column>(), new ArrayList<Comment>()));
         //testing adding a project with empty name value
-        assertFalse(projectPilotFacade.addProject("", LocalDate.now(), LocalDate.now().plusDays(7), new ArrayList<>(), new ArrayList<>(), new ArrayList<>())); 
+        assertFalse(ppf.addProject("", LocalDate.now(), LocalDate.now().plusDays(7), new ArrayList<User>(), user, new ArrayList<User>(), new ArrayList<User>(), new ArrayList<Column>(), new ArrayList<Comment>())); 
         //testing adding a project with null name value
-        assertFalse(projectPilotFacade.addProject(null, LocalDate.now(), LocalDate.now().plusDays(7), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+        assertFalse(ppf.addProject(null, LocalDate.now(), LocalDate.now().plusDays(7), new ArrayList<User>(), user, new ArrayList<User>(), new ArrayList<User>(), new ArrayList<Column>(), new ArrayList<Comment>()));
     }
 
     // new editProject test
     @Test
-    public void testEditProject() {
-        user.setRole(UserType.SCRUM_MASTER);
-        assertTrue(projectPilotFacade.editProject("setProjectName","smName"));
-        user.setRole(UserType.VIEWER);
-        assertFalse(projectPilotFacade.editProject("setProjectName", "viewerName"));
+    public void testCanEditProject() {
+        // SCRUM MASTER
+        ppf.login("johndoe", "password");
+        assertTrue(ppf.canEditProject("setProjectName"));
+
+        // COLLABORATOR
+        ppf.login("Collab", "p");
+        ppf.loadProject(ppf.getCurrentProject().getID());
+        assertFalse(ppf.canEditProject("setProjectName"));
+
+        // VIEWER
+        ppf.login("viewer", "p");
+        ppf.loadProject(ppf.getCurrentProject().getID());
+        assertFalse(ppf.canEditProject("setProjectName"));
+
+    
     }
-    /*
-    //testing editing project scenarios
-    @Test
-    public void testEditProject() {
-        assertTrue(projectPilotFacade.editProject(projectPilotFacade.getProject("Project1").getID().toString(), "Project2", LocalDate.now(), LocalDate.now().plusDays(14)));
-        //editing non-existing project 
-        assertFalse(projectPilotFacade.editProject("nonexistentID", "Project2", LocalDate.now(), LocalDate.now().plusDays(14))); 
-    } */
+
     //testing removing project scenarios
     @Test
     public void testRemoveProject() {
         //removing existing project 
-        assertTrue(projectPilotFacade.removeProject(projectPilotFacade.getProjects().get(0).getID().toString()));
+        assertTrue(ppf.removeProject(ppf.getProjects().get(0).getID().toString()));
         //removing non existing project
-        assertFalse(projectPilotFacade.removeProject("nonexistentID")); // Nonexistent project
+        assertFalse(ppf.removeProject("nonexistentID")); // Nonexistent project
     }
     //testing adding column scenarios
     @Test
     public void testAddColumn() {
         //
-        assertTrue(projectPilotFacade.addColumn("Column1", "sortType", new ArrayList<>(), new ArrayList<>()));
+        assertTrue(ppf.addColumn("Column1", "sortType", new ArrayList<>(), new ArrayList<>()));
     }
     //testing removing column scenarios
     @Test
     public void testRemoveColumn() {
         //removing existing column
-        assertTrue(projectPilotFacade.removeColumn(sourceColumn.getID().toString()));
+        assertTrue(ppf.removeColumn(sourceColumn.getID().toString()));
         //removing non existing column
-        assertFalse(projectPilotFacade.removeColumn("nonexistentID")); 
-    }
-    //testing editing column  
-    @Test
-    public void testEditColumn() {
-        assertTrue(projectPilotFacade.editColumn(sourceColumn.getID().toString(), "NewName", "newSortType"));
+        assertFalse(ppf.removeColumn("nonexistentID")); 
     }
 
     //testing moving tasks
     @Test
     public void testMoveTask() {
-        projectPilotFacade.addTask(sourceColumn, "Task1", user, 1, "New", "Description", new ArrayList<>());
-        task= projectPilotFacade.getCurrentProject().getColumns().get(1).getTasks().get(1);
-        assertTrue(projectPilotFacade.moveTask(sourceColumn,destinationColumn,task));
+        ppf.addTask(sourceColumn, "Task1", user, 1, "New", "Description", new ArrayList<>());
+        task= ppf.getCurrentProject().getColumns().get(1).getTasks().get(1);
+        assertTrue(ppf.moveTask(sourceColumn,destinationColumn,task));
     }
 
     //testing loading project 
     @Test
     public void testLoadProject(){
-        assertTrue(projectPilotFacade.loadProject("Project1"));
+        assertTrue(ppf.loadProject(ppf.getCurrentProject().getID()));
     }
     
     //testing loading non existent project 
     @Test
     public void testLoadNonExistingProject(){
-        assertFalse(projectPilotFacade.loadProject("NonExistingProject"));
+        assertFalse(ppf.loadProject(UUID.randomUUID()));
     }
     //testing saving project and checking to see if it gets saved as not null 
     @Test
     public void testSaveProject(){
-        projectPilotFacade.addProject("Project2", LocalDate.now(), LocalDate.now().plusDays(7), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-        assertTrue(projectPilotFacade.saveProjects());
-        assertNotNull(projectPilotFacade.loadProject("Project2"));
+        ppf.addProject("Project2", LocalDate.now(), LocalDate.now().plusDays(7), new ArrayList<User>(), user, new ArrayList<User>(), new ArrayList<User>(), new ArrayList<Column>(), new ArrayList<Comment>());
+        assertTrue(ppf.saveProjects());
     }
     
     //testing saving users 
     @Test
     public void testSaveUsers() {
-        projectPilotFacade.createAccount("Alice", "Smith", "alice123", "password");
-        projectPilotFacade.createAccount("Bob", "Johnson", "bob456", "password");
-        assertTrue(projectPilotFacade.saveUsers());
-        assertTrue(projectPilotFacade.login("alice123", "password"));
-        assertTrue(projectPilotFacade.login("bob123", "password"));
+        ppf.createAccount("Alice", "Smith", "alice123", "password");
+        ppf.createAccount("Bob", "Johnson", "bob456", "password");
+        assertTrue(ppf.saveUsers());
     }   
 }

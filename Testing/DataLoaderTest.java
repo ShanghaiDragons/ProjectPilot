@@ -28,9 +28,9 @@ class DataLoaderTest {
 		columnlist = new ArrayList<Column>();
 		commentlist = new ArrayList<Comment>();
 		tasks = new ArrayList<Task>();
-		userList.add(new User("Amy", "Smith", "aSmith24", "p", false, false, false, false));
-		userList.add(new User("Bobby", "Smith", "bSmith24", "p", false, false, false, false));
-		projectList.add(new Project("Project1", LocalDate.parse("2023-11-07"), LocalDate.parse("2023-11-08"), userList, columnlist, commentlist));
+		userList.add(new User("Amy", "Smith", "aSmith24", "p"));
+		userList.add(new User("Bobby", "Smith", "bSmith24", "p"));
+		projectList.add(new Project("Project1", LocalDate.parse("2023-11-07"), LocalDate.parse("2023-11-08"), userList, userList.get(0), new ArrayList<User>(), new ArrayList<User>(), columnlist, commentlist));
 		tasks.add(new Task("newTask", userList.get(0), 1, "null", "desc", commentlist));
 		columnlist.add(new Column("", "null", tasks, commentlist));
 		dataWriter.saveUsers();
@@ -70,8 +70,8 @@ class DataLoaderTest {
 		dataWriter = new DataWriter();
 		projectList.clear();
 		userList.clear();
-		Project testProject = new Project(null, null, null, null, null, null);
-		User testUser = new User(null, null, null, null, false, false, false, false);
+		Project testProject = new Project(null, null, null, null, null, null, null, null, null);
+		User testUser = new User(null, null, null, null);
 		projectList.add(testProject);
 		userList.add(testUser);
 		assertTrue(dataWriter.saveProjects() && !projectList.get(0).getName().equals(null));
@@ -94,8 +94,8 @@ class DataLoaderTest {
 		dataWriter = new DataWriter();
 		userList.clear();
 		projectList.clear();
-		User testUser = new User(null, null, null, null, false, false, false, false);
-		Project testProject = new Project(null, null, null, null, null, null);
+		User testUser = new User(null, null, null, null);
+		Project testProject = new Project(null, null, null, null, null, null, null, null, null);
 		userList.add(testUser);
 		projectList.add(testProject);
 		dataWriter.saveUsers();

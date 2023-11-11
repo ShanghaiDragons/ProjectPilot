@@ -22,12 +22,12 @@ public class ProjectTest {
         team = new ArrayList<>();
         columnlist = new ArrayList<>();
         commentlist = new ArrayList<>();
-        testProject = new Project("ProjectTest", LocalDate.now(), LocalDate.now(), team, columnlist, commentlist);
-        scrumMaster = new User("Scrum", "Master", "sMaster", "password", true, true, true, true);
-        collaborator = new User("Collab", "Borator", "cBorator", "password", false, true, true, false);
-        viewer = new User("Vi", "Ewer", "vEwer", "password", false, false, false, false);
-        user1 = new User("First","Last","User","Password",true, true, true, true);
-        nonTeamMember = new User("Non", "Team", "Member", "password", true,true,true,true);
+        scrumMaster = new User("Scrum", "Master", "sMaster", "password");
+        testProject = new Project("ProjectTest", LocalDate.now(), LocalDate.now(), team, scrumMaster, new ArrayList<User>(), new ArrayList<User>(), columnlist, commentlist);
+        collaborator = new User("Collab", "Borator", "cBorator", "password");
+        viewer = new User("Vi", "Ewer", "vEwer", "password");
+        user1 = new User("First","Last","User","Password");
+        nonTeamMember = new User("Non", "Team", "Member", "password");
         ToDo = new Column("To Do", "alphabetical", new ArrayList<>(), new ArrayList<>());
         InProgress = new Column("In Progress", "alphabetical", new ArrayList<>(), new ArrayList<>());
         Done = new Column("Done", "alphabetical", new ArrayList<>(), new ArrayList<>());
@@ -60,42 +60,42 @@ public class ProjectTest {
     //adding null value user
     @Test
     public void testAddNullUser(){
-        User nulluser = new User(null, null, null, null, false, false, false,false);
+        User nulluser = new User(null, null, null, null);
         assertFalse(testProject.addTeamMember(nulluser, null));
     }
 
     // Adding a user with an empty first name
     @Test
     public void testAddUserWithEmptyUserName(){
-        User user = new User("", "LastName", "username123", "password123", true, true, true, true);
+        User user = new User("", "LastName", "username123", "password123");
         assertFalse(testProject.addTeamMember(user, UserType.SCRUM_MASTER));
     }
 
     // Adding a user with an empty last name
     @Test
     public void testAddUserWithEmptyFirstName(){
-        User user = new User("FirstName", "", "username123", "password123", true, true, true, true);
+        User user = new User("FirstName", "", "username123", "password123");
         assertFalse(testProject.addTeamMember(user, UserType.SCRUM_MASTER));
     }
 
     // Adding a user with an empty username name
     @Test
     public void testAddUserWithEmptyLastName(){
-        User user = new User("FirstName", "LastName", "", "password123", true, true, true, true);
+        User user = new User("FirstName", "LastName", "", "password123");
         assertFalse(testProject.addTeamMember(user, UserType.SCRUM_MASTER));
     }
 
     // Adding a user with an empty password
     @Test
     public void testAddUserWithEmptyPassword(){
-        User user = new User("FirstName", "LastName", "username123", "", true, true, true, true);
+        User user = new User("FirstName", "LastName", "username123", "");
         assertFalse(testProject.addTeamMember(user, UserType.SCRUM_MASTER));
     }
 
     //adding user with null usertype
     @Test
     public void testAddUserWithNullUserType(){
-        User user = new User("FirstName", "LastName", "username123", "", true, true, true, true);
+        User user = new User("FirstName", "LastName", "username123", "");
         assertFalse(testProject.addTeamMember(user, null));
     }
 

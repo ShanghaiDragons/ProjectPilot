@@ -20,8 +20,8 @@ public class ColumnTest {
     public void setup(){
         name = "ColumnName";
         sortType="alphabetical";
-        scrumMaster = new User("Scrum", "Master", "sMaster", "password", true, true, true, true);
-        user1 = new User("user1", "Lastname", "user1", "password", true, true, true, true);
+        scrumMaster = new User("Scrum", "Master", "sMaster", "password");
+        user1 = new User("user1", "Lastname", "user1", "password");
         tasklist = new ArrayList<Task>();
         commentlist = new ArrayList<Comment>();
         column = new Column(name, sortType, tasklist, commentlist);

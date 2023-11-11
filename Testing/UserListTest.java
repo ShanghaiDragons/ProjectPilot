@@ -15,8 +15,8 @@ public class UserListTest {
     @Before
     public void setUp() {
         userList = UserList.getInstance(); 
-        user1 = new User("user1", "Lastname1", "username1", "password1", true, true, true, true);
-        user2 = new User("user2", "Lastname2", "username2", "password2", true, true, true, true);
+        user1 = new User("user1", "Lastname1", "username1", "password1");
+        user2 = new User("user2", "Lastname2", "username2", "password2");
     }
     //Testing adding user
     @Test

@@ -1,8 +1,8 @@
 package sourceCode;
 public enum UserType {
-    SCRUM_MASTER("everything"),
     COLLABORATOR("collaborator"),
-    VIEWER("nothing");
+    VIEWER("nothing"),
+    SCRUM_MASTER("everything");
 
     private final String PERM;
 
@@ -12,7 +12,7 @@ public enum UserType {
 
     public boolean getPermission(String edit) {
         // Scrum Master permissions: everything
-        if (PERM.equals(SCRUM_MASTER.PERM)) {
+        if (PERM.equals("everything")) {
             return true;
         }
         // Viewer permissions: nothing
