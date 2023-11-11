@@ -13,44 +13,58 @@ public class Project {
     private LocalDate startSprint;
     private LocalDate endSprint;
     private ArrayList<User> team;
+    private User scrumMaster;
+    private ArrayList<User> collaborators;
+    private ArrayList<User> viewers;
     private ArrayList<Column> columns;
     private ArrayList<Comment> comments;
 
     /**
-     * Constructor for making a new project
+     * Constructor for a NEW project
+     * @author ctaks
      * @param name new
      * @param startSprint new
      * @param endSprint new
      * @param team new
+     * @param scrumMaster new
+     * @param collaborators new
+     * @param viewers new
      * @param columns new
      * @param comments new
      */
-    public Project(String name, LocalDate startSprint, LocalDate endSprint, ArrayList<User> team, ArrayList<Column> columns, ArrayList<Comment> comments) {
+    public Project(String name, LocalDate startSprint, LocalDate endSprint, ArrayList<User> team, User scrumMaster, ArrayList<User> collaborators, ArrayList<User> viewers, ArrayList<Column> columns, ArrayList<Comment> comments) {
         setID(id);
         setName(name);
         setStartSprint(startSprint);
         setEndSprint(endSprint);
         setTeam(team);
+        setScrumMaster(scrumMaster);
+        setCollaborators(collaborators);
+        setViewers(viewers);
         setColumns(columns);
         setComments(comments);
     }
 
     /**
-     * Constructor for loading a project from JSON
-     * @param id from JSON file
-     * @param name from JSON file
-     * @param startSprint from JSON file
-     * @param endSprint from JSON file
-     * @param team from JSON file
-     * @param columns from JSON file
-     * @param comments from JSON file
-     */    
-    public Project(UUID id, String name, LocalDate startSprint, LocalDate endSprint, ArrayList<User> team, ArrayList<Column> columns, ArrayList<Comment> comments) {
+     * Constructor for LOADING a project
+     * @author ctaks
+     * @param id from file
+     * @param name from file
+     * @param startSprint from file
+     * @param endSprint from file
+     * @param team from file
+     * @param columns from file
+     * @param comments from file
+     */  
+    public Project(UUID id, String name, LocalDate startSprint, LocalDate endSprint, ArrayList<User> team, User scrumMaster, ArrayList<User> collaborators, ArrayList<User> viewers, ArrayList<Column> columns, ArrayList<Comment> comments) {
         setID(id);
         setName(name);
         setStartSprint(startSprint);
         setEndSprint(endSprint);
         setTeam(team);
+        setScrumMaster(scrumMaster);
+        setCollaborators(collaborators);
+        setViewers(viewers);
         setColumns(columns);
         setComments(comments);
     }
@@ -130,10 +144,53 @@ public class Project {
         if (team == null || team.isEmpty()) {
             this.team = new ArrayList<User>();
             return true;
-        } else {
-            this.team = team;
+        }
+        this.team = team;
+        return true;
+    }
+
+    /**
+     * Setter for scrummaster
+     * @author ctaks
+     * @param sm the ScrumMaster to set
+     * @return boolean determining success
+     */
+    public boolean setScrumMaster(User sm) {
+        if (sm == null) {
+            return false;
+        }
+        this.scrumMaster = sm;
+        return true;
+    }
+
+    /**
+     * Setter for collaborators
+     * @author ctaks
+     * @param collaborators the collaborator list to set
+     * @return boolean determining success
+     */
+    public boolean setCollaborators(ArrayList<User> collaborators) {
+        if (collaborators == null) {
+            this.collaborators = new ArrayList<User>();
             return true;
         }
+        this.collaborators = collaborators;
+        return true;
+    }
+
+    /**
+     * Setter for viewers
+     * @author ctaks
+     * @param viewers the viewer list to set
+     * @return boolean determining success
+     */
+    public boolean setViewers(ArrayList<User> viewers) {
+        if (viewers == null) {
+            this.viewers = new ArrayList<User>();
+            return true;
+        }
+        this.viewers = viewers;
+        return true;
     }
 
     /**
@@ -167,6 +224,7 @@ public class Project {
             return true;
         }
     }
+
     /**
      * Sets both the sprint start and end dates
      * @author Duayne
@@ -206,7 +264,6 @@ public class Project {
         return this.id;
     }
     
-    
     /**
      * Gets the sprint start date
      * @author Duayne
@@ -229,7 +286,6 @@ public class Project {
         return null;
     }
     
-    
     /**
      * Gets the project's team
      * @author Duayne 
@@ -239,6 +295,33 @@ public class Project {
         if (this.team != null)
         return team;
         return null;
+    }
+
+    /**
+     * Gets the project's ScrumMaster
+     * @author ctaks
+     * @return User of the scrumMaster
+     */
+    public User getScrumMaster() {
+        return this.scrumMaster;
+    }
+
+    /**
+     * Gets the project's collaborators
+     * @author ctaks
+     * @return ArrayList<User> of the collaborators
+     */
+    public ArrayList<User> getCollaborators() {
+        return this.collaborators;
+    }
+
+    /**
+     * Gets the project's viewers
+     * @author ctaks
+     * @return ArrayList<User> of the viewers
+     */
+    public ArrayList<User> getViewers() {
+        return this.viewers;
     }
     
     /**
@@ -290,34 +373,29 @@ public class Project {
     
     /**
      * Adds user to the team and assigns permissions
-     * @author Duayne
+     * @author Duayne (completely refactored by ctaks)
      * @param user User object that represents the current user
-     * @param type UserType enumeration that categorizes the user based on permissions
      * @return boolean that represents a change after adding user to the team
      */
-    public boolean addTeamMember(User user, UserType type) {
-        int size = team.size();
-        if (type == UserType.SCRUM_MASTER) {
-            user.setPermissionToAddTask(true);
-            user.setPermissionToEditColumns(true);
-            user.setPermissionToEditTask(true);
-            user.setPermissionToMoveTask(true);
-            team.add(user);
-            return size != team.size();
-        } else if (type == UserType.COLLABORATOR) {
-            user.setPermissionToAddTask(false);
-            user.setPermissionToEditColumns(false);
-            user.setPermissionToEditTask(true);
-            user.setPermissionToMoveTask(true);
-            team.add(user);
-            return size != team.size();
-        } else if (type == UserType.VIEWER) {
-            user.setPermissionToAddTask(false);
-            user.setPermissionToEditColumns(false);
-            user.setPermissionToEditTask(false);
-            user.setPermissionToMoveTask(false);
-            team.add(user);
-            return size != team.size();
+    public boolean addTeamMember(User userToAdd, UserType role) {
+        UserList userList = UserList.getInstance();
+        for (User user : userList.getUsers()) {
+            if (user.getID().equals(userToAdd.getID())) {
+                // User match is found
+                team.add(userToAdd);
+                if (role == UserType.SCRUM_MASTER) {
+                    scrumMaster = userToAdd;
+                    return true;
+                }
+                if (role == UserType.COLLABORATOR) {
+                    collaborators.add(userToAdd);
+                    return true;
+                }
+                if (role == UserType.VIEWER) {
+                    viewers.add(userToAdd);
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -394,5 +472,36 @@ public class Project {
             return comments.add(new Comment(user, message));
         else
             return false;
+    }
+
+    /**
+     * Changes a user's role, but only between collaborator and viewer.
+     * @author ctaks
+     * @param user to be set
+     * @param role to be changed to
+     * @return boolean determining success
+     */
+    public boolean changeRole(User user, UserType role) {
+        if (role == UserType.COLLABORATOR) {
+            for (User collaborator : collaborators) {
+                if (collaborator.getID().equals(user.getID())) {
+                    // Can't move user to same role!
+                    return false;
+                }
+            }
+            viewers.remove(user);
+            collaborators.add(user);
+        }
+        if (role == UserType.VIEWER) {
+            for (User viewer : viewers) {
+                if (viewer.getID().equals(user.getID())) {
+                    // Can't move user to same role!
+                    return false;
+                }
+            }
+            collaborators.remove(user);
+            viewers.add(user);
+        }
+        return false;
     }
 }

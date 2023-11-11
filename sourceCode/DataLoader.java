@@ -71,11 +71,7 @@ public class DataLoader extends DataConstants {
 					String firstName = (String)userObject.get(USER_FIRST_NAME);
 					String lastName = (String)userObject.get(USER_LAST_NAME);
 					String password = (String)userObject.get(USER_PASSWORD);
-					boolean permissionToAddTask = (boolean)userObject.get(USER_ADD_TASK);
-					boolean permissionToMoveTask = (boolean)userObject.get(USER_MOVE_TASK);
-					boolean permissionToEditTask = (boolean)userObject.get(USER_EDIT_TASK);
-					boolean permissionToEditColumns = (boolean)userObject.get(USER_EDIT_COLUMN);
-					User user = new User(id, userName, firstName, lastName, password, permissionToAddTask, permissionToMoveTask, permissionToEditTask, permissionToEditColumns);
+					User user = new User(id, userName, firstName, lastName, password);
 					if (!this.users.contains(user)) {
 						this.users.add(user);
 					}
@@ -174,6 +170,33 @@ public class DataLoader extends DataConstants {
 							}
 						}
 					}
+					// Scrum Master
+					User scrumMaster = null;
+					for (User user : this.users) {
+						if (user.getID().equals(UUID.fromString((String)jProject.get(PROJECT_SCRUM_MASTER)))) {
+							scrumMaster = user;
+						}
+					}
+					// Collaborators
+					ArrayList<User> collaborators = new ArrayList<User>();
+					ArrayList<String> jsonCollaborators = (ArrayList<String>)jProject.get(PROJECT_COLLABORATORS);
+					for (String jCollabID : jsonCollaborators) {
+						for (User user : this.users) {
+							if (user.getID().equals(UUID.fromString(jCollabID))) {
+								collaborators.add(user);
+							}
+						}
+					}
+					// Viewers
+					ArrayList<User> viewers = new ArrayList<User>();
+					ArrayList<String> jsonViewers = (ArrayList<String>)jProject.get(PROJECT_VIEWERS);
+					for (String jViewerID : jsonViewers) {
+						for (User user : this.users) {
+							if (user.getID().equals(UUID.fromString(jViewerID))) {
+								collaborators.add(user);
+							}
+						}
+					}
 					// Columns
 					ArrayList<Column> columns = new ArrayList<Column>();
 					ArrayList<String> projectColumnIDs = (ArrayList<String>)jProject.get(PROJECT_COLUMN_IDS);
@@ -194,7 +217,7 @@ public class DataLoader extends DataConstants {
 							}
 						}
 					}
-					projectList.add(new Project(id, projectName, startSprint, endSprint, team, columns, comments));
+					projectList.add(new Project(id, projectName, startSprint, endSprint, team, scrumMaster, collaborators, viewers, columns, comments));
 				}
 			}
 			return projectList;

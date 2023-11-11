@@ -4,13 +4,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-
 /**
  * ProjectPilot Facade class. Acts as a buffer between the UI and everything else.
  */
 public class ProjectPilotFacade {
     private static ProjectPilotFacade projectPilotFacade;
-    private User user;
+    private User currentUser;
+    private UserType userRole;
     private Project currentProject;
     private UserList userList;
     private ProjectList projectList;
@@ -52,7 +52,7 @@ public class ProjectPilotFacade {
      * @return user
      */
     public User getUser() {
-        return this.user;
+        return this.currentUser;
     }
     
     /**
@@ -79,9 +79,9 @@ public class ProjectPilotFacade {
      * @param projectName the project's name
      * @return the project
      */
-    public Project getProject(String projectName) {
+    public Project getProject(UUID projectID) {
         for (Project project : projectList.getProjects()) {
-            if (project.getName().equalsIgnoreCase(projectName))
+            if (project.getID().equals(projectID))
                 return project;
         }
         return null;
@@ -108,7 +108,7 @@ public class ProjectPilotFacade {
      * @return Returns the user that was created with the given parameters
      */
     public boolean createAccount(String firstName, String lastName, String userName, String password) {
-        return userList.addUser(new User(firstName, lastName, userName, password, true, true, true, true));
+        return userList.addUser(new User(firstName, lastName, userName, password));
     }
 
     /**
@@ -120,8 +120,8 @@ public class ProjectPilotFacade {
      */
     public boolean login(String userName, String password) {
         if (userList.getUser(userName) != null) {
-            user = userList.getUser(userName);
-            return user.login(userName, password);
+            currentUser = userList.getUser(userName);
+            return currentUser.login(userName, password);
         } else {
             return false;
         }
@@ -134,8 +134,8 @@ public class ProjectPilotFacade {
      * @return
      */
     public boolean logout() {
-        if(user != null){
-            this.user=null;
+        if(currentUser != null){
+            this.currentUser=null;
             return true;
         }
         return false;
@@ -152,27 +152,17 @@ public class ProjectPilotFacade {
      * @param comments to be added
      * @return boolean determining success
      */
-    public boolean addProject(String name, LocalDate startSprint, LocalDate endSprint, ArrayList<User> team, ArrayList<Column> columns, ArrayList<Comment> comments) {
-        return projectList.addProject(new Project(name, startSprint, endSprint,team, columns, comments));
+    public boolean addProject(String name, LocalDate startSprint, LocalDate endSprint, ArrayList<User> team, User scrumMaster, ArrayList<User> collaborators, ArrayList<User> viewers, ArrayList<Column> columns, ArrayList<Comment> comments) {
+        return projectList.addProject(new Project(name, startSprint, endSprint,team, scrumMaster, collaborators, viewers, columns, comments));
     }
 
     /**
-     * Edits the project attributes (name, Start date, end date) and saves it using dataWriter
-     * @author theo v
-     * @param projectID 
-     * @param newName
-     * @param newStartDate
-     * @param newEndDate
-     * @return boolean that determines whether the project was edited successfully
+     * Checks if the current user can edit the project attributes
+     * @param edit the attribute to be edited. Pass in "project[variable]" i.e. projectName, or projectStartPrint
+     * @return boolean determining if the user has permission
      */
-    public boolean editProject(String projectID, String newName, LocalDate newStartDate, LocalDate newEndDate){
-        Project editedProject = projectList.getProject(projectID);
-        if(editedProject!=null){
-            editedProject.setName(newName);
-            editedProject.setSprint(newStartDate, newEndDate);
-            return projectList.saveProjects();
-        }
-        return false;
+    public boolean canEditProject(String edit) {
+        return userRole.getPermission(edit);
     }
 
     /**
@@ -221,29 +211,6 @@ public class ProjectPilotFacade {
     }
 
     /**
-     * Edits the specified column's attributes.
-     * @author theo 
-     * @param columnID ID of the column to be edited
-     * @param newName   New name for the column
-     * @param sortType  New sort type for the column
-     * @return boolean that states whether the column has been successfully edited
-     */
-    public boolean editColumn(String columnID, String newName, String newsortType) {
-        UUID columnUUID = UUID.fromString(columnID);
-        Column editedColumn = currentProject.getColumn(columnUUID);
-        if (editedColumn != null) {
-            if (newName != null && !newName.isEmpty()) {
-                editedColumn.setName(newName);
-            }
-            if (newsortType != null && !newsortType.isEmpty()) {
-                editedColumn.setSortType(newsortType);
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Moves the task from one column to the next
      * @author ctaks
      * @param sourceColumn task origin
@@ -271,42 +238,6 @@ public class ProjectPilotFacade {
         for (Column column : currentProject.getColumns())
             if (column.getID() == c.getID())
                 return column.addTask(new Task(name, user, priority, status, description, comments));
-        return false;
-    }
-
-    /**
-     * edits the specified task's attributes in the specified column
-     * @author theo
-     * @param taskID
-     * @param newName
-     * @param newAssignee
-     * @param newPriority
-     * @param newStatus
-     * @param newDescription
-     * @param comments
-     * @return
-     */  
-    public boolean editTask(String columnID, String taskID, String newName, User newAssignee, int newPriority, String newStatus, String newDescription, ArrayList<Comment> comments) {
-        UUID columnUUID = UUID.fromString(columnID);
-        Column chosentaskColumn = currentProject.getColumn(columnUUID);
-        Task editedTask = chosentaskColumn.getTask(taskID);
-        if (editedTask != null && newName != null && !newName.isEmpty()) {
-            editedTask.setName(newName);
-            if (newAssignee != null) {
-                editedTask.setAssignee(newAssignee);
-            }
-            editedTask.setPriority(newPriority);
-            if (newStatus != null && !newStatus.isEmpty()) {
-                editedTask.setStatus(newStatus);
-            }
-            if (newDescription != null) {
-                editedTask.setDescription(newDescription);
-            }
-            if (comments != null) {
-                editedTask.setComments(comments);
-            }
-            return true;
-        }
         return false;
     }
 
@@ -371,7 +302,7 @@ public class ProjectPilotFacade {
      * @return boolean determining success
      */
     public boolean addComment(String message) {
-        return currentProject.addComment(this.user, message);
+        return currentProject.addComment(this.currentUser, message);
     }
 
     /**
@@ -384,7 +315,7 @@ public class ProjectPilotFacade {
     public boolean addComment(Column column, String message) {
          for (Column c : currentProject.getColumns())
             if (c.getID() == column.getID())
-                return c.addComment(this.user, message);
+                return c.addComment(this.currentUser, message);
         return false;
     }
 
@@ -399,7 +330,7 @@ public class ProjectPilotFacade {
         for (Column c : currentProject.getColumns())
             for (Task t : c.getTasks())
                 if (t.getID() == task.getID())
-                    return t.addComment(this.user, message);
+                    return t.addComment(this.currentUser, message);
         return false;
     }
 
@@ -412,31 +343,62 @@ public class ProjectPilotFacade {
      */
     public boolean addComment(Comment comment, String message) {
         if (currentProject.getComment(comment.getID()) != null )
-            return currentProject.getComment(comment.getID()).threadComment(this.user, message);
+            return currentProject.getComment(comment.getID()).threadComment(this.currentUser, message);
         for (Column col : currentProject.getColumns()) {
             if(col.getComment(comment.getID()) != null)
-                return col.getComment(comment.getID()).threadComment(this.user, message);
+                return col.getComment(comment.getID()).threadComment(this.currentUser, message);
             for (Task t : col.getTasks()) {
                 if(t.getComment(comment.getID()) != null)
-                    return t.getComment(comment.getID()).threadComment(this.user, message);
+                    return t.getComment(comment.getID()).threadComment(this.currentUser, message);
             }
         }
         return false;
     }
 
     /**
-     * Setter for currentProject.
+     * Setter for currentProject. ALso sets the currentRole based on the currentUser's role in the project.
      * @author ctaks
      * @param projectName the project's name
      * @return boolean determining if it set the project or not.
      */
-    public boolean loadProject(String projectName) {
+    public boolean loadProject(UUID projectID) {
         for (Project project : projectList.getProjects()) {
-            if (project.getName().equalsIgnoreCase(projectName)) {
+            if (project.getID().equals(projectID)) {
                 currentProject = project;
+                loadRole();
                 return true;
             }
         }
+        return false;
+    }
+
+    /**
+     * Setter for userRole. Called through currentProject (the project needs to be set first)
+     * @author ctaks
+     * @return boolean determining success
+     */
+    public boolean loadRole() {
+        // Scrum Master
+        if (currentUser.getID().equals(currentProject.getScrumMaster().getID())) {
+            userRole = UserType.SCRUM_MASTER;
+            return true;
+        }
+        // Collaborator
+        for (User collab : currentProject.getCollaborators()) {
+            if (currentUser.getID().equals(collab.getID())) {
+                userRole = UserType.COLLABORATOR;
+                return true;
+            }
+        }
+        // Viewer
+        for (User viewer : currentProject.getViewers()) {
+            if (currentUser.getID().equals(viewer.getID())) {
+                userRole = UserType.VIEWER;
+                return true;
+            }
+        }
+        // No role found
+        userRole = UserType.VIEWER;
         return false;
     }
 
@@ -458,4 +420,3 @@ public class ProjectPilotFacade {
         return userList.saveUsers();
     }
 }
-

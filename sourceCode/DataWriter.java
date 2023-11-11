@@ -53,10 +53,6 @@ public class DataWriter extends DataConstants {
         userDetails.put(USER_LAST_NAME, user.getLastName());
         userDetails.put(USER_USER_NAME, user.getUserName());
         userDetails.put(USER_PASSWORD, user.getPassword());
-        userDetails.put(USER_ADD_TASK, user.getPermissionToAddTask());
-        userDetails.put(USER_MOVE_TASK, user.getPermissionToMoveTask());
-        userDetails.put(USER_EDIT_TASK, user.getPermissionToEditTask());
-        userDetails.put(USER_EDIT_COLUMN, user.getPermissionToEditColumns());
 
         return userDetails;
     }
@@ -121,26 +117,45 @@ public class DataWriter extends DataConstants {
         projectData.put(PROJECT_ID, project.getID().toString());
         projectData.put(PROJECT_NAME, project.getName());
 
+        // teams
         JSONArray team = new JSONArray();
-        for (User user : project.getTeam())
+        for (User user : project.getTeam()) {
             team.add(user.getID().toString());
-
+        }
         projectData.put(PROJECT_TEAM, team);
+
+        projectData.put(PROJECT_SCRUM_MASTER, project.getScrumMaster().getID().toString());
+
+        // collaborators
+        JSONArray collaborators = new JSONArray();
+        for (User user : project.getCollaborators()) {
+            collaborators.add(user.getID().toString());
+        }
+        projectData.put(PROJECT_COLLABORATORS, collaborators);
+
+        // viewers
+        JSONArray viewers = new JSONArray();
+        for (User user : project.getViewers()) {
+            viewers.add(user.getID().toString());
+        }
+        projectData.put(PROJECT_VIEWERS, viewers);
+
         projectData.put(PROJECT_START_SPRINT, project.getStartSprint().toString());
         projectData.put(PROJECT_END_SPRINT, project.getEndSprint().toString());
 
+        // columns
         JSONArray columnIDs = new JSONArray();
-        for (Column column : project.getColumns())
+        for (Column column : project.getColumns()) {
             columnIDs.add(column.getID().toString());
-
+        }
         projectData.put(PROJECT_COLUMN_IDS, columnIDs);
 
+        // comments
         JSONArray commentIDs = new JSONArray();
         for (Comment comment : project.getComments()) {
             commentIDs.add(comment.getID().toString());
             jsonProjects.add(getCommentJSON(comment));
         }
-
         projectData.put(PROJECT_COMMENT_IDs, commentIDs);
 
         return projectData;

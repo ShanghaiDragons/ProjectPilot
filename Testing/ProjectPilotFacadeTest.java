@@ -54,13 +54,23 @@ public class ProjectPilotFacadeTest {
         //testing adding a project with null name value
         assertFalse(projectPilotFacade.addProject(null, LocalDate.now(), LocalDate.now().plusDays(7), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
     }
+
+    // new editProject test
+    @Test
+    public void testEditProject() {
+        user.setRole(UserType.SCRUM_MASTER);
+        assertTrue(projectPilotFacade.editProject("setProjectName","smName"));
+        user.setRole(UserType.VIEWER);
+        assertFalse(projectPilotFacade.editProject("setProjectName", "viewerName"));
+    }
+    /*
     //testing editing project scenarios
     @Test
     public void testEditProject() {
         assertTrue(projectPilotFacade.editProject(projectPilotFacade.getProject("Project1").getID().toString(), "Project2", LocalDate.now(), LocalDate.now().plusDays(14)));
         //editing non-existing project 
         assertFalse(projectPilotFacade.editProject("nonexistentID", "Project2", LocalDate.now(), LocalDate.now().plusDays(14))); 
-    }
+    } */
     //testing removing project scenarios
     @Test
     public void testRemoveProject() {

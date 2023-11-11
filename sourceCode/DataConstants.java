@@ -2,23 +2,22 @@ package sourceCode;
 public abstract class DataConstants {
 	// User
 	protected static final String USER = "user";
-	protected static final String USER_FILE_NAME = "json/UsersScenario1.json"; //TODO: change to correct
+	protected static final String USER_FILE_NAME = "json/UsersScenario2.json"; //TODO: change to correct
 	protected static final String USER_ID = "id";
 	protected static final String USER_USER_NAME = "userName";
 	protected static final String USER_FIRST_NAME = "firstName";
 	protected static final String USER_LAST_NAME = "lastName";
 	protected static final String USER_PASSWORD = "password";
-	protected static final String USER_ADD_TASK = "permissionToAddTask";
-	protected static final String USER_MOVE_TASK = "permissionToMoveTask";
-	protected static final String USER_EDIT_TASK = "permissionToEditTask";
-	protected static final String USER_EDIT_COLUMN = "permissionToEditColumns";
 
 	// Project
 	protected static final String PROJECT = "project";
-	protected static final String PROJECT_FILE_NAME = "json/ProjectsScenario1.json"; //TODO: change back to correct filename.
+	protected static final String PROJECT_FILE_NAME = "json/ProjectsScenario2.json"; //TODO: change back to correct filename.
 	protected static final String PROJECT_NAME = "projectName";
 	protected static final String PROJECT_ID = "projectID";
 	protected static final String PROJECT_TEAM = "team";
+	protected static final String PROJECT_SCRUM_MASTER = "scrumMaster";
+	protected static final String PROJECT_COLLABORATORS = "collaborators";
+	protected static final String PROJECT_VIEWERS = "viewers";
 	protected static final String PROJECT_START_SPRINT = "startSprint";
 	protected static final String PROJECT_END_SPRINT = "endSprint";
 	protected static final String PROJECT_COLUMN_IDS = "projectColumnIDs";
@@ -30,7 +29,6 @@ public abstract class DataConstants {
 	protected static final String COLUMN_ID = "columnID";
 	protected static final String COLUMN_SORT_TYPE = "sortType";
 	protected static final String COLUMN_TASK_IDS = "columnTaskIDs";
-	// protected static final String COLUMN_PROJECT_ID = "projectID";
 	protected static final String COLUMN_COMMENT_IDS = "columnCommentIDs";
 
 	// TASK
@@ -43,9 +41,6 @@ public abstract class DataConstants {
 	protected static final String TASK_DESCRIPTION = "description";
 	protected static final String TASK_TASK_HISTORY_ID = "taskTaskHistoryID";
 	protected static final String TASK_COMMENT_IDS = "taskCommentIDs";
-	protected static final String TASK_GENERAL = "isGeneral"; // boolean
-	protected static final String TASK_NEW_FEATURE = "isNewFeature"; // boolean
-	protected static final String TASK_BUG = "isBug"; // boolean
 
 	// TaskHistory
 	protected static final String TASK_HISTORY_LOG = "taskHistoryLog";
@@ -62,9 +57,6 @@ public abstract class DataConstants {
 
 	// Comment
 	protected static final String COMMENT = "comment";
-	// protected static final String COMMENT_PROJECT_ID = "projectID";
-	// protected static final String COMMENT_COLUMN_ID = "columnID";
-	// protected static final String COMMENT_TASK_ID = "taskID";
 	protected static final String COMMENT_ID = "commentID";
 	protected static final String COMMENT_USER_ID = "commentUserID";
 	protected static final String COMMENT_DATE = "commentDate";

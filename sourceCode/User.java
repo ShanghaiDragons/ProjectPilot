@@ -11,10 +11,6 @@ public class User {
     private String lastName;
     private String userName;
     private String password;
-    private boolean permissionToAddTask;
-    private boolean permissionToMoveTask;
-    private boolean permissionToEditTask;
-    private boolean permissionToEditColumns;
 
     /**
      * Overloaded constructor of user to include UUID
@@ -24,22 +20,13 @@ public class User {
      * @param firstName string that represents the user's first name
      * @param lastName string that represents the user's last name
      * @param password string that represents the user's password
-     * @param permissionToAddTask boolean that represents the user's permission to add tasks
-     * @param permissionToMoveTask boolean that represents the user's permission to move tasks
-     * @param permissionToEditTask boolean that represents the user's permission to edit tasks
-     * @param permissionToEditColumns boolean that represents the user's permission to edit columns
      */
-    public User(UUID id, String userName, String firstName, String lastName, String password, boolean permissionToAddTask,
-                boolean permissionToMoveTask, boolean permissionToEditTask, boolean permissionToEditColumns) {
+    public User(UUID id, String userName, String firstName, String lastName, String password) {
         setID(id);
         setFirstName(firstName);
         setLastName(lastName);
         setUserName(userName);
         setPassword(password);
-        setPermissionToAddTask(permissionToAddTask);
-        setPermissionToMoveTask(permissionToMoveTask);
-        setPermissionToEditTask(permissionToEditTask);
-        setPermissionToEditColumns(permissionToEditColumns);
     }
 
     /**
@@ -49,22 +36,13 @@ public class User {
     * @param firstName string that represents the user's first name
     * @param lastName string that represents the user's last name
     * @param password string that represents the user's password
-    * @param permissionToAddTask boolean that represents the user's permission to add tasks
-    * @param permissionToMoveTask boolean that represents the user's permission to move tasks
-    * @param permissionToEditTask boolean that represents the user's permission to edit tasks
-    * @param permissionToEditColumns boolean that represents the user's permission to edit columns
     */
-    public User(String firstName, String lastName, String userName, String password, boolean permissionToAddTask,
-    boolean permissionToMoveTask, boolean permissionToEditTask, boolean permissionToEditColumns) {
+    public User(String firstName, String lastName, String userName, String password) {
         setID(this.id);
         setFirstName(firstName);
         setLastName(lastName);
         setUserName(userName);
         setPassword(password);
-        setPermissionToAddTask(permissionToAddTask);
-        setPermissionToMoveTask(permissionToMoveTask);
-        setPermissionToEditTask(permissionToEditTask);
-        setPermissionToEditColumns(permissionToEditColumns);
     }
     
     /**
@@ -147,41 +125,6 @@ public class User {
             return false;
         }
     }
-    
-    /**
-     * Sets the permission to add a task
-     * @author Duayne
-     * @param permissionToEditColumns boolean to which to set the permission
-     */
-    public void setPermissionToAddTask(boolean permissionToAddTask) {
-        this.permissionToAddTask = permissionToAddTask;
-    }
-    
-    /**
-     * Sets the permission to move a task
-     * @author Duayne
-     * @param permissionToEditColumns boolean to which to set the permission
-     */
-    public void setPermissionToMoveTask(boolean permissionToMoveTask) {
-        this.permissionToMoveTask = permissionToMoveTask;
-    }
-
-    /**
-     * Sets the permission to edit a task
-     * @author Duayne
-     * @param permissionToEditColumns boolean to which to set the permission
-     */
-    public void setPermissionToEditTask(boolean permissionToEditTask) {
-        this.permissionToEditTask = permissionToEditTask;
-    }
-    /**
-     * Sets the permission to edit a column
-     * @author Duayne
-     * @param permissionToEditColumns boolean to which to set the permission
-     */
-    public void setPermissionToEditColumns(boolean permissionToEditColumns) {
-        this.permissionToEditColumns = permissionToEditColumns;
-    }
 
     /**
      * Gets the UUID of the user
@@ -226,42 +169,6 @@ public class User {
      */
     public String getPassword() {
         return this.password;
-    }
-
-    /**
-     * Gets the current permission to add a task
-     * @author Duayne
-     * @return boolean of the permission to add a task
-     */
-    public boolean getPermissionToAddTask() {
-        return permissionToAddTask;
-    }
-    
-    /**
-     * Gets the current permission to move a task
-     * @author Duayne
-     * @return boolean of the permission to move a task
-     */
-    public boolean getPermissionToMoveTask() {
-        return permissionToMoveTask;
-    }
-    
-    /**
-     * Gets the current permission to edit a task
-     * @author Duayne
-     * @return boolean of the permission to edit a task
-     */
-    public boolean getPermissionToEditTask() {
-        return permissionToEditTask;
-    }
-
-    /**
-     * Gets the current permission to edit a column
-     * @author Duayne
-     * @return boolean of the permission to edit a column
-     */
-    public boolean getPermissionToEditColumns() {
-        return permissionToEditColumns;
     }
     
     /**

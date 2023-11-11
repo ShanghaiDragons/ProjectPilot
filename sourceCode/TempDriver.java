@@ -37,6 +37,7 @@ public class TempDriver {
       case 2:
         if(!makeNewAccount())
           return;
+        run();
         break;
       default:
         System.out.println("fail");
@@ -130,7 +131,7 @@ public class TempDriver {
       createProject();
       loadAProject();
     } else {
-      ppf.loadProject(ppf.getProject(ppf.getProjects().get(choice).getName()).getName());
+      ppf.loadProject(ppf.getProject(ppf.getProjects().get(choice).getID()).getID());
     }
     return true;
   }
@@ -600,7 +601,7 @@ public class TempDriver {
       ArrayList<Column> columns = new ArrayList<Column>();
       ArrayList<Comment> comments = new ArrayList<Comment>();
   
-      ppf.addProject(name, startDate, endDate, team, columns, comments);
+      ppf.addProject(name, startDate, endDate, team, ppf.getUser(), team, team, columns, comments);
     }
 
   public void createColumn() {
@@ -683,6 +684,13 @@ public class TempDriver {
       if (ppf.getProjects() != null && ppf.getProjects().size() != 0) {
         for(Project p : ppf.getProjects()) {
           fw.write(ENTER+"[Project]: "+p.getName()+ENTER);
+          fw.write("[Scrum Master]: "+p.getScrumMaster().getUserName()+ENTER);
+          for (User c : p.getCollaborators()) {
+            fw.write("[Collaborator]: "+c.getUserName()+ENTER);
+          }
+          for (User v : p.getViewers()) {
+            fw.write("[Viewer]: "+v.getUserName()+ENTER);
+          }
           // PROJECT COMMENT
           if (p.getComments().size() != 0) {
             for (Comment c : p.getComments()) {
