@@ -37,7 +37,7 @@ class DataLoaderTest {
 		dataWriter.saveProjects();
 	}
 	
-	@After
+	@AfterEach
 	public void tearDown() {
 		userList.clear();
 		projectList.clear();
@@ -51,25 +51,56 @@ class DataLoaderTest {
 	}
 
 	@Test
-	void testGetUsersSizeZero() {
-		userList.clear();
-		dataWriter.saveUsers();
-		assertEquals(0, dataLoader.getUsers().size());
-	}
-
-	@Test
 	void testGetProjectsSize() {
 		assertEquals(1, dataLoader.getProjects().size());
 	}
 
 	@Test
-	void testGetProjectsSizeZero() {
+	void testSaveandLoadZero() {
+		userList.clear();
 		projectList.clear();
-		dataWriter.saveProjects();
+		assertTrue(dataWriter.saveProjects());
+		assertTrue(dataWriter.saveUsers());
 		assertEquals(0, dataLoader.getProjects().size());
+		assertEquals(0, dataLoader.getUsers().size());
 	}
-	
-}
 
-// add a check for no file name given
-// saving an empty string
+	@Test
+	void testSavingNullinConstructors() {
+		dataWriter = new DataWriter();
+		projectList.clear();
+		userList.clear();
+		Project testProject = new Project(null, null, null, null, null, null);
+		User testUser = new User(null, null, null, null, false, false, false, false);
+		projectList.add(testProject);
+		userList.add(testUser);
+		assertTrue(dataWriter.saveProjects() && !projectList.get(0).getName().equals(null));
+		assertTrue(dataWriter.saveUsers() && !userList.get(0).getUserName().equals(null));
+	}
+
+	@Test
+	void testSavingNull() {
+		dataWriter = new DataWriter();
+		userList.clear();
+		projectList.clear();
+		projectList.add(null);
+		userList.add(null);
+		assertTrue(dataWriter.saveUsers());
+		assertTrue(dataWriter.saveProjects());
+	}
+
+	@Test
+	void testLoadingNullinConstructors() {
+		dataWriter = new DataWriter();
+		userList.clear();
+		projectList.clear();
+		User testUser = new User(null, null, null, null, false, false, false, false);
+		Project testProject = new Project(null, null, null, null, null, null);
+		userList.add(testUser);
+		projectList.add(testProject);
+		dataWriter.saveUsers();
+		dataWriter.saveProjects();
+		assertTrue(dataLoader.getUsers().contains(testUser));
+		assertTrue(dataLoader.getProjects().contains(testProject));
+	}
+}
