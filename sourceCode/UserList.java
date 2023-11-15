@@ -1,7 +1,7 @@
 package sourceCode;
 import java.util.ArrayList;
 
-public class UserList {
+public class UserList { 
     private static UserList userListInstance;
     private ArrayList<User> users;
     private DataLoader dataLoader;
@@ -85,6 +85,11 @@ public class UserList {
     public boolean saveUsers() {
         DataWriter dw = new DataWriter();
         return dw.saveUsers();
+    }
+
+    public boolean clear() {
+        users.removeAll(users);
+        return getUsers().isEmpty();
     }
 }
 

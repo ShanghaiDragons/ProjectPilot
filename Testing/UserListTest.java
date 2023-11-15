@@ -15,6 +15,7 @@ public class UserListTest {
     @Before
     public void setUp() {
         userList = UserList.getInstance(); 
+        userList.clear();
         user1 = new User("user1", "Lastname1", "username1", "password1");
         user2 = new User("user2", "Lastname2", "username2", "password2");
     }
