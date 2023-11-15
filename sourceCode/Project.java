@@ -378,9 +378,12 @@ public class Project {
      * @return boolean that represents a change after adding user to the team
      */
     public boolean addTeamMember(User userToAdd, UserType role) {
+        if (userToAdd.getFirstName().isEmpty() || userToAdd.getUserName().isEmpty() ||
+            userToAdd.getLastName().isEmpty() || userToAdd.getPassword().isEmpty())
+            return false;
         UserList userList = UserList.getInstance();
         for (User user : userList.getUsers()) {
-            if (user.getID().equals(userToAdd.getID())) {
+            if (user.getID().equals(userToAdd.getID()) && !(team.contains(userToAdd))) {
                 // User match is found
                 team.add(userToAdd);
                 if (role == UserType.SCRUM_MASTER) {
@@ -421,7 +424,8 @@ public class Project {
      * @return boolean that represents a change after adding column to the list of columns
      */
     public boolean addColumn(Column column) {
-        if (column == null)
+        if (column == null || columns.contains(column) ||
+            column.getName().isEmpty() || column.getSortType().isEmpty())
             return false;
         int size = columns.size();
         columns.add(column);
@@ -451,6 +455,8 @@ public class Project {
      * @return boolean determining success of both move and deletion of task from source column
      */
     public boolean moveTask(Column sourceColumn, Column destinationColumn, Task task) {
+        if (sourceColumn == null || destinationColumn == null || task == null )
+            return false;
         if (sourceColumn.getID().equals(destinationColumn.getID())) {
             return true; // If the source/destination columns are the same, the task is already "moved".
         }
@@ -462,13 +468,13 @@ public class Project {
     
     /**
      * Adds a comment to the project
-     * @author ctaks
+     * @author ctaks (edited by Duayne)
      * @param user to be added
      * @param message to be added
      * @return boolean determining success
      */
     public boolean addComment(User user, String message) {
-        if(user != null && !message.isEmpty())
+        if(!message.isEmpty() && team.contains(user))
             return comments.add(new Comment(user, message));
         else
             return false;

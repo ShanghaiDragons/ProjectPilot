@@ -27,6 +27,7 @@ public class User {
         setLastName(lastName);
         setUserName(userName);
         setPassword(password);
+        UserList.getInstance().addUser(this);
     }
 
     /**
@@ -43,6 +44,7 @@ public class User {
         setLastName(lastName);
         setUserName(userName);
         setPassword(password);
+        UserList.getInstance().addUser(this);
     }
     
     /**
