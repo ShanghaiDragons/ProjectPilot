@@ -23,11 +23,13 @@ public class TaskTest {
   public void setup() {
     name = "test name";
     assignee = new User("test", "test", "tester", "p");
+    comments = new ArrayList<Comment>();
+    task = new Task(name, assignee, priority1, "status", description, comments);
+    taskHistory = new TaskHistory(task.getID(), null, null, null, null, null, null, null);
     priority1 = 1;
     priority2 = 2;
     priority3 = 3;
     description = "test description";
-    comments = new ArrayList<Comment>();
     oldStringNull = null;
     oldString = "test old";
     newStringNull = null;
