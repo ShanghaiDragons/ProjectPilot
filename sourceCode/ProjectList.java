@@ -78,4 +78,9 @@ public class ProjectList {
         return dw.saveProjects();
     }
 
+    public boolean clear() {
+        projects.removeAll(projects);
+        return getProjects().isEmpty();
+    }
+
 }

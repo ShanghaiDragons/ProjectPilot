@@ -16,10 +16,11 @@ public class ProjectTest {
     private User scrumMaster, collaborator, viewer, user1, nonExistingUser,nonTeamMember;
     private Column ToDo,InProgress,Done, nonexistingcolumn;
     private Task task1, task2,task3, nonexistingTask;
+    private UserList userList = UserList.getInstance();
 
     @Before
     public void setUp() {
-        UserList.getInstance().clear();
+        userList.clear();
         team = new ArrayList<>();
         columnlist = new ArrayList<>();
         commentlist = new ArrayList<>();
