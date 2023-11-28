@@ -3,7 +3,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import projectpilot_gui.src.main.java.model.*;
+import model.User;
+
 /**
  * This comment class represents a comment in  a task, a column, or another comment. 
  */

@@ -9,8 +9,8 @@ module projectpilot {
     // opens lib to javafx.fxml;
     // exports lib;
 
-    // opens model to javafx.fxml;
-    // exports model;
+    opens model to javafx.fxml;
+    exports model;
 
     opens projectpilot to javafx.fxml;
     exports projectpilot;
