@@ -1,5 +1,4 @@
 package Testing;
-import sourceCode.*;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import java.util.ArrayList;
@@ -7,6 +6,8 @@ import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.*;
+
+import projectpilot_gui.src.main.java.model.*;
 
 public class ProjectTest {
     private Project testProject;

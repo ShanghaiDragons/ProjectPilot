@@ -1,10 +1,12 @@
 package Testing;
-import sourceCode.*;
+import projectpilot_gui.src.main.java.model.*;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
+
+
 import org.junit.Assert;
 
 public class ColumnTest {

@@ -8,7 +8,8 @@ import java.time.LocalDate;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.*;
-import sourceCode.*;
+
+import projectpilot_gui.src.main.java.model.*;
 
 class DataLoaderTest {
 	private DataLoader dataLoader = DataLoader.getInstance();

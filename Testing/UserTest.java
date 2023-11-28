@@ -1,9 +1,9 @@
 package Testing;
-import sourceCode.User;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 
+import projectpilot_gui.src.main.java.model.*;
 
 public class UserTest {
     User user = new User("First", "Name", "username", "password");
