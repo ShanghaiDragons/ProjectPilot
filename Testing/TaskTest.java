@@ -1,11 +1,13 @@
 package Testing;
-import sourceCode.*;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import java.util.ArrayList;
 import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
+
+import projectpilot_gui.src.main.java.model.*;
+
 import org.junit.Assert;
 
 // actually for testing TaskHistory
@@ -23,11 +25,13 @@ public class TaskTest {
   public void setup() {
     name = "test name";
     assignee = new User("test", "test", "tester", "p");
+    comments = new ArrayList<Comment>();
+    task = new Task(name, assignee, priority1, "status", description, comments);
+    taskHistory = new TaskHistory(task.getID(), null, null, null, null, null, null, null);
     priority1 = 1;
     priority2 = 2;
     priority3 = 3;
     description = "test description";
-    comments = new ArrayList<Comment>();
     oldStringNull = null;
     oldString = "test old";
     newStringNull = null;
