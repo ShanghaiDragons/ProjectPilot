@@ -6,8 +6,8 @@ module projectpilot {
     opens controllers to javafx.fxml;
     exports controllers;
 
-    // opens lib to javafx.fxml;
-    // exports lib;
+    // opens images to javafx.fxml;
+    // exports images;
 
     opens model to javafx.fxml;
     exports model;

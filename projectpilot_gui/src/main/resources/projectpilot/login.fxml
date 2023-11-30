@@ -28,18 +28,18 @@
                   <Font size="36.0" />
                </font>
             </Label>
-            <ImageView fitHeight="480.0" fitWidth="250.0" pickOnBounds="true">
+            <ImageView fx:id="projectpilot_pic" fitHeight="480.0" fitWidth="250.0" pickOnBounds="true">
                <image>
                   <Image url="@../../java/images/Screenshot%202023-11-27%20135552.png" />
                </image>
             </ImageView>
             <Label layoutX="423.0" layoutY="159.0" prefHeight="17.0" prefWidth="73.0" text="USERNAME" />
-            <PasswordField layoutX="423.0" layoutY="237.0" prefHeight="25.0" prefWidth="205.0" />
-            <Button fx:id="loginButton" layoutX="481.0" layoutY="297.0" mnemonicParsing="false" onAction="#switchToHome" prefHeight="25.0" prefWidth="89.0" text="Login" />
             <Label layoutX="423.0" layoutY="219.0" prefHeight="17.0" prefWidth="73.0" text="PASSWORD" />
             <Label layoutX="462.0" layoutY="327.0" prefHeight="17.0" prefWidth="127.0" text="Don't have an account?" textAlignment="CENTER" />
             <Button fx:id="NewAccount" layoutX="462.0" layoutY="352.0" mnemonicParsing="false" onAction="#switchToCreateAccount" prefHeight="26.0" prefWidth="127.0" text="Create new account" />
-            <TextField layoutX="422.0" layoutY="177.0" prefHeight="26.0" prefWidth="206.0" />
+            <TextField fx:id="txt_username" layoutX="422.0" layoutY="177.0" prefHeight="26.0" prefWidth="206.0" promptText="Enter your username" />
+            <PasswordField fx:id="txt_password" layoutX="423.0" layoutY="237.0" prefHeight="25.0" prefWidth="205.0" promptText="Enter your password" />
+            <Button fx:id="LoginButton" layoutX="481.0" layoutY="289.0" mnemonicParsing="false" onAction="#switchToHomePage" prefHeight="26.0" prefWidth="89.0" text="Login" />
          </children>
       </AnchorPane>
    </children>
