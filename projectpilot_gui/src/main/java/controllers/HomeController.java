@@ -125,4 +125,5 @@ public class HomeController implements Initializable{
     public void initialize(URL url, ResourceBundle rb) {
         TaskTitle1.setText("Test");
     }
+    
 }
