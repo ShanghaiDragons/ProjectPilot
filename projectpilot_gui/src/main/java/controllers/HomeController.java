@@ -8,12 +8,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import projectpilot.App;
 
 
-public class HomeController { //} implements Initializable{
+public class HomeController implements Initializable{
 
     @FXML
     private MenuItem ProjectsItem1;
@@ -64,7 +66,40 @@ public class HomeController { //} implements Initializable{
     private MenuItem ProjectsItem19;
 
     @FXML
+    private Label TaskTitle1;
+
+    @FXML
     private Button ToLogin;
+
+    @FXML
+    private Button addColumn;
+
+    @FXML
+    private Button addTask;
+
+    @FXML
+    private Label columnTitle1;
+
+    @FXML
+    private Label projectTitle;
+
+    @FXML
+    private Label taskPriority;
+
+    @FXML
+    void addColumnToProject(ActionEvent event) throws IOException{
+        App.setRoot("login");
+    }
+
+    @FXML
+    void addTaskToColumn(ActionEvent event) throws IOException{
+        App.setRoot("login");
+    }
+
+    @FXML
+    void switchToColumnEditor(MouseEvent event) throws IOException{
+        App.setRoot("columnEditor");
+    }
 
     @FXML
     void switchToLogin(ActionEvent event) throws IOException{
@@ -73,11 +108,21 @@ public class HomeController { //} implements Initializable{
 
     @FXML
     void switchToProject1(ActionEvent event) throws IOException{
-        App.setRoot("login");
+        App.setRoot("home");
     }
 
-    // @Override
-    // public void initialize(URL url, ResourceBundle rb) {
-    //     column_title.setText("Test");
-    // }
+    @FXML
+    void switchToProjectEditor(MouseEvent event) throws IOException{
+        App.setRoot("projectEditor");
+    }
+
+    @FXML
+    void switchToTaskEditor(MouseEvent event) throws IOException{
+        App.setRoot("taskEditor");
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        TaskTitle1.setText("Test");
+    }
 }

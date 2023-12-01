@@ -5,11 +5,12 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
@@ -20,6 +21,32 @@
          </image>
       </ImageView>
       <Button fx:id="ToLogin" layoutX="723.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToLogin" text="Sign Out" />
+      <HBox alignment="TOP_CENTER" layoutX="20.0" layoutY="85.0" prefHeight="370.0" prefWidth="761.0">
+         <children>
+            <ScrollPane prefHeight="370.0" prefWidth="208.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="368.0" prefWidth="205.0">
+                     <children>
+                        <Label fx:id="columnTitle1" layoutX="69.0" layoutY="14.0" onMouseClicked="#switchToColumnEditor" text="Column Title" />
+                        <Button fx:id="addTask" layoutX="90.0" layoutY="328.0" mnemonicParsing="false" onAction="#addTaskToColumn" text="+" />
+                        <Pane layoutX="7.0" layoutY="46.0" prefHeight="71.0" prefWidth="190.0">
+                           <children>
+                              <Circle fill="DODGERBLUE" layoutX="172.0" layoutY="10.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="162.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../java/images/image-from-rawpixel-id-6642555-original.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="taskPriority" layoutX="182.0" layoutY="1.0" text="3" />
+                              <Label fx:id="TaskTitle1" alignment="TOP_LEFT" layoutX="14.0" onMouseClicked="#switchToTaskEditor" prefHeight="71.0" prefWidth="135.0" text="Task Title" wrapText="true" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </children>
+      </HBox>
       <MenuButton layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Projects">
          <items>
             <MenuItem fx:id="ProjectsItem1" mnemonicParsing="false" onAction="#switchToProject1" />
@@ -40,23 +67,16 @@
             <MenuItem fx:id="ProjectsItem115" mnemonicParsing="false" onAction="#switchToProject1" />
          </items>
       </MenuButton>
-      <Label fx:id="projectTitle" alignment="CENTER" layoutX="245.0" layoutY="14.0" prefHeight="71.0" prefWidth="310.0" text="Project Title">
+      <Label fx:id="projectTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="246.0" layoutY="14.0" onMouseClicked="#switchToProjectEditor" prefHeight="71.0" prefWidth="310.0" text="Project Title" textAlignment="CENTER">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <ScrollPane layoutX="27.0" layoutY="85.0" prefHeight="368.0" prefWidth="747.0">
-         <content>
-            <TitledPane alignment="CENTER" animated="false" collapsible="false" prefHeight="367.0" prefWidth="190.0" text="Column Title">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Button layoutX="4.0" layoutY="313.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="179.0" text="Add Task" />
-                     </children>
-                  </AnchorPane>
-              </content>
-            </TitledPane>
-         </content>
-      </ScrollPane>
+      <Button fx:id="addColumn" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="761.0" layoutY="85.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#addColumnToProject" text="+" />
+      <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="693.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../java/images/image-from-rawpixel-id-6642555-original.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>
