@@ -13,10 +13,10 @@ import projectpilot.App;
 public class LoginController {
 
     @FXML
-    private Button LoginButton;
+    private Button btn_login;
 
     @FXML
-    private Button NewAccount;
+    private Button btn_newAccount;
 
     @FXML
     private ImageView projectpilot_pic;

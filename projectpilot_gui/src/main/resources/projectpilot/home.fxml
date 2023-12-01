@@ -49,22 +49,22 @@
       </HBox>
       <MenuButton layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Projects">
          <items>
-            <MenuItem fx:id="ProjectsItem1" mnemonicParsing="false" onAction="#switchToProject1" />
-            <MenuItem fx:id="ProjectsItem11" mnemonicParsing="false" onAction="#switchToProject1" />
-            <MenuItem fx:id="ProjectsItem12" mnemonicParsing="false" onAction="#switchToProject1" />
-            <MenuItem fx:id="ProjectsItem13" mnemonicParsing="false" onAction="#switchToProject1" />
-            <MenuItem fx:id="ProjectsItem14" mnemonicParsing="false" onAction="#switchToProject1" />
-            <MenuItem fx:id="ProjectsItem15" mnemonicParsing="false" onAction="#switchToProject1" />
-            <MenuItem fx:id="ProjectsItem16" mnemonicParsing="false" onAction="#switchToProject1" />
-            <MenuItem fx:id="ProjectsItem17" mnemonicParsing="false" onAction="#switchToProject1" />
-            <MenuItem fx:id="ProjectsItem18" mnemonicParsing="false" onAction="#switchToProject1" />
-            <MenuItem fx:id="ProjectsItem19" mnemonicParsing="false" onAction="#switchToProject1" />
-            <MenuItem fx:id="ProjectsItem110" mnemonicParsing="false" onAction="#switchToProject1" />
-            <MenuItem fx:id="ProjectsItem111" mnemonicParsing="false" onAction="#switchToProject1" />
-            <MenuItem fx:id="ProjectsItem112" mnemonicParsing="false" onAction="#switchToProject1" />
-            <MenuItem fx:id="ProjectsItem113" mnemonicParsing="false" onAction="#switchToProject1" />
-            <MenuItem fx:id="ProjectsItem114" mnemonicParsing="false" onAction="#switchToProject1" />
-            <MenuItem fx:id="ProjectsItem115" mnemonicParsing="false" onAction="#switchToProject1" />
+            <MenuItem fx:id="item_project1" mnemonicParsing="false" onAction="#switchToProject1" />
+            <MenuItem fx:id="item_project2" mnemonicParsing="false" onAction="#switchToProject1" />
+            <MenuItem fx:id="item_project3" mnemonicParsing="false" onAction="#switchToProject1" />
+            <MenuItem fx:id="item_project4" mnemonicParsing="false" onAction="#switchToProject1" />
+            <MenuItem fx:id="item_project5" mnemonicParsing="false" onAction="#switchToProject1" />
+            <MenuItem fx:id="item_project6" mnemonicParsing="false" onAction="#switchToProject1" />
+            <MenuItem fx:id="item_project7" mnemonicParsing="false" onAction="#switchToProject1" />
+            <MenuItem fx:id="item_project8" mnemonicParsing="false" onAction="#switchToProject1" />
+            <MenuItem fx:id="item_project9" mnemonicParsing="false" onAction="#switchToProject1" />
+            <MenuItem fx:id="item_project10" mnemonicParsing="false" onAction="#switchToProject1" />
+            <MenuItem fx:id="item_project11" mnemonicParsing="false" onAction="#switchToProject1" />
+            <MenuItem fx:id="item_project12" mnemonicParsing="false" onAction="#switchToProject1" />
+            <MenuItem fx:id="item_project13" mnemonicParsing="false" onAction="#switchToProject1" />
+            <MenuItem fx:id="item_project14" mnemonicParsing="false" onAction="#switchToProject1" />
+            <MenuItem fx:id="item_project15" mnemonicParsing="false" onAction="#switchToProject1" />
+            <MenuItem fx:id="item_project16" mnemonicParsing="false" onAction="#switchToProject1" />
          </items>
       </MenuButton>
       <Label fx:id="projectTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="246.0" layoutY="14.0" onMouseClicked="#switchToProjectEditor" prefHeight="71.0" prefWidth="310.0" text="Project Title" textAlignment="CENTER">

@@ -18,54 +18,6 @@ import projectpilot.App;
 public class HomeController implements Initializable{
 
     @FXML
-    private MenuItem ProjectsItem1;
-
-    @FXML
-    private MenuItem ProjectsItem11;
-
-    @FXML
-    private MenuItem ProjectsItem110;
-
-    @FXML
-    private MenuItem ProjectsItem111;
-
-    @FXML
-    private MenuItem ProjectsItem112;
-
-    @FXML
-    private MenuItem ProjectsItem113;
-
-    @FXML
-    private MenuItem ProjectsItem114;
-
-    @FXML
-    private MenuItem ProjectsItem115;
-
-    @FXML
-    private MenuItem ProjectsItem12;
-
-    @FXML
-    private MenuItem ProjectsItem13;
-
-    @FXML
-    private MenuItem ProjectsItem14;
-
-    @FXML
-    private MenuItem ProjectsItem15;
-
-    @FXML
-    private MenuItem ProjectsItem16;
-
-    @FXML
-    private MenuItem ProjectsItem17;
-
-    @FXML
-    private MenuItem ProjectsItem18;
-
-    @FXML
-    private MenuItem ProjectsItem19;
-
-    @FXML
     private Label TaskTitle1;
 
     @FXML
@@ -79,6 +31,54 @@ public class HomeController implements Initializable{
 
     @FXML
     private Label columnTitle1;
+
+    @FXML
+    private MenuItem item_project1;
+
+    @FXML
+    private MenuItem item_project10;
+
+    @FXML
+    private MenuItem item_project11;
+
+    @FXML
+    private MenuItem item_project12;
+
+    @FXML
+    private MenuItem item_project13;
+
+    @FXML
+    private MenuItem item_project14;
+
+    @FXML
+    private MenuItem item_project15;
+
+    @FXML
+    private MenuItem item_project16;
+
+    @FXML
+    private MenuItem item_project2;
+
+    @FXML
+    private MenuItem item_project3;
+
+    @FXML
+    private MenuItem item_project4;
+
+    @FXML
+    private MenuItem item_project5;
+
+    @FXML
+    private MenuItem item_project6;
+
+    @FXML
+    private MenuItem item_project7;
+
+    @FXML
+    private MenuItem item_project8;
+
+    @FXML
+    private MenuItem item_project9;
 
     @FXML
     private Label projectTitle;
@@ -125,5 +125,5 @@ public class HomeController implements Initializable{
     public void initialize(URL url, ResourceBundle rb) {
         TaskTitle1.setText("Test");
     }
-    
+
 }

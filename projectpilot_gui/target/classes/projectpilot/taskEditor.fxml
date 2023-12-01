@@ -1,47 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProjectEditorController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TaskEditorController">
    <children>
       <ImageView fitHeight="480.0" fitWidth="800.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../java/images/abstract-white-background-dynamic_29865-2544.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="txt_task_name" layoutX="258.0" layoutY="50.0" prefHeight="40.0" prefWidth="285.0" />
-      <TextField fx:id="txt_task_description" layoutX="258.0" layoutY="100.0" prefHeight="150.0" prefWidth="285.0" />
-      <Button fx:id="btn_saveChanges" layoutX="304.0" layoutY="375.0" mnemonicParsing="false" onAction="#switchToHome" prefHeight="51.0" prefWidth="194.0" text="Save Changes" />
-      <Label alignment="CENTER_RIGHT" layoutX="180.0" layoutY="62.0" text="Task Name" />
-      <Label alignment="CENTER_RIGHT" layoutX="178.0" layoutY="112.0" text="Description" />
-      <Label alignment="CENTER_RIGHT" layoutX="200.0" layoutY="264.0" text="Priority" />
-      <Label alignment="CENTER_RIGHT" layoutX="191.0" layoutY="299.0" text="Assignee" />
       <Button fx:id="btn_backToHome" layoutX="745.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToHome" text="Back" />
+      <Label fx:id="lbl_taskTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="253.0" layoutY="14.0" prefHeight="71.0" prefWidth="310.0" text="Task Name" textAlignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
       <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="715.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../java/images/image-from-rawpixel-id-6642555-original.png" />
          </image>
       </ImageView>
-      <MenuButton fx:id="menu_priority" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="460.0" layoutY="260.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Sort Type">
+      <TextField fx:id="txt_task_description" layoutX="265.0" layoutY="85.0" prefHeight="100.0" prefWidth="285.0" />
+      <Button fx:id="btn_saveChanges" layoutX="311.0" layoutY="385.0" mnemonicParsing="false" onAction="#switchToHome" prefHeight="51.0" prefWidth="194.0" text="Save Changes" />
+      <Label alignment="CENTER_RIGHT" layoutX="185.0" layoutY="97.0" text="Description" />
+      <Label alignment="CENTER_RIGHT" layoutX="207.0" layoutY="199.0" text="Priority" />
+      <Label alignment="CENTER_RIGHT" layoutX="198.0" layoutY="232.0" text="Assignee" />
+      <MenuButton fx:id="menu_priority" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="467.0" layoutY="193.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Priority">
          <items>
-            <MenuItem mnemonicParsing="false" text="Action 1" />
-            <MenuItem mnemonicParsing="false" text="Action 2" />
+            <MenuItem fx:id="item_priority1" mnemonicParsing="false" onAction="#setPriority" text="1" />
+            <MenuItem fx:id="item_priority2" mnemonicParsing="false" onAction="#setPriority" text="2" />
+            <MenuItem fx:id="item_priority3" mnemonicParsing="false" onAction="#setPriority" text="3" />
          </items>
       </MenuButton>
-      <Label fx:id="lbl_prioritySelection" alignment="CENTER" layoutX="257.0" layoutY="260.0" prefHeight="25.0" prefWidth="202.0" text="No Sort Type Selected" textFill="#00000080" />
-      <MenuButton fx:id="menu_assignee" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="460.0" layoutY="295.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Sort Type">
+      <Label fx:id="lbl_prioritySelection" alignment="CENTER" layoutX="264.0" layoutY="193.0" prefHeight="25.0" prefWidth="202.0" text="No Priority Selected" textFill="#00000080" />
+      <MenuButton fx:id="menu_assignee" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="467.0" layoutY="228.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Assignee">
          <items>
-            <MenuItem mnemonicParsing="false" text="Action 1" />
-            <MenuItem mnemonicParsing="false" text="Action 2" />
+            <MenuItem fx:id="item_assignee1" mnemonicParsing="false" onAction="#setAssignee" />
+            <MenuItem fx:id="item_assignee2" mnemonicParsing="false" onAction="#setAssignee" />
          </items>
       </MenuButton>
-      <Label fx:id="lbl_assigneeSelection" alignment="CENTER" layoutX="257.0" layoutY="295.0" prefHeight="25.0" prefWidth="202.0" text="No Sort Type Selected" textFill="#00000080" />
+      <Label fx:id="lbl_assigneeSelection" alignment="CENTER" layoutX="264.0" layoutY="228.0" prefHeight="25.0" prefWidth="202.0" text="No Assignee Selected" textFill="#00000080" />
+      <Label alignment="CENTER_RIGHT" layoutX="186.0" layoutY="266.0" text="Comments" />
+      <ScrollPane hbarPolicy="NEVER" layoutX="264.0" layoutY="266.0" prefHeight="100.0" prefWidth="285.0">
+         <content>
+            <AnchorPane prefHeight="100.0" prefWidth="172.0">
+               <children>
+                  <TextField fx:id="txt_add_comment" layoutY="73.0" onAction="#addCommentToTask" prefHeight="26.0" prefWidth="270.0" promptText="Add a comment" />
+                  <Label fx:id="lbl_comment1" prefHeight="25.0" prefWidth="270.0" text="No more comments">
+                     <padding>
+                        <Insets left="2.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
    </children>
 </Pane>
