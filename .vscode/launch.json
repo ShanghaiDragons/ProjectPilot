@@ -5,6 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Attach to Chrome",
+            "port": 9222,
+            "request": "attach",
+            "type": "chrome",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "chrome",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
             "type": "java",
             "name": "Current File",
             "request": "launch",
@@ -13,13 +27,6 @@
         {
             "type": "java",
             "name": "App",
-            "request": "launch",
-            "mainClass": "projectpilot_gui.src.main.java.projectpilot.App",
-            "projectName": "ProjectPilot-1_76396f6f"
-        },
-        {
-            "type": "java",
-            "name": "App(1)",
             "request": "launch",
             "mainClass": "projectpilot/projectpilot.App",
             "projectName": "projectpilot_gui"
