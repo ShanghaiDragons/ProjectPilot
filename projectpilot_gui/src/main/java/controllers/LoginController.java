@@ -5,19 +5,27 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import projectpilot.App;
 
 public class LoginController {
 
     @FXML
-    private Button NewAccount;
+    private Button btn_login;
 
     @FXML
-    private Button loginButton;
+    private Button btn_newAccount;
 
     @FXML
     private ImageView projectpilot_pic;
+
+    @FXML
+    private PasswordField txt_password;
+
+    @FXML
+    private TextField txt_username;
 
     @FXML
     void switchToCreateAccount(ActionEvent event) {
