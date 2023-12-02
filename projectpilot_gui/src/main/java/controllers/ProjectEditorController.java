@@ -29,8 +29,8 @@ public class ProjectEditorController {
     private TextField txt_project_title;
 
     @FXML
-    void addUserToProject(ActionEvent event) throws IOException {
-        App.setRoot("home");
+    void switchToInviteUsers(ActionEvent event) throws IOException {
+        App.setRoot("inviteNewUsers");
     }
 
     @FXML

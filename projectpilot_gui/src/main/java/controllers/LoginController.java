@@ -28,13 +28,9 @@ public class LoginController {
     private TextField txt_username;
 
     @FXML
-    void switchToCreateAccount(ActionEvent event) {
-        try {
-            App.setRoot("newaccount");
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    void switchToCreateAccount(ActionEvent event) throws IOException {
+        App.setRoot("newaccount");
+
     }
 
     @FXML

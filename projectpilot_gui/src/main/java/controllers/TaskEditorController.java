@@ -14,6 +14,7 @@ import projectpilot.App;
 
 public class TaskEditorController {
 
+
     @FXML
     private Button btn_backToHome;
 
@@ -61,22 +62,28 @@ public class TaskEditorController {
 
     @FXML
     void addCommentToTask(ActionEvent event) throws IOException{
-        App.setRoot("home");
+
     }
 
     @FXML
     void setAssignee(ActionEvent event) throws IOException{
-        App.setRoot("home");
+
     }
 
     @FXML
     void setPriority(ActionEvent event) throws IOException{
-        App.setRoot("home");
+
     }
 
     @FXML
     void switchToHome(ActionEvent event) throws IOException {
         App.setRoot("home");
     }
+
+    @FXML
+    void switchToTaskHistory(ActionEvent event) throws IOException {
+        App.setRoot("taskHistory");
+    }
+
 
 }

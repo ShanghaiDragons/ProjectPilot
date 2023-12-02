@@ -8,6 +8,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import java.net.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TaskEditorController">
    <children>
@@ -45,4 +46,7 @@
       </MenuButton>
       <Label fx:id="lbl_assigneeSelection" alignment="CENTER" layoutX="257.0" layoutY="295.0" prefHeight="25.0" prefWidth="202.0" text="No Assignee Selected" textFill="#00000080" />
    </children>
+   <stylesheets>
+      <URL value="@styles.css" />
+   </stylesheets>
 </Pane>
