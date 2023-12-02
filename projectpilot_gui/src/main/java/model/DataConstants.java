@@ -2,7 +2,7 @@ package model;
 public abstract class DataConstants {
 	// User
 	protected static final String USER = "user";
-	protected static final String USER_FILE_NAME = "json/UsersTESTING.json"; //TODO: change to correct
+	protected static final String USER_FILE_NAME = "projectpilot_gui/json/UsersTESTING.json"; //TODO: change to correct
 	protected static final String USER_ID = "id";
 	protected static final String USER_USER_NAME = "userName";
 	protected static final String USER_FIRST_NAME = "firstName";

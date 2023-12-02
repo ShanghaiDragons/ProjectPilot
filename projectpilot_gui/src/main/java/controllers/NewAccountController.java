@@ -6,9 +6,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import model.*;
 import projectpilot.App;
 
 public class NewAccountController {
+
+    private ProjectPilotFacade ppf = new ProjectPilotFacade();
 
     @FXML
     private Button btn_login;
@@ -20,7 +23,7 @@ public class NewAccountController {
     private TextField txt_fName;
 
     @FXML
-    private PasswordField txt_lName;
+    private TextField txt_lName;
 
     @FXML
     private PasswordField txt_password;
@@ -30,7 +33,15 @@ public class NewAccountController {
 
     @FXML
     private void switchToHome() throws IOException {
-        App.setRoot("home");
+        if (ppf.createAccount(txt_fName.getText(), txt_lName.getText(), txt_username.getText(), txt_password.getText())){
+            ppf.saveUsers();
+            App.setRoot("home");
+        }
+        
+        // txt_fName.clear();       if any are invalid/duplicate usernames, clear
+        // txt_lName.clear();
+        // txt_username.clear();
+        // txt_password.clear();
     }
 
     @FXML
