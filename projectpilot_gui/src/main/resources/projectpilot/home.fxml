@@ -3,9 +3,8 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -49,19 +48,6 @@
             </ScrollPane>
          </children>
       </HBox>
-      <MenuButton contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Projects">
-         <items>
-            <MenuItem fx:id="item_project1" mnemonicParsing="false" onAction="#switchToProject1">
-               <graphic>
-                  <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="125.0">
-                     <children>
-                        <Label text="Project 1" />
-                        <Button alignment="CENTER" mnemonicParsing="false" text="Add New Project" />
-                     </children>
-                  </VBox>
-               </graphic></MenuItem>
-         </items>
-      </MenuButton>
       <Label fx:id="projectTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="246.0" layoutY="14.0" onMouseClicked="#switchToProjectEditor" prefHeight="71.0" prefWidth="310.0" text="Project Title" textAlignment="CENTER">
          <font>
             <Font size="36.0" />
@@ -73,6 +59,20 @@
             <Image url="@../../java/images/image-from-rawpixel-id-6642555-original.png" />
          </image>
       </ImageView>
+      <TitledPane alignment="CENTER" animated="false" contentDisplay="RIGHT" expanded="false" layoutX="14.0" layoutY="14.0" prefHeight="441.0" prefWidth="130.0" text="Projects">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="130.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="415.2" prefWidth="124.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label fx:id="lbl_project1" onMouseClicked="#switchToProject" prefHeight="24.0" prefWidth="112.0" text="Project" />
+                        <Button fx:id="btn_toNewProject" mnemonicParsing="false" onAction="#switchToNewProject" text="Add New Project" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
    </children>
    <stylesheets>
       <URL value="@styles.css" />

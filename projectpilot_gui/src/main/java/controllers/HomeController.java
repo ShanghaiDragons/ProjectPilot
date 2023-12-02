@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import projectpilot.App;
 
@@ -25,10 +24,13 @@ public class HomeController {
     private Button addTask;
 
     @FXML
+    private Button btn_toNewProject;
+
+    @FXML
     private Label columnTitle1;
 
     @FXML
-    private MenuItem item_project1;
+    private Label lbl_project1;
 
     @FXML
     private Label projectTitle;
@@ -52,12 +54,17 @@ public class HomeController {
     }
 
     @FXML
+    void switchToNewProject(ActionEvent event) throws IOException {
+        App.setRoot("newProject");
+    }
+
+    @FXML
     void switchToNewTask(ActionEvent event) throws IOException {
         App.setRoot("newTask");
     }
 
     @FXML
-    void switchToProject1(ActionEvent event) throws IOException {
+    void switchToProject(ActionEvent event) throws IOException {
         App.setRoot("home");
     }
 
