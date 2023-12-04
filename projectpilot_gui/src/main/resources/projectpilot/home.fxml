@@ -89,7 +89,7 @@
         <content>
           <AnchorPane fx:id="scrumPaneAnchor">
                <children>
-                  <SplitPane fx:id="scrumPane" />
+                  <HBox fx:id="scrumPane" />
                </children>
             </AnchorPane>
         </content>

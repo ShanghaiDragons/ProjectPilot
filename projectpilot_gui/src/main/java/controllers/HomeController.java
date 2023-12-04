@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Rectangle2D;
 import javafx.collections.FXCollections;
@@ -17,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.*;
 import javafx.event.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.ListView;
@@ -54,17 +56,11 @@ public class HomeController implements Initializable{
     
     private Project currentProject;
     @FXML
-    private SplitPane scrumPane;
+    private HBox scrumPane;
     @FXML
     private AnchorPane scrumPaneAnchor;
     @FXML
     private Pane homePane;
-
-    private double taskHeight;
-    private static final double SCRUM_MIN_WIDTH = 1;
-    private static final double SCRUM_MIN_HEIGHT = 1;
-    private static final double SCRUM_MAX_WIDTH = 1;
-    private static final double SCRUM_MAX_HEIGHT = 1;
 
     /**
      * Initializes the facade to populate the data in the scene
@@ -122,44 +118,33 @@ public class HomeController implements Initializable{
     private void buildScrumPane() {
         if (currentProject != null) {
             projectTitle.setText(currentProject.getName());
-            scrumPane.getItems().clear();
-            int maxTask = 0;
+            scrumPane.getChildren().clear();
             for (Column col : currentProject.getColumns()) {
-                scrumPane.getItems().add(createScrumColumn(col));
-                if (col.getTasks().size() > maxTask) {
-                    maxTask = col.getTasks().size();
-                }
-            }
-            // sets the position of the columns at 0, which actually sets them at their MinWidth. Without this, their default positions are weird.
-            for (int i = 0; i < scrumPane.getItems().size(); i++) {
-                //scrumPane.setDividerPosition(i, 0);
+                scrumPane.getChildren().add(createScrumColumn(col));
             }
 
             scrumPaneAnchor.setMinHeight(390);
             scrumPane.setMinHeight(390);
-            double maxHeight = maxTask * taskHeight;
-            scrumPaneAnchor.setMaxHeight(maxHeight);
-            scrumPane.setMaxHeight(maxHeight);
-
-            
-
         }
     }
 
     @FXML
     private VBox createScrumColumn(Column col) {
         VBox column = new VBox();
-        column.setMinWidth(100);
-        column.setMaxWidth(150);
+        //column.setMinWidth(100);
+        //column.setMaxWidth(150);
         Label columnTitle = new Label(col.getName());
         column.getChildren().add(columnTitle);
 
-        SplitPane taskPanes = new SplitPane();
-        taskPanes.setOrientation(Orientation.VERTICAL);
+        VBox taskPanes = new VBox();
         for (Task task : col.getTasks()) {
-            taskPanes.getItems().add(createTask(task));
+            taskPanes.getChildren().add(createTask(task));
         }
         column.getChildren().add(taskPanes);
+        column.setStyle("-fx-border-color: lightgray; -fx-border-width: 1;");
+        column.setPadding(new Insets(10, 10, 10, 10));
+        //taskPanes.setPadding(new Insets(10, 10, 10, 10));
+        column.setMinWidth(100);
         return column;
     }
 
@@ -176,6 +161,8 @@ public class HomeController implements Initializable{
         Label priority = new Label("Priority: "+t.getPriority());
         Label assignee = new Label("Assignee: "+t.getAssignee().getUserName());
         task.getChildren().addAll(taskName, priority, assignee);
+        //System.out.println("TaskName: "+taskName.getMaxWidth());
+        //System.out.println("Task: "+task.getMaxWidth());
         
         task.setOnMouseClicked(event -> {
             try {
@@ -185,7 +172,8 @@ public class HomeController implements Initializable{
                 e.printStackTrace();
             }
         });
-        this.taskHeight = task.getHeight();
+        task.setStyle("-fx-border-color: lightgray; -fx-border-width: 1;");
+        task.setPadding(new Insets(10, 10, 10, 10));
         return task;
     }
 
