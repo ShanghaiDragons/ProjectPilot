@@ -18,13 +18,20 @@ import javafx.scene.control.Label;
 import javafx.scene.input.*;
 import javafx.event.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.TableColumn;
 import projectpilot.App;
 import model.*;
@@ -61,6 +68,10 @@ public class HomeController implements Initializable{
     private AnchorPane scrumPaneAnchor;
     @FXML
     private Pane homePane;
+    @FXML
+    private ImageView background_pic;
+    @FXML
+    private ScrollPane scrollPane;
 
     /**
      * Initializes the facade to populate the data in the scene
@@ -76,6 +87,9 @@ public class HomeController implements Initializable{
         }
         displayProjects();
         buildScrumPane();
+
+        Image background = new Image(getClass().getResourceAsStream("/images/background.jpg"));
+        background_pic.setImage(background);
 
         /**
          //middle of screen:

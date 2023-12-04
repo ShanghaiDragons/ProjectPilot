@@ -27,7 +27,7 @@
       </Label>
       <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="715.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../java/images/image-from-rawpixel-id-6642555-original.png" />
+            <Image url="@../../java/images/User.png" />
          </image>
       </ImageView>
       <ScrollPane hbarPolicy="NEVER" layoutX="276.0" layoutY="95.0" prefHeight="272.0" prefWidth="270.0">
@@ -39,7 +39,7 @@
                         <CheckBox layoutX="6.0" layoutY="26.0" mnemonicParsing="false" />
                         <ImageView fitHeight="49.0" fitWidth="48.0" layoutX="39.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../java/images/image-from-rawpixel-id-6642555-original.png" />
+                              <Image url="@../../java/images/User.png" />
                            </image>
                         </ImageView>
                         <Label layoutX="105.0" layoutY="14.0" text="First Last" />

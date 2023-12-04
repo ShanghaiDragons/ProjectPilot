@@ -28,14 +28,14 @@
       <Button fx:id="btn_backToHome" layoutX="745.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToHome" text="Back" />
       <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="715.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../java/images/image-from-rawpixel-id-6642555-original.png" />
+            <Image url="@../../java/images/User.png" />
          </image>
       </ImageView>
       <HBox alignment="CENTER_RIGHT" layoutX="258.0" layoutY="150.0" prefHeight="40.0" prefWidth="285.0">
          <children>
             <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../java/images/image-from-rawpixel-id-6642555-original.png" />
+                  <Image url="@../../java/images/User.png" />
                </image>
             </ImageView>
             <Button fx:id="btn_addUserToProject" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#switchToInviteUsers" text="+">

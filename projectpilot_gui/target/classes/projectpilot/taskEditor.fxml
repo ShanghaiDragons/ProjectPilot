@@ -29,7 +29,7 @@
       </TextField>
       <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="715.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../java/images/image-from-rawpixel-id-6642555-original.png" />
+            <Image url="@../../java/images/User.png" />
          </image>
       </ImageView>
       <TextField fx:id="txt_task_description" layoutX="265.0" layoutY="85.0" prefHeight="100.0" prefWidth="285.0" />

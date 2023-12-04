@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -18,9 +17,9 @@
 
 <Pane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
    <children>
-      <ImageView fitHeight="480.0" fitWidth="800.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="background_pic" fitHeight="480.0" fitWidth="800.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../java/images/abstract-white-background-dynamic_29865-2544.jpg" />
+            <Image url="@../../java/images/background.jpg" />
          </image>
       </ImageView>
       <Button fx:id="ToLogin" layoutX="723.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToLogin" text="Sign Out" />
@@ -35,11 +34,6 @@
                         <Pane layoutX="7.0" layoutY="46.0" prefHeight="71.0" prefWidth="190.0" style="-fx-border-color: gray;">
                            <children>
                               <Circle fill="DODGERBLUE" layoutX="172.0" layoutY="10.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-                              <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="162.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../java/images/image-from-rawpixel-id-6642555-original.png" />
-                                 </image>
-                              </ImageView>
                               <Label fx:id="taskPriority" layoutX="182.0" layoutY="1.0" text="3" />
                               <Label fx:id="TaskTitle1" alignment="TOP_LEFT" layoutX="14.0" onMouseClicked="#switchToTaskEditor" prefHeight="71.0" prefWidth="135.0" text="Task Title" wrapText="true" />
                            </children>
@@ -56,11 +50,6 @@
          </font>
       </Label>
       <Button fx:id="addColumn" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="754.0" layoutY="50.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#switchToNewColumn" text="+" />
-      <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="693.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../java/images/image-from-rawpixel-id-6642555-original.png" />
-         </image>
-      </ImageView>
       <TitledPane alignment="CENTER" animated="false" contentDisplay="RIGHT" expanded="false" layoutX="556.0" layoutY="14.0" onMouseClicked="#projectSelected" prefHeight="441.0" prefWidth="130.0" text="Projects">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="130.0">
