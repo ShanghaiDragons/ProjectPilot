@@ -53,6 +53,16 @@ public class NewTaskController {
     private TextField txt_task_name;
 
     @FXML
+    void setAssignee(ActionEvent event) {
+
+    }
+
+    @FXML
+    void setPriority(ActionEvent event) {
+
+    }
+
+    @FXML
     void switchToHome(ActionEvent event) throws IOException {
         App.setRoot("home");
     }

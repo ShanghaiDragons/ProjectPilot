@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -137,28 +139,40 @@ public class HomeController implements Initializable{
                 scrumPane.getChildren().add(createScrumColumn(col));
             }
 
-            scrumPaneAnchor.setMinHeight(390);
-            scrumPane.setMinHeight(390);
+            scrumPaneAnchor.setPrefHeight(381);
+            scrumPane.setPrefHeight(381);
         }
     }
 
     @FXML
     private VBox createScrumColumn(Column col) {
         VBox column = new VBox();
-        //column.setMinWidth(100);
-        //column.setMaxWidth(150);
+        // column.setMinWidth(100);
+        // column.setMaxWidth(200);
         Label columnTitle = new Label(col.getName());
         column.getChildren().add(columnTitle);
-
+        
         VBox taskPanes = new VBox();
+        Button addTaskButton = new Button("+");
+        taskPanes.setAlignment(Pos.CENTER);
         for (Task task : col.getTasks()) {
             taskPanes.getChildren().add(createTask(task));
         }
+        taskPanes.getChildren().add(addTaskButton);
+
+        addTaskButton.setOnAction(event -> {
+            try {
+                switchToNewTask(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         column.getChildren().add(taskPanes);
         column.setStyle("-fx-border-color: lightgray; -fx-border-width: 1;");
         column.setPadding(new Insets(10, 10, 10, 10));
         //taskPanes.setPadding(new Insets(10, 10, 10, 10));
-        column.setMinWidth(100);
+        column.setPrefWidth(175);
         return column;
     }
 
@@ -172,6 +186,7 @@ public class HomeController implements Initializable{
     private VBox createTask(Task t) {
         VBox task = new VBox();
         Label taskName = new Label(t.getName());
+        taskName.setWrapText(true);
         Label priority = new Label("Priority: "+t.getPriority());
         Label assignee = new Label("Assignee: "+t.getAssignee().getUserName());
         task.getChildren().addAll(taskName, priority, assignee);
