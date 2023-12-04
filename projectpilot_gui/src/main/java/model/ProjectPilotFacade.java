@@ -12,6 +12,8 @@ public class ProjectPilotFacade {
     private User currentUser;
     private UserType userRole;
     private Project currentProject;
+    private Column currentColumn;
+    private Task currentTask;
     private UserList userList;
     private ProjectList projectList;
     
@@ -65,6 +67,65 @@ public class ProjectPilotFacade {
     }
 
     /**
+     * Sets the current project.
+     * @author ctaks
+     * @param project to be set
+     * @return boolean determining success
+     */
+    public boolean setCurrentProject(Project project) {
+        if (project != null) {
+            this.currentProject = project;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Gets the current Column.
+     * @author ctaks
+     * @return Column of the current column
+     */
+    public Column getCurrentColumn() {
+        return this.currentColumn;
+    }
+
+    /**
+     * Sets the current column
+     * @author ctaks
+     * @param col to be set
+     * @return boolean determining success
+     */
+    public boolean setCurrentColumn(Column col) {
+        if (col != null) {
+            this.currentColumn = col;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Gets the current Task
+     * @author ctaks
+     * @return Task of the current task
+     */
+    public Task getCurrentTask() {
+        return this.currentTask;
+    }
+
+    /**
+     * sets the current task
+     * @param task to be set
+     * @return boolean determining success
+     */
+    public boolean setCurrentTask(Task task) {
+        if (task != null) {
+            this.currentTask = task;
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Gets the Current Projects
      * @author ctaks
      * @return ArrayList<Project> of the current projects
@@ -74,9 +135,9 @@ public class ProjectPilotFacade {
     }
     
     /**
-     * Gets a project
+     * Gets a project based on UUID
      * @author ctaks
-     * @param projectName the project's name
+     * @param projectID the project's UUID
      * @return the project
      */
     public Project getProject(UUID projectID) {
@@ -85,6 +146,16 @@ public class ProjectPilotFacade {
                 return project;
         }
         return null;
+    }
+
+    /**
+     * Gets a project based on name
+     * @author ctaks
+     * @param projectName the project's name
+     * @return the project
+     */
+    public Project getProject(String projectName) {
+        return projectList.getProject(projectName);
     }
 
     /**

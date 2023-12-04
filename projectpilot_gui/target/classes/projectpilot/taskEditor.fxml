@@ -22,11 +22,11 @@
          </image>
       </ImageView>
       <Button fx:id="btn_backToHome" layoutX="745.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToHome" text="Back" />
-      <Label fx:id="lbl_taskTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="253.0" layoutY="14.0" prefHeight="71.0" prefWidth="310.0" text="Task Name" textAlignment="CENTER">
+      <TextField fx:id="txt_taskTitle" alignment="CENTER" layoutX="265.0" layoutY="14.0" prefHeight="65.0" prefWidth="285.0">
          <font>
-            <Font size="36.0" />
+            <Font size="24.0" />
          </font>
-      </Label>
+      </TextField>
       <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="715.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../java/images/image-from-rawpixel-id-6642555-original.png" />
@@ -68,6 +68,7 @@
          </content>
       </ScrollPane>
       <Button layoutX="563.0" layoutY="385.0" mnemonicParsing="false" onAction="#switchToTaskHistory" prefHeight="51.0" prefWidth="83.0" text="Task History" />
+      <Label layoutX="215.0" layoutY="38.0" text="Name" />
    </children>
    <stylesheets>
       <URL value="@styles.css" />

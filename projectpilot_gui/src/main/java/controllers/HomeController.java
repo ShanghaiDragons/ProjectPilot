@@ -1,42 +1,238 @@
 package controllers;
 
+//import java.beans.EventHandler;
 import java.io.IOException;
-
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
+import javafx.geometry.Orientation;
+import javafx.geometry.Rectangle2D;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
+import javafx.event.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TableColumn;
 import projectpilot.App;
+import model.*;
+import javafx.stage.Screen;
 
-public class HomeController {
+public class HomeController implements Initializable{
+    private ProjectPilotFacade ppf;
 
     @FXML
     private Label TaskTitle1;
-
     @FXML
     private Button ToLogin;
-
     @FXML
     private Button addColumn;
-
     @FXML
     private Button addTask;
-
     @FXML
     private Button btn_toNewProject;
-
     @FXML
     private Label columnTitle1;
-
     @FXML
     private Label lbl_project1;
-
     @FXML
     private Label projectTitle;
-
     @FXML
     private Label taskPriority;
+    @FXML
+    private ListView<String> lst_projects;
+    
+    private Project currentProject;
+    @FXML
+    private SplitPane scrumPane;
+    @FXML
+    private AnchorPane scrumPaneAnchor;
+    @FXML
+    private Pane homePane;
+
+    private double taskHeight;
+    private static final double SCRUM_MIN_WIDTH = 1;
+    private static final double SCRUM_MIN_HEIGHT = 1;
+    private static final double SCRUM_MAX_WIDTH = 1;
+    private static final double SCRUM_MAX_HEIGHT = 1;
+
+    /**
+     * Initializes the facade to populate the data in the scene
+     * @author ctaks
+     * @param url for override (idk)
+     * @param rb for override (idk)
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        ppf = ProjectPilotFacade.getInstance();
+        if (ppf.getCurrentProject() != null) {
+            this.currentProject = ppf.getCurrentProject();
+        }
+        displayProjects();
+        buildScrumPane();
+
+        /**
+         //middle of screen:
+         Rectangle2D psb = Screen.getPrimary().getVisualBounds();
+         System.out.println("WIDTH: "+homePane.getPrefWidth());
+         System.out.println("HEIGHT: "+homePane.getPrefHeight());
+         double x = ((psb.getWidth() - homePane.getPrefWidth()) / 2);
+         double y = ((psb.getHeight() - homePane.getPrefHeight()) /2);
+         //homePane.relocate(x, y);
+         */
+    }
+
+    /**
+     * Loads the list of projects
+     * @author ctaks
+     */
+    private void displayProjects() {
+        ObservableList<String> projectList = FXCollections.observableArrayList();
+
+        for (Project project : ppf.getProjects()) {
+            projectList.add(project.getName());
+        }
+        lst_projects.setItems(projectList);
+    }
+
+    /**
+     * When a project is selected from the list on the left
+     * @author ctaks
+     */
+    @FXML
+    private void projectSelected(MouseEvent event) throws IOException {
+        String projectName = lst_projects.getSelectionModel().getSelectedItem().toString();
+
+        currentProject = ppf.getProject(projectName);
+        ppf.setCurrentProject(ppf.getProject(projectName));
+        buildScrumPane();
+    }
+
+    @FXML
+    private void buildScrumPane() {
+        if (currentProject != null) {
+            projectTitle.setText(currentProject.getName());
+            scrumPane.getItems().clear();
+            int maxTask = 0;
+            for (Column col : currentProject.getColumns()) {
+                scrumPane.getItems().add(createScrumColumn(col));
+                if (col.getTasks().size() > maxTask) {
+                    maxTask = col.getTasks().size();
+                }
+            }
+            // sets the position of the columns at 0, which actually sets them at their MinWidth. Without this, their default positions are weird.
+            for (int i = 0; i < scrumPane.getItems().size(); i++) {
+                //scrumPane.setDividerPosition(i, 0);
+            }
+
+            scrumPaneAnchor.setMinHeight(390);
+            scrumPane.setMinHeight(390);
+            double maxHeight = maxTask * taskHeight;
+            scrumPaneAnchor.setMaxHeight(maxHeight);
+            scrumPane.setMaxHeight(maxHeight);
+
+            
+
+        }
+    }
+
+    @FXML
+    private VBox createScrumColumn(Column col) {
+        VBox column = new VBox();
+        column.setMinWidth(100);
+        column.setMaxWidth(150);
+        Label columnTitle = new Label(col.getName());
+        column.getChildren().add(columnTitle);
+
+        SplitPane taskPanes = new SplitPane();
+        taskPanes.setOrientation(Orientation.VERTICAL);
+        for (Task task : col.getTasks()) {
+            taskPanes.getItems().add(createTask(task));
+        }
+        column.getChildren().add(taskPanes);
+        return column;
+    }
+
+    /**
+     * Creates a task
+     * @author ctaks
+     * @param t task to be turned into a VBox of the task
+     * @return VBox of the task
+     */
+    @FXML
+    private VBox createTask(Task t) {
+        VBox task = new VBox();
+        Label taskName = new Label(t.getName());
+        Label priority = new Label("Priority: "+t.getPriority());
+        Label assignee = new Label("Assignee: "+t.getAssignee().getUserName());
+        task.getChildren().addAll(taskName, priority, assignee);
+        
+        task.setOnMouseClicked(event -> {
+            try {
+                ppf.setCurrentTask(t);
+                switchToTaskEditor(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        this.taskHeight = task.getHeight();
+        return task;
+    }
+
+    /**
+     * 
+     * @param col
+     * @return
+     @FXML
+     private ListView<String> createTaskList(Column col) {
+         ListView<String> taskListView = new ListView<String>();
+         ObservableList<String> taskList = FXCollections.observableArrayList();
+         for (Task task : col.getTasks()) {
+             taskList.add(task.getName());
+            }
+            taskListView.setItems(taskList);
+            return taskListView;
+        }
+        */
+        
+    /**
+     * Builds the scrum board bosed on the currently selected project (TABLE)
+     * @author ctaks
+     @FXML
+     private void buildBoard() {
+         scrumBoard.getColumns().clear();
+         scrumBoard.getItems().clear();
+         int columnNum = currentProject.getColumns().size();
+         int rowNum = 0;
+         // populate rowNum with the highest task number of all the columns
+         for (Column col : currentProject.getColumns()) {
+             int colRowNum = col.getTasks().size();
+            if (colRowNum > rowNum) {
+                rowNum = colRowNum;
+            }
+        }
+        // populate columns
+        for (Column col : currentProject.getColumns()) {
+            TableColumn<Task, String> column = new TableColumn<Task, String>(col.getName());
+            column.setCellValueFactory(new PropertyValueFactory<Task, String>("name"));
+            scrumBoard.getColumns().add(column);
+            // populate tasks
+            for (Task task : col.getTasks()) {
+                scrumBoard.getItems().add(task);
+            }
+        }
+    }
+    */
 
     @FXML
     void switchToColumnEditor(MouseEvent event) throws IOException {
