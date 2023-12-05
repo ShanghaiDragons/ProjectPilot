@@ -12,12 +12,12 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.NewAccountController">
    <children>
-      <ImageView fitHeight="480.0" fitWidth="250.0" pickOnBounds="true">
+      <ImageView fx:id="projectpilot_pic" fitHeight="480.0" fitWidth="250.0" pickOnBounds="true">
          <image>
             <Image url="@../../java/images/Screenshot%202023-11-27%20135552.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="480.0" fitWidth="550.0" layoutX="250.0" opacity="0.5" pickOnBounds="true">
+      <ImageView fx:id="background_pic" fitHeight="480.0" fitWidth="550.0" layoutX="250.0" opacity="0.5" pickOnBounds="true">
          <image>
             <Image url="@../../java/images/abstract-white-background-dynamic_29865-2544.jpg" />
          </image>
@@ -38,6 +38,7 @@
       <Label layoutX="405.0" layoutY="257.0" text="PLEASE ENTER YOUR USERNAME" />
       <Label layoutX="405.0" layoutY="317.0" text="PLEASE ENTER YOUR PASSWORD" />
       <Button fx:id="btn_signUp" layoutX="474.0" layoutY="377.0" mnemonicParsing="false" onAction="#switchToHome" prefHeight="25.0" prefWidth="102.0" text="Sign up" />
+      <Label fx:id="lbl_errorMessage" layoutX="462.0" layoutY="360.0" text="Invalid Entry... Try again" textFill="#eb0808" visible="false" />
    </children>
    <stylesheets>
       <URL value="@styles.css" />

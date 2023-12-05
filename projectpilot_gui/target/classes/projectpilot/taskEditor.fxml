@@ -12,7 +12,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TaskEditorController">
    <children>
@@ -22,14 +21,10 @@
          </image>
       </ImageView>
       <Button fx:id="btn_backToHome" layoutX="745.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToHome" text="Back" />
-      <Label fx:id="lbl_taskTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="253.0" layoutY="14.0" prefHeight="71.0" prefWidth="310.0" text="Task Name" textAlignment="CENTER">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
+      <TextField fx:id="txt_taskTitle" layoutX="265.0" layoutY="14.0" prefHeight="65.0" prefWidth="285.0" />
       <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="715.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../java/images/image-from-rawpixel-id-6642555-original.png" />
+            <Image url="@../../java/images/User.png" />
          </image>
       </ImageView>
       <TextField fx:id="txt_task_description" layoutX="265.0" layoutY="85.0" prefHeight="100.0" prefWidth="285.0" />
@@ -68,6 +63,7 @@
          </content>
       </ScrollPane>
       <Button layoutX="563.0" layoutY="385.0" mnemonicParsing="false" onAction="#switchToTaskHistory" prefHeight="51.0" prefWidth="83.0" text="Task History" />
+      <Label layoutX="215.0" layoutY="38.0" text="Name" />
    </children>
    <stylesheets>
       <URL value="@styles.css" />

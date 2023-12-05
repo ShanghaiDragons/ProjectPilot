@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
@@ -10,68 +12,47 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
+<Pane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
    <children>
-      <ImageView fitHeight="480.0" fitWidth="800.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="background_pic" fitHeight="480.0" fitWidth="800.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../java/images/abstract-white-background-dynamic_29865-2544.jpg" />
+            <Image url="@../../java/images/background.jpg" />
          </image>
       </ImageView>
       <Button fx:id="ToLogin" layoutX="723.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToLogin" text="Sign Out" />
-      <HBox alignment="TOP_CENTER" layoutX="20.0" layoutY="85.0" prefHeight="370.0" prefWidth="761.0">
-         <children>
-            <ScrollPane prefHeight="370.0" prefWidth="208.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="368.0" prefWidth="205.0">
-                     <children>
-                        <Label fx:id="columnTitle1" layoutX="69.0" layoutY="14.0" onMouseClicked="#switchToColumnEditor" text="Column Title" />
-                        <Button fx:id="addTask" layoutX="90.0" layoutY="328.0" mnemonicParsing="false" onAction="#switchToNewTask" text="+" />
-                        <Pane layoutX="7.0" layoutY="46.0" prefHeight="71.0" prefWidth="190.0" style="-fx-border-color: gray;">
-                           <children>
-                              <Circle fill="DODGERBLUE" layoutX="172.0" layoutY="10.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-                              <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="162.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../java/images/image-from-rawpixel-id-6642555-original.png" />
-                                 </image>
-                              </ImageView>
-                              <Label fx:id="taskPriority" layoutX="182.0" layoutY="1.0" text="3" />
-                              <Label fx:id="TaskTitle1" alignment="TOP_LEFT" layoutX="14.0" onMouseClicked="#switchToTaskEditor" prefHeight="71.0" prefWidth="135.0" text="Task Title" wrapText="true" />
-                           </children>
-                        </Pane>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </ScrollPane>
-         </children>
-      </HBox>
+      <HBox alignment="TOP_CENTER" layoutX="-24.0" layoutY="490.0" prefHeight="370.0" prefWidth="310.0" />
       <Label fx:id="projectTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="246.0" layoutY="14.0" onMouseClicked="#switchToProjectEditor" prefHeight="71.0" prefWidth="310.0" text="Project Title" textAlignment="CENTER">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Button fx:id="addColumn" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="761.0" layoutY="85.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#switchToNewColumn" text="+" />
-      <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="693.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../java/images/image-from-rawpixel-id-6642555-original.png" />
-         </image>
-      </ImageView>
-      <TitledPane alignment="CENTER" animated="false" contentDisplay="RIGHT" expanded="false" layoutX="14.0" layoutY="14.0" prefHeight="441.0" prefWidth="130.0" text="Projects">
+      <Button fx:id="addColumn" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="754.0" layoutY="50.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#switchToNewColumn" text="+" />
+      <ScrollPane layoutX="14.0" layoutY="85.0" prefHeight="381.0" prefWidth="772.0" vbarPolicy="NEVER">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="130.0">
+          <AnchorPane fx:id="scrumPaneAnchor">
                <children>
-                  <VBox alignment="TOP_CENTER" prefHeight="415.2" prefWidth="124.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Label fx:id="lbl_project1" onMouseClicked="#switchToProject" prefHeight="24.0" prefWidth="112.0" text="Project" />
-                        <Button fx:id="btn_toNewProject" mnemonicParsing="false" onAction="#switchToNewProject" text="Add New Project" />
-                     </children>
-                  </VBox>
+                  <HBox fx:id="scrumPane" alignment="CENTER">
+                     <rotationAxis>
+                        <Point3D />
+                     </rotationAxis></HBox>
                </children>
             </AnchorPane>
         </content>
+      </ScrollPane>
+      <TitledPane alignment="CENTER" expanded="false" layoutX="14.0" layoutY="14.0" prefHeight="452.0" prefWidth="136.0" text="Projects">
+         <content>
+            <AnchorPane prefHeight="511.0" prefWidth="142.0">
+               <children>
+                  <ListView fx:id="lst_projects" layoutX="2.0" layoutY="20.0" onMouseClicked="#projectSelected" prefHeight="520.0" prefWidth="208.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <rotationAxis>
+                        <Point3D />
+                     </rotationAxis>
+                  </ListView>
+               </children>
+            </AnchorPane>
+         </content>
       </TitledPane>
    </children>
    <stylesheets>

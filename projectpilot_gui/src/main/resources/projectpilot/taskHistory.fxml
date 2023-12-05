@@ -26,7 +26,7 @@
       <Button fx:id="btn_backToTask" layoutX="745.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToTaskEditor" text="Back" />
       <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="715.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../java/images/image-from-rawpixel-id-6642555-original.png" />
+            <Image url="@../../java/images/User.png" />
          </image>
       </ImageView>
       <ScrollPane hbarPolicy="NEVER" layoutX="253.0" layoutY="76.0" prefHeight="387.0" prefWidth="310.0">

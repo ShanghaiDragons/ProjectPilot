@@ -1,18 +1,31 @@
 [User]: Atticus Madden (Atticus)
 [User]: Jeff Goldblum (Jeff)
 [User]: Atticus Finch (AtticusFinch)
+[User]: test test (test)
 
 [Project]: Electric Missiles
+[Scrum Master]: Atticus
     [Column]: To Do
-        [TASK]: Curve the metal to make a cylindrical shape [Assignee]: Atticus
-          [Task Comment]: [Jeff]: Not cylindrical enough
-            [Task Comment Threaded Comment]: [Atticus]: How about you do it Jeff
-          [Task Comment]: [AtticusFinch]: What's a cylinder
+        [TASK]: Initialize super algorithm to detonate at warp speed [Assignee]: Jeff
+          [Task Comment]: [Atticus]: Avoid civilians Jeff!
     [Column]: Doing
-        [TASK]: Make impossible burger possible [Assignee]: Atticus
+        [TASK]: Curve the metal to make a cylindrical shape [Assignee]: Atticus
+    [Column]: Abandoned
 
 [Project]: Soap Free Washers
+[Scrum Master]: Atticus
+    [Column]: Backlog
+        [TASK]: Backlog 1 [Assignee]: Atticus
+        [TASK]: Backlog 2 [Assignee]: Atticus
+        [TASK]: Backlog 3 [Assignee]: Atticus
     [Column]: To Do
-        [TASK]: Figure out a sustainable soap replacement [Assignee]: Atticus
+        [TASK]: To Do 1 [Assignee]: Atticus
+        [TASK]: To Do 2 [Assignee]: Atticus
+        [TASK]: To Do 3 [Assignee]: Atticus
+        [TASK]: To Do 4 [Assignee]: Atticus
+    [Column]: Doing
+        [TASK]: Doing 1 [Assignee]: Atticus
+    [Column]: Done
 
 [Project]: Air Computers
+[Scrum Master]: Atticus
