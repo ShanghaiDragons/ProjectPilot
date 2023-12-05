@@ -1,5 +1,4 @@
 package controllers;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.collections.ObservableList;
@@ -13,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import model.ProjectPilotFacade;
+//import model.User;
 import projectpilot.App;
 
 public class NewColumnController {
@@ -36,18 +36,31 @@ public class NewColumnController {
     private Label lbl_errorMessage;
     
     private ProjectPilotFacade ppf = new ProjectPilotFacade();
+    //private User currentUser;
+
 
     @FXML 
     void addColumnButtonClicked(ActionEvent event) throws IOException{
+        /*currentUser = ppf.getUser();
+        if(!ppf.canEditProject("addColumn")){
+            showAlert("You do not have permission to add columns!","User must be ");
+        }*/
+       
         String columnName = txt_column_name.getText();
         String selectedSortType= menu_sortType.getValue();
+        
 
         if(selectedSortType==null || selectedSortType.isEmpty()){
             selectedSortType="Priority";
         }
 
-        if(columnName.isEmpty()){
-            showAlert("Column Name is Empty!", "Must enter a value for column name.");
+        if(columnName==null || columnName.isEmpty()){
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Must enter a column name!");
+            alert.setContentText(null);
+            alert.showAndWait();
+            
             return;
         }
 
@@ -56,7 +69,7 @@ public class NewColumnController {
             lbl_errorMessage.setText("");
             switchToHome(event);
         } else{
-            showAlert("Error", "Failed to add the column.");
+            showAlert("Error", "Failed to add the column. Project ID: " + ppf.getCurrentProject());
         }
     }
 
@@ -72,7 +85,7 @@ public class NewColumnController {
     void initialize(){
         ObservableList<String> sortTypeOptions = FXCollections.observableArrayList("Alphabetical", "Priority Level", "Assignee");
         menu_sortType.setItems(sortTypeOptions);
-        menu_sortType.setValue("Priority");
+        menu_sortType.setValue("Priority Level");
     }
 
     @FXML
