@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "App(1)",
+            "request": "launch",
+            "mainClass": "projectpilot/projectpilot.App",
+            "projectName": "projectpilot_gui"
+        },
+        {
+            "type": "java",
             "name": "TempDriver",
             "request": "launch",
             "mainClass": "projectpilot/model.TempDriver",
@@ -16,13 +23,6 @@
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
-        },
-        {
-            "type": "java",
-            "name": "App(1)",
-            "request": "launch",
-            "mainClass": "projectpilot/projectpilot.App",
-            "projectName": "projectpilot_gui"
         }
     ]
 }

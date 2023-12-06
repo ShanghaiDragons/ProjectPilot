@@ -78,8 +78,17 @@ public class TaskEditorController implements Initializable{
             */
     }
 
-    private void saveChanges() {
-        
+    @FXML
+    private void saveChanges(ActionEvent event) throws IOException {
+        User assignee = null;
+        for (User user : ppf.getUsers())
+            if (user.getUserName().equals(lbl_assigneeSelection.getText()))
+                assignee = user;
+        currentTask.setName(txt_taskTitle.getText());
+        currentTask.setDescription(txt_task_description.getText());
+        currentTask.setPriority(Integer.parseInt(lbl_prioritySelection.getText()));
+        currentTask.setAssignee(assignee);
+        switchToHome(event);
     }
 
     /**
@@ -96,12 +105,22 @@ public class TaskEditorController implements Initializable{
 
     @FXML
     void setAssignee(ActionEvent event) throws IOException{
-
+        
     }
 
     @FXML
-    void setPriority(ActionEvent event) throws IOException{
+    void setPriority1(ActionEvent event) {
+        lbl_prioritySelection.setText("1");
+    }
 
+    @FXML
+    void setPriority2(ActionEvent event) {
+        lbl_prioritySelection.setText("2");
+    }
+
+    @FXML
+    void setPriority3(ActionEvent event) {
+        lbl_prioritySelection.setText("3");
     }
 
     @FXML
