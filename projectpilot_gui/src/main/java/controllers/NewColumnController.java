@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import java.time.LocalDate;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -31,11 +33,10 @@ public class NewColumnController {
 
     @FXML
     private TextField txt_column_name;
+    private ProjectPilotFacade ppf = ProjectPilotFacade.getInstance();
 
     @FXML
     private Label lbl_errorMessage;
-    
-    private ProjectPilotFacade ppf = new ProjectPilotFacade();
     //private User currentUser;
 
 
@@ -90,6 +91,13 @@ public class NewColumnController {
 
     @FXML
     void switchToHome(ActionEvent event) throws IOException {
+        App.setRoot("home");
+    }
+
+    @FXML
+    void saveColumn(ActionEvent event) throws IOException {
+        //TODO: set current project to the actual current project. Currently null
+        ppf.addColumn(txt_column_name.getText(), null, null, null);
         App.setRoot("home");
     }
 

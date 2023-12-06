@@ -5,13 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "java",
-            "name": "TempDriver",
-            "request": "launch",
-            "mainClass": "projectpilot/model.TempDriver",
-            "projectName": "projectpilot_gui"
-        },
-        {
             "name": "Attach to Chrome",
             "port": 9222,
             "request": "attach",
