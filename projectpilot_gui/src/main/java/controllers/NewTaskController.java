@@ -15,6 +15,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import model.ProjectPilotFacade;
+import model.Task;
 import model.User;
 import model.Column;
 
@@ -25,6 +26,7 @@ public class NewTaskController {
     private User currentUser = ppf.getUser();
     private Column selectedColumn;
     private String status;
+    
 
     @FXML
     private Button btn_backToHome;

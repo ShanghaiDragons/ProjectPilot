@@ -7,10 +7,12 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import projectpilot.App;
@@ -44,7 +46,7 @@ public class LoginController implements Initializable{
         if (ppf.login(txt_username.getText(), txt_password.getText())){
             App.setRoot("home");
         } else {
-            lbl_errorMessage.setVisible(true);
+            showAlert("Unable to login", "Incorrect password or no matching username.");
         }
     }
 
@@ -54,6 +56,14 @@ public class LoginController implements Initializable{
         projectpilot_pic.setImage(PPlogo);
         Image background = new Image(getClass().getResourceAsStream("/images/background.jpg"));
         background_pic.setImage(background);
+    }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 }

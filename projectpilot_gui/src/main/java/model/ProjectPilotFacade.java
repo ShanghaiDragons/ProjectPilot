@@ -179,8 +179,14 @@ public class ProjectPilotFacade {
      * @return Returns the user that was created with the given parameters
      */
     public boolean createAccount(String firstName, String lastName, String userName, String password) {
+        if ((password.length() >= 6) && (password.matches(".*[a-z]+.*")) && (password.matches(".*[0-9]+.*"))){
         return userList.addUser(new User(firstName, lastName, userName, password));
+        }
+        else{
+            return false;
+        }
     }
+    
 
     /**
      * Logs the user in
