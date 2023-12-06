@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
@@ -56,13 +57,13 @@ public class NewTaskController {
     private Label lbl_statusSelection;
 
     @FXML 
-    private ComboBox<String>menu_status;
+    private MenuButton menu_status;
     
     @FXML
-    private ComboBox<String> menu_assignee;
+    private MenuButton menu_assignee;
     
     @FXML
-    private ComboBox<String> menu_priority;
+    private MenuButton menu_priority;
     
     @FXML
     private TextField txt_task_description;
@@ -70,52 +71,52 @@ public class NewTaskController {
     @FXML
     private TextField txt_task_name;
     
-    @FXML
-    void saveChanges(ActionEvent event) throws IOException{
-        selectedColumn =ppf.getCurrentProject().getColumn(null);
-        String taskName = txt_task_name.getText();
-        String taskDescription = txt_task_description.getText();
-        String assignee = menu_assignee.getValue();
-        String priority = menu_priority.getValue();
-        if (taskName.isEmpty()|| assignee== null || priority == null) {
-            showAlert("Please fill in all of the fields", "");
-            return;
-        } 
+    // @FXML
+    // void saveChanges(ActionEvent event) throws IOException{
+    //     selectedColumn =ppf.getCurrentProject().getColumn(null);
+    //     String taskName = txt_task_name.getText();
+    //     String taskDescription = txt_task_description.getText();
+    //     String assignee = menu_assignee.getValue();
+    //     String priority = menu_priority.getValue();
+    //     if (taskName.isEmpty()|| assignee== null || priority == null) {
+    //         showAlert("Please fill in all of the fields", "");
+    //         return;
+    //     } 
         
-        if(ppf.addTask(selectedColumn, taskName, currentUser, Integer.parseInt(priority), "TODO", taskDescription, new ArrayList<>())){
-            showAlert("Success","Changes saved successfully!");
-            switchToHome(event);
-        }
-        else{
-        showAlert("Failed to save changes","");
-        }
-    }
+    //     if(ppf.addTask(selectedColumn, taskName, currentUser, Integer.parseInt(priority), "TODO", taskDescription, new ArrayList<>())){
+    //         showAlert("Success","Changes saved successfully!");
+    //         switchToHome(event);
+    //     }
+    //     else{
+    //     showAlert("Failed to save changes","");
+    //     }
+    // }
 
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-    //LOOK AT CHRIS TAKS HOMECONTROLLER
-    @FXML
-    void initialize(){
-        ArrayList<User> userList = ppf.getUsers();
-        ObservableList<String> assigneeOptions = FXCollections.observableArrayList();
-        for(User user: userList){
-            assigneeOptions.add(user.getUserName());
-        }
-        menu_assignee.setItems(assigneeOptions);
+    // private void showAlert(String title, String content) {
+    //     Alert alert = new Alert(AlertType.INFORMATION);
+    //     alert.setTitle(title);
+    //     alert.setHeaderText(null);
+    //     alert.setContentText(content);
+    //     alert.showAndWait();
+    // }
+    // //LOOK AT CHRIS TAKS HOMECONTROLLER
+    // @FXML
+    // void initialize(){
+    //     ArrayList<User> userList = ppf.getUsers();
+    //     ObservableList<String> assigneeOptions = FXCollections.observableArrayList();
+    //     for(User user: userList){
+    //         assigneeOptions.add(user.getUserName());
+    //     }
+    //     menu_assignee.setItems(assigneeOptions);
 
-        ObservableList<String> priorityOptions= FXCollections.observableArrayList("1","2","3");
-        menu_priority.setItems(priorityOptions);
+    //     ObservableList<String> priorityOptions= FXCollections.observableArrayList("1","2","3");
+    //     menu_priority.setItems(priorityOptions);
 
-        ObservableList<String> statusOptions= FXCollections.observableArrayList("To Do","In Progress","Done");
-        menu_status.setItems(statusOptions);
+    //     ObservableList<String> statusOptions= FXCollections.observableArrayList("To Do","In Progress","Done");
+    //     menu_status.setItems(statusOptions);
 
 
-    }
+    // }
 
     @FXML
     void setAssignee(ActionEvent event) {
