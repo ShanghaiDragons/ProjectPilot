@@ -5,18 +5,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Attach to Chrome",
-            "port": 9222,
-            "request": "attach",
-            "type": "chrome",
-            "webRoot": "${workspaceFolder}"
-        },
-        {
-            "name": "Launch Chrome",
+            "type": "java",
+            "name": "TempDriver",
             "request": "launch",
-            "type": "chrome",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
+            "mainClass": "projectpilot/model.TempDriver",
+            "projectName": "projectpilot_gui"
         },
         {
             "type": "java",
@@ -26,7 +19,7 @@
         },
         {
             "type": "java",
-            "name": "App",
+            "name": "App(1)",
             "request": "launch",
             "mainClass": "projectpilot/projectpilot.App",
             "projectName": "projectpilot_gui"
