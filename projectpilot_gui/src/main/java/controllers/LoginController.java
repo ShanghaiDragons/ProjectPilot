@@ -44,9 +44,13 @@ public class LoginController implements Initializable{
     @FXML
     void switchToHomePage(ActionEvent event) throws IOException {
         if (ppf.login(txt_username.getText(), txt_password.getText())){
+            showAlert("Success!", "Logging you in...");
             App.setRoot("home");
+        }
+        else if(txt_username.getText().isEmpty() || txt_password.getText().isEmpty()){
+            showAlert("Please enter login credentials", null);
         } else {
-            showAlert("Unable to login", "Incorrect password or no matching username.");
+            showError("Unable to login", "Incorrect password or no matching username.");
         }
     }
 
@@ -59,6 +63,14 @@ public class LoginController implements Initializable{
     }
 
     private void showAlert(String title, String content) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    private void showError(String title, String content) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
