@@ -43,16 +43,18 @@ public class LoginController implements Initializable{
 
     @FXML
     void switchToHomePage(ActionEvent event) throws IOException {
-        if (ppf.login(txt_username.getText(), txt_password.getText())){
+        if(txt_username.getText().isEmpty() || txt_password.getText().isEmpty()){
+            showAlert("Empty login fields!", "Please enter login credentials.");
+        }
+        else if (ppf.login(txt_username.getText(), txt_password.getText())){
             showAlert("Success!", "Logging you in...");
             App.setRoot("home");
         }
-        else if(txt_username.getText().isEmpty() || txt_password.getText().isEmpty()){
-            showAlert("Please enter login credentials", null);
-        } else {
+        else {
             showError("Unable to login", "Incorrect password or no matching username.");
         }
-    }
+        } 
+    
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
