@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.NewProjectController">
+   <children>
+      <ImageView fx:id="txt_column1" fitHeight="480.0" fitWidth="800.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../java/images/abstract-white-background-dynamic_29865-2544.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txt_project_title" layoutX="258.0" layoutY="50.0" prefHeight="40.0" prefWidth="285.0" promptText="Add Project Name" />
+      <TextField fx:id="txt_project_description" layoutX="258.0" layoutY="100.0" prefHeight="40.0" prefWidth="285.0" promptText="Add Description" />
+      <Button fx:id="btn_saveChanges" layoutX="304.0" layoutY="375.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="51.0" prefWidth="194.0" text="Add Project" />
+      <Label layoutX="181.0" layoutY="62.0" text="Project Title" />
+      <Label layoutX="182.0" layoutY="112.0" text="Description" />
+      <Label layoutX="213.0" layoutY="162.0" text="Users" />
+      <Label layoutX="196.0" layoutY="213.0" text="Columns" />
+      <Button fx:id="btn_backToHome" layoutX="745.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToHome" text="Back" />
+      <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="715.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../java/images/User.png" />
+         </image>
+      </ImageView>
+      <HBox alignment="CENTER_RIGHT" layoutX="258.0" layoutY="150.0" prefHeight="40.0" prefWidth="285.0">
+         <children>
+            <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../java/images/User.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btn_addUserToProject" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#switchToInviteUsers" text="+">
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <ScrollPane hbarPolicy="NEVER" layoutX="258.0" layoutY="200.0" prefHeight="162.0" prefWidth="285.0" vbarPolicy="ALWAYS">
+         <content>
+            <VBox alignment="TOP_CENTER" prefHeight="176.0" prefWidth="284.0">
+               <children>
+                  <TextField fx:id="txt_column" prefHeight="40.0" prefWidth="284.0" promptText="Column 1 Name" />
+                  <TextField fx:id="txt_column2" prefHeight="40.0" prefWidth="284.0" promptText="Column 2 Name" />
+                  <TextField fx:id="txt_column3" prefHeight="40.0" prefWidth="284.0" promptText="Column 3 Name" />
+                  <Button fx:id="btn_addColumn" mnemonicParsing="false" onAction="#addColumn" text="+">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+   <stylesheets>
+      <URL value="@styles.css" />
+   </stylesheets>
+</Pane>
