@@ -11,6 +11,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import model.Column;
+import model.Project;
 import model.ProjectPilotFacade;
 //import model.User;
 import projectpilot.App;
@@ -34,17 +36,21 @@ public class NewColumnController {
 
     @FXML
     private Label lbl_errorMessage;
+
+    private Column currentColumn; 
     
     private ProjectPilotFacade ppf = new ProjectPilotFacade();
-    //private User currentUser;
+    
+    private Project currentProject;
 
 
     @FXML 
     void addColumnButtonClicked(ActionEvent event) throws IOException{
-        /*currentUser = ppf.getUser();
-        if(!ppf.canEditProject("addColumn")){
-            showAlert("You do not have permission to add columns!","User must be ");
-        }*/
+        currentProject = ppf.getCurrentProject();
+        if(currentProject==null){
+            showAlert("Error", "No project selected");
+            return;
+        }
        
         String columnName = txt_column_name.getText();
         String selectedSortType= menu_sortType.getValue();
@@ -64,12 +70,11 @@ public class NewColumnController {
             return;
         }
 
-        if(ppf.addColumn(columnName, selectedSortType, new ArrayList<>(), new ArrayList<>())){
+        if(currentProject.addColumn(new Column(columnName, selectedSortType, new ArrayList<>(), new ArrayList<>()))){
             showAlert("Success", "Column added successfully!");
-            lbl_errorMessage.setText("");
             switchToHome(event);
         } else{
-            showAlert("Error", "Failed to add the column. Project ID: " + ppf.getCurrentProject());
+            showAlert("Error", "Failed to add the column. Project ID: " + currentProject);
         }
     }
 
