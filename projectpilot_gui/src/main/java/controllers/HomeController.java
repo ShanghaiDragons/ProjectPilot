@@ -31,6 +31,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -40,7 +41,7 @@ import model.*;
 import javafx.stage.Screen;
 
 public class HomeController implements Initializable{
-    private ProjectPilotFacade ppf;
+    private ProjectPilotFacade ppf = ProjectPilotFacade.getInstance();
 
     @FXML
     private Label TaskTitle1;
@@ -74,6 +75,9 @@ public class HomeController implements Initializable{
     private ImageView background_pic;
     @FXML
     private ScrollPane scrollPane;
+    @FXML
+    private TitledPane titledPane_Projects;
+    public static ObservableList<String> projectList = FXCollections.observableArrayList();
 
     /**
      * Initializes the facade to populate the data in the scene
@@ -83,25 +87,14 @@ public class HomeController implements Initializable{
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ppf = ProjectPilotFacade.getInstance();
+        displayProjects();
         if (ppf.getCurrentProject() != null) {
             this.currentProject = ppf.getCurrentProject();
         }
-        displayProjects();
         buildScrumPane();
 
         Image background = new Image(getClass().getResourceAsStream("/images/background.jpg"));
         background_pic.setImage(background);
-
-        /**
-         //middle of screen:
-         Rectangle2D psb = Screen.getPrimary().getVisualBounds();
-         System.out.println("WIDTH: "+homePane.getPrefWidth());
-         System.out.println("HEIGHT: "+homePane.getPrefHeight());
-         double x = ((psb.getWidth() - homePane.getPrefWidth()) / 2);
-         double y = ((psb.getHeight() - homePane.getPrefHeight()) /2);
-         //homePane.relocate(x, y);
-         */
     }
 
     /**
@@ -109,10 +102,10 @@ public class HomeController implements Initializable{
      * @author ctaks
      */
     private void displayProjects() {
-        ObservableList<String> projectList = FXCollections.observableArrayList();
 
         for (Project project : ppf.getProjects()) {
-            projectList.add(project.getName());
+            if (!projectList.contains(project.getName()))
+                projectList.add(project.getName());
         }
         lst_projects.setItems(projectList);
     }
@@ -151,12 +144,15 @@ public class HomeController implements Initializable{
         // column.setMaxWidth(200);
         Label columnTitle = new Label(col.getName());
         column.getChildren().add(columnTitle);
-        
+        ppf.setCurrentColumn(col);
         VBox taskPanes = new VBox();
         Button addTaskButton = new Button("+");
         taskPanes.setAlignment(Pos.CENTER);
+        int i = 1;
         for (Task task : col.getTasks()) {
             taskPanes.getChildren().add(createTask(task));
+            
+            // addTaskButton.setId("btn_addTask" + i++);
         }
         taskPanes.getChildren().add(addTaskButton);
 
@@ -203,53 +199,21 @@ public class HomeController implements Initializable{
         });
         task.setStyle("-fx-border-color: lightgray; -fx-border-width: 1;");
         task.setPadding(new Insets(10, 10, 10, 10));
+
+        //scrumPaneAnchor.setMinHeight(scrumPane.getHeight());
+
         return task;
     }
 
-    /**
-     * 
-     * @param col
-     * @return
-     @FXML
-     private ListView<String> createTaskList(Column col) {
-         ListView<String> taskListView = new ListView<String>();
-         ObservableList<String> taskList = FXCollections.observableArrayList();
-         for (Task task : col.getTasks()) {
-             taskList.add(task.getName());
-            }
-            taskListView.setItems(taskList);
-            return taskListView;
-        }
-        */
-        
-    /**
-     * Builds the scrum board bosed on the currently selected project (TABLE)
-     * @author ctaks
-     @FXML
-     private void buildBoard() {
-         scrumBoard.getColumns().clear();
-         scrumBoard.getItems().clear();
-         int columnNum = currentProject.getColumns().size();
-         int rowNum = 0;
-         // populate rowNum with the highest task number of all the columns
-         for (Column col : currentProject.getColumns()) {
-             int colRowNum = col.getTasks().size();
-            if (colRowNum > rowNum) {
-                rowNum = colRowNum;
-            }
-        }
-        // populate columns
-        for (Column col : currentProject.getColumns()) {
-            TableColumn<Task, String> column = new TableColumn<Task, String>(col.getName());
-            column.setCellValueFactory(new PropertyValueFactory<Task, String>("name"));
-            scrumBoard.getColumns().add(column);
-            // populate tasks
-            for (Task task : col.getTasks()) {
-                scrumBoard.getItems().add(task);
-            }
+    @FXML
+    void expandProjects(MouseEvent event) throws IOException {
+        if (titledPane_Projects.isExpanded())
+            titledPane_Projects.toFront();
+        else {
+            titledPane_Projects.toBack();
+            background_pic.toBack();
         }
     }
-    */
 
     @FXML
     void switchToColumnEditor(MouseEvent event) throws IOException {

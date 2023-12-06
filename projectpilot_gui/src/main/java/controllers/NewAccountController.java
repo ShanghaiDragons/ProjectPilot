@@ -17,7 +17,7 @@ import projectpilot.App;
 
 public class NewAccountController implements Initializable{
 
-    private ProjectPilotFacade ppf = new ProjectPilotFacade();
+    private ProjectPilotFacade ppf = ProjectPilotFacade.getInstance();
     @FXML
     private ImageView background_pic;
 
@@ -68,7 +68,6 @@ public class NewAccountController implements Initializable{
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        ppf = new ProjectPilotFacade();
         Image PPlogo = new Image(getClass().getResourceAsStream("/images/ProjectPilotLoginLogo.png"));
         projectpilot_pic.setImage(PPlogo);
         Image background = new Image(getClass().getResourceAsStream("/images/background.jpg"));

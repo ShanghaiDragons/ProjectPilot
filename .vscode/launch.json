@@ -12,20 +12,6 @@
             "projectName": "projectpilot_gui"
         },
         {
-            "name": "Attach to Chrome",
-            "port": 9222,
-            "request": "attach",
-            "type": "chrome",
-            "webRoot": "${workspaceFolder}"
-        },
-        {
-            "name": "Launch Chrome",
-            "request": "launch",
-            "type": "chrome",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
-        },
-        {
             "type": "java",
             "name": "Current File",
             "request": "launch",
@@ -33,7 +19,7 @@
         },
         {
             "type": "java",
-            "name": "App",
+            "name": "App(1)",
             "request": "launch",
             "mainClass": "projectpilot/projectpilot.App",
             "projectName": "projectpilot_gui"

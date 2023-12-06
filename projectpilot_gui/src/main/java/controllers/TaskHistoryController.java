@@ -10,6 +10,8 @@ import projectpilot.App;
 
 public class TaskHistoryController {
 
+    //TODO: HBoxes of the types of changes, each with their own VBox of each change.
+    // Should all be inside a scroll view, just like home.
     @FXML
     private Button btn_backToTask;
 
@@ -23,5 +25,4 @@ public class TaskHistoryController {
     void switchToTaskEditor(ActionEvent event) throws IOException {
         App.setRoot("taskEditor");
     }
-
 }
