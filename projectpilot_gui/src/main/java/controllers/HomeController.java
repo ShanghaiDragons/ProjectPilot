@@ -31,6 +31,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -40,7 +41,7 @@ import model.*;
 import javafx.stage.Screen;
 
 public class HomeController implements Initializable{
-    private ProjectPilotFacade ppf;
+    private ProjectPilotFacade ppf = ProjectPilotFacade.getInstance();
 
     @FXML
     private Label TaskTitle1;
@@ -74,6 +75,9 @@ public class HomeController implements Initializable{
     private ImageView background_pic;
     @FXML
     private ScrollPane scrollPane;
+    @FXML
+    private TitledPane titledPane_Projects;
+    public static ObservableList<String> projectList = FXCollections.observableArrayList();
 
     /**
      * Initializes the facade to populate the data in the scene
@@ -83,11 +87,10 @@ public class HomeController implements Initializable{
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ppf = ProjectPilotFacade.getInstance();
+        displayProjects();
         if (ppf.getCurrentProject() != null) {
             this.currentProject = ppf.getCurrentProject();
         }
-        displayProjects();
         buildScrumPane();
 
         Image background = new Image(getClass().getResourceAsStream("/images/background.jpg"));
@@ -109,10 +112,10 @@ public class HomeController implements Initializable{
      * @author ctaks
      */
     private void displayProjects() {
-        ObservableList<String> projectList = FXCollections.observableArrayList();
 
         for (Project project : ppf.getProjects()) {
-            projectList.add(project.getName());
+            if (!projectList.contains(project.getName()))
+                projectList.add(project.getName());
         }
         lst_projects.setItems(projectList);
     }
@@ -151,12 +154,15 @@ public class HomeController implements Initializable{
         // column.setMaxWidth(200);
         Label columnTitle = new Label(col.getName());
         column.getChildren().add(columnTitle);
-        
+        ppf.setCurrentColumn(col);
         VBox taskPanes = new VBox();
         Button addTaskButton = new Button("+");
         taskPanes.setAlignment(Pos.CENTER);
+        int i = 1;
         for (Task task : col.getTasks()) {
             taskPanes.getChildren().add(createTask(task));
+            
+            // addTaskButton.setId("btn_addTask" + i++);
         }
         taskPanes.getChildren().add(addTaskButton);
 
@@ -250,6 +256,16 @@ public class HomeController implements Initializable{
         }
     }
     */
+
+    @FXML
+    void expandProjects(MouseEvent event) throws IOException {
+        if (titledPane_Projects.isExpanded())
+            titledPane_Projects.toFront();
+        else {
+            titledPane_Projects.toBack();
+            background_pic.toBack();
+        }
+    }
 
     @FXML
     void switchToColumnEditor(MouseEvent event) throws IOException {
