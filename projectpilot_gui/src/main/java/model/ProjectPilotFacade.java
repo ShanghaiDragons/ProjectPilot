@@ -256,13 +256,13 @@ public class ProjectPilotFacade {
      * @author ctaks
      * @param name to be added
      * @param sortType to be added
-     * @param tasks to be added
-     * @param comments to be added
+     * @param arrayList to be added
+     * @param arrayList2 to be added
      * @return boolean determining success
      */
-    public boolean addColumn(String name, String sortType, ArrayList<Task> tasks, ArrayList<Comment> comments) {
+    public boolean addColumn(String name, String sortType, ArrayList<Task> arrayList, ArrayList<Comment> arrayList2) {
         if(currentProject != null){
-        return currentProject.addColumn(new Column(name, sortType, tasks, comments));
+        return currentProject.addColumn(new Column(name, sortType, arrayList, arrayList2));
         }
         return false;
     }
