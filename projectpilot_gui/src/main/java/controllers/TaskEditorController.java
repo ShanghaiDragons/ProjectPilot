@@ -6,15 +6,21 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import projectpilot.App;
 import model.*;
@@ -24,40 +30,43 @@ public class TaskEditorController implements Initializable{
     private Task currentTask;
     @FXML
     private Button btn_backToHome;
+
     @FXML
     private Button btn_saveChanges;
-    @FXML
-    private MenuItem item_assignee1;
-    @FXML
-    private MenuItem item_assignee2;
-    @FXML
-    private MenuItem item_priority1;
-    @FXML
-    private MenuItem item_priority2;
-    @FXML
-    private MenuItem item_priority3;
+
     @FXML
     private Label lbl_assigneeSelection;
+
     @FXML
     private Label lbl_comment1;
+
     @FXML
     private Label lbl_prioritySelection;
+
     @FXML
-    private TextField txt_taskTitle;
+    private ListView<String> list_assignee;
+
     @FXML
-    private MenuButton menu_assignee;
+    private ListView<Integer> list_priority;
+
     @FXML
-    private MenuButton menu_priority;
+    private TitledPane titledPane_assignee;
+
+    @FXML
+    private TitledPane titledPane_priority;
+
     @FXML
     private TextField txt_add_comment;
+
+    @FXML
+    private TextField txt_taskTitle;
+
     @FXML
     private TextField txt_task_description;
     @FXML
-    private ListView<User> lst_users;
-    @FXML
-    private ListView<Integer> lst_priority;
-
-    private static final int PRIORITY_NUM = 3;
+    private ImageView background_pic;
+    private ObservableList<Integer> priorities = FXCollections.observableArrayList();
+    private ObservableList<String> users = FXCollections.observableArrayList();
 
     /**
      * Initializes the facade to populate the data in the scene
@@ -73,29 +82,44 @@ public class TaskEditorController implements Initializable{
         txt_task_description.setText(currentTask.getDescription());
         lbl_prioritySelection.setText(String.valueOf(currentTask.getPriority()));
         lbl_assigneeSelection.setText(currentTask.getAssignee().getUserName());
+        for ( int i = 1; i < 4; i++ )
+            priorities.add(i);
+        for (User team : ppf.getUsers() )
+            users.add(team.getFirstName() + " " + team.getLastName());
+        list_priority.setItems(priorities);
+        list_assignee.setItems(users);
 
-        setChangeAssignee();
-        setChangePriority();
+        list_priority.setOnMouseClicked(event -> {
+            try {
+                priorityItemSelected(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
-        // save
-         btn_saveChanges.setOnAction(event -> {
-             try {
-                 saveChanges();
-                 switchToHome(event);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
+        list_assignee.setOnMouseClicked(event -> {
+            try {
+                assigneeItemSelected(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+       
+        Image background = new Image(getClass().getResourceAsStream("/images/background.jpg"));
+        background_pic.setImage(background);
     }
 
-    /**
-     * Saves the changes made to the task
-     * @author ctaks
-     */
-    private void saveChanges() {
-        ppf.getCurrentTask().setName(txt_taskTitle.getText());
-        ppf.getCurrentTask().setDescription(txt_task_description.getText());
-        
+    @FXML
+    private void saveChanges(ActionEvent event) throws IOException {
+        User assignee = null;
+        for (User user : ppf.getUsers())
+            if (user.getUserName().equals(lbl_assigneeSelection.getText()))
+                assignee = user;
+        currentTask.setName(txt_taskTitle.getText());
+        currentTask.setDescription(txt_task_description.getText());
+        currentTask.setPriority(Integer.parseInt(lbl_prioritySelection.getText()));
+        currentTask.setAssignee(assignee);
+        switchToHome(event);
     }
 
     /**
@@ -105,59 +129,30 @@ public class TaskEditorController implements Initializable{
 
     }
 
-    /**
-     * Sets up the assignee dropdown
-     * @author ctaks
-     */
-    private void setChangeAssignee() {
-        ObservableList<User> userList = FXCollections.observableArrayList();
+    @FXML
+    private void expandLists(MouseEvent event) throws IOException {
+        if (titledPane_priority.isExpanded())
+            titledPane_priority.toFront();
+        else if (!titledPane_priority.isExpanded()) {
+            titledPane_priority.toBack();
+            background_pic.toBack();
+        }
+    }
+
+    @FXML
+    private void priorityItemSelected(MouseEvent event) throws IOException {
+        String priority = list_priority.getSelectionModel().getSelectedItem().toString();
+        lbl_prioritySelection.setText(priority);
+    }
+
+    @FXML
+    private void assigneeItemSelected(MouseEvent event) throws IOException {
+        String assignee = "";
+        for (User user : ppf.getUsers())
+            if (list_assignee.getSelectionModel().getSelectedItem().toString().equals(user.getFirstName() + " " + user.getLastName()))
+                assignee = user.getUserName();
         
-        for (User user : ppf.getUsers()) {
-            userList.add(user);
-        }
-        lst_users.setItems(userList);
-    }
-
-    /**
-     * What happens when an assignee is selected
-     * @author ctaks
-     * @param event mouse click
-     * @throws IOException
-     */
-    @FXML
-    private void assigneeSelected(MouseEvent event) throws IOException {
-        User selectedUser = lst_users.getSelectionModel().getSelectedItem();
-        currentTask.setAssignee(selectedUser);
-        ppf.getCurrentTask().setAssignee(selectedUser);
-        lbl_assigneeSelection.setText(currentTask.getAssignee().getUserName());
-    }
-
-    /**
-     * Sets up the priority dropdown
-     * @author ctaks
-     */
-    private void setChangePriority() {
-        ObservableList<Integer> priorityList = FXCollections.observableArrayList();
-
-        for (int i = 1; i <= PRIORITY_NUM; i++) {
-            Integer wrappedI = i;
-            priorityList.add(wrappedI);
-        }
-        lst_priority.setItems(priorityList);
-    }
-
-    /**
-     * What happens when a priority is selected
-     * @author ctaks
-     * @param event mouse click
-     * @throws IOException
-     */
-    @FXML
-    private void prioritySelected(MouseEvent event) throws IOException {
-        int selectedPriority = lst_priority.getSelectionModel().getSelectedItem();
-        currentTask.setPriority(selectedPriority);
-        ppf.getCurrentTask().setPriority(selectedPriority);
-        lbl_prioritySelection.setText(String.valueOf(selectedPriority));
+        lbl_assigneeSelection.setText(assignee);
     }
 
     @FXML
@@ -167,11 +162,6 @@ public class TaskEditorController implements Initializable{
 
     @FXML
     void setAssignee(ActionEvent event) throws IOException{
-
-    }
-
-    @FXML
-    void setPriority(ActionEvent event) throws IOException{
 
     }
 
