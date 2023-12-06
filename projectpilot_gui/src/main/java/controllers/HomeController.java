@@ -92,16 +92,6 @@ public class HomeController implements Initializable{
 
         Image background = new Image(getClass().getResourceAsStream("/images/background.jpg"));
         background_pic.setImage(background);
-
-        /**
-         //middle of screen:
-         Rectangle2D psb = Screen.getPrimary().getVisualBounds();
-         System.out.println("WIDTH: "+homePane.getPrefWidth());
-         System.out.println("HEIGHT: "+homePane.getPrefHeight());
-         double x = ((psb.getWidth() - homePane.getPrefWidth()) / 2);
-         double y = ((psb.getHeight() - homePane.getPrefHeight()) /2);
-         //homePane.relocate(x, y);
-         */
     }
 
     /**
@@ -203,53 +193,11 @@ public class HomeController implements Initializable{
         });
         task.setStyle("-fx-border-color: lightgray; -fx-border-width: 1;");
         task.setPadding(new Insets(10, 10, 10, 10));
+
+        //scrumPaneAnchor.setMinHeight(scrumPane.getHeight());
+
         return task;
     }
-
-    /**
-     * 
-     * @param col
-     * @return
-     @FXML
-     private ListView<String> createTaskList(Column col) {
-         ListView<String> taskListView = new ListView<String>();
-         ObservableList<String> taskList = FXCollections.observableArrayList();
-         for (Task task : col.getTasks()) {
-             taskList.add(task.getName());
-            }
-            taskListView.setItems(taskList);
-            return taskListView;
-        }
-        */
-        
-    /**
-     * Builds the scrum board bosed on the currently selected project (TABLE)
-     * @author ctaks
-     @FXML
-     private void buildBoard() {
-         scrumBoard.getColumns().clear();
-         scrumBoard.getItems().clear();
-         int columnNum = currentProject.getColumns().size();
-         int rowNum = 0;
-         // populate rowNum with the highest task number of all the columns
-         for (Column col : currentProject.getColumns()) {
-             int colRowNum = col.getTasks().size();
-            if (colRowNum > rowNum) {
-                rowNum = colRowNum;
-            }
-        }
-        // populate columns
-        for (Column col : currentProject.getColumns()) {
-            TableColumn<Task, String> column = new TableColumn<Task, String>(col.getName());
-            column.setCellValueFactory(new PropertyValueFactory<Task, String>("name"));
-            scrumBoard.getColumns().add(column);
-            // populate tasks
-            for (Task task : col.getTasks()) {
-                scrumBoard.getItems().add(task);
-            }
-        }
-    }
-    */
 
     @FXML
     void switchToColumnEditor(MouseEvent event) throws IOException {

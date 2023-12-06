@@ -29,7 +29,7 @@
          </font>
       </Label>
       <Button fx:id="addColumn" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="754.0" layoutY="50.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#switchToNewColumn" text="+" />
-      <ScrollPane layoutX="14.0" layoutY="85.0" prefHeight="381.0" prefWidth="772.0" vbarPolicy="NEVER">
+      <ScrollPane layoutX="14.0" layoutY="85.0" prefHeight="381.0" prefWidth="772.0">
         <content>
           <AnchorPane fx:id="scrumPaneAnchor">
                <children>
