@@ -39,42 +39,7 @@ public class NewColumnController {
 
     @FXML
     private Label lbl_errorMessage;
-    //private User currentUser;
-
-
-    @FXML 
-    void addColumnButtonClicked(ActionEvent event) throws IOException{
-        Project currentProject = ppf.getCurrentProject();
-        if(currentProject==null){
-            showAlert("Error", "No project selected");
-            return;
-        }
-       
-        String columnName = txt_column_name.getText();
-        String selectedSortType= menu_sortType.getValue();
-        
-
-        if(selectedSortType==null || selectedSortType.isEmpty()){
-            selectedSortType="Priority";
-        }
-
-        if(columnName==null || columnName.isEmpty()){
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText("Must enter a column name!");
-            alert.setContentText(null);
-            alert.showAndWait();
-            
-            return;
-        }
-
-        if(currentProject.addColumn(new Column(columnName, selectedSortType, new ArrayList<>(), new ArrayList<>()))){
-            showAlert("Success", "Column added successfully!");
-            switchToHome(event);
-        } else{
-            showAlert("Error", "Failed to add the column. Project ID: " + currentProject);
-        }
-    }
+   
 
     private void showAlert(String title, String content) {
         Alert alert = new Alert(AlertType.INFORMATION);
@@ -99,8 +64,25 @@ public class NewColumnController {
     @FXML
     void saveColumn(ActionEvent event) throws IOException {
         //TODO: set current project to the actual current project. Currently null
-        ppf.addColumn(txt_column_name.getText(), null, null, null);
-        App.setRoot("home");
+        String columnName = txt_column_name.getText();
+
+        if(columnName==null || columnName.isEmpty()){
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Must enter a column name!");
+            alert.setContentText(null);
+            alert.showAndWait();
+            
+            return;
+        }
+
+        if(ppf.addColumn(txt_column_name.getText(), null, null, null)){
+            showAlert("Success", "Column added successfully!");
+            App.setRoot("home");
+        } else{
+            showAlert("Error", "Failed to add the column.");
+        }
+    
     }
 
 }
