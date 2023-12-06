@@ -194,4 +194,12 @@ public class User {
     public boolean verifyPassword(String password) {
         return this.password.equals(password);
     }
+
+    /**
+     * toString for GUI (used in TaskEditorController.java)
+     * @author ctaks
+     */
+    public String toString() {
+        return this.userName;
+    }
 }
