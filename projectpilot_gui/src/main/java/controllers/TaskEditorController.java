@@ -16,6 +16,8 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import projectpilot.App;
 import model.*;
@@ -45,6 +47,12 @@ public class TaskEditorController implements Initializable{
     private ListView<Integer> list_priority;
 
     @FXML
+    private TitledPane titledPane_assignee;
+
+    @FXML
+    private TitledPane titledPane_priority;
+
+    @FXML
     private TextField txt_add_comment;
 
     @FXML
@@ -52,6 +60,8 @@ public class TaskEditorController implements Initializable{
 
     @FXML
     private TextField txt_task_description;
+    @FXML
+    private ImageView background_pic;
     private ObservableList<Integer> priorities = FXCollections.observableArrayList();
     private ObservableList<String> users = FXCollections.observableArrayList();
 
@@ -102,6 +112,8 @@ public class TaskEditorController implements Initializable{
                 }
             });
             */
+        Image background = new Image(getClass().getResourceAsStream("/images/background.jpg"));
+        background_pic.setImage(background);
     }
 
     @FXML
@@ -125,6 +137,16 @@ public class TaskEditorController implements Initializable{
     }
 
     @FXML
+    private void expandLists(MouseEvent event) throws IOException {
+        if (titledPane_priority.isExpanded())
+            titledPane_priority.toFront();
+        else if (!titledPane_priority.isExpanded()) {
+            titledPane_priority.toBack();
+            background_pic.toBack();
+        }
+    }
+
+    @FXML
     private void priorityItemSelected(MouseEvent event) throws IOException {
         String priority = list_priority.getSelectionModel().getSelectedItem().toString();
         lbl_prioritySelection.setText(priority);
@@ -134,8 +156,8 @@ public class TaskEditorController implements Initializable{
     private void assigneeItemSelected(MouseEvent event) throws IOException {
         String assignee = "";
         for (User user : ppf.getUsers())
-            if (list_assignee.getSelectionModel().getSelectedItem().toString().equals(user.toString()))
-                assignee = user.getFirstName() + " " + user.getLastName();
+            if (list_assignee.getSelectionModel().getSelectedItem().toString().equals(user.getFirstName() + " " + user.getLastName()))
+                assignee = user.getUserName();
         
         lbl_assigneeSelection.setText(assignee);
     }
@@ -148,11 +170,6 @@ public class TaskEditorController implements Initializable{
     @FXML
     void setAssignee(ActionEvent event) throws IOException{
 
-    }
-
-    @FXML
-    void setPriority1(ActionEvent event) {
-        lbl_prioritySelection.setText("1");
     }
 
     @FXML

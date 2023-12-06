@@ -15,7 +15,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TaskEditorController">
    <children>
-      <ImageView fitHeight="480.0" fitWidth="800.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="background_pic" fitHeight="480.0" fitWidth="800.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../java/images/abstract-white-background-dynamic_29865-2544.jpg" />
          </image>
@@ -28,7 +28,7 @@
          </image>
       </ImageView>
       <TextField fx:id="txt_task_description" layoutX="265.0" layoutY="85.0" prefHeight="100.0" prefWidth="285.0" />
-      <Button fx:id="btn_saveChanges" layoutX="311.0" layoutY="385.0" mnemonicParsing="false" onAction="#switchToHome" prefHeight="51.0" prefWidth="194.0" text="Save Changes" />
+      <Button fx:id="btn_saveChanges" layoutX="311.0" layoutY="385.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="51.0" prefWidth="194.0" text="Save Changes" />
       <Label alignment="CENTER_RIGHT" layoutX="185.0" layoutY="97.0" text="Description" />
       <Label alignment="CENTER_RIGHT" layoutX="207.0" layoutY="199.0" text="Priority" />
       <Label alignment="CENTER_RIGHT" layoutX="198.0" layoutY="232.0" text="Assignee" />
@@ -51,7 +51,7 @@
       </ScrollPane>
       <Button layoutX="563.0" layoutY="385.0" mnemonicParsing="false" onAction="#switchToTaskHistory" prefHeight="51.0" prefWidth="83.0" text="Task History" />
       <Label layoutX="215.0" layoutY="38.0" text="Name" />
-      <TitledPane fx:id="titledPane_assignee" alignment="CENTER" animated="false" expanded="false" layoutX="427.0" layoutY="193.0" onMouseClicked="#expandLists" prefHeight="79.0" prefWidth="120.0" text="Priority">
+      <TitledPane fx:id="titledPane_priority" alignment="CENTER" animated="false" expanded="false" layoutX="427.0" layoutY="193.0" onMouseClicked="#expandLists" prefHeight="79.0" prefWidth="120.0" text="Priority">
          <content>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="120.0">
                <children>
@@ -60,7 +60,7 @@
             </AnchorPane>
          </content>
       </TitledPane>
-      <TitledPane fx:id="titledPane_priority" alignment="CENTER" animated="false" expanded="false" layoutX="427.0" layoutY="228.0" prefHeight="79.0" prefWidth="120.0" text="Assignee">
+      <TitledPane fx:id="titledPane_assignee" alignment="CENTER" animated="false" expanded="false" layoutX="427.0" layoutY="228.0" prefHeight="79.0" prefWidth="120.0" text="Assignee">
         <content>
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="120.0">
                <children>
