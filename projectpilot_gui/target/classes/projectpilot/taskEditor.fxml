@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TaskEditorController">
+   <children>
+      <ImageView fx:id="background_pic" fitHeight="480.0" fitWidth="800.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../java/images/abstract-white-background-dynamic_29865-2544.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="btn_backToHome" layoutX="745.0" layoutY="14.0" mnemonicParsing="false" onAction="#saveChanges" text="Back" />
+      <TextField fx:id="txt_taskTitle" layoutX="265.0" layoutY="14.0" prefHeight="32.0" prefWidth="285.0" />
+      <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="715.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../java/images/User.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txt_task_description" layoutX="265.0" layoutY="56.0" prefHeight="51.0" prefWidth="285.0" />
+      <Button fx:id="btn_saveChanges" layoutX="311.0" layoutY="385.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="51.0" prefWidth="194.0" text="Save Changes" />
+      <Label alignment="CENTER_RIGHT" layoutX="185.0" layoutY="73.0" text="Description" />
+      <Label alignment="CENTER_RIGHT" layoutX="212.0" layoutY="164.0" text="Priority" />
+      <Label alignment="CENTER_RIGHT" layoutX="202.0" layoutY="204.0" text="Assignee" />
+      <Label fx:id="lbl_prioritySelection" alignment="CENTER" layoutX="264.0" layoutY="160.0" prefHeight="25.0" prefWidth="164.0" text="No Priority Selected" textFill="#00000080" />
+      <Label fx:id="lbl_assigneeSelection" alignment="CENTER" layoutX="264.0" layoutY="200.0" prefHeight="25.0" prefWidth="164.0" text="No Assignee Selected" textFill="#00000080" />
+      <Label alignment="CENTER_RIGHT" layoutX="197.0" layoutY="284.0" text="Comments" />
+      <TextField fx:id="txt_add_comment" layoutX="265.0" layoutY="345.0" onAction="#addCommentToTask" prefHeight="26.0" prefWidth="270.0" promptText="Add a comment" />
+      <ScrollPane hbarPolicy="NEVER" layoutX="266.0" layoutY="241.0" prefHeight="103.0" prefWidth="285.0">
+         <content>
+            <AnchorPane prefHeight="126.0" prefWidth="271.0">
+               <children>
+                  <VBox fx:id="commentBox" prefHeight="127.0" prefWidth="271.0">
+                     <children>
+                        <Label fx:id="lbl_comment1" prefHeight="100.0" prefWidth="92.0" text="No comments">
+                           <padding>
+                              <Insets left="2.0" />
+                           </padding>
+                        </Label>
+                     </children></VBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <Button layoutX="563.0" layoutY="385.0" mnemonicParsing="false" onAction="#switchToTaskHistory" prefHeight="51.0" prefWidth="83.0" text="Task History" />
+      <Label layoutX="215.0" layoutY="22.0" text="Name" />
+      <TitledPane fx:id="titledPane_priority" alignment="CENTER" animated="false" expanded="false" layoutX="428.0" layoutY="161.0" onMouseClicked="#expandLists" prefHeight="79.0" prefWidth="120.0" text="Priority">
+         <content>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="120.0">
+               <children>
+                  <ListView fx:id="list_priority" layoutX="-15.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.4" prefWidth="50.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </TitledPane>
+      <TitledPane fx:id="titledPane_assignee" alignment="CENTER" animated="false" expanded="false" layoutX="428.0" layoutY="200.0" prefHeight="79.0" prefWidth="120.0" text="Assignee">
+        <content>
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="120.0">
+               <children>
+                  <ListView fx:id="list_assignee" layoutX="-15.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.4" prefWidth="50.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+      <Button fx:id="addComment" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="226.0" layoutY="346.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#addCommentToTask" text="+" />
+      <TextField fx:id="txt_taskStatus" layoutX="266.0" layoutY="118.0" prefHeight="32.0" prefWidth="285.0" />
+      <Label alignment="CENTER_RIGHT" layoutX="214.0" layoutY="126.0" text="Status" />
+   </children>
+   <stylesheets>
+      <URL value="@styles.css" />
+   </stylesheets>
+</Pane>
