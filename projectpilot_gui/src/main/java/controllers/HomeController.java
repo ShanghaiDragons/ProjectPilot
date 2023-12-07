@@ -127,7 +127,7 @@ public class HomeController implements Initializable{
         VBox column = new VBox();
         Label columnTitle = new Label(col.getName());
         column.getChildren().add(columnTitle);
-        ppf.setCurrentColumn(col);
+        
         VBox taskPanes = new VBox();
         Button addTaskButton = new Button("+");
         taskPanes.setAlignment(Pos.CENTER);
@@ -138,6 +138,7 @@ public class HomeController implements Initializable{
 
         addTaskButton.setOnAction(event -> {
             try {
+                ppf.setCurrentColumn(col);
                 switchToNewTask(event);
             } catch (IOException e) {
                 e.printStackTrace();
