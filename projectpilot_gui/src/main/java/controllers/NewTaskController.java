@@ -151,8 +151,28 @@ public class NewTaskController {
         // for (int i = 1; i < ppf.getCurrentProject().getColumns().size() + 1; i++) {
 
         // }
-        ppf.addTask(ppf.getCurrentColumn(), txt_task_name.getText(), ppf.getUser(), Integer.parseInt(lbl_prioritySelection.getText()), null, txt_task_description.getText(), null);
-        App.setRoot("home");
+        if(txt_task_name.getText().isEmpty()){
+            showAlert("Error","Please enter a name for the task.");
+        }
+        else if(lbl_prioritySelection.getText().equalsIgnoreCase("No Priority Selected")){
+            showAlert("Error","Please select a priority level for the task.");
+        }
+        else if(ppf.addTask(ppf.getCurrentColumn(), txt_task_name.getText(), ppf.getUser(), Integer.parseInt(lbl_prioritySelection.getText()), null, txt_task_description.getText(), null)){
+            App.setRoot("home");
+        }
+        
+    }
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    @FXML
+    void intiailize(){
+        lbl_prioritySelection.setText("1");
     }
 
 }

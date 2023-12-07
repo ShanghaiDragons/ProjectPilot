@@ -47,7 +47,6 @@ public class LoginController implements Initializable{
             showAlert("Empty login fields!", "Please enter login credentials.");
         }
         else if (ppf.login(txt_username.getText(), txt_password.getText())){
-            showAlert("Success!", "Logging you in...");
             App.setRoot("home");
         }
         else {
