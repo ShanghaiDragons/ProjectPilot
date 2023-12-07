@@ -153,6 +153,22 @@ public class Comment {
     }
 
     /**
+     * Get's a string of the comment's date formatted nicely
+     * @author ctaks
+     * @return String of the comment's date formatted nicely
+     */
+    public String getDateClean() {
+        int hour = date.getHour();
+        String ampm = "am";
+        if (hour > 12) {
+            hour -= 12;
+            ampm = "pm";
+        }
+        String cleanDate = date.getMonthValue()+"-"+date.getDayOfMonth()+"-"+(date.getYear()-2000)+" @"+hour+":"+date.getMinute()+ampm;
+        return cleanDate;
+    }
+
+    /**
      * Get's the comment's message
      * @author ctaks
      * @return String of the comment's message

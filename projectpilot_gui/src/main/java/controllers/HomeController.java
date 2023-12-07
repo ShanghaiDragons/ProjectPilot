@@ -29,7 +29,7 @@ import model.*;
 
 public class HomeController implements Initializable{
     private ProjectPilotFacade ppf = ProjectPilotFacade.getInstance();
-
+    private Project currentProject;
     @FXML
     private Label TaskTitle1;
     @FXML
@@ -50,8 +50,6 @@ public class HomeController implements Initializable{
     private Label taskPriority;
     @FXML
     private ListView<String> lst_projects;
-    
-    private Project currentProject;
     @FXML
     private HBox scrumPane;
     @FXML
@@ -127,19 +125,14 @@ public class HomeController implements Initializable{
     @FXML
     private VBox createScrumColumn(Column col) {
         VBox column = new VBox();
-        // column.setMinWidth(100);
-        // column.setMaxWidth(200);
         Label columnTitle = new Label(col.getName());
         column.getChildren().add(columnTitle);
         ppf.setCurrentColumn(col);
         VBox taskPanes = new VBox();
         Button addTaskButton = new Button("+");
         taskPanes.setAlignment(Pos.CENTER);
-        int i = 1;
         for (Task task : col.getTasks()) {
             taskPanes.getChildren().add(createTask(task));
-            
-            // addTaskButton.setId("btn_addTask" + i++);
         }
         taskPanes.getChildren().add(addTaskButton);
 
@@ -173,8 +166,6 @@ public class HomeController implements Initializable{
         Label priority = new Label("Priority: "+t.getPriority());
         Label assignee = new Label("Assignee: "+t.getAssignee().getUserName());
         task.getChildren().addAll(taskName, priority, assignee);
-        //System.out.println("TaskName: "+taskName.getMaxWidth());
-        //System.out.println("Task: "+task.getMaxWidth());
         
         task.setOnMouseClicked(event -> {
             try {
@@ -186,8 +177,6 @@ public class HomeController implements Initializable{
         });
         task.setStyle("-fx-border-color: lightgray; -fx-border-width: 1;");
         task.setPadding(new Insets(10, 10, 10, 10));
-
-        //scrumPaneAnchor.setMinHeight(scrumPane.getHeight());
 
         return task;
     }
