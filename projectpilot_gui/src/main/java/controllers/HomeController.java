@@ -29,7 +29,7 @@ import model.*;
 
 public class HomeController implements Initializable{
     private ProjectPilotFacade ppf = ProjectPilotFacade.getInstance();
-
+    private Project currentProject;
     @FXML
     private Label TaskTitle1;
     @FXML
@@ -50,8 +50,6 @@ public class HomeController implements Initializable{
     private Label taskPriority;
     @FXML
     private ListView<String> lst_projects;
-    
-    private Project currentProject;
     @FXML
     private HBox scrumPane;
     @FXML
@@ -133,11 +131,8 @@ public class HomeController implements Initializable{
         VBox taskPanes = new VBox();
         Button addTaskButton = new Button("+");
         taskPanes.setAlignment(Pos.CENTER);
-        int i = 1;
         for (Task task : col.getTasks()) {
             taskPanes.getChildren().add(createTask(task));
-            
-            // addTaskButton.setId("btn_addTask" + i++);
         }
         taskPanes.getChildren().add(addTaskButton);
 

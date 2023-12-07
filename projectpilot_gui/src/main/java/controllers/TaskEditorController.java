@@ -2,9 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -52,6 +50,8 @@ public class TaskEditorController implements Initializable{
     @FXML
     private TextField txt_task_description;
     @FXML
+    private TextField txt_taskStatus;
+    @FXML
     private ImageView background_pic;
     @FXML
     private VBox commentBox;
@@ -70,6 +70,7 @@ public class TaskEditorController implements Initializable{
         this.currentTask = ppf.getCurrentTask();
         txt_taskTitle.setText(currentTask.getName());
         txt_task_description.setText(currentTask.getDescription());
+        txt_taskStatus.setText(currentTask.getStatus());
         lbl_prioritySelection.setText(String.valueOf(currentTask.getPriority()));
         lbl_assigneeSelection.setText(currentTask.getAssignee().getUserName());
         setChangePriority();
@@ -105,6 +106,7 @@ public class TaskEditorController implements Initializable{
     private void saveChanges(ActionEvent event) throws IOException {
         currentTask.setName(txt_taskTitle.getText());
         currentTask.setDescription(txt_task_description.getText());
+        //currentTask.set
         ppf.setCurrentTask(currentTask);
 
         switchToHome(event);
