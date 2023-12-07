@@ -9,11 +9,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -181,4 +183,35 @@ public class NewTaskController implements Initializable{
     void switchToHome(ActionEvent event) throws IOException {
         App.setRoot("home");
     }
+
+    @FXML
+    void saveTask(ActionEvent event) throws IOException {
+        //TODO: set current project to the actual current project. Currently null
+        // for (int i = 1; i < ppf.getCurrentProject().getColumns().size() + 1; i++) {
+
+        // }
+        if(txt_taskTitle.getText().isEmpty()){
+            showAlert("Error","Please enter a name for the task.");
+        }
+        else if(lbl_prioritySelection.getText().equalsIgnoreCase("No Priority Selected")){
+            showAlert("Error","Please select a priority level for the task.");
+        }
+        else if(ppf.addTask(ppf.getCurrentColumn(), txt_taskTitle.getText(), ppf.getUser(), Integer.parseInt(lbl_prioritySelection.getText()), null, txt_task_description.getText(), null)){
+            App.setRoot("home");
+        }
+        
+    }
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    @FXML
+    void intiailize(){
+        lbl_prioritySelection.setText("1");
+    }
+
 }

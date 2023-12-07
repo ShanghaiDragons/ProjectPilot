@@ -8,8 +8,10 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.util.converter.LocalDateStringConverter;
 import projectpilot.App;
 import model.*;
@@ -57,14 +59,23 @@ public class NewProjectController implements Initializable{
     @FXML
     void saveChanges(ActionEvent event) throws IOException {
         ppf.addProject(txt_project_title.getText(), LocalDate.now(), LocalDate.now(), null, ppf.getUser(), null, null, null, null);
-        App.setRoot("home");
-    }
+            ppf.saveProjects();
+            App.setRoot("home");
+        }
+    
 
     @FXML
     void switchToInviteUsers(ActionEvent event) throws IOException {
         App.setRoot("inviteNewUsers");
     }
 
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 
