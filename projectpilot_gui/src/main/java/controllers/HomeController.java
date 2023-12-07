@@ -127,8 +127,6 @@ public class HomeController implements Initializable{
     @FXML
     private VBox createScrumColumn(Column col) {
         VBox column = new VBox();
-        // column.setMinWidth(100);
-        // column.setMaxWidth(200);
         Label columnTitle = new Label(col.getName());
         column.getChildren().add(columnTitle);
         ppf.setCurrentColumn(col);
@@ -173,8 +171,6 @@ public class HomeController implements Initializable{
         Label priority = new Label("Priority: "+t.getPriority());
         Label assignee = new Label("Assignee: "+t.getAssignee().getUserName());
         task.getChildren().addAll(taskName, priority, assignee);
-        //System.out.println("TaskName: "+taskName.getMaxWidth());
-        //System.out.println("Task: "+task.getMaxWidth());
         
         task.setOnMouseClicked(event -> {
             try {
@@ -186,8 +182,6 @@ public class HomeController implements Initializable{
         });
         task.setStyle("-fx-border-color: lightgray; -fx-border-width: 1;");
         task.setPadding(new Insets(10, 10, 10, 10));
-
-        //scrumPaneAnchor.setMinHeight(scrumPane.getHeight());
 
         return task;
     }

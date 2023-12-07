@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -9,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -17,6 +19,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import projectpilot.App;
 import model.*;
 
@@ -50,6 +53,10 @@ public class TaskEditorController implements Initializable{
     private TextField txt_task_description;
     @FXML
     private ImageView background_pic;
+    @FXML
+    private VBox commentBox;
+    @FXML
+    private Button addComment;
 
     /**
      * Initializes the facade to populate the data in the scene
@@ -67,6 +74,7 @@ public class TaskEditorController implements Initializable{
         lbl_assigneeSelection.setText(currentTask.getAssignee().getUserName());
         setChangePriority();
         setChangeAssignee();
+        setComments();
 
         list_priority.setOnMouseClicked(event -> {
             try {
@@ -171,9 +179,54 @@ public class TaskEditorController implements Initializable{
         list_assignee.setItems(userList);
     }
 
-    @FXML
-    void addCommentToTask(ActionEvent event) throws IOException{
+    /**
+     * Sets the comments
+     * @author ctaks
+     */
+    private void setComments() {
+        commentBox.getChildren().clear();
+        if (!currentTask.getComments().isEmpty()) {
+            lbl_comment1.setText("");
+            for (Comment comment : currentTask.getComments()) {
+                commentBox.getChildren().add(createComment(comment));
+            }
+        }
+    }
 
+    /**
+     * Creates a comment
+     * @author ctaks
+     * @param com comment to be turned into a VBox of the comment
+     * @return VBox of the comment
+     */
+    private VBox createComment(Comment com) {
+        VBox comment = new VBox();
+        Label userAndDate = new Label(com.getUser().getUserName()+" "+com.getDateClean());
+        userAndDate.setWrapText(true);
+        Label message = new Label(com.getMessage());
+        message.setWrapText(true);
+        comment.getChildren().addAll(userAndDate, message);
+
+        comment.setStyle("-fx-border-color: lightgray; -fx-border-width: 1;");
+        comment.setPadding(new Insets(2, 2, 2, 2));
+
+        return comment;
+    }
+
+    /**
+     * Adds a comment to the task
+     * @author ctaks
+     * @param event mouse click
+     * @throws IOException
+     */
+    @FXML
+    void addCommentToTask(ActionEvent event) throws IOException {
+        String message = txt_add_comment.getText();
+        if (!message.isBlank()) {
+            currentTask.addComment(ppf.getUser(), message);
+            setComments();
+        }
+        txt_add_comment.clear();
     }
 
     @FXML
