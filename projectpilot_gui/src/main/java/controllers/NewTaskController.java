@@ -1,143 +1,182 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.Alert.AlertType;
-import model.ProjectPilotFacade;
-import model.Task;
-import model.User;
-import model.Column;
-
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import projectpilot.App;
+import model.*;
 
-public class NewTaskController {
-    private ProjectPilotFacade ppf = ProjectPilotFacade.getInstance();
-    private User currentUser = ppf.getUser();
-    private Column selectedColumn;
-    private String status;
-    
-
+public class NewTaskController implements Initializable{
+    private ProjectPilotFacade ppf;
+    private Task currentTask;
+    private static final int PRIORITY_NUM = 3;
     @FXML
     private Button btn_backToHome;
-
     @FXML
     private Button btn_saveChanges;
-
-    @FXML
-    private MenuItem item_assignee1;
-
-    @FXML
-    private MenuItem item_assignee2;
-
-    @FXML
-    private MenuItem item_priority1;
-    
-    @FXML
-    private MenuItem item_priority2;
-
-    @FXML
-    private MenuItem item_priority3;
-    
     @FXML
     private Label lbl_assigneeSelection;
-
+    @FXML
+    private Label lbl_comment1;
     @FXML
     private Label lbl_prioritySelection;
-
     @FXML
-    private Label lbl_statusSelection;
-
-    @FXML 
-    private MenuButton menu_status;
-    
+    private ListView<User> list_assignee;
     @FXML
-    private MenuButton menu_assignee;
-    
+    private ListView<Integer> list_priority;
     @FXML
-    private MenuButton menu_priority;
-    
+    private TitledPane titledPane_assignee;
+    @FXML
+    private TitledPane titledPane_priority;
+    @FXML
+    private TextField txt_add_comment;
+    @FXML
+    private TextField txt_taskTitle;
     @FXML
     private TextField txt_task_description;
-    
     @FXML
-    private TextField txt_task_name;
-    
-    // @FXML
-    // void saveChanges(ActionEvent event) throws IOException{
-    //     selectedColumn =ppf.getCurrentProject().getColumn(null);
-    //     String taskName = txt_task_name.getText();
-    //     String taskDescription = txt_task_description.getText();
-    //     String assignee = menu_assignee.getValue();
-    //     String priority = menu_priority.getValue();
-    //     if (taskName.isEmpty()|| assignee== null || priority == null) {
-    //         showAlert("Please fill in all of the fields", "");
-    //         return;
-    //     } 
+    private TextField txt_taskStatus;
+    @FXML
+    private ImageView background_pic;
+
+    /**
+     * Initializes the facade to populate the data in the scene
+     * @author ctaks
+     * @param url unused
+     * @param rb unused
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        this.ppf = ProjectPilotFacade.getInstance();
+        currentTask = new Task(null, null, 1, null, null, null);
+        // txt_taskTitle.setText(currentTask.getName());
+        // txt_task_description.setText(currentTask.getDescription());
+        // txt_taskStatus.setText(currentTask.getStatus());
+        // lbl_prioritySelection.setText(String.valueOf(currentTask.getPriority()));
+        // lbl_assigneeSelection.setText(currentTask.getAssignee().getUserName());
+        setChangePriority();
+        setChangeAssignee();
+        // TODO: set status dynamically
+
+        list_priority.setOnMouseClicked(event -> {
+            try {
+                priorityItemSelected(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        list_assignee.setOnMouseClicked(event -> {
+            try {
+                assigneeItemSelected(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+       
+        Image background = new Image(getClass().getResourceAsStream("/images/background.jpg"));
+        background_pic.setImage(background);
+    }
+
+    /**
+     * Saves the edited task to ProjectPilotFacade's currentTask
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    private void saveChanges(ActionEvent event) throws IOException {
+        currentTask.setName(txt_taskTitle.getText());
+        currentTask.setDescription(txt_task_description.getText());
+        //currentTask.set
+        ppf.setCurrentTask(currentTask);
+        ppf.getCurrentColumn().addTask(currentTask);
+        switchToHome(event);
+    }
+
+    /**
+     * 
+     * @author duayne
+     * @param event mouse click
+     * @throws IOException
+     */
+    @FXML
+    private void expandLists(MouseEvent event) throws IOException {
+        if (titledPane_priority.isExpanded())
+            titledPane_priority.toFront();
+        else if (!titledPane_priority.isExpanded()) {
+            titledPane_priority.toBack();
+            background_pic.toBack();
+        }
+    }
+
+    /**
+     * What happens when a priority is selected
+     * @author ctaks
+     * @param event mouse click
+     * @throws IOException
+     */
+    @FXML
+    private void priorityItemSelected(MouseEvent event) throws IOException {
+        int selectedPriority = list_priority.getSelectionModel().getSelectedItem();
+        lbl_prioritySelection.setText(String.valueOf(selectedPriority));
+        currentTask.setPriority(selectedPriority);
+    }
+
+    /**
+     * What happens when an assignee is selected
+     * @author ctaks
+     * @param event mouse click
+     * @throws IOException
+     */
+    @FXML
+    private void assigneeItemSelected(MouseEvent event) throws IOException {
+        User selectedUser = list_assignee.getSelectionModel().getSelectedItem();
+        currentTask.setAssignee(selectedUser);
+        lbl_assigneeSelection.setText(currentTask.getAssignee().getUserName());
+    }
+
+    /**
+     * Sets up the priority dropdown
+     * @author ctaks
+     */
+    private void setChangePriority() {
+        ObservableList<Integer> priorityList = FXCollections.observableArrayList();
+
+        for (int i = 1; i <= PRIORITY_NUM; i++) {
+            Integer wrappedI = i;
+            priorityList.add(wrappedI);
+        }
+        list_priority.setItems(priorityList);
+    }
+
+     /**
+     * Sets up the assignee dropdown
+     * @author ctaks
+     */
+    private void setChangeAssignee() {
+        ObservableList<User> userList = FXCollections.observableArrayList();
         
-    //     if(ppf.addTask(selectedColumn, taskName, currentUser, Integer.parseInt(priority), "TODO", taskDescription, new ArrayList<>())){
-    //         showAlert("Success","Changes saved successfully!");
-    //         switchToHome(event);
-    //     }
-    //     else{
-    //     showAlert("Failed to save changes","");
-    //     }
-    // }
-
-    // private void showAlert(String title, String content) {
-    //     Alert alert = new Alert(AlertType.INFORMATION);
-    //     alert.setTitle(title);
-    //     alert.setHeaderText(null);
-    //     alert.setContentText(content);
-    //     alert.showAndWait();
-    // }
-    // //LOOK AT CHRIS TAKS HOMECONTROLLER
-    // @FXML
-    // void initialize(){
-    //     ArrayList<User> userList = ppf.getUsers();
-    //     ObservableList<String> assigneeOptions = FXCollections.observableArrayList();
-    //     for(User user: userList){
-    //         assigneeOptions.add(user.getUserName());
-    //     }
-    //     menu_assignee.setItems(assigneeOptions);
-
-    //     ObservableList<String> priorityOptions= FXCollections.observableArrayList("1","2","3");
-    //     menu_priority.setItems(priorityOptions);
-
-    //     ObservableList<String> statusOptions= FXCollections.observableArrayList("To Do","In Progress","Done");
-    //     menu_status.setItems(statusOptions);
-
-
-    // }
-
-    @FXML
-    void setAssignee(ActionEvent event) {
-
-    }
-
-    @FXML
-    void setPriority1(ActionEvent event) {
-        lbl_prioritySelection.setText("1");
-    }
-
-    @FXML
-    void setPriority2(ActionEvent event) {
-        lbl_prioritySelection.setText("2");
-    }
-
-    @FXML
-    void setPriority3(ActionEvent event) {
-        lbl_prioritySelection.setText("3");
+        for (User user : ppf.getUsers()) {
+            userList.add(user);
+        }
+        list_assignee.setItems(userList);
     }
 
     @FXML
@@ -151,8 +190,28 @@ public class NewTaskController {
         // for (int i = 1; i < ppf.getCurrentProject().getColumns().size() + 1; i++) {
 
         // }
-        ppf.addTask(ppf.getCurrentColumn(), txt_task_name.getText(), ppf.getUser(), Integer.parseInt(lbl_prioritySelection.getText()), null, txt_task_description.getText(), null);
-        App.setRoot("home");
+        if(txt_taskTitle.getText().isEmpty()){
+            showAlert("Error","Please enter a name for the task.");
+        }
+        else if(lbl_prioritySelection.getText().equalsIgnoreCase("No Priority Selected")){
+            showAlert("Error","Please select a priority level for the task.");
+        }
+        else if(ppf.addTask(ppf.getCurrentColumn(), txt_taskTitle.getText(), ppf.getUser(), Integer.parseInt(lbl_prioritySelection.getText()), null, txt_task_description.getText(), null)){
+            App.setRoot("home");
+        }
+        
+    }
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    @FXML
+    void intiailize(){
+        lbl_prioritySelection.setText("1");
     }
 
 }
