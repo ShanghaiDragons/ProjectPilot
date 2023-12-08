@@ -1,15 +1,16 @@
-/* .root{
+/*.root {
     -fx-font-family: "Helvetica";
     -fx-base: #87C7D1;
     -fx-background: #CAE8EB;
 }
-
-.button{
-    -fx-background-color: #7B7F80;
+*/
+.button {
+    -fx-background-color: #0056FF; 
     -fx-text-fill: white;
 }
-
+/*
 .unique {
     -fx-background-color: red;
     -fx-text-fill: blue; 
-} */
+}
+*/

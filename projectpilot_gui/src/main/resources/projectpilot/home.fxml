@@ -21,15 +21,15 @@
             <Image url="@../../../../../../../../CSCE%20247/ProjectPilot/projectpilot_gui/src/main/java/images/background.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="ToLogin" layoutX="724.0" layoutY="3.0" mnemonicParsing="false" onAction="#switchToLogin" text="Sign Out" />
+      <Button fx:id="ToLogin" layoutX="724.0" layoutY="3.0" mnemonicParsing="false" onAction="#switchToLogin" text="Sign Out" style="-fx-background-color: #0056FF; -fx-text-fill: white;" />
       <HBox alignment="TOP_CENTER" layoutX="-24.0" layoutY="490.0" prefHeight="370.0" prefWidth="310.0" />
       <Label fx:id="projectTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="246.0" layoutY="14.0" onMouseClicked="#switchToProjectEditor" prefHeight="71.0" prefWidth="310.0" text="Project Title" textAlignment="CENTER">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Button fx:id="addColumn" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="754.0" layoutY="50.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#switchToNewColumn" text="+" />
-      <Button fx:id="btn_addNewProject" layoutX="161.0" layoutY="3.0" mnemonicParsing="false" onAction="#switchToNewProject" prefHeight="26.0" prefWidth="91.0" text="Add a Project" />
+      <Button fx:id="addColumn" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="754.0" layoutY="50.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#switchToNewColumn" text="+" style="-fx-background-color: #0056FF; -fx-text-fill: white;" />
+      <Button fx:id="btn_addNewProject" layoutX="161.0" layoutY="3.0" mnemonicParsing="false" onAction="#switchToNewProject" prefHeight="26.0" prefWidth="91.0" text="Add a Project" style="-fx-background-color: #0056FF; -fx-text-fill: white;" />
       <ScrollPane layoutX="14.0" layoutY="85.0" prefHeight="381.0" prefWidth="772.0">
          <content>
             <AnchorPane fx:id="scrumPaneAnchor">
