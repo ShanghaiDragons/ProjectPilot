@@ -77,7 +77,6 @@ public class NewColumnController {
         }
 
         if(ppf.addColumn(txt_column_name.getText(), null, null, null)){
-            showAlert("Success", "Column added successfully!");
             App.setRoot("home");
         } else{
             showAlert("Error", "Failed to add the column.");
