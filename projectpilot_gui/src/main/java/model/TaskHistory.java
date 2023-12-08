@@ -299,21 +299,18 @@ public boolean setStatusChanges(ArrayList<String> statusChanges) {
     LocalDateTime time = LocalDateTime.now();
     if (nameChanges.isEmpty()) {
       if(newS != null) {
-        nameChanges.add("["+time.toString()+"]: \""+newS+"\" was set");
+        nameChanges.add("["+getDateClean(time)+"]: \""+newS+"\" was set");
         return true;
       } else {
-        nameChanges.add("["+time.toString()+"]: \"ERROR\" was set");
+        nameChanges.add("["+getDateClean(time)+"]: \"ERROR\" was set");
         return false;
       }
     }
 
     if (oldS != null && newS != null) {
-      nameChanges.add("["+time.toString()+"]: \""+oldS+"\" changed to: \""+newS+"\"");
-      return true;
-    } else {
-      nameChanges.add("["+time.toString()+"]: \"ERROR\" changed to: \"ERROR\"");
-      return false;
+      nameChanges.add("["+getDateClean(time)+"]: \""+oldS+"\" changed to: \""+newS+"\"");
     }
+    return true;
   }
 
   /**
@@ -327,21 +324,18 @@ public boolean setStatusChanges(ArrayList<String> statusChanges) {
     LocalDateTime time = LocalDateTime.now();
     if (descriptionChanges.isEmpty()) {
       if(newS != null) {
-        descriptionChanges.add("["+time.toString()+"]: \""+newS+"\" was set");
+        descriptionChanges.add("["+getDateClean(time)+"]: \""+newS+"\" was set");
         return true;
       } else {
-        descriptionChanges.add("["+time.toString()+"]: \"ERROR\" was set");
+        descriptionChanges.add("["+getDateClean(time)+"]: \"ERROR\" was set");
         return false;
       }
     } 
 
     if (oldS != null && newS != null) {
-      descriptionChanges.add("["+time.toString()+"]: \""+oldS+"\" changed to: \""+newS+"\"");
-      return true;
-    } else {
-      descriptionChanges.add("["+time.toString()+"]: \"ERROR\" changed to: \"ERROR\"");
-      return false;
+      descriptionChanges.add("["+getDateClean(time)+"]: \""+oldS+"\" changed to: \""+newS+"\"");
     }
+    return true;
   }
 
   /**
@@ -355,21 +349,18 @@ public boolean setStatusChanges(ArrayList<String> statusChanges) {
     LocalDateTime time = LocalDateTime.now();
     if (moveChanges.isEmpty()) {
       if(newS != null) {
-        moveChanges.add("["+time.toString()+"]: \""+newS+"\" was set");
+        moveChanges.add("["+getDateClean(time)+"]: \""+newS+"\" was set");
         return true;
       } else {
-        moveChanges.add("["+time.toString()+"]: \"ERROR\" was set");
+        moveChanges.add("["+getDateClean(time)+"]: \"ERROR\" was set");
         return false;
       }
     }
 
     if (oldS != null && newS != null) {
-      moveChanges.add("["+time.toString()+"]: \""+oldS+"\" changed to: \""+newS+"\"");
-      return true;
-    } else {
-      moveChanges.add("["+time.toString()+"]: \"ERROR\" changed to: \"ERROR\"");
-      return false;
+      moveChanges.add("["+getDateClean(time)+"]: \""+oldS+"\" changed to: \""+newS+"\"");
     }
+    return true;
   }
 
   /**
@@ -383,21 +374,18 @@ public boolean setStatusChanges(ArrayList<String> statusChanges) {
     LocalDateTime time = LocalDateTime.now();
     if (assigneeChanges.isEmpty()) {
       if(newS != null) {
-        assigneeChanges.add("["+time.toString()+"]: \""+newS+"\" was set");
+        assigneeChanges.add("["+getDateClean(time)+"]: \""+newS+"\" was set");
         return true;
       } else {
-        assigneeChanges.add("["+time.toString()+"]: \"ERROR\" was set");
+        assigneeChanges.add("["+getDateClean(time)+"]: \"ERROR\" was set");
         return false;
       }
     }
 
     if (oldS != null && newS != null) {
-      assigneeChanges.add("["+time.toString()+"]: \""+oldS+"\" changed to: \""+newS+"\"");
-      return true;
-    } else {
-      assigneeChanges.add("["+time.toString()+"]: \"ERROR\" changed to: \"ERROR\"");
-      return false;
+      assigneeChanges.add("["+getDateClean(time)+"]: \""+oldS+"\" changed to: \""+newS+"\"");
     }
+    return true;
   }
 
   /**
@@ -411,21 +399,18 @@ public boolean setStatusChanges(ArrayList<String> statusChanges) {
     LocalDateTime time = LocalDateTime.now();
     if (priorityChanges.isEmpty()) {
       if(newS != null) {
-        priorityChanges.add("["+time.toString()+"]: \""+newS+"\" was set");
+        priorityChanges.add("["+getDateClean(time)+"]: \""+newS+"\" was set");
         return true;
       } else {
-        priorityChanges.add("["+time.toString()+"]: \"ERROR\" was set");
+        priorityChanges.add("["+getDateClean(time)+"]: \"ERROR\" was set");
         return false;
       }
     }
 
     if (oldS != null && newS != null) {
-      priorityChanges.add("["+time.toString()+"]: \""+oldS+"\" changed to: \""+newS+"\"");
-      return true;
-    } else {
-      priorityChanges.add("["+time.toString()+"]: \"ERROR\" changed to: \"ERROR\"");
-      return false;
+      priorityChanges.add("["+getDateClean(time)+"]: \""+oldS+"\" changed to: \""+newS+"\"");
     }
+    return true;
   }
 
   /**
@@ -439,20 +424,36 @@ public boolean setStatusChanges(ArrayList<String> statusChanges) {
     LocalDateTime time = LocalDateTime.now();
     if (statusChanges.isEmpty()) {
       if(newS != null) {
-        statusChanges.add("["+time.toString()+"]: \""+newS+"\" was set");
+        statusChanges.add("["+getDateClean(time)+"]: \""+newS+"\" was set");
         return true;
       } else {
-        statusChanges.add("["+time.toString()+"]: \"ERROR\" was set");
+        statusChanges.add("["+getDateClean(time)+"]: \"ERROR\" was set");
         return false;
       }
     }
 
     if (oldS != null && newS != null) {
-      statusChanges.add("["+time.toString()+"]: \""+oldS+"\" changed to: \""+newS+"\"");
-      return true;
-    } else {
-      statusChanges.add("["+time.toString()+"]: \"ERROR\" changed to: \"ERROR\"");
-      return false;
+      statusChanges.add("["+getDateClean(time)+"]: \""+oldS+"\" changed to: \""+newS+"\"");
     }
+    return true;
+  }
+
+  /**
+     * Get's a string of the comment's date formatted nicely
+     * @author ctaks
+     * @return String of the comment's date formatted nicely
+     */
+    public String getDateClean(LocalDateTime date) {
+      int hour = date.getHour();
+      String ampm = "am";
+      if (hour > 12) {
+          hour -= 12;
+          ampm = "pm";
+      }
+      if (hour == 0) {
+        hour = 12;
+      }
+      String cleanDate = date.getMonthValue()+"-"+date.getDayOfMonth()+"-"+(date.getYear()-2000)+" @"+hour+":"+date.getMinute()+ampm;
+      return cleanDate;
   }
 }
