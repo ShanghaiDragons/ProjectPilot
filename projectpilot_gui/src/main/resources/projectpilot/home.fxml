@@ -59,6 +59,6 @@
       <Button fx:id="addColumn" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="754.0" layoutY="50.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#switchToNewColumn" text="+" />
    </children>
    <stylesheets>
-      <URL value="@../../../../../../../../CSCE%20247/ProjectPilot/projectpilot_gui/src/main/resources/projectpilot/styles.css" />
+      <URL value="@styles.css" />
    </stylesheets>
 </Pane>

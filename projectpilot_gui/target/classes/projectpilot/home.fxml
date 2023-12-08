@@ -23,19 +23,11 @@
       </ImageView>
       <Button fx:id="ToLogin" layoutX="724.0" layoutY="3.0" mnemonicParsing="false" onAction="#switchToLogin" text="Sign Out" />
       <HBox alignment="TOP_CENTER" layoutX="-24.0" layoutY="490.0" prefHeight="370.0" prefWidth="310.0" />
-<<<<<<< HEAD
-      <Label fx:id="projectTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="246.0" layoutY="14.0" onMouseClicked="#switchToProjectEditor" prefHeight="71.0" prefWidth="310.0" text="Project Title" textAlignment="CENTER">
-=======
       <Label fx:id="projectTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="31.0" onMouseClicked="#switchToProjectEditor" prefHeight="54.0" prefWidth="772.0" text="Welcome" textAlignment="CENTER">
->>>>>>> main
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-<<<<<<< HEAD
-      <Button fx:id="addColumn" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="754.0" layoutY="50.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#switchToNewColumn" text="+" />
-=======
->>>>>>> main
       <Button fx:id="btn_addNewProject" layoutX="161.0" layoutY="3.0" mnemonicParsing="false" onAction="#switchToNewProject" prefHeight="26.0" prefWidth="91.0" text="Add a Project" />
       <ScrollPane layoutX="14.0" layoutY="85.0" prefHeight="381.0" prefWidth="772.0">
          <content>
@@ -63,13 +55,10 @@
             </AnchorPane>
          </content>
       </TitledPane>
-<<<<<<< HEAD
-=======
       <Button fx:id="btn_save" layoutX="620.0" layoutY="3.0" mnemonicParsing="false" onAction="#saveProjectPilot" prefHeight="26.0" prefWidth="91.0" text="Save" />
       <Button fx:id="addColumn" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="754.0" layoutY="50.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#switchToNewColumn" text="+" />
->>>>>>> main
    </children>
    <stylesheets>
-      <URL value="@../../../../../../../../CSCE%20247/ProjectPilot/projectpilot_gui/src/main/resources/projectpilot/styles.css" />
+      <URL value="@styles.css" />
    </stylesheets>
 </Pane>
