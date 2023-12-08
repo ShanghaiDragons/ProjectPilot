@@ -164,6 +164,9 @@ public class Comment {
             hour -= 12;
             ampm = "pm";
         }
+        if (hour == 0) {
+            hour = 12;
+          }
         String cleanDate = date.getMonthValue()+"-"+date.getDayOfMonth()+"-"+(date.getYear()-2000)+" @"+hour+":"+date.getMinute()+ampm;
         return cleanDate;
     }

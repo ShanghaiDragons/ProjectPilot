@@ -23,6 +23,9 @@ import model.*;
 
 public class TaskEditorController implements Initializable{
     private ProjectPilotFacade ppf;
+    private Project currentProject;
+    private Column currentColumn;
+    private Column moveColumn;
     private Task currentTask;
     private static final int PRIORITY_NUM = 3;
     @FXML
@@ -57,6 +60,12 @@ public class TaskEditorController implements Initializable{
     private VBox commentBox;
     @FXML
     private Button addComment;
+    @FXML
+    private Label lbl_column;
+    @FXML
+    private TitledPane titledPane_column;
+    @FXML
+    private ListView<Column> list_column;
 
     /**
      * Initializes the facade to populate the data in the scene
@@ -67,14 +76,18 @@ public class TaskEditorController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.ppf = ProjectPilotFacade.getInstance();
+        this.currentProject = ppf.getCurrentProject();
+        this.currentColumn = this.moveColumn = ppf.getCurrentColumn();
         this.currentTask = ppf.getCurrentTask();
         txt_taskTitle.setText(currentTask.getName());
         txt_task_description.setText(currentTask.getDescription());
         txt_taskStatus.setText(currentTask.getStatus());
         lbl_prioritySelection.setText(String.valueOf(currentTask.getPriority()));
         lbl_assigneeSelection.setText(currentTask.getAssignee().getUserName());
+        lbl_column.setText(currentColumn.getName());
         setChangePriority();
         setChangeAssignee();
+        setChangeColumn();
         setComments();
 
         list_priority.setOnMouseClicked(event -> {
@@ -88,6 +101,14 @@ public class TaskEditorController implements Initializable{
         list_assignee.setOnMouseClicked(event -> {
             try {
                 assigneeItemSelected(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        list_column.setOnMouseClicked(event -> {
+            try {
+                columnItemSelected(event);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -106,8 +127,10 @@ public class TaskEditorController implements Initializable{
     private void saveChanges(ActionEvent event) throws IOException {
         currentTask.setName(txt_taskTitle.getText());
         currentTask.setDescription(txt_task_description.getText());
-        //currentTask.set
+        currentTask.setStatus(txt_taskStatus.getText());
         ppf.setCurrentTask(currentTask);
+
+        currentProject.moveTask(currentColumn, moveColumn, currentTask);
 
         switchToHome(event);
     }
@@ -120,10 +143,22 @@ public class TaskEditorController implements Initializable{
      */
     @FXML
     private void expandLists(MouseEvent event) throws IOException {
-        if (titledPane_priority.isExpanded())
+        if (titledPane_priority.isExpanded()) {
             titledPane_priority.toFront();
-        else if (!titledPane_priority.isExpanded()) {
-            titledPane_priority.toBack();
+            return;
+        }
+        if (titledPane_assignee.isExpanded()) {
+            titledPane_assignee.toFront();
+            return;
+        }
+        if (titledPane_column.isExpanded()) {
+            titledPane_column.toFront();
+            return;
+        }
+        if (!(titledPane_column.isExpanded() && titledPane_assignee.isExpanded() && titledPane_priority.isExpanded())) {
+            titledPane_priority.toFront();
+            titledPane_assignee.toFront();
+            titledPane_column.toFront();
             background_pic.toBack();
         }
     }
@@ -155,6 +190,19 @@ public class TaskEditorController implements Initializable{
     }
 
     /**
+     * What happens when a column is selected
+     * @author ctaks 
+     * @param event mouse click
+     * @throws IOException
+     */
+    @FXML
+    private void columnItemSelected(MouseEvent event) throws IOException {
+        Column selectedColumn = list_column.getSelectionModel().getSelectedItem();
+        moveColumn = selectedColumn;
+        lbl_column.setText(moveColumn.getName());
+    }
+
+    /**
      * Sets up the priority dropdown
      * @author ctaks
      */
@@ -175,10 +223,26 @@ public class TaskEditorController implements Initializable{
     private void setChangeAssignee() {
         ObservableList<User> userList = FXCollections.observableArrayList();
         
+        // for (User user : ppf.getCurrentProject().getTeam()) {
         for (User user : ppf.getUsers()) {
             userList.add(user);
         }
         list_assignee.setItems(userList);
+    }
+
+    /**
+     * Sets up the column dropdown
+     * @author ctaks
+     */
+    private void setChangeColumn() {
+        ObservableList<Column> columnList = FXCollections.observableArrayList();
+
+        for (Column col : currentProject.getColumns()) {
+            if (!col.getID().equals(currentColumn.getID())) {
+                columnList.add(col);
+            }
+        }
+        list_column.setItems(columnList);
     }
 
     /**
