@@ -147,7 +147,6 @@ public class HomeController implements Initializable{
         column.getChildren().add(taskPanes);
         column.setStyle("-fx-border-color: lightgray; -fx-border-width: 1;");
         column.setPadding(new Insets(10, 10, 10, 10));
-        //taskPanes.setPadding(new Insets(10, 10, 10, 10));
         column.setPrefWidth(175);
         return column;
     }

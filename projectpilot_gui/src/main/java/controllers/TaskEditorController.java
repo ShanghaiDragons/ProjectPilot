@@ -106,7 +106,8 @@ public class TaskEditorController implements Initializable{
     private void saveChanges(ActionEvent event) throws IOException {
         currentTask.setName(txt_taskTitle.getText());
         currentTask.setDescription(txt_task_description.getText());
-        //currentTask.set
+        currentTask.setStatus(txt_taskStatus.getText());
+        
         ppf.setCurrentTask(currentTask);
 
         switchToHome(event);
@@ -175,7 +176,7 @@ public class TaskEditorController implements Initializable{
     private void setChangeAssignee() {
         ObservableList<User> userList = FXCollections.observableArrayList();
         
-        for (User user : ppf.getUsers()) {
+        for (User user : ppf.getCurrentProject().getTeam()) {
             userList.add(user);
         }
         list_assignee.setItems(userList);
