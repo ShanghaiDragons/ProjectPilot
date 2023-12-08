@@ -160,6 +160,7 @@ public class Project {
             return false;
         }
         this.scrumMaster = sm;
+        this.team.add(sm);
         return true;
     }
 

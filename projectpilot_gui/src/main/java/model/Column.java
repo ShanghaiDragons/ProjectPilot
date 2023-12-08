@@ -336,4 +336,12 @@ public class Column {
         }
         return false;
     }
+
+    /**
+     * toString for Column. Used in the GUI
+     * @author ctaks
+     */
+    public String toString() {
+        return this.name;
+    }
 }

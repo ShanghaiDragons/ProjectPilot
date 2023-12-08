@@ -62,6 +62,8 @@ public class HomeController implements Initializable{
     private ScrollPane scrollPane;
     @FXML
     private TitledPane titledPane_Projects;
+    @FXML
+    private Button btn_save;
     public static ObservableList<String> projectList = FXCollections.observableArrayList();
 
     /**
@@ -132,7 +134,7 @@ public class HomeController implements Initializable{
         Button addTaskButton = new Button("+");
         taskPanes.setAlignment(Pos.CENTER);
         for (Task task : col.getTasks()) {
-            taskPanes.getChildren().add(createTask(task));
+            taskPanes.getChildren().add(createTask(task, col));
         }
         taskPanes.getChildren().add(addTaskButton);
 
@@ -148,7 +150,6 @@ public class HomeController implements Initializable{
         column.getChildren().add(taskPanes);
         column.setStyle("-fx-border-color: lightgray; -fx-border-width: 1;");
         column.setPadding(new Insets(10, 10, 10, 10));
-        //taskPanes.setPadding(new Insets(10, 10, 10, 10));
         column.setPrefWidth(175);
         return column;
     }
@@ -160,7 +161,7 @@ public class HomeController implements Initializable{
      * @return VBox of the task
      */
     @FXML
-    private VBox createTask(Task t) {
+    private VBox createTask(Task t, Column col) {
         VBox task = new VBox();
         Label taskName = new Label(t.getName());
         taskName.setWrapText(true);
@@ -170,6 +171,7 @@ public class HomeController implements Initializable{
         
         task.setOnMouseClicked(event -> {
             try {
+                ppf.setCurrentColumn(col);
                 ppf.setCurrentTask(t);
                 switchToTaskEditor(event);
             } catch (IOException e) {
@@ -190,6 +192,12 @@ public class HomeController implements Initializable{
             titledPane_Projects.toBack();
             background_pic.toBack();
         }
+    }
+
+    @FXML
+    void saveProjectPilot() {
+        ppf.saveProjects();
+        ppf.saveUsers();
     }
 
     @FXML
