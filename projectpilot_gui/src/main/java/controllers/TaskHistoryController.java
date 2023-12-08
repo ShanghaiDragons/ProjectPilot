@@ -38,8 +38,6 @@ public class TaskHistoryController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.taskHistory = ppf.getCurrentTask().getTaskHistory();
         buildTaskHistory();
-        //TODO: HBoxes of the types of changes, each with their own VBox of each change.
-        // Should all be inside a scroll view, just like home.
     }
 
     /**
@@ -70,17 +68,11 @@ public class TaskHistoryController implements Initializable {
         ObservableList<String> changeList = FXCollections.observableArrayList();
         ListView<String> changesList = new ListView<String>();
         for (String change : changes) {
-            // Label lbl_change = new Label(change);
-            // lbl_change.setStyle("-fx-border-color: lightgray; -fx-border-width: 1;");
-            // lbl_change.setPadding(new Insets(1, 1, 1, 1));
-            // changeColumn.getChildren().add(lbl_change);
             changeList.add(change);
         }
         changesList.setItems(changeList);
-        //double height = (taskHistoryPane.getPrefHeight()-0);
         changesList.setPrefHeight((taskHistoryPane.getPrefHeight()-50));
         changesList.setPrefWidth(350);
-        //changesList.prefWidthProperty().bind(computeMaxWidth(changesList));
         changeColumn.getChildren().add(changesList);
         changeColumn.setStyle("-fx-border-color: lightgray; -fx-border-width: 1;");
         changeColumn.setPadding(new Insets(10, 10, 10, 10));
