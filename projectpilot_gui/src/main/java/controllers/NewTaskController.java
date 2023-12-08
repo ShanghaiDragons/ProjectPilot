@@ -66,14 +66,8 @@ public class NewTaskController implements Initializable{
     public void initialize(URL url, ResourceBundle rb) {
         this.ppf = ProjectPilotFacade.getInstance();
         currentTask = new Task(null, null, 1, null, null, null);
-        // txt_taskTitle.setText(currentTask.getName());
-        // txt_task_description.setText(currentTask.getDescription());
-        // txt_taskStatus.setText(currentTask.getStatus());
-        // lbl_prioritySelection.setText(String.valueOf(currentTask.getPriority()));
-        // lbl_assigneeSelection.setText(currentTask.getAssignee().getUserName());
         setChangePriority();
         setChangeAssignee();
-        // TODO: set status dynamically
 
         list_priority.setOnMouseClicked(event -> {
             try {
@@ -104,7 +98,6 @@ public class NewTaskController implements Initializable{
     private void saveChanges(ActionEvent event) throws IOException {
         currentTask.setName(txt_taskTitle.getText());
         currentTask.setDescription(txt_task_description.getText());
-        //currentTask.set
         ppf.setCurrentTask(currentTask);
         ppf.getCurrentColumn().addTask(currentTask);
         switchToHome(event);
