@@ -186,10 +186,6 @@ public class NewTaskController implements Initializable{
 
     @FXML
     void saveTask(ActionEvent event) throws IOException {
-        //TODO: set current project to the actual current project. Currently null
-        // for (int i = 1; i < ppf.getCurrentProject().getColumns().size() + 1; i++) {
-
-        // }
         if(txt_taskTitle.getText().isEmpty()){
             showAlert("Error","Please enter a name for the task.");
         }

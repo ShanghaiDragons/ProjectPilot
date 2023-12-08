@@ -136,7 +136,6 @@ import java.io.IOException;
      return true;
    }
   
-    //TODO: finish
    public void mainMenu() {
      System.out.println("Main menu:"
      +"\n[1] project menu"

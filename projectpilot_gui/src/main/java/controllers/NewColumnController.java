@@ -1,10 +1,7 @@
 package controllers;
 import java.io.IOException;
-import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
-import java.time.LocalDate;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -13,10 +10,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import model.Column;
-import model.Project;
 import model.ProjectPilotFacade;
-//import model.User;
 import projectpilot.App;
 
 public class NewColumnController {
@@ -63,7 +57,6 @@ public class NewColumnController {
 
     @FXML
     void saveColumn(ActionEvent event) throws IOException {
-        //TODO: set current project to the actual current project. Currently null
         String columnName = txt_column_name.getText();
 
         if(columnName==null || columnName.isEmpty()){

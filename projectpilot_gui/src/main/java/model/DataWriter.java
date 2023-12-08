@@ -28,7 +28,6 @@ public class DataWriter extends DataConstants {
         }
 
         // Write to JSON file
-        // TODO: hardcoded the filename for testing. Change for final version. -Chris
         try (FileWriter file = new FileWriter(USER_FILE_NAME)) {
             file.write(jsonUsers.toJSONString());
             return true;
@@ -65,16 +64,6 @@ public class DataWriter extends DataConstants {
     public boolean saveProjects() {
         ProjectList projects = ProjectList.getInstance();
         ArrayList<Project> projectList = projects.getProjects();
-        
-        // JSONArray jsonProjectsArray = new JSONArray();
-        // JSONArray jsonProjects = new JSONArray();
-        
-        // TEST Project TODO: Remove when testing is done
-        // User testUser = new User(UUID.randomUUID(), "testUsername", "testFirstname", "testLastname", "testPassword", false, false, false, false);
-        // Project project1 = new Project(UUID.randomUUID(), "Test Project 1", testUser);
-        // Project project2 = new Project(UUID.randomUUID(), "Test project 2", testUser);
-        // jsonProjects.add(getProjectJSON(project1));
-        // jsonProjects.add(getProjectJSON(project2));
 
         // Creating JSON objects
         // PROJECT
@@ -266,19 +255,4 @@ public class DataWriter extends DataConstants {
 
         return commentData;
     }
-
-    /**
-     * Method for testing.
-     * @author Chris
-     public static void main(String[] args) {
-         if (saveUsers())
-         System.out.println("Users SAVED");
-         else
-         System.out.println("Users FAILED TO SAVE");
-         if(saveProjects())
-         System.out.println("Projects SAVED");
-         else
-         System.out.println("Projects FAILED TO SAVE");
-    }
-    */
 }
