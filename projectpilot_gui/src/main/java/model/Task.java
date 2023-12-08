@@ -60,6 +60,7 @@ public class Task {
         setStatus(status);
         setDescription(description);
         setComments(comments);
+        setTaskHistory(taskHistory);
     }
 
     /**
@@ -93,7 +94,7 @@ public class Task {
             this.name = name;
             return true;
         } else {
-            taskHistory.addNameChange(this.name, "setNameERROR");
+            taskHistory.addNameChange(this.name, "default");
             this.name = "default";
             return false;
         }
@@ -114,7 +115,7 @@ public class Task {
             this.assignee = assignee;
             return true;
         } else {
-            taskHistory.addAssigneeChange("setAssigneeERROR", "setAssigneeERROR");
+            taskHistory.addAssigneeChange("null", "null");
             this.assignee = null;
             return false;
         }
@@ -132,7 +133,7 @@ public class Task {
             this.priority = priority;
             return true;
         } else {
-            taskHistory.addPriorityChange(Integer.toString(this.priority), "5(setPriorityERROR)");
+            taskHistory.addPriorityChange(Integer.toString(this.priority), "default");
             this.priority = 5;
             return false;
         }
@@ -140,6 +141,7 @@ public class Task {
 
     /**
      * setter for status
+     * @author ctaks
      * @param status to be set
      * @return boolean determining success
      */
@@ -149,8 +151,8 @@ public class Task {
             this.status = status;
             return true;
         } else {
-            taskHistory.addStatusChange(this.status, "uknown(setStatusERROR)");
-            this.status = "unknown";
+            taskHistory.addStatusChange(this.status, "default");
+            this.status = "default";
             return false;
         }
     }
@@ -167,8 +169,8 @@ public class Task {
             this.description = description;
             return true;
         } else {
-            taskHistory.addDescriptionChange(this.description, "[empty](setDescriptionERROR)");
-            this.description = "[empty]";
+            taskHistory.addDescriptionChange(this.description, "default");
+            this.description = "default";
             return false;
         }
     }
@@ -178,7 +180,6 @@ public class Task {
             this.taskHistory = taskHistory;
             return true;
         } else {
-            //TODO: make sure this works!
             ArrayList<String> setter = new ArrayList<String>();
             LocalDateTime creationDate = LocalDateTime.now();
             this.taskHistory = new TaskHistory(this.id, creationDate, setter, setter, setter, setter, setter, setter);
